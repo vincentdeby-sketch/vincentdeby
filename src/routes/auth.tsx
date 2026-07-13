@@ -18,7 +18,7 @@ function Auth() {
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data }) => {
-      if (data.session) nav({ to: "/_authenticated/admin" as never });
+      if (data.session) nav({ to: "/admin" });
     });
   }, [nav]);
 
@@ -34,7 +34,7 @@ function Auth() {
       if (mode === "up" && !res.data.session) {
         setError("Compte créé. Vérifiez votre email pour confirmer, puis reconnectez-vous.");
       } else {
-        nav({ to: "/_authenticated/admin" as never });
+        nav({ to: "/admin" });
       }
     } catch (err) {
       setError(err instanceof Error ? err.message : "Erreur inconnue");

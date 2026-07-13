@@ -19,17 +19,17 @@ function Dashboard() {
   }, []);
 
   const tiles = [
-    { label: "Actualités", value: counts.articles, to: "/_authenticated/admin/articles" },
-    { label: "Biens", value: counts.properties, to: "/_authenticated/admin/biens" },
-    { label: "Demandes reçues", value: counts.estimations, to: "/_authenticated/admin/estimations" },
-    { label: "Nouvelles demandes", value: counts.newEst, to: "/_authenticated/admin/estimations" },
-  ];
+    { label: "Actualités", value: counts.articles, to: "/admin/articles" },
+    { label: "Biens", value: counts.properties, to: "/admin/biens" },
+    { label: "Demandes reçues", value: counts.estimations, to: "/admin/estimations" },
+    { label: "Nouvelles demandes", value: counts.newEst, to: "/admin/estimations" },
+  ] as const;
   return (
     <div>
       <h1 className="font-serif text-3xl">Vue d'ensemble</h1>
       <div className="mt-8 grid gap-4 md:grid-cols-4">
         {tiles.map((t) => (
-          <Link key={t.label} to={t.to as never} className="border border-border p-6 transition-colors hover:border-foreground">
+          <Link key={t.label} to={t.to} className="border border-border p-6 transition-colors hover:border-foreground">
             <div className="text-xs uppercase tracking-widest text-muted-foreground">{t.label}</div>
             <div className="mt-3 font-serif text-4xl">{t.value}</div>
           </Link>
