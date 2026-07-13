@@ -1,6 +1,6 @@
 import { lazy, Suspense, useEffect, useState } from "react";
 
-const MapView = lazy(() => import("./MapView.client"));
+const MapView = lazy(() => import("./MapView"));
 
 export function LazyMap({ lat, lng, className }: { lat: number; lng: number; className?: string }) {
   const [mounted, setMounted] = useState(false);
