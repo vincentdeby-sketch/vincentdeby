@@ -11,10 +11,13 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as EstimationRouteImport } from './routes/estimation'
 import { Route as BiensRouteImport } from './routes/biens'
+import { Route as AuthRouteImport } from './routes/auth'
 import { Route as ActualitesRouteImport } from './routes/actualites'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as BiensIdRouteImport } from './routes/biens.$id'
 import { Route as ActualitesSlugRouteImport } from './routes/actualites.$slug'
+import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
 
 const EstimationRoute = EstimationRouteImport.update({
   id: '/estimation',
@@ -26,9 +29,18 @@ const BiensRoute = BiensRouteImport.update({
   path: '/biens',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ActualitesRoute = ActualitesRouteImport.update({
   id: '/actualites',
   path: '/actualites',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -46,62 +58,83 @@ const ActualitesSlugRoute = ActualitesSlugRouteImport.update({
   path: '/$slug',
   getParentRoute: () => ActualitesRoute,
 } as any)
+const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
+  id: '/admin/',
+  path: '/admin/',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/actualites': typeof ActualitesRouteWithChildren
+  '/auth': typeof AuthRoute
   '/biens': typeof BiensRouteWithChildren
   '/estimation': typeof EstimationRoute
   '/actualites/$slug': typeof ActualitesSlugRoute
   '/biens/$id': typeof BiensIdRoute
+  '/admin/': typeof AuthenticatedAdminIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/actualites': typeof ActualitesRouteWithChildren
+  '/auth': typeof AuthRoute
   '/biens': typeof BiensRouteWithChildren
   '/estimation': typeof EstimationRoute
   '/actualites/$slug': typeof ActualitesSlugRoute
   '/biens/$id': typeof BiensIdRoute
+  '/admin': typeof AuthenticatedAdminIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/actualites': typeof ActualitesRouteWithChildren
+  '/auth': typeof AuthRoute
   '/biens': typeof BiensRouteWithChildren
   '/estimation': typeof EstimationRoute
   '/actualites/$slug': typeof ActualitesSlugRoute
   '/biens/$id': typeof BiensIdRoute
+  '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
     | '/actualites'
+    | '/auth'
     | '/biens'
     | '/estimation'
     | '/actualites/$slug'
     | '/biens/$id'
+    | '/admin/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/actualites'
+    | '/auth'
     | '/biens'
     | '/estimation'
     | '/actualites/$slug'
     | '/biens/$id'
+    | '/admin'
   id:
     | '__root__'
     | '/'
+    | '/_authenticated'
     | '/actualites'
+    | '/auth'
     | '/biens'
     | '/estimation'
     | '/actualites/$slug'
     | '/biens/$id'
+    | '/_authenticated/admin/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   ActualitesRoute: typeof ActualitesRouteWithChildren
+  AuthRoute: typeof AuthRoute
   BiensRoute: typeof BiensRouteWithChildren
   EstimationRoute: typeof EstimationRoute
 }
@@ -122,11 +155,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BiensRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/actualites': {
       id: '/actualites'
       path: '/actualites'
       fullPath: '/actualites'
       preLoaderRoute: typeof ActualitesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -150,8 +197,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ActualitesSlugRouteImport
       parentRoute: typeof ActualitesRoute
     }
+    '/_authenticated/admin/': {
+      id: '/_authenticated/admin/'
+      path: '/admin'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AuthenticatedAdminIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
+
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
 
 interface ActualitesRouteChildren {
   ActualitesSlugRoute: typeof ActualitesSlugRoute
@@ -177,7 +242,9 @@ const BiensRouteWithChildren = BiensRoute._addFileChildren(BiensRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   ActualitesRoute: ActualitesRouteWithChildren,
+  AuthRoute: AuthRoute,
   BiensRoute: BiensRouteWithChildren,
   EstimationRoute: EstimationRoute,
 }
