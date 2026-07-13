@@ -7,8 +7,9 @@ const EMAIL = "vdeby@efficity.com";
 
 export function Footer() {
   return (
-    <footer className="mt-32 border-t border-border">
-      <div className="container-narrow grid gap-12 py-16 md:grid-cols-4">
+    <footer className="mt-32">
+      <div className="container-narrow pb-10">
+        <div className="glass grid gap-12 rounded-[2rem] p-10 md:grid-cols-4 md:p-14">
         <div className="md:col-span-2">
           <div className="font-serif text-2xl">Vincent Deby</div>
           <div className="mt-1 text-xs uppercase tracking-widest text-muted-foreground">
@@ -42,9 +43,8 @@ export function Footer() {
             <li><Link to="/auth" className="hover:text-foreground">Espace pro</Link></li>
           </ul>
         </div>
-      </div>
-      <div className="border-t border-border">
-        <div className="container-narrow flex flex-col justify-between gap-2 py-6 text-xs text-muted-foreground md:flex-row">
+        </div>
+        <div className="mt-6 flex flex-col justify-between gap-2 px-4 text-xs text-muted-foreground md:flex-row">
           <div>© {new Date().getFullYear()} Vincent Deby — Mandataire Efficity. Tous droits réservés.</div>
           <div>Estimations réalisées avec expertise locale.</div>
         </div>

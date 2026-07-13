@@ -39,7 +39,7 @@ function ContactPage() {
 
       <section className="container-narrow mt-16 grid gap-16 md:mt-24 md:grid-cols-2">
         <Reveal>
-          <div className="border-t border-border pt-10">
+          <div className="glass rounded-3xl p-8 md:p-10">
             <div className="text-xs uppercase tracking-[0.3em] text-muted-foreground">Interlocuteur</div>
             <div className="mt-6 font-serif text-3xl">Vincent Deby</div>
             <div className="mt-2 text-sm text-muted-foreground">
@@ -83,7 +83,7 @@ function ContactPage() {
         </Reveal>
 
         <Reveal>
-          <div className="border-t border-border pt-10">
+          <div className="glass rounded-3xl p-8 md:p-10">
             <div className="text-xs uppercase tracking-[0.3em] text-muted-foreground">Newsletter</div>
             <h2 className="mt-6 font-serif text-3xl">Rester informé</h2>
             <p className="mt-4 text-sm leading-relaxed text-muted-foreground">

@@ -106,18 +106,20 @@ function Home() {
 
       {/* CTA */}
       <section className="container-narrow mt-32 md:mt-48">
-        <Reveal className="border-y border-border py-24 text-center">
-          <div className="mx-auto max-w-2xl">
-            <h2 className="font-serif text-4xl leading-tight md:text-5xl">
-              Prêt à connaître la valeur juste de votre bien ?
-            </h2>
-            <p className="mt-6 text-muted-foreground">
-              Notre formulaire prend cinq minutes. Vous recevez ensuite un
-              retour humain, argumenté, sans engagement.
-            </p>
-            <Link to="/estimation" className="mt-10 inline-block border border-foreground bg-foreground px-10 py-4 text-xs uppercase tracking-widest text-background transition-opacity hover:opacity-90">
-              Commencer l'estimation
-            </Link>
+        <Reveal>
+          <div className="glass-strong rounded-[2rem] px-8 py-20 text-center md:px-16 md:py-24">
+            <div className="mx-auto max-w-2xl">
+              <h2 className="font-serif text-4xl leading-tight md:text-5xl">
+                Prêt à connaître la valeur juste de votre bien ?
+              </h2>
+              <p className="mt-6 text-muted-foreground">
+                Notre formulaire prend cinq minutes. Vous recevez ensuite un
+                retour humain, argumenté, sans engagement.
+              </p>
+              <Link to="/estimation" className="mt-10 inline-block rounded-full bg-foreground px-10 py-4 text-xs uppercase tracking-widest text-background transition-opacity hover:opacity-90">
+                Commencer l'estimation
+              </Link>
+            </div>
           </div>
         </Reveal>
       </section>
