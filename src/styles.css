@@ -116,10 +116,30 @@ a[href*="lovable.dev"][target="_blank"] {
 }
 
 
+/* Skip-to-content link for keyboard users */
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 1rem;
+  z-index: 100;
+  padding: 0.75rem 1.25rem;
+  background: var(--color-foreground);
+  color: var(--color-background);
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  border-radius: 999px;
+  transition: top 200ms ease;
+}
+.skip-link:focus { top: 1rem; }
+
 @utility container-narrow {
   margin-inline: auto;
-  padding-inline: 1.5rem;
+  padding-inline: 1.25rem;
   max-width: 72rem;
+}
+@media (min-width: 768px) {
+  .container-narrow { padding-inline: 2rem; }
 }
 
 /* Liquid glass surface — subtle, editorial */
