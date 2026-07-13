@@ -198,6 +198,16 @@ body::after {
 .reveal { opacity: 0; transform: translateY(16px); transition: opacity 900ms ease, transform 900ms ease; }
 .reveal.is-visible { opacity: 1; transform: none; }
 
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .reveal { opacity: 1; transform: none; }
+}
+
 /* Leaflet override to blend with palette */
 .leaflet-container { font-family: var(--font-sans) !important; background: var(--color-muted); }
 .estate-map-marker {
