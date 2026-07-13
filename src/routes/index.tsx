@@ -1,22 +1,28 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
-import { supabase } from "@/integrations/supabase/client";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { SiteShell } from "@/components/site/SiteShell";
 import { Reveal } from "@/components/site/Reveal";
 import { ArticleCard } from "@/components/site/ArticleCard";
 import { PropertyCard } from "@/components/site/PropertyCard";
-import type { Article, Property } from "@/lib/domain";
+import { homeArticlesQuery, homePropertiesQuery } from "@/lib/queries";
 import hero from "@/assets/hero-home.jpg";
 
-export const Route = createFileRoute("/")({ component: Home });
+export const Route = createFileRoute("/")({
+  head: () => ({
+    links: [
+      { rel: "preload", as: "image", href: hero, fetchpriority: "high" } as never,
+    ],
+  }),
+  loader: ({ context }) => {
+    void context.queryClient.ensureQueryData(homeArticlesQuery);
+    void context.queryClient.ensureQueryData(homePropertiesQuery);
+  },
+  component: Home,
+});
 
 function Home() {
-  const [articles, setArticles] = useState<Article[]>([]);
-  const [properties, setProperties] = useState<Property[]>([]);
-  useEffect(() => {
-    supabase.from("articles").select("*").eq("published", true).order("published_at", { ascending: false, nullsFirst: false }).limit(3).then(({ data }) => setArticles((data ?? []) as Article[]));
-    supabase.from("properties").select("*").eq("published", true).order("created_at", { ascending: false }).limit(3).then(({ data }) => setProperties((data ?? []) as Property[]));
-  }, []);
+  const { data: articles } = useSuspenseQuery(homeArticlesQuery);
+  const { data: properties } = useSuspenseQuery(homePropertiesQuery);
 
   return (
     <SiteShell>
@@ -47,7 +53,15 @@ function Home() {
         </div>
         <Reveal className="container-narrow mt-16 md:mt-24">
           <div className="aspect-[16/9] w-full overflow-hidden bg-muted md:aspect-[21/9]">
-            <img src={hero} alt="Immeubles haussmanniens parisiens au coucher du soleil" width={1920} height={1280} className="h-full w-full object-cover" />
+            <img
+              src={hero}
+              alt="Immeubles haussmanniens parisiens au coucher du soleil"
+              width={1920}
+              height={1280}
+              fetchPriority="high"
+              decoding="async"
+              className="h-full w-full object-cover"
+            />
           </div>
         </Reveal>
       </section>
