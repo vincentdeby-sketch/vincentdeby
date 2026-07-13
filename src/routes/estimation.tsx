@@ -137,9 +137,9 @@ function Estimation() {
           <div className="text-xs uppercase tracking-[0.3em] text-muted-foreground">Merci</div>
           <h1 className="mt-6 font-serif text-4xl md:text-5xl">Votre demande est bien enregistrée.</h1>
           <p className="mx-auto mt-6 max-w-xl text-muted-foreground">
-            Un membre du cabinet étudie votre bien et vous reviendra sous 48 h ouvrées
+            Vincent Deby étudie votre bien et vous reviendra sous 48 h ouvrées
             avec une estimation argumentée. En cas d'urgence, écrivez-nous à
-            <a href="mailto:contact@maison-associes.fr" className="ml-1 text-primary underline">contact@maison-associes.fr</a>.
+            <a href="mailto:vdeby@efficity.com" className="ml-1 text-primary underline">vdeby@efficity.com</a>.
           </p>
         </section>
       </SiteShell>
