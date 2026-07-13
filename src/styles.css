@@ -1,6 +1,8 @@
 @import "tailwindcss" source(none);
-@source "../src";
 @import "tw-animate-css";
+@import "leaflet/dist/leaflet.css";
+
+@source "../src";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -108,3 +110,17 @@
 
 /* Leaflet override to blend with palette */
 .leaflet-container { font-family: var(--font-sans) !important; background: var(--color-muted); }
+.estate-map-marker {
+  position: relative;
+  border: 2px solid var(--color-primary-foreground);
+  border-radius: 999px;
+  background: var(--color-primary);
+  box-shadow: 0 0 0 6px color-mix(in oklch, var(--color-primary) 24%, transparent);
+}
+.estate-map-marker::after {
+  position: absolute;
+  inset: 6px;
+  border-radius: inherit;
+  background: var(--color-primary-foreground);
+  content: "";
+}
