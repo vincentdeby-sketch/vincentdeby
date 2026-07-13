@@ -34,9 +34,9 @@ function AuthedLayout() {
 
   const links = [
     { to: "/admin", label: "Vue d'ensemble", exact: true },
-    { to: "/admin/articles", label: "Actualités" },
-    { to: "/admin/biens", label: "Biens" },
-    { to: "/admin/estimations", label: "Demandes" },
+    { to: "/admin/articles", label: "Actualités", exact: false },
+    { to: "/admin/biens", label: "Biens", exact: false },
+    { to: "/admin/estimations", label: "Demandes", exact: false },
   ] as const;
 
   return (
