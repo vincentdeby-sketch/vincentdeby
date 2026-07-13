@@ -148,55 +148,74 @@ function Estimation() {
 
   return (
     <SiteShell>
-      <section className="container-narrow pt-16 md:pt-24">
-        <div className="text-xs uppercase tracking-[0.3em] text-muted-foreground">Estimation</div>
-        <h1 className="mt-6 font-serif text-4xl md:text-5xl">Estimez votre bien.</h1>
+      <section className="container-narrow pt-12 md:pt-24">
+        <div className="text-[11px] uppercase tracking-[0.3em] text-muted-foreground sm:text-xs">Estimation</div>
+        <h1 className="mt-4 font-serif text-4xl leading-[1.05] sm:text-5xl md:mt-6">Estimez votre bien.</h1>
         <p className="mt-4 max-w-xl text-muted-foreground">Cinq étapes, sans compte, sans engagement.</p>
       </section>
 
-      <section className="container-narrow mt-12 max-w-3xl">
-        <div className="glass rounded-3xl p-6 md:p-10">
-        <ol className="mb-12 flex flex-wrap gap-x-6 gap-y-2 text-xs uppercase tracking-widest">
-          {STEPS.map((s, i) => (
-            <li key={s} className={i === step ? "text-foreground" : i < step ? "text-primary" : "text-muted-foreground"}>
-              <span className="tabular-nums">0{i + 1}</span> · {s}
-            </li>
-          ))}
-        </ol>
-
-        <div className="min-h-[380px]">
-          {step === 0 && <StepAddress value={form.address} onChange={(v) => update("address", v)} />}
-          {step === 1 && <StepType value={form.propertyType} onChange={(v) => update("propertyType", v)} />}
-          {step === 2 && <StepFeatures form={form} update={update} />}
-          {step === 3 && <StepContact form={form} update={update} />}
-          {step === 4 && <StepSummary form={form} />}
-        </div>
-
-        <div className="mt-12 flex items-center justify-between border-t border-border pt-6">
-          <button
-            onClick={() => setStep((s) => Math.max(0, s - 1))}
-            disabled={step === 0}
-            className="text-sm text-muted-foreground disabled:opacity-30"
-          >
-            ← Précédent
-          </button>
-          {step < STEPS.length - 1 ? (
-            <button
-              onClick={() => setStep((s) => s + 1)}
-              disabled={!canNext}
-              className="border border-foreground bg-foreground px-8 py-3 text-xs uppercase tracking-widest text-background disabled:cursor-not-allowed disabled:opacity-40"
+      <section className="container-narrow mt-8 max-w-3xl md:mt-12">
+        <div className="glass rounded-3xl p-5 sm:p-6 md:p-10">
+          {/* Progress — desktop: full stepper. Mobile: compact indicator + progress bar */}
+          <div className="mb-8 md:mb-12" aria-label="Progression du formulaire">
+            <div className="flex items-center justify-between text-[11px] uppercase tracking-widest md:hidden">
+              <span className="text-foreground"><span className="tabular-nums">0{step + 1}</span> · {STEPS[step]}</span>
+              <span className="text-muted-foreground tabular-nums">{step + 1} / {STEPS.length}</span>
+            </div>
+            <div
+              className="mt-3 h-1 w-full overflow-hidden rounded-full bg-muted md:hidden"
+              role="progressbar"
+              aria-valuenow={step + 1}
+              aria-valuemin={1}
+              aria-valuemax={STEPS.length}
             >
-              Continuer
-            </button>
-          ) : (
+              <div
+                className="h-full rounded-full bg-primary transition-all duration-500"
+                style={{ width: `${((step + 1) / STEPS.length) * 100}%` }}
+              />
+            </div>
+            <ol className="hidden flex-wrap gap-x-6 gap-y-2 text-xs uppercase tracking-widest md:flex">
+              {STEPS.map((s, i) => (
+                <li key={s} className={i === step ? "text-foreground" : i < step ? "text-primary" : "text-muted-foreground"}>
+                  <span className="tabular-nums">0{i + 1}</span> · {s}
+                </li>
+              ))}
+            </ol>
+          </div>
+
+          <div className="min-h-[380px]">
+            {step === 0 && <StepAddress value={form.address} onChange={(v) => update("address", v)} />}
+            {step === 1 && <StepType value={form.propertyType} onChange={(v) => update("propertyType", v)} />}
+            {step === 2 && <StepFeatures form={form} update={update} />}
+            {step === 3 && <StepContact form={form} update={update} />}
+            {step === 4 && <StepSummary form={form} />}
+          </div>
+
+          <div className="mt-10 flex items-center justify-between gap-3 border-t border-border pt-6 md:mt-12">
             <button
-              onClick={submit}
-              className="border border-foreground bg-primary px-8 py-3 text-xs uppercase tracking-widest text-primary-foreground"
+              onClick={() => setStep((s) => Math.max(0, s - 1))}
+              disabled={step === 0}
+              className="inline-flex min-h-11 items-center rounded-full px-4 text-sm text-muted-foreground transition-colors hover:text-foreground disabled:opacity-30"
             >
-              Envoyer ma demande
+              ← Précédent
             </button>
-          )}
-        </div>
+            {step < STEPS.length - 1 ? (
+              <button
+                onClick={() => setStep((s) => s + 1)}
+                disabled={!canNext}
+                className="inline-flex min-h-11 items-center rounded-full bg-foreground px-6 py-3 text-[11px] uppercase tracking-[0.18em] text-background transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40 sm:px-8"
+              >
+                Continuer
+              </button>
+            ) : (
+              <button
+                onClick={submit}
+                className="inline-flex min-h-11 items-center rounded-full bg-primary px-6 py-3 text-[11px] uppercase tracking-[0.18em] text-primary-foreground transition-opacity hover:opacity-90 sm:px-8"
+              >
+                Envoyer ma demande
+              </button>
+            )}
+          </div>
         </div>
       </section>
     </SiteShell>

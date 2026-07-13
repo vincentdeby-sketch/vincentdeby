@@ -29,20 +29,20 @@ function ArticlesList() {
   const { data: items } = useSuspenseQuery(articlesListQuery);
   return (
     <SiteShell>
-      <section className="container-narrow pt-16 md:pt-24">
-        <div className="text-xs uppercase tracking-[0.3em] text-muted-foreground">Journal</div>
-        <h1 className="mt-6 font-serif text-5xl md:text-6xl">Actualités</h1>
-        <p className="mt-6 max-w-xl text-muted-foreground">
+      <section className="container-narrow pt-12 md:pt-24">
+        <div className="text-[11px] uppercase tracking-[0.3em] text-muted-foreground sm:text-xs">Journal</div>
+        <h1 className="mt-4 font-serif text-4xl leading-[1.05] sm:text-5xl md:mt-6 md:text-6xl">Actualités</h1>
+        <p className="mt-5 max-w-xl text-muted-foreground md:mt-6">
           Nos analyses, décryptages et notes autour du marché immobilier.
         </p>
       </section>
-      <section className="container-narrow mt-16">
+      <section className="container-narrow mt-10 md:mt-16">
         {items.length === 0 ? (
-          <div className="border border-dashed border-border py-24 text-center text-sm text-muted-foreground">
+          <div className="rounded-3xl border border-dashed border-border py-20 text-center text-sm text-muted-foreground">
             Aucun article publié pour le moment.
           </div>
         ) : (
-          <div className="grid gap-16 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-8 sm:grid-cols-2 md:gap-12 lg:grid-cols-3 lg:gap-16">
             {items.map((a) => <Reveal key={a.id}><ArticleCard a={a} /></Reveal>)}
           </div>
         )}

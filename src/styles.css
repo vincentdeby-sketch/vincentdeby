@@ -84,7 +84,17 @@
 
 @layer base {
   * { border-color: var(--color-border); }
-  html { -webkit-font-smoothing: antialiased; }
+  html {
+    -webkit-font-smoothing: antialiased;
+    text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+  ::selection { background: color-mix(in oklch, var(--color-primary) 30%, transparent); }
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
@@ -106,10 +116,30 @@ a[href*="lovable.dev"][target="_blank"] {
 }
 
 
+/* Skip-to-content link for keyboard users */
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 1rem;
+  z-index: 100;
+  padding: 0.75rem 1.25rem;
+  background: var(--color-foreground);
+  color: var(--color-background);
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  border-radius: 999px;
+  transition: top 200ms ease;
+}
+.skip-link:focus { top: 1rem; }
+
 @utility container-narrow {
   margin-inline: auto;
-  padding-inline: 1.5rem;
+  padding-inline: 1.25rem;
   max-width: 72rem;
+}
+@media (min-width: 768px) {
+  .container-narrow { padding-inline: 2rem; }
 }
 
 /* Liquid glass surface — subtle, editorial */
@@ -167,6 +197,16 @@ body::after {
 /* Reveal on scroll */
 .reveal { opacity: 0; transform: translateY(16px); transition: opacity 900ms ease, transform 900ms ease; }
 .reveal.is-visible { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .reveal { opacity: 1; transform: none; }
+}
 
 /* Leaflet override to blend with palette */
 .leaflet-container { font-family: var(--font-sans) !important; background: var(--color-muted); }
