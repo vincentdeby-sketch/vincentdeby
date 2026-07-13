@@ -7,10 +7,35 @@ import { PropertyCard } from "@/components/site/PropertyCard";
 import { homeArticlesQuery, homePropertiesQuery } from "@/lib/queries";
 import hero from "@/assets/hero-home.jpg";
 
+const SITE = "https://debymo.lovable.app";
+
 export const Route = createFileRoute("/")({
   head: () => ({
+    meta: [
+      { title: "Vincent Deby — Conseiller Immobilier, Mandataire Efficity" },
+      { name: "description", content: "Estimation immobilière gratuite et accompagnement transaction. Vincent Deby, mandataire Efficity : lecture précise de votre bien, ancrée dans son marché local." },
+      { property: "og:title", content: "Vincent Deby — Conseiller Immobilier, Mandataire Efficity" },
+      { property: "og:description", content: "Estimation immobilière gratuite et accompagnement transaction. Une lecture précise de votre bien, ancrée dans son marché local." },
+      { property: "og:url", content: `${SITE}/` },
+      { property: "og:image", content: `${SITE}${hero}` },
+      { name: "twitter:image", content: `${SITE}${hero}` },
+    ],
     links: [
+      { rel: "canonical", href: `${SITE}/` },
       { rel: "preload", as: "image", href: hero, fetchpriority: "high" } as never,
+    ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "WebSite",
+          name: "Vincent Deby — Conseiller Immobilier",
+          url: `${SITE}/`,
+          inLanguage: "fr-FR",
+          publisher: { "@type": "RealEstateAgent", name: "Vincent Deby", telephone: "+33610022436", email: "vdeby@efficity.com" },
+        }),
+      },
     ],
   }),
   loader: ({ context }) => {
