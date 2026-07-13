@@ -4,7 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { SiteShell } from "@/components/site/SiteShell";
 
 export const Route = createFileRoute("/auth")({
-  head: () => ({ meta: [{ title: "Espace pro — Maison & Associés" }, { name: "robots", content: "noindex" }] }),
+  head: () => ({ meta: [{ title: "Espace pro — Vincent Deby" }, { name: "robots", content: "noindex, nofollow" }] }),
   component: Auth,
 });
 

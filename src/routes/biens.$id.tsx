@@ -4,10 +4,74 @@ import { SiteShell } from "@/components/site/SiteShell";
 import { formatEUR } from "@/lib/domain";
 import { propertyByIdQuery } from "@/lib/queries";
 
+const SITE = "https://debymo.lovable.app";
+
 export const Route = createFileRoute("/biens/$id")({
   loader: async ({ context, params }) => {
     const data = await context.queryClient.ensureQueryData(propertyByIdQuery(params.id));
     if (!data) throw notFound();
+    return data;
+  },
+  head: ({ loaderData, params }) => {
+    const url = `${SITE}/biens/${params?.id ?? ""}`;
+    if (!loaderData) {
+      return {
+        meta: [{ title: "Bien introuvable — Vincent Deby" }, { name: "robots", content: "noindex" }],
+        links: [{ rel: "canonical", href: url }],
+      };
+    }
+    const p = loaderData;
+    const loc = [p.city, p.address].filter(Boolean).join(", ");
+    const desc = `${p.title} · ${formatEUR(p.price)}${p.surface ? ` · ${p.surface} m²` : ""}${loc ? ` · ${loc}` : ""}. ${(p.description ?? "").slice(0, 120)}`;
+    return {
+      meta: [
+        { title: `${p.title} — ${formatEUR(p.price)}` },
+        { name: "description", content: desc },
+        { property: "og:title", content: p.title },
+        { property: "og:description", content: desc },
+        { property: "og:url", content: url },
+        { property: "og:type", content: "product" },
+        ...(p.cover_url
+          ? [
+              { property: "og:image", content: p.cover_url },
+              { name: "twitter:image", content: p.cover_url },
+            ]
+          : []),
+      ],
+      links: [{ rel: "canonical", href: url }],
+      scripts: [
+        {
+          type: "application/ld+json",
+          children: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Product",
+            name: p.title,
+            description: p.description,
+            image: p.cover_url ?? undefined,
+            category: p.property_type,
+            offers: {
+              "@type": "Offer",
+              price: p.price,
+              priceCurrency: "EUR",
+              availability: "https://schema.org/InStock",
+              url,
+            },
+          }),
+        },
+        {
+          type: "application/ld+json",
+          children: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Accueil", item: `${SITE}/` },
+              { "@type": "ListItem", position: 2, name: "Nos biens", item: `${SITE}/biens` },
+              { "@type": "ListItem", position: 3, name: p.title, item: url },
+            ],
+          }),
+        },
+      ],
+    };
   },
   component: Detail,
   notFoundComponent: () => (
@@ -29,6 +93,7 @@ function Detail() {
   if (!p) throw notFound();
 
   const gallery = [p.cover_url, ...(p.photos ?? [])].filter(Boolean) as string[];
+  const locString = [p.address, p.city].filter(Boolean).join(", ");
 
   return (
     <SiteShell>
@@ -39,7 +104,13 @@ function Detail() {
         <div>
           {gallery[0] ? (
             <div className="aspect-[4/3] w-full overflow-hidden bg-muted">
-              <img src={gallery[0]} alt={p.title} fetchPriority="high" decoding="async" className="h-full w-full object-cover" />
+              <img
+                src={gallery[0]}
+                alt={`${p.title} — photo principale${locString ? ` (${locString})` : ""}`}
+                fetchPriority="high"
+                decoding="async"
+                className="h-full w-full object-cover"
+              />
             </div>
           ) : (
             <div className="aspect-[4/3] w-full bg-muted" />
@@ -48,7 +119,13 @@ function Detail() {
             <div className="mt-4 grid grid-cols-3 gap-4">
               {gallery.slice(1, 7).map((src, i) => (
                 <div key={i} className="aspect-square overflow-hidden bg-muted">
-                  <img src={src} alt="" loading="lazy" decoding="async" className="h-full w-full object-cover" />
+                  <img
+                    src={src}
+                    alt={`${p.title} — photo ${i + 2}`}
+                    loading="lazy"
+                    decoding="async"
+                    className="h-full w-full object-cover"
+                  />
                 </div>
               ))}
             </div>
@@ -57,14 +134,14 @@ function Detail() {
         <aside className="md:pt-4">
           <div className="text-xs uppercase tracking-[0.3em] text-muted-foreground">{p.property_type}</div>
           <h1 className="mt-3 font-serif text-3xl leading-tight md:text-4xl">{p.title}</h1>
-          <div className="mt-2 text-muted-foreground">{[p.address, p.city].filter(Boolean).join(", ")}</div>
+          <div className="mt-2 text-muted-foreground">{locString}</div>
           <div className="mt-6 font-serif text-3xl text-primary">{formatEUR(p.price)}</div>
           <dl className="mt-8 grid grid-cols-2 gap-y-4 border-t border-border pt-6 text-sm">
             {p.surface && <><dt className="text-muted-foreground">Surface</dt><dd className="text-right">{p.surface} m²</dd></>}
             {p.rooms && <><dt className="text-muted-foreground">Pièces</dt><dd className="text-right">{p.rooms}</dd></>}
             {p.bedrooms && <><dt className="text-muted-foreground">Chambres</dt><dd className="text-right">{p.bedrooms}</dd></>}
           </dl>
-          <a href="mailto:contact@maison-associes.fr" className="mt-8 block border border-foreground bg-foreground px-6 py-4 text-center text-xs uppercase tracking-widest text-background">
+          <a href="mailto:vdeby@efficity.com" className="mt-8 block border border-foreground bg-foreground px-6 py-4 text-center text-xs uppercase tracking-widest text-background">
             Nous contacter
           </a>
         </aside>

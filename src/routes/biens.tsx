@@ -5,14 +5,18 @@ import { PropertyCard } from "@/components/site/PropertyCard";
 import { Reveal } from "@/components/site/Reveal";
 import { propertiesListQuery } from "@/lib/queries";
 
+const SITE = "https://debymo.lovable.app";
+
 export const Route = createFileRoute("/biens")({
   head: () => ({
     meta: [
-      { title: "Nos biens — Maison & Associés" },
-      { name: "description", content: "Une sélection de biens à la vente, choisis avec soin." },
-      { property: "og:title", content: "Nos biens — Maison & Associés" },
-      { property: "og:description", content: "Une sélection de biens à la vente." },
+      { title: "Nos biens à la vente — Vincent Deby, Mandataire Efficity" },
+      { name: "description", content: "Sélection de biens immobiliers à la vente : appartements, maisons et propriétés choisis avec soin par Vincent Deby." },
+      { property: "og:title", content: "Nos biens à la vente — Vincent Deby" },
+      { property: "og:description", content: "Une sélection de biens à la vente, choisis avec soin." },
+      { property: "og:url", content: `${SITE}/biens` },
     ],
+    links: [{ rel: "canonical", href: `${SITE}/biens` }],
   }),
   loader: ({ context }) => context.queryClient.ensureQueryData(propertiesListQuery),
   component: List,

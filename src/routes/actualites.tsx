@@ -5,14 +5,18 @@ import { ArticleCard } from "@/components/site/ArticleCard";
 import { Reveal } from "@/components/site/Reveal";
 import { articlesListQuery } from "@/lib/queries";
 
+const SITE = "https://debymo.lovable.app";
+
 export const Route = createFileRoute("/actualites")({
   head: () => ({
     meta: [
-      { title: "Actualités — Maison & Associés" },
-      { name: "description", content: "Analyses de marché, décryptages et notes du cabinet." },
-      { property: "og:title", content: "Actualités — Maison & Associés" },
-      { property: "og:description", content: "Analyses de marché, décryptages et notes du cabinet." },
+      { title: "Actualités et analyses du marché immobilier — Vincent Deby" },
+      { name: "description", content: "Analyses de marché, décryptages et notes sur l'immobilier par Vincent Deby, conseiller immobilier mandataire Efficity." },
+      { property: "og:title", content: "Actualités immobilières — Vincent Deby" },
+      { property: "og:description", content: "Analyses de marché, décryptages et notes sur l'immobilier." },
+      { property: "og:url", content: `${SITE}/actualites` },
     ],
+    links: [{ rel: "canonical", href: `${SITE}/actualites` }],
   }),
   loader: ({ context }) => context.queryClient.ensureQueryData(articlesListQuery),
   component: ArticlesList,

@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /auth
+Disallow: /admin
+
+Sitemap: https://debymo.lovable.app/sitemap.xml
