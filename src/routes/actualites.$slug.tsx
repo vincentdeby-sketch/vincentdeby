@@ -1,10 +1,17 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
-import { supabase } from "@/integrations/supabase/client";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { SiteShell } from "@/components/site/SiteShell";
-import { formatDate, type Article } from "@/lib/domain";
+import { formatDate } from "@/lib/domain";
+import { articleBySlugQuery } from "@/lib/queries";
 
 export const Route = createFileRoute("/actualites/$slug")({
+  loader: async ({ context, params }) => {
+    const data = await context.queryClient.ensureQueryData(articleBySlugQuery(params.slug));
+    if (!data) throw notFound();
+  },
+  head: ({ loaderData: _l, params }) => ({
+    meta: [{ title: params ? `Article — ${params.slug}` : "Article" }],
+  }),
   component: ArticleDetail,
   notFoundComponent: () => (
     <SiteShell>
@@ -14,18 +21,15 @@ export const Route = createFileRoute("/actualites/$slug")({
       </div>
     </SiteShell>
   ),
+  errorComponent: ({ error }) => (
+    <SiteShell><div className="container-narrow py-24 text-sm text-muted-foreground">{error.message}</div></SiteShell>
+  ),
 });
 
 function ArticleDetail() {
   const { slug } = Route.useParams();
-  const [a, setA] = useState<Article | null | undefined>(undefined);
-  useEffect(() => {
-    supabase.from("articles").select("*").eq("slug", slug).eq("published", true).maybeSingle()
-      .then(({ data }) => setA((data as Article | null) ?? null));
-  }, [slug]);
-
-  if (a === undefined) return <SiteShell><div className="container-narrow py-32 text-sm text-muted-foreground">Chargement…</div></SiteShell>;
-  if (a === null) throw notFound();
+  const { data: a } = useSuspenseQuery(articleBySlugQuery(slug));
+  if (!a) throw notFound();
 
   return (
     <SiteShell>
@@ -35,7 +39,7 @@ function ArticleDetail() {
         <div className="mt-6 text-sm text-muted-foreground">{formatDate(a.published_at ?? a.created_at)}</div>
         {a.cover_url && (
           <div className="mt-12 aspect-[16/9] w-full overflow-hidden bg-muted">
-            <img src={a.cover_url} alt={a.title} className="h-full w-full object-cover" />
+            <img src={a.cover_url} alt={a.title} loading="lazy" decoding="async" className="h-full w-full object-cover" />
           </div>
         )}
         <div className="prose prose-neutral mx-auto mt-12 max-w-2xl whitespace-pre-wrap text-lg leading-relaxed text-foreground/90">
