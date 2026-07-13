@@ -80,9 +80,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { title: "Maison & Associés — Estimation immobilière" },
       { name: "description", content: "Cabinet d'estimation et de transaction immobilière. Expertise locale, approche mesurée, discrétion." },
       { property: "og:title", content: "Maison & Associés — Estimation immobilière" },
-      { property: "og:description", content: "Estimation, transaction, expertise locale. Cabinet indépendant." },
+      { property: "og:description", content: "Cabinet d'estimation et de transaction immobilière. Expertise locale, approche mesurée, discrétion." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Maison & Associés — Estimation immobilière" },
+      { name: "twitter:description", content: "Cabinet d'estimation et de transaction immobilière. Expertise locale, approche mesurée, discrétion." },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
