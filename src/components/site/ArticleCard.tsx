@@ -8,7 +8,7 @@ export function ArticleCard({ a }: { a: Article }) {
       <div className="glass overflow-hidden rounded-3xl p-3 transition-shadow duration-500 group-hover:shadow-[0_24px_60px_-30px_color-mix(in_oklch,var(--color-ink)_50%,transparent)]">
         <div className="aspect-[3/2] w-full overflow-hidden rounded-2xl bg-muted">
           {a.cover_url ? (
-            <img src={a.cover_url} alt={a.title} loading="lazy" className="h-full w-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.04]" />
+            <img src={a.cover_url} alt={a.title} loading="lazy" decoding="async" className="h-full w-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.04]" />
           ) : (
             <div className="h-full w-full bg-sand" />
           )}
