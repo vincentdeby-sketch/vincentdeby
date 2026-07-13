@@ -22,14 +22,9 @@ export function Header() {
     <header className="sticky top-0 z-40 pt-3 md:pt-4">
       <div className="container-narrow">
         <div
-          className={`relative flex items-center justify-between gap-6 rounded-full border px-3 py-2 pl-5 md:pl-6 transition-all duration-300 ${
-            scrolled
-              ? "border-white/40 bg-background/55 shadow-[0_8px_32px_-12px_rgba(20,20,20,0.18)]"
-              : "border-white/30 bg-background/35 shadow-[0_4px_24px_-16px_rgba(20,20,20,0.12)]"
+          className={`glass relative flex items-center justify-between gap-6 rounded-full px-3 py-2 pl-5 md:pl-6 transition-all duration-300 ${
+            scrolled ? "shadow-[0_16px_40px_-20px_rgba(20,20,20,0.22)]" : ""
           }`}
-          style={{
-            backdropFilter: "blur(20px) saturate(180%)",
-          }}
         >
           {/* Logo — brand block */}
           <Link to="/" className="flex min-w-0 items-center gap-3 shrink-0">
@@ -83,10 +78,7 @@ export function Header() {
 
       {open && (
         <div className="container-narrow mt-2 md:hidden">
-          <div
-            className="rounded-3xl border border-white/40 bg-background/70 p-2"
-            style={{ backdropFilter: "blur(20px) saturate(180%)" }}
-          >
+          <div className="glass rounded-3xl p-2">
             <nav className="flex flex-col text-sm">
               {nav.map((n) => (
                 <Link
