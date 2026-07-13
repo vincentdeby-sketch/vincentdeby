@@ -3,7 +3,7 @@ import { useEffect, useMemo, useState } from "react";
 import { z } from "zod";
 import { supabase } from "@/integrations/supabase/client";
 import { SiteShell } from "@/components/site/SiteShell";
-import { LazyMap } from "@/components/site/LazyMap";
+import { LazyGlobe } from "@/components/site/LazyGlobe";
 import { searchAddress, type NominatimResult } from "@/lib/nominatim";
 
 export const Route = createFileRoute("/estimation")({
@@ -259,7 +259,7 @@ function StepAddress({ value, onChange }: { value: Address | null; onChange: (a:
       </div>
       {value && (
         <div className="border border-border">
-          <LazyMap lat={value.lat} lng={value.lng} className="h-[320px] w-full" />
+          <LazyGlobe lat={value.lat} lng={value.lng} className="w-full" />
         </div>
       )}
     </div>
