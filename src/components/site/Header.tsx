@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
+import { Menu, X } from "lucide-react";
 
 const nav = [
   { to: "/", label: "Accueil" },
@@ -12,23 +13,42 @@ const nav = [
 export function Header() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  // Lock body scroll & close on Escape when mobile menu is open
+  useEffect(() => {
+    if (!open) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setOpen(false); };
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = prev;
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [open]);
+
   return (
     <header className="sticky top-0 z-40 pt-3 md:pt-4">
       <div className="container-narrow">
         <div
-          className={`glass relative flex items-center justify-between gap-6 rounded-full px-3 py-2 pl-5 md:pl-6 transition-all duration-300 ${
+          className={`glass relative flex items-center justify-between gap-4 rounded-full py-2 pl-4 pr-2 md:gap-6 md:pl-6 md:pr-3 transition-shadow duration-300 ${
             scrolled ? "shadow-[0_16px_40px_-20px_rgba(20,20,20,0.22)]" : ""
           }`}
         >
           {/* Logo — brand block */}
-          <Link to="/" className="flex min-w-0 items-center gap-3 shrink-0">
-            <span className="font-serif text-lg leading-none md:text-xl">Vincent Deby</span>
+          <Link
+            to="/"
+            aria-label="Vincent Deby — Accueil"
+            className="flex min-w-0 items-center gap-3 shrink-0 rounded-full"
+          >
+            <span className="font-serif text-base leading-none sm:text-lg md:text-xl">Vincent Deby</span>
             <span className="hidden h-4 w-px bg-foreground/20 lg:inline-block" />
             <span className="hidden text-[10px] uppercase leading-tight tracking-[0.18em] text-muted-foreground lg:inline">
               Conseiller<br />Immobilier
@@ -40,7 +60,7 @@ export function Header() {
           </Link>
 
           {/* Nav — center */}
-          <nav className="hidden items-center gap-1 text-sm md:flex">
+          <nav aria-label="Navigation principale" className="hidden items-center gap-1 text-sm md:flex">
             {nav.map((n) => (
               <Link
                 key={n.to}
@@ -63,29 +83,31 @@ export function Header() {
               Estimer
             </Link>
             <button
-              className="grid h-10 w-10 place-items-center rounded-full border border-foreground/15 md:hidden"
-              aria-label="Menu"
+              type="button"
+              className="grid h-11 w-11 place-items-center rounded-full border border-foreground/15 transition-colors hover:bg-foreground/5 md:hidden"
+              aria-label={open ? "Fermer le menu" : "Ouvrir le menu"}
+              aria-expanded={open}
+              aria-controls="mobile-menu"
               onClick={() => setOpen((v) => !v)}
             >
-              <div className="flex flex-col gap-1.5">
-                <span className="h-px w-5 bg-foreground" />
-                <span className="h-px w-5 bg-foreground" />
-              </div>
+              {open ? <X className="h-5 w-5" aria-hidden="true" /> : <Menu className="h-5 w-5" aria-hidden="true" />}
             </button>
           </div>
         </div>
       </div>
 
       {open && (
-        <div className="container-narrow mt-2 md:hidden">
-          <div className="glass rounded-3xl p-2">
-            <nav className="flex flex-col text-sm">
+        <div id="mobile-menu" className="container-narrow mt-2 md:hidden">
+          <div className="glass-strong rounded-3xl p-2">
+            <nav aria-label="Navigation mobile" className="flex flex-col text-sm">
               {nav.map((n) => (
                 <Link
                   key={n.to}
                   to={n.to}
                   onClick={() => setOpen(false)}
-                  className="rounded-2xl px-4 py-3 text-foreground/80 hover:bg-foreground/5"
+                  className="rounded-2xl px-4 py-3.5 text-foreground/80 hover:bg-foreground/5"
+                  activeProps={{ className: "text-primary font-medium" }}
+                  activeOptions={{ exact: n.to === "/" }}
                 >
                   {n.label}
                 </Link>
@@ -93,7 +115,7 @@ export function Header() {
               <Link
                 to="/estimation"
                 onClick={() => setOpen(false)}
-                className="mt-2 rounded-2xl bg-foreground py-3 text-center text-xs uppercase tracking-[0.18em] text-background"
+                className="mt-2 rounded-2xl bg-foreground py-3.5 text-center text-xs uppercase tracking-[0.18em] text-background"
               >
                 Estimer mon bien
               </Link>
