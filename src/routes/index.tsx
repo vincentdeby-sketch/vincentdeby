@@ -24,11 +24,11 @@ function Home() {
       <section className="relative">
         <div className="container-narrow pt-10 md:pt-20">
           <div className="max-w-3xl">
-            <div className="text-xs uppercase tracking-[0.3em] text-muted-foreground">Cabinet d'estimation immobilière</div>
+            <div className="text-xs uppercase tracking-[0.3em] text-muted-foreground">Estimation immobilière</div>
             <h1 className="mt-6 font-serif text-[clamp(2.5rem,6vw,5rem)] leading-[1.02]">
-              L'estimation juste,
+              Votre projet immobilier,
               <br />
-              <span className="italic text-primary">au bon prix.</span>
+              <span className="italic text-primary">au plus près.</span>
             </h1>
             <p className="mt-8 max-w-xl text-lg leading-relaxed text-muted-foreground">
               Une lecture précise de votre bien, ancrée dans son marché local.
@@ -39,15 +39,15 @@ function Home() {
               <Link to="/estimation" className="border border-foreground bg-foreground px-8 py-4 text-xs uppercase tracking-widest text-background transition-opacity hover:opacity-90">
                 Estimer mon bien
               </Link>
-              <Link to="/biens" className="border border-foreground/20 px-8 py-4 text-xs uppercase tracking-widest transition-colors hover:border-foreground">
-                Voir les biens en ligne
+              <Link to="/contact" className="border border-foreground/20 px-8 py-4 text-xs uppercase tracking-widest transition-colors hover:border-foreground">
+                Prendre rendez-vous
               </Link>
             </div>
           </div>
         </div>
         <Reveal className="container-narrow mt-16 md:mt-24">
           <div className="aspect-[16/9] w-full overflow-hidden bg-muted md:aspect-[21/9]">
-            <img src={hero} alt="Maison en pierre au coucher du soleil" width={1920} height={1280} className="h-full w-full object-cover" />
+            <img src={hero} alt="Immeubles haussmanniens parisiens au coucher du soleil" width={1920} height={1280} className="h-full w-full object-cover" />
           </div>
         </Reveal>
       </section>
@@ -56,7 +56,7 @@ function Home() {
       <section className="container-narrow mt-32 md:mt-48">
         <Reveal className="grid gap-16 md:grid-cols-4">
           <div className="md:col-span-2">
-            <div className="text-xs uppercase tracking-[0.3em] text-muted-foreground">Le cabinet</div>
+            <div className="text-xs uppercase tracking-[0.3em] text-muted-foreground">L'approche</div>
             <h2 className="mt-6 font-serif text-4xl leading-tight">
               Une approche mesurée,
               <br />un regard indépendant.
