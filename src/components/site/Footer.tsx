@@ -43,9 +43,8 @@ export function Footer() {
             <li><Link to="/auth" className="hover:text-foreground">Espace pro</Link></li>
           </ul>
         </div>
-      </div>
-      <div className="border-t border-border">
-        <div className="container-narrow flex flex-col justify-between gap-2 py-6 text-xs text-muted-foreground md:flex-row">
+        </div>
+        <div className="mt-6 flex flex-col justify-between gap-2 px-4 text-xs text-muted-foreground md:flex-row">
           <div>© {new Date().getFullYear()} Vincent Deby — Mandataire Efficity. Tous droits réservés.</div>
           <div>Estimations réalisées avec expertise locale.</div>
         </div>
