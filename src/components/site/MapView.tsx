@@ -1,19 +1,7 @@
-import "leaflet/dist/leaflet.css";
 import { useEffect, useRef } from "react";
-import L from "leaflet";
-import iconRetinaUrl from "leaflet/dist/images/marker-icon-2x.png";
-import iconUrl from "leaflet/dist/images/marker-icon.png";
-import shadowUrl from "leaflet/dist/images/marker-shadow.png";
+import type * as Leaflet from "leaflet";
 
-const icon = L.icon({
-  iconRetinaUrl,
-  iconUrl,
-  shadowUrl,
-  iconSize: [25, 41],
-  iconAnchor: [12, 41],
-  popupAnchor: [1, -34],
-  shadowSize: [41, 41],
-});
+const TILE_LAYER_URL = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
 
 export default function MapView({
   lat,
@@ -25,20 +13,42 @@ export default function MapView({
   className?: string;
 }) {
   const containerRef = useRef<HTMLDivElement | null>(null);
-  const mapRef = useRef<L.Map | null>(null);
-  const markerRef = useRef<L.Marker | null>(null);
+  const mapRef = useRef<Leaflet.Map | null>(null);
+  const markerRef = useRef<Leaflet.Marker | null>(null);
 
   useEffect(() => {
-    if (!containerRef.current || mapRef.current) return;
-    const map = L.map(containerRef.current, { zoomControl: true, scrollWheelZoom: false }).setView([lat, lng], 15);
-    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-      attribution: "© OpenStreetMap",
-      maxZoom: 19,
-    }).addTo(map);
-    markerRef.current = L.marker([lat, lng], { icon }).addTo(map);
-    mapRef.current = map;
+    let cancelled = false;
+
+    async function initMap() {
+      if (!containerRef.current || mapRef.current) return;
+      const L = await import("leaflet");
+      if (cancelled || !containerRef.current) return;
+
+      const markerIcon = L.divIcon({
+        className: "estate-map-marker",
+        iconSize: [24, 24],
+        iconAnchor: [12, 12],
+      });
+
+      const map = L.map(containerRef.current, {
+        zoomControl: true,
+        scrollWheelZoom: false,
+      }).setView([lat, lng], 15);
+
+      L.tileLayer(TILE_LAYER_URL, {
+        attribution: "© OpenStreetMap",
+        maxZoom: 19,
+      }).addTo(map);
+
+      markerRef.current = L.marker([lat, lng], { icon: markerIcon }).addTo(map);
+      mapRef.current = map;
+    }
+
+    void initMap();
+
     return () => {
-      map.remove();
+      cancelled = true;
+      mapRef.current?.remove();
       mapRef.current = null;
       markerRef.current = null;
     };
