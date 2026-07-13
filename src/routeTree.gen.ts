@@ -9,38 +9,96 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as BiensRouteImport } from './routes/biens'
+import { Route as ActualitesRouteImport } from './routes/actualites'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as BiensIdRouteImport } from './routes/biens.$id'
+import { Route as ActualitesSlugRouteImport } from './routes/actualites.$slug'
 
+const BiensRoute = BiensRouteImport.update({
+  id: '/biens',
+  path: '/biens',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ActualitesRoute = ActualitesRouteImport.update({
+  id: '/actualites',
+  path: '/actualites',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BiensIdRoute = BiensIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => BiensRoute,
+} as any)
+const ActualitesSlugRoute = ActualitesSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => ActualitesRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/actualites': typeof ActualitesRouteWithChildren
+  '/biens': typeof BiensRouteWithChildren
+  '/actualites/$slug': typeof ActualitesSlugRoute
+  '/biens/$id': typeof BiensIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/actualites': typeof ActualitesRouteWithChildren
+  '/biens': typeof BiensRouteWithChildren
+  '/actualites/$slug': typeof ActualitesSlugRoute
+  '/biens/$id': typeof BiensIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/actualites': typeof ActualitesRouteWithChildren
+  '/biens': typeof BiensRouteWithChildren
+  '/actualites/$slug': typeof ActualitesSlugRoute
+  '/biens/$id': typeof BiensIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/actualites' | '/biens' | '/actualites/$slug' | '/biens/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/actualites' | '/biens' | '/actualites/$slug' | '/biens/$id'
+  id:
+    | '__root__'
+    | '/'
+    | '/actualites'
+    | '/biens'
+    | '/actualites/$slug'
+    | '/biens/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ActualitesRoute: typeof ActualitesRouteWithChildren
+  BiensRoute: typeof BiensRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/biens': {
+      id: '/biens'
+      path: '/biens'
+      fullPath: '/biens'
+      preLoaderRoute: typeof BiensRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/actualites': {
+      id: '/actualites'
+      path: '/actualites'
+      fullPath: '/actualites'
+      preLoaderRoute: typeof ActualitesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,11 +106,49 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/biens/$id': {
+      id: '/biens/$id'
+      path: '/$id'
+      fullPath: '/biens/$id'
+      preLoaderRoute: typeof BiensIdRouteImport
+      parentRoute: typeof BiensRoute
+    }
+    '/actualites/$slug': {
+      id: '/actualites/$slug'
+      path: '/$slug'
+      fullPath: '/actualites/$slug'
+      preLoaderRoute: typeof ActualitesSlugRouteImport
+      parentRoute: typeof ActualitesRoute
+    }
   }
 }
 
+interface ActualitesRouteChildren {
+  ActualitesSlugRoute: typeof ActualitesSlugRoute
+}
+
+const ActualitesRouteChildren: ActualitesRouteChildren = {
+  ActualitesSlugRoute: ActualitesSlugRoute,
+}
+
+const ActualitesRouteWithChildren = ActualitesRoute._addFileChildren(
+  ActualitesRouteChildren,
+)
+
+interface BiensRouteChildren {
+  BiensIdRoute: typeof BiensIdRoute
+}
+
+const BiensRouteChildren: BiensRouteChildren = {
+  BiensIdRoute: BiensIdRoute,
+}
+
+const BiensRouteWithChildren = BiensRoute._addFileChildren(BiensRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ActualitesRoute: ActualitesRouteWithChildren,
+  BiensRoute: BiensRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
