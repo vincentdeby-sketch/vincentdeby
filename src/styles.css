@@ -84,7 +84,17 @@
 
 @layer base {
   * { border-color: var(--color-border); }
-  html { -webkit-font-smoothing: antialiased; }
+  html {
+    -webkit-font-smoothing: antialiased;
+    text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+  ::selection { background: color-mix(in oklch, var(--color-primary) 30%, transparent); }
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
