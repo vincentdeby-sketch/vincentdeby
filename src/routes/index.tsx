@@ -56,7 +56,7 @@ function Home() {
       <section className="container-narrow mt-32 md:mt-48">
         <Reveal className="grid gap-16 md:grid-cols-4">
           <div className="md:col-span-2">
-            <div className="text-xs uppercase tracking-[0.3em] text-muted-foreground">Le cabinet</div>
+            <div className="text-xs uppercase tracking-[0.3em] text-muted-foreground">L'approche</div>
             <h2 className="mt-6 font-serif text-4xl leading-tight">
               Une approche mesurée,
               <br />un regard indépendant.
