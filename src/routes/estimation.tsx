@@ -180,6 +180,7 @@ function Estimation() {
             </button>
           )}
         </div>
+        </div>
       </section>
     </SiteShell>
   );
