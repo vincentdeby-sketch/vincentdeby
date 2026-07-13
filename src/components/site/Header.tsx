@@ -6,6 +6,7 @@ const nav = [
   { to: "/biens", label: "Nos biens" },
   { to: "/actualites", label: "Actualités" },
   { to: "/estimation", label: "Estimation" },
+  { to: "/contact", label: "Contact" },
 ];
 
 export function Header() {
@@ -24,8 +25,16 @@ export function Header() {
       }`}
     >
       <div className="container-narrow flex h-20 items-center justify-between">
-        <Link to="/" className="font-serif text-xl tracking-tight">
-          Maison <span className="text-primary">&amp;</span> Associés
+        <Link to="/" className="flex items-baseline gap-3 text-sm tracking-tight">
+          <span className="font-serif text-xl">Vincent Deby</span>
+          <span className="hidden text-muted-foreground sm:inline">|</span>
+          <span className="hidden text-xs uppercase tracking-widest text-muted-foreground sm:inline">
+            Conseiller Immobilier
+          </span>
+          <span className="hidden text-muted-foreground lg:inline">|</span>
+          <span className="hidden text-xs uppercase tracking-widest text-muted-foreground lg:inline">
+            Mandataire Efficity
+          </span>
         </Link>
         <nav className="hidden items-center gap-10 text-sm md:flex">
           {nav.map((n) => (
