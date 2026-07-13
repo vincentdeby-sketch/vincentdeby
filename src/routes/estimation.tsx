@@ -6,13 +6,30 @@ import { SiteShell } from "@/components/site/SiteShell";
 import { LazyGlobe } from "@/components/site/LazyGlobe";
 import { searchAddress, type NominatimResult } from "@/lib/nominatim";
 
+const SITE = "https://debymo.lovable.app";
+
 export const Route = createFileRoute("/estimation")({
   head: () => ({
     meta: [
-      { title: "Estimation gratuite — Maison & Associés" },
-      { name: "description", content: "Formulaire d'estimation en cinq étapes. Retour humain, argumenté, sans engagement." },
-      { property: "og:title", content: "Estimation gratuite — Maison & Associés" },
-      { property: "og:description", content: "Formulaire d'estimation en cinq étapes." },
+      { title: "Estimation immobilière gratuite en ligne — Vincent Deby" },
+      { name: "description", content: "Formulaire d'estimation immobilière en cinq étapes. Retour humain, argumenté, sans engagement — appartement, maison, terrain ou local." },
+      { property: "og:title", content: "Estimation immobilière gratuite — Vincent Deby" },
+      { property: "og:description", content: "Formulaire d'estimation en cinq étapes. Retour humain, sans engagement." },
+      { property: "og:url", content: `${SITE}/estimation` },
+    ],
+    links: [{ rel: "canonical", href: `${SITE}/estimation` }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Service",
+          serviceType: "Estimation immobilière",
+          provider: { "@type": "RealEstateAgent", name: "Vincent Deby" },
+          areaServed: "France",
+          offers: { "@type": "Offer", price: "0", priceCurrency: "EUR" },
+        }),
+      },
     ],
   }),
   component: Estimation,
