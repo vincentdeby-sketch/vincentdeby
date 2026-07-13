@@ -3,15 +3,35 @@ import { SiteShell } from "@/components/site/SiteShell";
 import { Reveal } from "@/components/site/Reveal";
 import { NewsletterForm } from "@/components/site/NewsletterForm";
 
+const SITE = "https://debymo.lovable.app";
+
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
-      { title: "Contact — Vincent Deby, Conseiller Immobilier" },
-      { name: "description", content: "Contacter Vincent Deby, conseiller immobilier, mandataire Efficity. Téléphone, e-mail et prise de rendez-vous." },
+      { title: "Contact — Vincent Deby, Conseiller Immobilier Efficity" },
+      { name: "description", content: "Contacter Vincent Deby, conseiller immobilier mandataire Efficity. Téléphone, e-mail et prise de rendez-vous, réponse sous 24 h ouvrées." },
       { property: "og:title", content: "Contact — Vincent Deby" },
-      { property: "og:description", content: "Vincent Deby, conseiller immobilier, mandataire Efficity." },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary" },
+      { property: "og:description", content: "Vincent Deby, conseiller immobilier, mandataire Efficity. Réponse sous 24 h ouvrées." },
+      { property: "og:url", content: `${SITE}/contact` },
+    ],
+    links: [{ rel: "canonical", href: `${SITE}/contact` }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "ContactPage",
+          url: `${SITE}/contact`,
+          mainEntity: {
+            "@type": "Person",
+            name: "Vincent Deby",
+            jobTitle: "Conseiller Immobilier",
+            worksFor: { "@type": "Organization", name: "Efficity" },
+            telephone: "+33610022436",
+            email: "vdeby@efficity.com",
+          },
+        }),
+      },
     ],
   }),
   component: ContactPage,
