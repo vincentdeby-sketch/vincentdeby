@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as EstimationRouteImport } from './routes/estimation'
+import { Route as ContactRouteImport } from './routes/contact'
 import { Route as BiensRouteImport } from './routes/biens'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as ActualitesRouteImport } from './routes/actualites'
@@ -25,6 +26,11 @@ import { Route as AuthenticatedAdminArticlesRouteImport } from './routes/_authen
 const EstimationRoute = EstimationRouteImport.update({
   id: '/estimation',
   path: '/estimation',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BiensRoute = BiensRouteImport.update({
@@ -89,6 +95,7 @@ export interface FileRoutesByFullPath {
   '/actualites': typeof ActualitesRouteWithChildren
   '/auth': typeof AuthRoute
   '/biens': typeof BiensRouteWithChildren
+  '/contact': typeof ContactRoute
   '/estimation': typeof EstimationRoute
   '/actualites/$slug': typeof ActualitesSlugRoute
   '/biens/$id': typeof BiensIdRoute
@@ -102,6 +109,7 @@ export interface FileRoutesByTo {
   '/actualites': typeof ActualitesRouteWithChildren
   '/auth': typeof AuthRoute
   '/biens': typeof BiensRouteWithChildren
+  '/contact': typeof ContactRoute
   '/estimation': typeof EstimationRoute
   '/actualites/$slug': typeof ActualitesSlugRoute
   '/biens/$id': typeof BiensIdRoute
@@ -117,6 +125,7 @@ export interface FileRoutesById {
   '/actualites': typeof ActualitesRouteWithChildren
   '/auth': typeof AuthRoute
   '/biens': typeof BiensRouteWithChildren
+  '/contact': typeof ContactRoute
   '/estimation': typeof EstimationRoute
   '/actualites/$slug': typeof ActualitesSlugRoute
   '/biens/$id': typeof BiensIdRoute
@@ -132,6 +141,7 @@ export interface FileRouteTypes {
     | '/actualites'
     | '/auth'
     | '/biens'
+    | '/contact'
     | '/estimation'
     | '/actualites/$slug'
     | '/biens/$id'
@@ -145,6 +155,7 @@ export interface FileRouteTypes {
     | '/actualites'
     | '/auth'
     | '/biens'
+    | '/contact'
     | '/estimation'
     | '/actualites/$slug'
     | '/biens/$id'
@@ -159,6 +170,7 @@ export interface FileRouteTypes {
     | '/actualites'
     | '/auth'
     | '/biens'
+    | '/contact'
     | '/estimation'
     | '/actualites/$slug'
     | '/biens/$id'
@@ -174,6 +186,7 @@ export interface RootRouteChildren {
   ActualitesRoute: typeof ActualitesRouteWithChildren
   AuthRoute: typeof AuthRoute
   BiensRoute: typeof BiensRouteWithChildren
+  ContactRoute: typeof ContactRoute
   EstimationRoute: typeof EstimationRoute
 }
 
@@ -184,6 +197,13 @@ declare module '@tanstack/react-router' {
       path: '/estimation'
       fullPath: '/estimation'
       preLoaderRoute: typeof EstimationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/biens': {
@@ -311,6 +331,7 @@ const rootRouteChildren: RootRouteChildren = {
   ActualitesRoute: ActualitesRouteWithChildren,
   AuthRoute: AuthRoute,
   BiensRoute: BiensRouteWithChildren,
+  ContactRoute: ContactRoute,
   EstimationRoute: EstimationRoute,
 }
 export const routeTree = rootRouteImport
