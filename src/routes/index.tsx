@@ -98,15 +98,15 @@ function Home() {
       </section>
 
       {/* RÉASSURANCE */}
-      <section className="container-narrow mt-32 md:mt-48">
-        <Reveal className="grid gap-16 md:grid-cols-4">
-          <div className="md:col-span-2">
-            <div className="text-xs uppercase tracking-[0.3em] text-muted-foreground">L'approche</div>
-            <h2 className="mt-6 font-serif text-4xl leading-tight">
+      <section className="container-narrow mt-24 md:mt-40">
+        <Reveal className="grid gap-10 sm:grid-cols-2 md:grid-cols-4 md:gap-16">
+          <div className="sm:col-span-2 md:col-span-2">
+            <div className="text-[11px] uppercase tracking-[0.3em] text-muted-foreground sm:text-xs">L'approche</div>
+            <h2 className="mt-4 font-serif text-3xl leading-tight sm:text-4xl md:mt-6">
               Une approche mesurée,
               <br />un regard indépendant.
             </h2>
-            <p className="mt-6 max-w-md leading-relaxed text-muted-foreground">
+            <p className="mt-5 max-w-md leading-relaxed text-muted-foreground md:mt-6">
               Depuis douze ans, nous accompagnons propriétaires et acquéreurs
               dans leurs décisions les plus engageantes. Sans surenchère,
               sans procédure impersonnelle.
@@ -119,15 +119,15 @@ function Home() {
 
       {/* ACTUALITÉS */}
       {articles.length > 0 && (
-        <section className="container-narrow mt-32 md:mt-48">
-          <Reveal className="flex items-end justify-between gap-6">
-            <div>
-              <div className="text-xs uppercase tracking-[0.3em] text-muted-foreground">Journal</div>
-              <h2 className="mt-4 font-serif text-4xl">Dernières actualités</h2>
+        <section className="container-narrow mt-24 md:mt-40">
+          <Reveal className="flex flex-wrap items-end justify-between gap-4 md:gap-6">
+            <div className="min-w-0">
+              <div className="text-[11px] uppercase tracking-[0.3em] text-muted-foreground sm:text-xs">Journal</div>
+              <h2 className="mt-3 font-serif text-3xl sm:text-4xl md:mt-4">Dernières actualités</h2>
             </div>
-            <Link to="/actualites" className="hidden text-sm text-muted-foreground hover:text-foreground md:inline">Voir tout →</Link>
+            <Link to="/actualites" className="text-sm text-muted-foreground hover:text-foreground">Voir tout →</Link>
           </Reveal>
-          <div className="mt-12 grid gap-12 md:grid-cols-3">
+          <div className="mt-8 grid gap-8 sm:grid-cols-2 md:mt-12 md:gap-12 lg:grid-cols-3">
             {articles.map((a) => <Reveal key={a.id}><ArticleCard a={a} /></Reveal>)}
           </div>
         </section>
@@ -135,33 +135,36 @@ function Home() {
 
       {/* BIENS */}
       {properties.length > 0 && (
-        <section className="container-narrow mt-32 md:mt-48">
-          <Reveal className="flex items-end justify-between gap-6">
-            <div>
-              <div className="text-xs uppercase tracking-[0.3em] text-muted-foreground">Sélection</div>
-              <h2 className="mt-4 font-serif text-4xl">Biens en ligne</h2>
+        <section className="container-narrow mt-24 md:mt-40">
+          <Reveal className="flex flex-wrap items-end justify-between gap-4 md:gap-6">
+            <div className="min-w-0">
+              <div className="text-[11px] uppercase tracking-[0.3em] text-muted-foreground sm:text-xs">Sélection</div>
+              <h2 className="mt-3 font-serif text-3xl sm:text-4xl md:mt-4">Biens en ligne</h2>
             </div>
-            <Link to="/biens" className="hidden text-sm text-muted-foreground hover:text-foreground md:inline">Voir tout →</Link>
+            <Link to="/biens" className="text-sm text-muted-foreground hover:text-foreground">Voir tout →</Link>
           </Reveal>
-          <div className="mt-12 grid gap-12 md:grid-cols-3">
+          <div className="mt-8 grid gap-8 sm:grid-cols-2 md:mt-12 md:gap-12 lg:grid-cols-3">
             {properties.map((p) => <Reveal key={p.id}><PropertyCard p={p} /></Reveal>)}
           </div>
         </section>
       )}
 
       {/* CTA */}
-      <section className="container-narrow mt-32 md:mt-48">
+      <section className="container-narrow mt-24 md:mt-40">
         <Reveal>
-          <div className="glass-strong rounded-[2rem] px-8 py-20 text-center md:px-16 md:py-24">
+          <div className="glass-strong rounded-[2rem] px-6 py-16 text-center sm:px-10 md:px-16 md:py-24">
             <div className="mx-auto max-w-2xl">
-              <h2 className="font-serif text-4xl leading-tight md:text-5xl">
+              <h2 className="font-serif text-3xl leading-tight sm:text-4xl md:text-5xl">
                 Prêt à connaître la valeur juste de votre bien ?
               </h2>
-              <p className="mt-6 text-muted-foreground">
+              <p className="mt-5 text-muted-foreground md:mt-6">
                 Notre formulaire prend cinq minutes. Vous recevez ensuite un
                 retour humain, argumenté, sans engagement.
               </p>
-              <Link to="/estimation" className="mt-10 inline-block rounded-full bg-foreground px-10 py-4 text-xs uppercase tracking-widest text-background transition-opacity hover:opacity-90">
+              <Link
+                to="/estimation"
+                className="mt-8 inline-flex min-h-11 items-center rounded-full bg-foreground px-8 py-3.5 text-[11px] uppercase tracking-[0.18em] text-background transition-opacity hover:opacity-90 md:mt-10 md:px-10 md:py-4"
+              >
                 Commencer l'estimation
               </Link>
             </div>
