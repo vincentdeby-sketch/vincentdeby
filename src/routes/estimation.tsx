@@ -138,6 +138,7 @@ function Estimation() {
       </section>
 
       <section className="container-narrow mt-12 max-w-3xl">
+        <div className="glass rounded-3xl p-6 md:p-10">
         <ol className="mb-12 flex flex-wrap gap-x-6 gap-y-2 text-xs uppercase tracking-widest">
           {STEPS.map((s, i) => (
             <li key={s} className={i === step ? "text-foreground" : i < step ? "text-primary" : "text-muted-foreground"}>
