@@ -18,6 +18,9 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as BiensIdRouteImport } from './routes/biens.$id'
 import { Route as ActualitesSlugRouteImport } from './routes/actualites.$slug'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
+import { Route as AuthenticatedAdminEstimationsRouteImport } from './routes/_authenticated/admin.estimations'
+import { Route as AuthenticatedAdminBiensRouteImport } from './routes/_authenticated/admin.biens'
+import { Route as AuthenticatedAdminArticlesRouteImport } from './routes/_authenticated/admin.articles'
 
 const EstimationRoute = EstimationRouteImport.update({
   id: '/estimation',
@@ -63,6 +66,23 @@ const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
   path: '/admin/',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedAdminEstimationsRoute =
+  AuthenticatedAdminEstimationsRouteImport.update({
+    id: '/admin/estimations',
+    path: '/admin/estimations',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedAdminBiensRoute = AuthenticatedAdminBiensRouteImport.update({
+  id: '/admin/biens',
+  path: '/admin/biens',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedAdminArticlesRoute =
+  AuthenticatedAdminArticlesRouteImport.update({
+    id: '/admin/articles',
+    path: '/admin/articles',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -72,6 +92,9 @@ export interface FileRoutesByFullPath {
   '/estimation': typeof EstimationRoute
   '/actualites/$slug': typeof ActualitesSlugRoute
   '/biens/$id': typeof BiensIdRoute
+  '/admin/articles': typeof AuthenticatedAdminArticlesRoute
+  '/admin/biens': typeof AuthenticatedAdminBiensRoute
+  '/admin/estimations': typeof AuthenticatedAdminEstimationsRoute
   '/admin/': typeof AuthenticatedAdminIndexRoute
 }
 export interface FileRoutesByTo {
@@ -82,6 +105,9 @@ export interface FileRoutesByTo {
   '/estimation': typeof EstimationRoute
   '/actualites/$slug': typeof ActualitesSlugRoute
   '/biens/$id': typeof BiensIdRoute
+  '/admin/articles': typeof AuthenticatedAdminArticlesRoute
+  '/admin/biens': typeof AuthenticatedAdminBiensRoute
+  '/admin/estimations': typeof AuthenticatedAdminEstimationsRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
 }
 export interface FileRoutesById {
@@ -94,6 +120,9 @@ export interface FileRoutesById {
   '/estimation': typeof EstimationRoute
   '/actualites/$slug': typeof ActualitesSlugRoute
   '/biens/$id': typeof BiensIdRoute
+  '/_authenticated/admin/articles': typeof AuthenticatedAdminArticlesRoute
+  '/_authenticated/admin/biens': typeof AuthenticatedAdminBiensRoute
+  '/_authenticated/admin/estimations': typeof AuthenticatedAdminEstimationsRoute
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
 }
 export interface FileRouteTypes {
@@ -106,6 +135,9 @@ export interface FileRouteTypes {
     | '/estimation'
     | '/actualites/$slug'
     | '/biens/$id'
+    | '/admin/articles'
+    | '/admin/biens'
+    | '/admin/estimations'
     | '/admin/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -116,6 +148,9 @@ export interface FileRouteTypes {
     | '/estimation'
     | '/actualites/$slug'
     | '/biens/$id'
+    | '/admin/articles'
+    | '/admin/biens'
+    | '/admin/estimations'
     | '/admin'
   id:
     | '__root__'
@@ -127,6 +162,9 @@ export interface FileRouteTypes {
     | '/estimation'
     | '/actualites/$slug'
     | '/biens/$id'
+    | '/_authenticated/admin/articles'
+    | '/_authenticated/admin/biens'
+    | '/_authenticated/admin/estimations'
     | '/_authenticated/admin/'
   fileRoutesById: FileRoutesById
 }
@@ -204,14 +242,41 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminIndexRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/admin/estimations': {
+      id: '/_authenticated/admin/estimations'
+      path: '/admin/estimations'
+      fullPath: '/admin/estimations'
+      preLoaderRoute: typeof AuthenticatedAdminEstimationsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/admin/biens': {
+      id: '/_authenticated/admin/biens'
+      path: '/admin/biens'
+      fullPath: '/admin/biens'
+      preLoaderRoute: typeof AuthenticatedAdminBiensRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/admin/articles': {
+      id: '/_authenticated/admin/articles'
+      path: '/admin/articles'
+      fullPath: '/admin/articles'
+      preLoaderRoute: typeof AuthenticatedAdminArticlesRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
 interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAdminArticlesRoute: typeof AuthenticatedAdminArticlesRoute
+  AuthenticatedAdminBiensRoute: typeof AuthenticatedAdminBiensRoute
+  AuthenticatedAdminEstimationsRoute: typeof AuthenticatedAdminEstimationsRoute
   AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAdminArticlesRoute: AuthenticatedAdminArticlesRoute,
+  AuthenticatedAdminBiensRoute: AuthenticatedAdminBiensRoute,
+  AuthenticatedAdminEstimationsRoute: AuthenticatedAdminEstimationsRoute,
   AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
 }
 
