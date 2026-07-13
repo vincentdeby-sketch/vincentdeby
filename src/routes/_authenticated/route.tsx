@@ -33,17 +33,17 @@ function AuthedLayout() {
   }
 
   const links = [
-    { to: "/_authenticated/admin", label: "Vue d'ensemble", exact: true },
-    { to: "/_authenticated/admin/articles", label: "Actualités" },
-    { to: "/_authenticated/admin/biens", label: "Biens" },
-    { to: "/_authenticated/admin/estimations", label: "Demandes" },
-  ];
+    { to: "/admin", label: "Vue d'ensemble", exact: true },
+    { to: "/admin/articles", label: "Actualités", exact: false },
+    { to: "/admin/biens", label: "Biens", exact: false },
+    { to: "/admin/estimations", label: "Demandes", exact: false },
+  ] as const;
 
   return (
     <div className="min-h-screen">
       <header className="border-b border-border">
         <div className="container-narrow flex h-16 items-center justify-between">
-          <Link to="/_authenticated/admin" className="font-serif text-lg">Maison &amp; Associés · <span className="text-muted-foreground">Admin</span></Link>
+          <Link to="/admin" className="font-serif text-lg">Maison &amp; Associés · <span className="text-muted-foreground">Admin</span></Link>
           <div className="flex items-center gap-6 text-sm">
             <Link to="/" className="text-muted-foreground hover:text-foreground">Site public →</Link>
             <button onClick={async () => { await supabase.auth.signOut(); nav({ to: "/auth" }); }} className="text-muted-foreground hover:text-foreground">Se déconnecter</button>
@@ -53,7 +53,7 @@ function AuthedLayout() {
           {links.map((l) => {
             const active = l.exact ? pathname === l.to : pathname.startsWith(l.to);
             return (
-              <Link key={l.to} to={l.to as never} className={active ? "text-foreground" : "text-muted-foreground hover:text-foreground"}>
+              <Link key={l.to} to={l.to} className={active ? "text-foreground" : "text-muted-foreground hover:text-foreground"}>
                 {l.label}
               </Link>
             );
