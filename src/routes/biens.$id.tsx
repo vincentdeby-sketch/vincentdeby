@@ -1,10 +1,14 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
-import { supabase } from "@/integrations/supabase/client";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { SiteShell } from "@/components/site/SiteShell";
-import { formatEUR, type Property } from "@/lib/domain";
+import { formatEUR } from "@/lib/domain";
+import { propertyByIdQuery } from "@/lib/queries";
 
 export const Route = createFileRoute("/biens/$id")({
+  loader: async ({ context, params }) => {
+    const data = await context.queryClient.ensureQueryData(propertyByIdQuery(params.id));
+    if (!data) throw notFound();
+  },
   component: Detail,
   notFoundComponent: () => (
     <SiteShell>
@@ -14,17 +18,15 @@ export const Route = createFileRoute("/biens/$id")({
       </div>
     </SiteShell>
   ),
+  errorComponent: ({ error }) => (
+    <SiteShell><div className="container-narrow py-24 text-sm text-muted-foreground">{error.message}</div></SiteShell>
+  ),
 });
 
 function Detail() {
   const { id } = Route.useParams();
-  const [p, setP] = useState<Property | null | undefined>(undefined);
-  useEffect(() => {
-    supabase.from("properties").select("*").eq("id", id).eq("published", true).maybeSingle()
-      .then(({ data }) => setP((data as Property | null) ?? null));
-  }, [id]);
-  if (p === undefined) return <SiteShell><div className="container-narrow py-32 text-sm text-muted-foreground">Chargement…</div></SiteShell>;
-  if (p === null) throw notFound();
+  const { data: p } = useSuspenseQuery(propertyByIdQuery(id));
+  if (!p) throw notFound();
 
   const gallery = [p.cover_url, ...(p.photos ?? [])].filter(Boolean) as string[];
 
@@ -37,7 +39,7 @@ function Detail() {
         <div>
           {gallery[0] ? (
             <div className="aspect-[4/3] w-full overflow-hidden bg-muted">
-              <img src={gallery[0]} alt={p.title} className="h-full w-full object-cover" />
+              <img src={gallery[0]} alt={p.title} fetchPriority="high" decoding="async" className="h-full w-full object-cover" />
             </div>
           ) : (
             <div className="aspect-[4/3] w-full bg-muted" />
@@ -46,7 +48,7 @@ function Detail() {
             <div className="mt-4 grid grid-cols-3 gap-4">
               {gallery.slice(1, 7).map((src, i) => (
                 <div key={i} className="aspect-square overflow-hidden bg-muted">
-                  <img src={src} alt="" className="h-full w-full object-cover" />
+                  <img src={src} alt="" loading="lazy" decoding="async" className="h-full w-full object-cover" />
                 </div>
               ))}
             </div>

@@ -1,10 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
-import { supabase } from "@/integrations/supabase/client";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { SiteShell } from "@/components/site/SiteShell";
 import { ArticleCard } from "@/components/site/ArticleCard";
 import { Reveal } from "@/components/site/Reveal";
-import type { Article } from "@/lib/domain";
+import { articlesListQuery } from "@/lib/queries";
 
 export const Route = createFileRoute("/actualites")({
   head: () => ({
@@ -15,15 +14,15 @@ export const Route = createFileRoute("/actualites")({
       { property: "og:description", content: "Analyses de marché, décryptages et notes du cabinet." },
     ],
   }),
+  loader: ({ context }) => context.queryClient.ensureQueryData(articlesListQuery),
   component: ArticlesList,
+  errorComponent: ({ error }) => (
+    <SiteShell><div className="container-narrow py-24 text-sm text-muted-foreground">{error.message}</div></SiteShell>
+  ),
 });
 
 function ArticlesList() {
-  const [items, setItems] = useState<Article[] | null>(null);
-  useEffect(() => {
-    supabase.from("articles").select("*").eq("published", true).order("published_at", { ascending: false, nullsFirst: false })
-      .then(({ data }) => setItems((data ?? []) as Article[]));
-  }, []);
+  const { data: items } = useSuspenseQuery(articlesListQuery);
   return (
     <SiteShell>
       <section className="container-narrow pt-16 md:pt-24">
@@ -34,9 +33,7 @@ function ArticlesList() {
         </p>
       </section>
       <section className="container-narrow mt-16">
-        {items === null ? (
-          <div className="text-sm text-muted-foreground">Chargement…</div>
-        ) : items.length === 0 ? (
+        {items.length === 0 ? (
           <div className="border border-dashed border-border py-24 text-center text-sm text-muted-foreground">
             Aucun article publié pour le moment.
           </div>

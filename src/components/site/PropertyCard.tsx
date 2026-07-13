@@ -12,6 +12,7 @@ export function PropertyCard({ p }: { p: Property }) {
               src={p.cover_url}
               alt={p.title}
               loading="lazy"
+              decoding="async"
               className="h-full w-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.04]"
             />
           ) : (

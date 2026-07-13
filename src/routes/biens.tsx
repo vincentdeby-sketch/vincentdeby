@@ -1,10 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
-import { supabase } from "@/integrations/supabase/client";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { SiteShell } from "@/components/site/SiteShell";
 import { PropertyCard } from "@/components/site/PropertyCard";
 import { Reveal } from "@/components/site/Reveal";
-import type { Property } from "@/lib/domain";
+import { propertiesListQuery } from "@/lib/queries";
 
 export const Route = createFileRoute("/biens")({
   head: () => ({
@@ -15,15 +14,15 @@ export const Route = createFileRoute("/biens")({
       { property: "og:description", content: "Une sélection de biens à la vente." },
     ],
   }),
+  loader: ({ context }) => context.queryClient.ensureQueryData(propertiesListQuery),
   component: List,
+  errorComponent: ({ error }) => (
+    <SiteShell><div className="container-narrow py-24 text-sm text-muted-foreground">{error.message}</div></SiteShell>
+  ),
 });
 
 function List() {
-  const [items, setItems] = useState<Property[] | null>(null);
-  useEffect(() => {
-    supabase.from("properties").select("*").eq("published", true).order("created_at", { ascending: false })
-      .then(({ data }) => setItems((data ?? []) as Property[]));
-  }, []);
+  const { data: items } = useSuspenseQuery(propertiesListQuery);
   return (
     <SiteShell>
       <section className="container-narrow pt-16 md:pt-24">
@@ -34,9 +33,7 @@ function List() {
         </p>
       </section>
       <section className="container-narrow mt-16">
-        {items === null ? (
-          <div className="text-sm text-muted-foreground">Chargement…</div>
-        ) : items.length === 0 ? (
+        {items.length === 0 ? (
           <div className="border border-dashed border-border py-24 text-center text-sm text-muted-foreground">
             Aucun bien en ligne pour le moment.
           </div>
