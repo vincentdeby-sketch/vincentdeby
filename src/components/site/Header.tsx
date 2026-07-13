@@ -77,6 +77,12 @@ export function Header() {
           {/* Actions — right */}
           <div className="flex items-center gap-2 shrink-0">
             <Link
+              to="/auth"
+              className="rounded-full border border-foreground/20 px-3 py-2.5 text-[11px] uppercase tracking-[0.14em] text-foreground transition-colors hover:border-foreground hover:bg-foreground hover:text-background sm:px-4 md:px-5 md:tracking-[0.18em]"
+            >
+              Connexion
+            </Link>
+            <Link
               to="/estimation"
               className="hidden rounded-full bg-foreground px-5 py-2.5 text-[11px] uppercase tracking-[0.18em] text-background transition-opacity hover:opacity-90 md:inline-block"
             >
@@ -118,6 +124,13 @@ export function Header() {
                 className="mt-2 rounded-2xl bg-foreground py-3.5 text-center text-xs uppercase tracking-[0.18em] text-background"
               >
                 Estimer mon bien
+              </Link>
+              <Link
+                to="/auth"
+                onClick={() => setOpen(false)}
+                className="mt-2 rounded-2xl border border-foreground/20 py-3.5 text-center text-xs uppercase tracking-[0.18em] text-foreground hover:bg-foreground hover:text-background"
+              >
+                Connexion
               </Link>
             </nav>
           </div>
