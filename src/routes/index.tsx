@@ -55,22 +55,28 @@ function Home() {
       <section className="relative">
         <div className="container-narrow pt-10 md:pt-20">
           <div className="max-w-3xl">
-            <div className="text-xs uppercase tracking-[0.3em] text-muted-foreground">Estimation immobilière</div>
-            <h1 className="mt-6 font-serif text-[clamp(2.5rem,6vw,5rem)] leading-[1.02]">
+            <div className="text-[11px] uppercase tracking-[0.3em] text-muted-foreground sm:text-xs">Estimation immobilière</div>
+            <h1 className="mt-5 font-serif text-[clamp(2.25rem,8vw,5rem)] leading-[1.03] md:mt-6">
               Votre projet immobilier,
               <br />
               <span className="italic text-primary">au plus près.</span>
             </h1>
-            <p className="mt-8 max-w-xl text-lg leading-relaxed text-muted-foreground">
+            <p className="mt-6 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg md:mt-8">
               Une lecture précise de votre bien, ancrée dans son marché local.
               Nous conjuguons données, terrain et discrétion pour vous proposer
               une estimation crédible — jamais gonflée, jamais dévaluée.
             </p>
-            <div className="mt-10 flex flex-wrap items-center gap-4">
-              <Link to="/estimation" className="border border-foreground bg-foreground px-8 py-4 text-xs uppercase tracking-widest text-background transition-opacity hover:opacity-90">
+            <div className="mt-8 flex flex-wrap items-center gap-3 md:mt-10 md:gap-4">
+              <Link
+                to="/estimation"
+                className="inline-flex min-h-11 items-center rounded-full bg-foreground px-7 py-3.5 text-[11px] uppercase tracking-[0.18em] text-background transition-opacity hover:opacity-90 md:px-8 md:py-4"
+              >
                 Estimer mon bien
               </Link>
-              <Link to="/contact" className="border border-foreground/20 px-8 py-4 text-xs uppercase tracking-widest transition-colors hover:border-foreground">
+              <Link
+                to="/contact"
+                className="inline-flex min-h-11 items-center rounded-full border border-foreground/20 px-7 py-3.5 text-[11px] uppercase tracking-[0.18em] transition-colors hover:border-foreground md:px-8 md:py-4"
+              >
                 Prendre rendez-vous
               </Link>
             </div>
