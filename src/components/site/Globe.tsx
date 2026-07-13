@@ -27,6 +27,7 @@ export default function Globe({
     let width = size;
 
     const theta = (lat * Math.PI) / 180;
+    phiRef.current = targetPhiRef.current;
 
     const globe = createGlobe(canvas, {
       devicePixelRatio: 2,
@@ -38,27 +39,27 @@ export default function Globe({
       diffuse: 1.15,
       mapSamples: 18000,
       mapBrightness: 5.5,
-      baseColor: [0.92, 0.9, 0.85], // sand
-      markerColor: [0.16, 0.29, 0.24], // bottle green
+      baseColor: [0.92, 0.9, 0.85],
+      markerColor: [0.16, 0.29, 0.24],
       glowColor: [0.9, 0.86, 0.78],
       markers: [{ location: [lat, lng], size: 0.08 }],
-      onRender: (state) => {
-        // Smooth interpolate phi toward target while drifting slowly
-        phiRef.current += (targetPhiRef.current - phiRef.current) * 0.06;
-        // Add subtle continuous rotation for life
-        targetPhiRef.current += 0.0015;
-        state.phi = phiRef.current;
-        state.width = width * 2;
-        state.height = width * 2;
-      },
     });
+
+    let raf = 0;
+    const tick = () => {
+      phiRef.current += (targetPhiRef.current - phiRef.current) * 0.06;
+      targetPhiRef.current += 0.0015;
+      globe.update({ phi: phiRef.current });
+      raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
 
     const onResize = () => {
       width = canvas.clientWidth || 400;
+      globe.update({ width: width * 2, height: width * 2 });
     };
     window.addEventListener("resize", onResize);
 
-    // Fade-in
     canvas.style.opacity = "0";
     requestAnimationFrame(() => {
       canvas.style.transition = "opacity 600ms ease";
@@ -66,6 +67,7 @@ export default function Globe({
     });
 
     return () => {
+      cancelAnimationFrame(raf);
       window.removeEventListener("resize", onResize);
       globe.destroy();
     };
