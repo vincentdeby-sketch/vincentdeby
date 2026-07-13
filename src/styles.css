@@ -104,6 +104,58 @@
   max-width: 72rem;
 }
 
+/* Liquid glass surface — subtle, editorial */
+@utility glass {
+  background: color-mix(in oklch, var(--color-background) 55%, transparent);
+  backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid color-mix(in oklch, white 55%, transparent);
+  box-shadow: 0 12px 40px -20px color-mix(in oklch, var(--color-ink) 40%, transparent);
+}
+
+@utility glass-strong {
+  background: color-mix(in oklch, var(--color-background) 72%, transparent);
+  backdrop-filter: blur(28px) saturate(180%);
+  border: 1px solid color-mix(in oklch, white 60%, transparent);
+  box-shadow: 0 20px 60px -30px color-mix(in oklch, var(--color-ink) 45%, transparent);
+}
+
+@utility glass-panel {
+  background: color-mix(in oklch, var(--color-background) 45%, transparent);
+  backdrop-filter: blur(20px) saturate(160%);
+  border: 1px solid color-mix(in oklch, white 45%, transparent);
+}
+
+/* Ambient orbs — colored blur behind glass surfaces */
+body {
+  position: relative;
+  overflow-x: hidden;
+}
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  z-index: -1;
+  border-radius: 999px;
+  filter: blur(120px);
+  opacity: 0.55;
+  pointer-events: none;
+}
+body::before {
+  top: -10%;
+  left: -8%;
+  width: 42rem;
+  height: 42rem;
+  background: radial-gradient(circle at 30% 30%, color-mix(in oklch, var(--color-primary) 55%, transparent), transparent 65%);
+}
+body::after {
+  bottom: -15%;
+  right: -12%;
+  width: 48rem;
+  height: 48rem;
+  background: radial-gradient(circle at 60% 60%, color-mix(in oklch, var(--color-sand) 90%, transparent), transparent 70%);
+  opacity: 0.75;
+}
+
 /* Reveal on scroll */
 .reveal { opacity: 0; transform: translateY(16px); transition: opacity 900ms ease, transform 900ms ease; }
 .reveal.is-visible { opacity: 1; transform: none; }
