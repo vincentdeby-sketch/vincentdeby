@@ -63,7 +63,16 @@ function Auth() {
             {busy ? "…" : mode === "in" ? "Se connecter" : "Créer le compte"}
           </button>
         </form>
-        <button type="button" onClick={() => setMode(mode === "in" ? "up" : "in")} className="mt-6 text-sm text-muted-foreground underline">
+        <div className="mt-4 flex items-center gap-3">
+          <div className="h-px flex-1 bg-border" />
+          <span className="text-[10px] uppercase tracking-widest text-muted-foreground">ou</span>
+          <div className="h-px flex-1 bg-border" />
+        </div>
+        <button
+          type="button"
+          onClick={() => setMode(mode === "in" ? "up" : "in")}
+          className="mt-4 w-full border border-foreground bg-background px-8 py-3 text-xs uppercase tracking-widest text-foreground transition-colors hover:bg-foreground hover:text-background"
+        >
           {mode === "in" ? "Créer un compte" : "J'ai déjà un compte"}
         </button>
         <div className="mt-8"><Link to="/" className="text-sm text-muted-foreground hover:text-foreground">← Retour au site</Link></div>
