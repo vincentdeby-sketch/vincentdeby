@@ -101,25 +101,38 @@ function Home() {
         </Reveal>
       </section>
 
-      {/* RÉASSURANCE */}
+      {/* MON APPROCHE */}
       <section className="container-narrow mt-24 md:mt-40">
-        <Reveal className="grid gap-10 sm:grid-cols-2 md:grid-cols-4 md:gap-16">
-          <div className="sm:col-span-2 md:col-span-2">
-            <div className="text-[11px] uppercase tracking-[0.3em] text-muted-foreground sm:text-xs">L'approche</div>
-            <h2 className="mt-4 font-serif text-3xl leading-tight sm:text-4xl md:mt-6">
-              Une approche mesurée,
-              <br />un regard indépendant.
+        <Reveal className="grid gap-12 md:grid-cols-12 md:gap-16">
+          <div className="md:col-span-5">
+            <div className="text-[11px] uppercase tracking-[0.3em] text-muted-foreground sm:text-xs">Mon approche</div>
+            <h2 className="mt-4 font-serif text-3xl leading-tight sm:text-4xl md:mt-6 md:text-5xl">
+              Vingt-cinq ans
+              <br />de journalisme,
+              <br /><span className="italic text-primary">au service du prix juste.</span>
             </h2>
-            <p className="mt-5 max-w-md leading-relaxed text-muted-foreground md:mt-6">
-              Depuis douze ans, nous accompagnons propriétaires et acquéreurs
-              dans leurs décisions les plus engageantes. Sans surenchère,
-              sans procédure impersonnelle.
+          </div>
+          <div className="space-y-6 text-base leading-relaxed text-muted-foreground md:col-span-7 md:text-lg">
+            <p>
+              J'ai passé vingt-cinq ans dans le journalisme. Vérifier les sources,
+              recouper les informations, distinguer un chiffre solide d'une rumeur :
+              c'est le métier. Depuis octobre 2025, je l'exerce autrement,
+              comme conseiller immobilier indépendant, mandataire Efficity.
+            </p>
+            <p>
+              Une estimation, pour moi, ce n'est pas un avis. C'est un dossier.
+              Je m'appuie sur les <span className="text-foreground">ventes réelles et récentes</span> de
+              votre rue, de votre immeuble, de votre quartier — Boulogne-Billancourt,
+              Issy, Sèvres, Saint-Cloud, Paris 15e et 16e — et je vous les montre.
+            </p>
+            <p>
+              Je vous dis le prix juste, même quand il ne fait pas plaisir.
+              C'est la condition d'une vente qui aboutit, et d'une relation qui dure.
             </p>
           </div>
-          <Metric value="1 240" label="Estimations réalisées" />
-          <Metric value="12 ans" label="d'expertise locale" />
         </Reveal>
       </section>
+
 
       {/* ACTUALITÉS */}
       {articles.length > 0 && (
