@@ -58,17 +58,15 @@ function Home() {
           <div className="max-w-3xl">
             <div className="text-[11px] uppercase tracking-[0.3em] text-muted-foreground sm:text-xs">Estimation · Boulogne-Billancourt & ouest parisien</div>
             <h1 className="mt-5 font-serif text-[clamp(2.25rem,8vw,5rem)] leading-[1.03] md:mt-6">
-              Votre projet immobilier,
+              Le prix juste,
               <br />
-              <span className="italic text-primary">sur mesure.</span>
+              <span className="italic text-primary">vérifié par les faits.</span>
             </h1>
             <p className="mt-6 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg md:mt-8">
-              Je suis Vincent Deby, conseiller immobilier Efficity à Boulogne-Billancourt.
+              Je suis Vincent Deby, mandataire Efficity à Boulogne-Billancourt.
               Ancien journaliste, j'applique à l'estimation la rigueur du métier :
               données croisées, ventes réelles et récentes du quartier, terrain.
               Un prix argumenté — jamais gonflé pour plaire, jamais dévalué.
-              <br />
-              Je vous accompagne de A à Z de l'offre à l'acte authentique.
             </p>
 
             <div className="mt-8 flex flex-wrap items-center gap-3 md:mt-10 md:gap-4">
