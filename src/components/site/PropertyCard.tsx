@@ -8,11 +8,12 @@ export function PropertyCard({ p }: { p: Property }) {
       <Link
         to="/biens/$id"
         params={{ id: p.id }}
-        className="group block rounded-3xl focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
+        className="group block focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
         aria-label={`${p.title} — ${formatEUR(p.price)}`}
       >
-        <div className="glass overflow-hidden rounded-3xl p-3 transition-shadow duration-500 group-hover:shadow-[0_24px_60px_-30px_color-mix(in_oklch,var(--color-ink)_50%,transparent)]">
-          <div className="aspect-[4/3] w-full overflow-hidden rounded-2xl bg-muted">
+        <div className="overflow-hidden border border-foreground/10 bg-background/40 transition-colors duration-300 group-hover:border-foreground/30">
+          <div className="aspect-[4/3] w-full overflow-hidden bg-muted">
+
             {p.cover_url ? (
               <img
                 src={p.cover_url}
