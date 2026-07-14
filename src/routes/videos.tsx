@@ -40,31 +40,44 @@ function VideosPage() {
         </p>
       </section>
 
-      <section className="container-narrow mt-10 md:mt-16">
-        <div className="grid gap-10 md:gap-16">
-          {videos.map((v, i) => (
-            <Reveal key={i}>
-              <article className="glass overflow-hidden rounded-3xl p-3">
-                <div className="aspect-video w-full overflow-hidden rounded-2xl bg-muted">
-                  <iframe
-                    src={`https://www.youtube-nocookie.com/embed/${v.youtubeId}`}
-                    title={v.title}
-                    loading="lazy"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    referrerPolicy="strict-origin-when-cross-origin"
-                    allowFullScreen
-                    className="h-full w-full border-0"
-                  />
-                </div>
-                <div className="px-2 pb-2 pt-5">
-                  <h2 className="font-serif text-xl leading-snug sm:text-2xl">{v.title}</h2>
-                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{v.description}</p>
-                </div>
-              </article>
-            </Reveal>
-          ))}
-        </div>
+      <section className="container-narrow mt-10 md:mt-16 pb-24">
+        {videos.length === 0 ? (
+          <Reveal>
+            <div className="liquid-glass rounded-3xl px-6 py-16 text-center sm:px-10 md:py-24">
+              <div className="text-[11px] uppercase tracking-[0.3em] text-muted-foreground">Bientôt</div>
+              <h2 className="mt-4 font-serif text-2xl sm:text-3xl md:text-4xl">Les vidéos arrivent prochainement</h2>
+              <p className="mx-auto mt-4 max-w-md text-sm text-muted-foreground md:text-base">
+                Cette section accueillera bientôt des présentations, conseils et analyses de marché en vidéo.
+              </p>
+            </div>
+          </Reveal>
+        ) : (
+          <div className="grid gap-10 md:gap-16">
+            {videos.map((v, i) => (
+              <Reveal key={i}>
+                <article className="glass overflow-hidden rounded-3xl p-3">
+                  <div className="aspect-video w-full overflow-hidden rounded-2xl bg-muted">
+                    <iframe
+                      src={`https://www.youtube-nocookie.com/embed/${v.youtubeId}`}
+                      title={v.title}
+                      loading="lazy"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      referrerPolicy="strict-origin-when-cross-origin"
+                      allowFullScreen
+                      className="h-full w-full border-0"
+                    />
+                  </div>
+                  <div className="px-2 pb-2 pt-5">
+                    <h2 className="font-serif text-xl leading-snug sm:text-2xl">{v.title}</h2>
+                    <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{v.description}</p>
+                  </div>
+                </article>
+              </Reveal>
+            ))}
+          </div>
+        )}
       </section>
+
     </SiteShell>
   );
 }
