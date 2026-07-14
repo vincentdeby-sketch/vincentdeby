@@ -9,10 +9,10 @@ export function ArticleCard({ a }: { a: Article }) {
       <Link
         to="/actualites/$slug"
         params={{ slug: a.slug }}
-        className="group block rounded-3xl focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
+        className="group block focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
       >
-        <div className="glass overflow-hidden rounded-3xl p-3 transition-shadow duration-500 group-hover:shadow-[0_24px_60px_-30px_color-mix(in_oklch,var(--color-ink)_50%,transparent)]">
-          <div className="aspect-[3/2] w-full overflow-hidden rounded-2xl bg-muted">
+        <div className="overflow-hidden border border-foreground/10 bg-background/40 transition-colors duration-300 group-hover:border-foreground/30">
+          <div className="aspect-[3/2] w-full overflow-hidden bg-muted">
             {a.cover_url ? (
               <img
                 src={a.cover_url}
@@ -25,7 +25,8 @@ export function ArticleCard({ a }: { a: Article }) {
               <div className="h-full w-full bg-sand" />
             )}
           </div>
-          <div className="px-2 pb-2 pt-4">
+          <div className="px-4 pb-5 pt-4">
+
             {date && (
               <time dateTime={date} className="text-xs uppercase tracking-widest text-muted-foreground">
                 {formatDate(date)}
