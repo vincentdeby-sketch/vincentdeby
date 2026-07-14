@@ -28,7 +28,7 @@ export function PropertyCard({ p }: { p: Property }) {
               </div>
             )}
           </div>
-          <div className="px-2 pb-2 pt-4">
+          <div className="px-4 pb-4 pt-4">
             <div className="flex items-baseline justify-between gap-3">
               <h3 className="min-w-0 font-serif text-lg leading-snug sm:text-xl">
                 <span className="line-clamp-2">{p.title}</span>
