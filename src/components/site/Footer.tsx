@@ -16,9 +16,11 @@ export function Footer() {
               Conseiller Immobilier · Mandataire Efficity
             </div>
             <p className="mt-4 max-w-sm text-sm leading-relaxed text-muted-foreground">
-              Estimation et transaction immobilière. Expertise locale, approche
-              mesurée, discrétion.
+              Estimation et transaction immobilière à Boulogne-Billancourt,
+              Issy-les-Moulineaux, Sèvres, Saint-Cloud, Paris 15e et 16e.
+              Ancien journaliste, j'applique à l'immobilier la rigueur du métier.
             </p>
+
             <div className="mt-6 max-w-sm">
               <div className="mb-3 text-xs uppercase tracking-widest text-muted-foreground">
                 Newsletter
