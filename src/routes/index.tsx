@@ -58,15 +58,17 @@ function Home() {
           <div className="max-w-3xl">
             <div className="text-[11px] uppercase tracking-[0.3em] text-muted-foreground sm:text-xs">Estimation · Boulogne-Billancourt & ouest parisien</div>
             <h1 className="mt-5 font-serif text-[clamp(2.25rem,8vw,5rem)] leading-[1.03] md:mt-6">
-              Le prix juste,
+              Votre projet immobilier,
               <br />
-              <span className="italic text-primary">vérifié par les faits.</span>
+              <span className="italic text-primary">sur mesure.</span>
             </h1>
             <p className="mt-6 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg md:mt-8">
               Je suis Vincent Deby, mandataire Efficity à Boulogne-Billancourt.
               Ancien journaliste, j'applique à l'estimation la rigueur du métier :
               données croisées, ventes réelles et récentes du quartier, terrain.
               Un prix argumenté — jamais gonflé pour plaire, jamais dévalué.
+              Je vous accompagne avec sérieux de A à Z. Je commercialise et
+              sécurise la vente jusqu'à la remise des clés.
             </p>
 
             <div className="mt-8 flex flex-wrap items-center gap-3 md:mt-10 md:gap-4">
@@ -107,17 +109,14 @@ function Home() {
           <div className="md:col-span-5">
             <div className="text-[11px] uppercase tracking-[0.3em] text-muted-foreground sm:text-xs">Mon approche</div>
             <h2 className="mt-4 font-serif text-3xl leading-tight sm:text-4xl md:mt-6 md:text-5xl">
-              Vingt-cinq ans
-              <br />de journalisme,
-              <br /><span className="italic text-primary">au service du prix juste.</span>
+              <span className="italic text-primary">Qui suis-je ?</span>
             </h2>
           </div>
           <div className="space-y-6 text-base leading-relaxed text-muted-foreground md:col-span-7 md:text-lg">
             <p>
               J'ai passé vingt-cinq ans dans le journalisme. Vérifier les sources,
               recouper les informations, distinguer un chiffre solide d'une rumeur :
-              c'est le métier. Depuis octobre 2025, je l'exerce autrement,
-              comme conseiller immobilier indépendant, mandataire Efficity.
+              c'est le métier.
             </p>
             <p>
               Une estimation, pour moi, ce n'est pas un avis. C'est un dossier.
