@@ -10,24 +10,9 @@ type Video = {
   youtubeId: string;
 };
 
-// Remplacez les IDs par vos vraies vidéos YouTube.
-const videos: Video[] = [
-  {
-    title: "Présentation — Vincent Deby, conseiller immobilier",
-    description: "Découvrez ma démarche, mon accompagnement et ma vision de l'immobilier.",
-    youtubeId: "dQw4w9WgXcQ",
-  },
-  {
-    title: "Estimer son bien au juste prix",
-    description: "Les clés d'une estimation rigoureuse pour vendre dans les meilleurs délais.",
-    youtubeId: "dQw4w9WgXcQ",
-  },
-  {
-    title: "Marché immobilier — analyse & perspectives",
-    description: "Décryptage des tendances récentes et de ce qu'elles impliquent pour vous.",
-    youtubeId: "dQw4w9WgXcQ",
-  },
-];
+// Ajoutez ici vos vraies vidéos YouTube (youtubeId = l'ID après ?v= dans l'URL).
+const videos: Video[] = [];
+
 
 export const Route = createFileRoute("/videos")({
   head: () => ({
