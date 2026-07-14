@@ -48,7 +48,7 @@ export function Footer() {
         </div>
         <div className="mt-6 flex flex-col justify-between gap-2 px-2 text-xs text-muted-foreground sm:px-4 md:flex-row">
           <div>© {new Date().getFullYear()} Vincent Deby — Mandataire Efficity. Tous droits réservés.</div>
-          <div>Estimations réalisées avec expertise locale.</div>
+          <div>Boulogne-Billancourt & ouest parisien.</div>
         </div>
       </div>
     </footer>
