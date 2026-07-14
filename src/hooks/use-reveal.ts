@@ -32,6 +32,13 @@ export function useReveal<T extends HTMLElement = HTMLDivElement>() {
       el.classList.add("is-visible");
       return;
     }
+    // Fallback: reveal immediately if already in viewport at mount
+    const rect = el.getBoundingClientRect();
+    const vh = window.innerHeight || document.documentElement.clientHeight;
+    if (rect.top < vh && rect.bottom > 0) {
+      el.classList.add("is-visible");
+      return;
+    }
     callbacks.set(el, () => el.classList.add("is-visible"));
     io.observe(el);
     return () => {
