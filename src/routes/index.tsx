@@ -69,17 +69,18 @@ function Home() {
             <div className="mt-8 flex flex-wrap items-center gap-3 md:mt-10 md:gap-4">
               <Link
                 to="/estimation"
-                className="inline-flex min-h-11 items-center rounded-full bg-foreground px-7 py-3.5 text-[11px] uppercase tracking-[0.18em] text-background transition-opacity hover:opacity-90 md:px-8 md:py-4"
+                className="inline-flex min-h-11 items-center bg-foreground px-8 py-3.5 text-[11px] uppercase tracking-[0.2em] text-background transition-colors hover:bg-primary md:px-10 md:py-4"
               >
                 Estimer mon bien
               </Link>
               <Link
                 to="/contact"
-                className="inline-flex min-h-11 items-center rounded-full border border-foreground/20 px-7 py-3.5 text-[11px] uppercase tracking-[0.18em] transition-colors hover:border-foreground md:px-8 md:py-4"
+                className="inline-flex min-h-11 items-center border border-foreground/25 px-8 py-3.5 text-[11px] uppercase tracking-[0.2em] transition-colors hover:border-foreground md:px-10 md:py-4"
               >
                 Prendre rendez-vous
               </Link>
             </div>
+
           </div>
         </div>
         <Reveal className="container-narrow mt-16 md:mt-24">
