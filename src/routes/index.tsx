@@ -172,12 +172,13 @@ function Home() {
           <div className="border-t border-b border-foreground/15 bg-background/50 px-6 py-16 text-center sm:px-10 md:px-16 md:py-24">
             <div className="mx-auto max-w-2xl">
               <h2 className="font-serif text-3xl leading-tight sm:text-4xl md:text-5xl">
-                Prêt à connaître la valeur juste de votre bien ?
+                Envie de connaître la valeur juste de votre bien ?
               </h2>
               <p className="mt-5 text-muted-foreground md:mt-6">
-                Notre formulaire prend cinq minutes. Vous recevez ensuite un
-                retour humain, argumenté, sans engagement.
+                Le formulaire prend cinq minutes. Je vous rappelle ensuite
+                avec un retour humain, argumenté, sans engagement.
               </p>
+
               <Link
                 to="/estimation"
                 className="mt-8 inline-flex min-h-11 items-center bg-foreground px-10 py-3.5 text-[11px] uppercase tracking-[0.2em] text-background transition-colors hover:bg-primary md:mt-10 md:px-12 md:py-4"
