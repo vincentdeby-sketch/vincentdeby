@@ -141,8 +141,8 @@ function Detail() {
             {p.rooms && <><dt className="text-muted-foreground">Pièces</dt><dd className="text-right">{p.rooms}</dd></>}
             {p.bedrooms && <><dt className="text-muted-foreground">Chambres</dt><dd className="text-right">{p.bedrooms}</dd></>}
           </dl>
-          <a href="mailto:vdeby@efficity.com" className="mt-8 block border border-foreground bg-foreground px-6 py-4 text-center text-xs uppercase tracking-widest text-background">
-            Nous contacter
+          <a href="mailto:vincentdeby@gmail.com" className="mt-8 block border border-foreground bg-foreground px-6 py-4 text-center text-xs uppercase tracking-widest text-background">
+            Me contacter
           </a>
         </aside>
       </section>

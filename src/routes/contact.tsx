@@ -28,7 +28,7 @@ export const Route = createFileRoute("/contact")({
             jobTitle: "Conseiller Immobilier",
             worksFor: { "@type": "Organization", name: "Efficity" },
             telephone: "+33610022436",
-            email: "vdeby@efficity.com",
+            email: "vincentdeby@gmail.com",
           },
         }),
       },
@@ -39,7 +39,7 @@ export const Route = createFileRoute("/contact")({
 
 const PHONE = "+33610022436";
 const PHONE_DISPLAY = "+33 6 10 02 24 36";
-const EMAIL = "vdeby@efficity.com";
+const EMAIL = "vincentdeby@gmail.com";
 const RDV_URL = `mailto:${EMAIL}?subject=Prise%20de%20rendez-vous`;
 
 function ContactPage() {

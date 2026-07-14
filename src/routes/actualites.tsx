@@ -33,7 +33,7 @@ function ArticlesList() {
         <div className="text-[11px] uppercase tracking-[0.3em] text-muted-foreground sm:text-xs">Journal</div>
         <h1 className="mt-4 font-serif text-4xl leading-[1.05] sm:text-5xl md:mt-6 md:text-6xl">Actualités</h1>
         <p className="mt-5 max-w-xl text-muted-foreground md:mt-6">
-          Nos analyses, décryptages et notes autour du marché immobilier.
+          Mes analyses et décryptages du marché immobilier à Boulogne-Billancourt et dans l’ouest parisien.
         </p>
       </section>
       <section className="container-narrow mt-10 md:mt-16">

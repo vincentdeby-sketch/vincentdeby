@@ -3,7 +3,7 @@ import { NewsletterForm } from "./NewsletterForm";
 
 const PHONE = "+33610022436";
 const PHONE_DISPLAY = "+33 6 10 02 24 36";
-const EMAIL = "vdeby@efficity.com";
+const EMAIL = "vincentdeby@gmail.com";
 
 export function Footer() {
   return (
