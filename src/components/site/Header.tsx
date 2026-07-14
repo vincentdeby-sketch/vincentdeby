@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
+import portrait from "@/assets/vincent-deby.jpg";
 
 const nav = [
   { to: "/", label: "Accueil" },
@@ -49,6 +50,21 @@ export function Header() {
             aria-label="Vincent Deby — Accueil"
             className="flex min-w-0 items-center gap-3 shrink-0 rounded-full"
           >
+            <span className="relative inline-block h-10 w-10 shrink-0 sm:h-11 sm:w-11">
+              <span
+                aria-hidden="true"
+                className="absolute inset-0 rounded-full bg-gradient-to-br from-primary/40 via-foreground/10 to-transparent p-[1.5px]"
+              >
+                <span className="block h-full w-full rounded-full bg-background" />
+              </span>
+              <img
+                src={portrait}
+                alt="Portrait de Vincent Deby"
+                loading="eager"
+                decoding="async"
+                className="relative h-full w-full rounded-full object-cover ring-1 ring-foreground/10"
+              />
+            </span>
             <span className="font-serif text-base leading-none sm:text-lg md:text-xl">Vincent Deby</span>
             <span className="hidden h-4 w-px bg-foreground/20 lg:inline-block" />
             <span className="hidden text-[10px] uppercase leading-tight tracking-[0.18em] text-muted-foreground lg:inline">
