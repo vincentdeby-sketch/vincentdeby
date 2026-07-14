@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
+import portrait from "@/assets/vincent-deby.jpg";
 
 const nav = [
   { to: "/", label: "Accueil" },
