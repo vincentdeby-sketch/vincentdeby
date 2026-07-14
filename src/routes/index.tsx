@@ -63,7 +63,7 @@ function Home() {
               <span className="italic text-primary">sur mesure.</span>
             </h1>
             <p className="mt-6 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg md:mt-8">
-              Je suis Vincent Deby, mandataire Efficity à Boulogne-Billancourt.
+              Je suis Vincent Deby, conseiller immobilier Efficity à Boulogne-Billancourt.
               Ancien journaliste, j'applique à l'estimation la rigueur du métier :
               données croisées, ventes réelles et récentes du quartier, terrain.
               Un prix argumenté — jamais gonflé pour plaire, jamais dévalué.
