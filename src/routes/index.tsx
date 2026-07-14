@@ -194,11 +194,3 @@ function Home() {
   );
 }
 
-function Metric({ value, label }: { value: string; label: string }) {
-  return (
-    <div>
-      <div className="font-serif text-4xl text-primary sm:text-5xl">{value}</div>
-      <div className="mt-2 text-sm text-muted-foreground md:mt-3">{label}</div>
-    </div>
-  );
-}
