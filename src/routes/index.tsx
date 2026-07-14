@@ -69,17 +69,18 @@ function Home() {
             <div className="mt-8 flex flex-wrap items-center gap-3 md:mt-10 md:gap-4">
               <Link
                 to="/estimation"
-                className="inline-flex min-h-11 items-center rounded-full bg-foreground px-7 py-3.5 text-[11px] uppercase tracking-[0.18em] text-background transition-opacity hover:opacity-90 md:px-8 md:py-4"
+                className="inline-flex min-h-11 items-center bg-foreground px-8 py-3.5 text-[11px] uppercase tracking-[0.2em] text-background transition-colors hover:bg-primary md:px-10 md:py-4"
               >
                 Estimer mon bien
               </Link>
               <Link
                 to="/contact"
-                className="inline-flex min-h-11 items-center rounded-full border border-foreground/20 px-7 py-3.5 text-[11px] uppercase tracking-[0.18em] transition-colors hover:border-foreground md:px-8 md:py-4"
+                className="inline-flex min-h-11 items-center border border-foreground/25 px-8 py-3.5 text-[11px] uppercase tracking-[0.2em] transition-colors hover:border-foreground md:px-10 md:py-4"
               >
                 Prendre rendez-vous
               </Link>
             </div>
+
           </div>
         </div>
         <Reveal className="container-narrow mt-16 md:mt-24">
@@ -152,7 +153,7 @@ function Home() {
       {/* CTA */}
       <section className="container-narrow mt-24 md:mt-40">
         <Reveal>
-          <div className="glass-strong rounded-[2rem] px-6 py-16 text-center sm:px-10 md:px-16 md:py-24">
+          <div className="border-t border-b border-foreground/15 bg-background/50 px-6 py-16 text-center sm:px-10 md:px-16 md:py-24">
             <div className="mx-auto max-w-2xl">
               <h2 className="font-serif text-3xl leading-tight sm:text-4xl md:text-5xl">
                 Prêt à connaître la valeur juste de votre bien ?
@@ -163,12 +164,13 @@ function Home() {
               </p>
               <Link
                 to="/estimation"
-                className="mt-8 inline-flex min-h-11 items-center rounded-full bg-foreground px-8 py-3.5 text-[11px] uppercase tracking-[0.18em] text-background transition-opacity hover:opacity-90 md:mt-10 md:px-10 md:py-4"
+                className="mt-8 inline-flex min-h-11 items-center bg-foreground px-10 py-3.5 text-[11px] uppercase tracking-[0.2em] text-background transition-colors hover:bg-primary md:mt-10 md:px-12 md:py-4"
               >
                 Commencer l'estimation
               </Link>
             </div>
           </div>
+
         </Reveal>
       </section>
     </SiteShell>
