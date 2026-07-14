@@ -109,17 +109,14 @@ function Home() {
           <div className="md:col-span-5">
             <div className="text-[11px] uppercase tracking-[0.3em] text-muted-foreground sm:text-xs">Mon approche</div>
             <h2 className="mt-4 font-serif text-3xl leading-tight sm:text-4xl md:mt-6 md:text-5xl">
-              Vingt-cinq ans
-              <br />de journalisme,
-              <br /><span className="italic text-primary">au service du prix juste.</span>
+              <span className="italic text-primary">Qui suis-je ?</span>
             </h2>
           </div>
           <div className="space-y-6 text-base leading-relaxed text-muted-foreground md:col-span-7 md:text-lg">
             <p>
               J'ai passé vingt-cinq ans dans le journalisme. Vérifier les sources,
               recouper les informations, distinguer un chiffre solide d'une rumeur :
-              c'est le métier. Depuis octobre 2025, je l'exerce autrement,
-              comme conseiller immobilier indépendant, mandataire Efficity.
+              c'est le métier.
             </p>
             <p>
               Une estimation, pour moi, ce n'est pas un avis. C'est un dossier.
