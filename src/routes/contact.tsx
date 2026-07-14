@@ -28,7 +28,7 @@ export const Route = createFileRoute("/contact")({
             jobTitle: "Conseiller Immobilier",
             worksFor: { "@type": "Organization", name: "Efficity" },
             telephone: "+33610022436",
-            email: "vdeby@efficity.com",
+            email: "vincentdeby@gmail.com",
           },
         }),
       },
@@ -39,7 +39,7 @@ export const Route = createFileRoute("/contact")({
 
 const PHONE = "+33610022436";
 const PHONE_DISPLAY = "+33 6 10 02 24 36";
-const EMAIL = "vdeby@efficity.com";
+const EMAIL = "vincentdeby@gmail.com";
 const RDV_URL = `mailto:${EMAIL}?subject=Prise%20de%20rendez-vous`;
 
 function ContactPage() {
@@ -52,8 +52,9 @@ function ContactPage() {
             Parlons de votre projet.
           </h1>
           <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground">
-            Un échange direct, sans détour. Je vous réponds sous 24 heures ouvrées.
+            Un échange direct, sans détour, à Boulogne-Billancourt et dans l'ouest parisien. Je vous réponds sous 24 heures ouvrées.
           </p>
+
         </Reveal>
       </section>
 

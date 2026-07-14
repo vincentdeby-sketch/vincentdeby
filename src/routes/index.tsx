@@ -12,10 +12,10 @@ const SITE = "https://debymo.lovable.app";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Vincent Deby — Conseiller Immobilier, Mandataire Efficity" },
-      { name: "description", content: "Estimation immobilière gratuite et accompagnement transaction. Vincent Deby, mandataire Efficity : lecture précise de votre bien, ancrée dans son marché local." },
-      { property: "og:title", content: "Vincent Deby — Conseiller Immobilier, Mandataire Efficity" },
-      { property: "og:description", content: "Estimation immobilière gratuite et accompagnement transaction. Une lecture précise de votre bien, ancrée dans son marché local." },
+      { title: "Vincent Deby — Conseiller Immobilier à Boulogne-Billancourt (Efficity)" },
+      { name: "description", content: "Estimation immobilière juste et accompagnement à Boulogne-Billancourt et dans l'ouest parisien. Vincent Deby, ancien journaliste devenu mandataire Efficity : rigueur, sources vérifiées, ventes réelles du quartier." },
+      { property: "og:title", content: "Vincent Deby — Conseiller Immobilier à Boulogne-Billancourt" },
+      { property: "og:description", content: "Estimation juste à Boulogne-Billancourt et dans l'ouest parisien. Ancien journaliste, j'applique à l'immobilier la rigueur de vérification des sources." },
       { property: "og:url", content: `${SITE}/` },
       { property: "og:image", content: `${SITE}${hero}` },
       { name: "twitter:image", content: `${SITE}${hero}` },
@@ -33,11 +33,12 @@ export const Route = createFileRoute("/")({
           name: "Vincent Deby — Conseiller Immobilier",
           url: `${SITE}/`,
           inLanguage: "fr-FR",
-          publisher: { "@type": "RealEstateAgent", name: "Vincent Deby", telephone: "+33610022436", email: "vdeby@efficity.com" },
+          publisher: { "@type": "RealEstateAgent", name: "Vincent Deby", telephone: "+33610022436", email: "vincentdeby@gmail.com", areaServed: "Boulogne-Billancourt, Issy-les-Moulineaux, Sèvres, Saint-Cloud, Paris 15e, Paris 16e" },
         }),
       },
     ],
   }),
+
   loader: ({ context }) => {
     void context.queryClient.ensureQueryData(homeArticlesQuery);
     void context.queryClient.ensureQueryData(homePropertiesQuery);
@@ -55,17 +56,19 @@ function Home() {
       <section className="relative">
         <div className="container-narrow pt-10 md:pt-20">
           <div className="max-w-3xl">
-            <div className="text-[11px] uppercase tracking-[0.3em] text-muted-foreground sm:text-xs">Estimation immobilière</div>
+            <div className="text-[11px] uppercase tracking-[0.3em] text-muted-foreground sm:text-xs">Estimation · Boulogne-Billancourt & ouest parisien</div>
             <h1 className="mt-5 font-serif text-[clamp(2.25rem,8vw,5rem)] leading-[1.03] md:mt-6">
-              Votre projet immobilier,
+              Le prix juste,
               <br />
-              <span className="italic text-primary">au plus près.</span>
+              <span className="italic text-primary">vérifié par les faits.</span>
             </h1>
             <p className="mt-6 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg md:mt-8">
-              Une lecture précise de votre bien, ancrée dans son marché local.
-              Nous conjuguons données, terrain et discrétion pour vous proposer
-              une estimation crédible — jamais gonflée, jamais dévaluée.
+              Je suis Vincent Deby, mandataire Efficity à Boulogne-Billancourt.
+              Ancien journaliste, j'applique à l'estimation la rigueur du métier :
+              données croisées, ventes réelles et récentes du quartier, terrain.
+              Un prix argumenté — jamais gonflé pour plaire, jamais dévalué.
             </p>
+
             <div className="mt-8 flex flex-wrap items-center gap-3 md:mt-10 md:gap-4">
               <Link
                 to="/estimation"
@@ -98,25 +101,38 @@ function Home() {
         </Reveal>
       </section>
 
-      {/* RÉASSURANCE */}
+      {/* MON APPROCHE */}
       <section className="container-narrow mt-24 md:mt-40">
-        <Reveal className="grid gap-10 sm:grid-cols-2 md:grid-cols-4 md:gap-16">
-          <div className="sm:col-span-2 md:col-span-2">
-            <div className="text-[11px] uppercase tracking-[0.3em] text-muted-foreground sm:text-xs">L'approche</div>
-            <h2 className="mt-4 font-serif text-3xl leading-tight sm:text-4xl md:mt-6">
-              Une approche mesurée,
-              <br />un regard indépendant.
+        <Reveal className="grid gap-12 md:grid-cols-12 md:gap-16">
+          <div className="md:col-span-5">
+            <div className="text-[11px] uppercase tracking-[0.3em] text-muted-foreground sm:text-xs">Mon approche</div>
+            <h2 className="mt-4 font-serif text-3xl leading-tight sm:text-4xl md:mt-6 md:text-5xl">
+              Vingt-cinq ans
+              <br />de journalisme,
+              <br /><span className="italic text-primary">au service du prix juste.</span>
             </h2>
-            <p className="mt-5 max-w-md leading-relaxed text-muted-foreground md:mt-6">
-              Depuis douze ans, nous accompagnons propriétaires et acquéreurs
-              dans leurs décisions les plus engageantes. Sans surenchère,
-              sans procédure impersonnelle.
+          </div>
+          <div className="space-y-6 text-base leading-relaxed text-muted-foreground md:col-span-7 md:text-lg">
+            <p>
+              J'ai passé vingt-cinq ans dans le journalisme. Vérifier les sources,
+              recouper les informations, distinguer un chiffre solide d'une rumeur :
+              c'est le métier. Depuis octobre 2025, je l'exerce autrement,
+              comme conseiller immobilier indépendant, mandataire Efficity.
+            </p>
+            <p>
+              Une estimation, pour moi, ce n'est pas un avis. C'est un dossier.
+              Je m'appuie sur les <span className="text-foreground">ventes réelles et récentes</span> de
+              votre rue, de votre immeuble, de votre quartier — Boulogne-Billancourt,
+              Issy, Sèvres, Saint-Cloud, Paris 15e et 16e — et je vous les montre.
+            </p>
+            <p>
+              Je vous dis le prix juste, même quand il ne fait pas plaisir.
+              C'est la condition d'une vente qui aboutit, et d'une relation qui dure.
             </p>
           </div>
-          <Metric value="1 240" label="Estimations réalisées" />
-          <Metric value="12 ans" label="d'expertise locale" />
         </Reveal>
       </section>
+
 
       {/* ACTUALITÉS */}
       {articles.length > 0 && (
@@ -156,12 +172,13 @@ function Home() {
           <div className="border-t border-b border-foreground/15 bg-background/50 px-6 py-16 text-center sm:px-10 md:px-16 md:py-24">
             <div className="mx-auto max-w-2xl">
               <h2 className="font-serif text-3xl leading-tight sm:text-4xl md:text-5xl">
-                Prêt à connaître la valeur juste de votre bien ?
+                Envie de connaître la valeur juste de votre bien ?
               </h2>
               <p className="mt-5 text-muted-foreground md:mt-6">
-                Notre formulaire prend cinq minutes. Vous recevez ensuite un
-                retour humain, argumenté, sans engagement.
+                Le formulaire prend cinq minutes. Je vous rappelle ensuite
+                avec un retour humain, argumenté, sans engagement.
               </p>
+
               <Link
                 to="/estimation"
                 className="mt-8 inline-flex min-h-11 items-center bg-foreground px-10 py-3.5 text-[11px] uppercase tracking-[0.2em] text-background transition-colors hover:bg-primary md:mt-10 md:px-12 md:py-4"
@@ -177,11 +194,3 @@ function Home() {
   );
 }
 
-function Metric({ value, label }: { value: string; label: string }) {
-  return (
-    <div>
-      <div className="font-serif text-4xl text-primary sm:text-5xl">{value}</div>
-      <div className="mt-2 text-sm text-muted-foreground md:mt-3">{label}</div>
-    </div>
-  );
-}

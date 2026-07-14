@@ -3,7 +3,7 @@ import { NewsletterForm } from "./NewsletterForm";
 
 const PHONE = "+33610022436";
 const PHONE_DISPLAY = "+33 6 10 02 24 36";
-const EMAIL = "vdeby@efficity.com";
+const EMAIL = "vincentdeby@gmail.com";
 
 export function Footer() {
   return (
@@ -16,9 +16,11 @@ export function Footer() {
               Conseiller Immobilier · Mandataire Efficity
             </div>
             <p className="mt-4 max-w-sm text-sm leading-relaxed text-muted-foreground">
-              Estimation et transaction immobilière. Expertise locale, approche
-              mesurée, discrétion.
+              Estimation et transaction immobilière à Boulogne-Billancourt,
+              Issy-les-Moulineaux, Sèvres, Saint-Cloud, Paris 15e et 16e.
+              Ancien journaliste, j'applique à l'immobilier la rigueur du métier.
             </p>
+
             <div className="mt-6 max-w-sm">
               <div className="mb-3 text-xs uppercase tracking-widest text-muted-foreground">
                 Newsletter
@@ -46,7 +48,7 @@ export function Footer() {
         </div>
         <div className="mt-6 flex flex-col justify-between gap-2 px-2 text-xs text-muted-foreground sm:px-4 md:flex-row">
           <div>© {new Date().getFullYear()} Vincent Deby — Mandataire Efficity. Tous droits réservés.</div>
-          <div>Estimations réalisées avec expertise locale.</div>
+          <div>Boulogne-Billancourt & ouest parisien.</div>
         </div>
       </div>
     </footer>
