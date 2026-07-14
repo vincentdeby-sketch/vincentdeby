@@ -12,10 +12,10 @@ const SITE = "https://debymo.lovable.app";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Vincent Deby — Conseiller Immobilier, Mandataire Efficity" },
-      { name: "description", content: "Estimation immobilière gratuite et accompagnement transaction. Vincent Deby, mandataire Efficity : lecture précise de votre bien, ancrée dans son marché local." },
-      { property: "og:title", content: "Vincent Deby — Conseiller Immobilier, Mandataire Efficity" },
-      { property: "og:description", content: "Estimation immobilière gratuite et accompagnement transaction. Une lecture précise de votre bien, ancrée dans son marché local." },
+      { title: "Vincent Deby — Conseiller Immobilier à Boulogne-Billancourt (Efficity)" },
+      { name: "description", content: "Estimation immobilière juste et accompagnement à Boulogne-Billancourt et dans l'ouest parisien. Vincent Deby, ancien journaliste devenu mandataire Efficity : rigueur, sources vérifiées, ventes réelles du quartier." },
+      { property: "og:title", content: "Vincent Deby — Conseiller Immobilier à Boulogne-Billancourt" },
+      { property: "og:description", content: "Estimation juste à Boulogne-Billancourt et dans l'ouest parisien. Ancien journaliste, j'applique à l'immobilier la rigueur de vérification des sources." },
       { property: "og:url", content: `${SITE}/` },
       { property: "og:image", content: `${SITE}${hero}` },
       { name: "twitter:image", content: `${SITE}${hero}` },
@@ -33,11 +33,12 @@ export const Route = createFileRoute("/")({
           name: "Vincent Deby — Conseiller Immobilier",
           url: `${SITE}/`,
           inLanguage: "fr-FR",
-          publisher: { "@type": "RealEstateAgent", name: "Vincent Deby", telephone: "+33610022436", email: "vdeby@efficity.com" },
+          publisher: { "@type": "RealEstateAgent", name: "Vincent Deby", telephone: "+33610022436", email: "vincentdeby@gmail.com", areaServed: "Boulogne-Billancourt, Issy-les-Moulineaux, Sèvres, Saint-Cloud, Paris 15e, Paris 16e" },
         }),
       },
     ],
   }),
+
   loader: ({ context }) => {
     void context.queryClient.ensureQueryData(homeArticlesQuery);
     void context.queryClient.ensureQueryData(homePropertiesQuery);
