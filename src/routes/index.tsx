@@ -153,7 +153,7 @@ function Home() {
       {/* CTA */}
       <section className="container-narrow mt-24 md:mt-40">
         <Reveal>
-          <div className="glass-strong rounded-[2rem] px-6 py-16 text-center sm:px-10 md:px-16 md:py-24">
+          <div className="border-t border-b border-foreground/15 bg-background/50 px-6 py-16 text-center sm:px-10 md:px-16 md:py-24">
             <div className="mx-auto max-w-2xl">
               <h2 className="font-serif text-3xl leading-tight sm:text-4xl md:text-5xl">
                 Prêt à connaître la valeur juste de votre bien ?
@@ -164,12 +164,13 @@ function Home() {
               </p>
               <Link
                 to="/estimation"
-                className="mt-8 inline-flex min-h-11 items-center rounded-full bg-foreground px-8 py-3.5 text-[11px] uppercase tracking-[0.18em] text-background transition-opacity hover:opacity-90 md:mt-10 md:px-10 md:py-4"
+                className="mt-8 inline-flex min-h-11 items-center bg-foreground px-10 py-3.5 text-[11px] uppercase tracking-[0.2em] text-background transition-colors hover:bg-primary md:mt-10 md:px-12 md:py-4"
               >
                 Commencer l'estimation
               </Link>
             </div>
           </div>
+
         </Reveal>
       </section>
     </SiteShell>
