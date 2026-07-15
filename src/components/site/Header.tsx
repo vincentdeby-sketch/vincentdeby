@@ -232,17 +232,18 @@ export function Header() {
                 <Mail className="h-4 w-4" aria-hidden="true" />
                 Nous écrire
               </a>
-            </div>
-            <div className="mt-5 flex flex-col gap-2">
               <a
                 href={CALENDLY_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => setOpen(false)}
-                className="bg-primary py-3.5 text-center text-xs uppercase tracking-[0.2em] text-primary-foreground"
+                className="flex items-center gap-3 py-3.5 text-foreground/80 transition-colors hover:text-foreground"
               >
+                <CalendarClock className="h-4 w-4" aria-hidden="true" />
                 Prendre rendez-vous
               </a>
+            </div>
+            <div className="mt-5 flex flex-col gap-2">
               <Link
                 to="/estimation"
                 onClick={() => setOpen(false)}
