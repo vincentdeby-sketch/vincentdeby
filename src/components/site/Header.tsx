@@ -22,7 +22,19 @@ export function Header() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [contactOpen, setContactOpen] = useState(false);
+  const [qr, setQr] = useState<{ url: string; title: string; description?: string } | null>(null);
   const contactRef = useRef<HTMLDivElement | null>(null);
+  const isDesktop = useIsDesktop();
+
+  const handleDesktopContact = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    target: { url: string; title: string; description?: string },
+  ) => {
+    if (!isDesktop) return;
+    e.preventDefault();
+    setContactOpen(false);
+    setQr(target);
+  };
 
   useEffect(() => {
     if (!contactOpen) return;
