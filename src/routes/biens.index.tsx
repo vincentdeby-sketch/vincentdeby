@@ -97,7 +97,7 @@ const SOLD = [
   { id: "s-28727193", type: "Appartement", city: "Vélizy-Villacoublay (78140)", surface: 75, cover_url: "https://d1q967606ga7w2.cloudfront.net/common/house/28727193/photos/s/aaaa-photo_27_0434.jpg" },
   { id: "s-27975846", type: "Appartement", city: "Paris (75015)", surface: 85, cover_url: "https://d1q967606ga7w2.cloudfront.net/common/house/27975846/photos/s/francois-villon-3d-nov-2025-sejour.jpg" },
   { id: "s-27939866", type: "Appartement", city: "Paris (75016)", surface: 55, cover_url: "https://d1q967606ga7w2.cloudfront.net/common/house/27939866/photos/s/parent-de-rosan-ia-photo-241.jpg" },
-  { id: "s-27043543", type: "Appartement", city: "Paris (75016)", surface: 7, cover_url: "https://d1q967606ga7w2.cloudfront.net/common/house/27043543/photos/s/photo_1_16.jpg" },
+  
   { id: "s-27458697", type: "Appartement", city: "Paris (75016)", surface: 26, cover_url: "https://d1q967606ga7w2.cloudfront.net/common/house/27458697/photos/s/watermark-photo_3_0061.jpg" },
   { id: "s-27484209", type: "Appartement", city: "Paris (75016)", surface: 41, cover_url: "https://d1q967606ga7w2.cloudfront.net/common/house/27484209/photos/s/watermark-alphonse-xiii-3d.jpg" },
   { id: "s-27060135", type: "Appartement", city: "Paris (75016)", surface: 35, cover_url: "https://d1q967606ga7w2.cloudfront.net/common/house/27060135/photos/s/photo_1_a1fa.jpg" },
