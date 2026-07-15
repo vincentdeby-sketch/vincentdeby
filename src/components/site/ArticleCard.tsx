@@ -22,9 +22,11 @@ export function ArticleCard({ a }: { a: Article }) {
       >
         <div className="overflow-hidden border border-foreground/10 bg-background/40 transition-colors duration-300 group-hover:border-foreground/30">
           <div className="aspect-[3/2] w-full overflow-hidden bg-muted">
-            {a.cover_url ? (
+            {cover ? (
               <img
-                src={a.cover_url}
+                src={unsplashSrc(cover, 800)}
+                srcSet={srcSet}
+                sizes="(min-width: 1024px) 400px, (min-width: 640px) 50vw, 100vw"
                 alt={`Illustration — ${a.title}`}
                 loading="lazy"
                 decoding="async"
