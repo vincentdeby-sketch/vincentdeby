@@ -116,8 +116,12 @@ function Home() {
             <p>
               J'ai passé vingt-cinq ans dans le journalisme. Vérifier les sources,
               recouper les informations, distinguer un chiffre solide d'une rumeur :
-              c'est le métier.
+              c'est le métier. J'y ai aussi appris quelque chose d'essentiel :
+              la <span className="text-foreground">proximité avec ceux que l'on accompagne</span>.
+              Chaque client bénéficie d'un <span className="text-foreground">suivi personnalisé</span>,
+              d'une écoute réelle et d'une disponibilité sans filtre — c'est, pour moi, non négociable.
             </p>
+
             <p>
               Une estimation, pour moi, ce n'est pas un avis. C'est un dossier.
               Je m'appuie sur les <span className="text-foreground">ventes réelles et récentes</span> de
