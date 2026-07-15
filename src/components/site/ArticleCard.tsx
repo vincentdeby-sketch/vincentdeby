@@ -2,8 +2,17 @@ import { Link } from "@tanstack/react-router";
 import type { Article } from "@/lib/domain";
 import { formatDate } from "@/lib/domain";
 
+function unsplashSrc(url: string, w: number) {
+  if (!url.includes("images.unsplash.com")) return url;
+  return url.replace(/([?&])w=\d+/, `$1w=${w}`).replace(/([?&])q=\d+/, `$1q=75`);
+}
+
 export function ArticleCard({ a }: { a: Article }) {
   const date = a.published_at ?? a.created_at;
+  const cover = a.cover_url;
+  const srcSet = cover
+    ? `${unsplashSrc(cover, 480)} 480w, ${unsplashSrc(cover, 800)} 800w, ${unsplashSrc(cover, 1200)} 1200w`
+    : undefined;
   return (
     <article>
       <Link
