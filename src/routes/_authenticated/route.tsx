@@ -5,6 +5,7 @@ import { useEffect } from "react";
 
 export const Route = createFileRoute("/_authenticated")({
   ssr: false,
+  head: () => ({ meta: [{ name: "robots", content: "noindex, nofollow" }] }),
   component: AuthedLayout,
 });
 
