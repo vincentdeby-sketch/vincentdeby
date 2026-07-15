@@ -63,7 +63,7 @@ function List() {
                     <div className="relative aspect-[4/3] w-full overflow-hidden bg-muted">
                       <img
                         src={s.cover_url}
-                        alt={`Photo — ${s.title}, ${s.city}`}
+                        alt={`Photo — ${s.type} ${s.surface} m² à ${s.city}`}
                         loading="lazy"
                         decoding="async"
                         className="h-full w-full object-cover grayscale"
@@ -73,7 +73,7 @@ function List() {
                       </div>
                     </div>
                     <div className="px-4 pb-4 pt-4">
-                      <h3 className="font-serif text-lg leading-snug sm:text-xl">{s.title}</h3>
+                      <h3 className="font-serif text-lg leading-snug sm:text-xl">{s.type} — {s.surface} m²</h3>
                       <div className="mt-1.5 text-sm text-muted-foreground">
                         {[s.city, s.surface ? `${s.surface} m²` : null].filter(Boolean).join(" · ")}
                       </div>
