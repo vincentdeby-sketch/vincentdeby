@@ -5,7 +5,7 @@ import { ArticleCard } from "@/components/site/ArticleCard";
 import { Reveal } from "@/components/site/Reveal";
 import { articlesListQuery } from "@/lib/queries";
 
-const SITE = "https://debymo.lovable.app";
+const SITE = "https://vincentdeby.lovable.app";
 
 export const Route = createFileRoute("/actualites/")({
   head: () => ({

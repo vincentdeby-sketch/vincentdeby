@@ -5,7 +5,7 @@ import { PropertyCard } from "@/components/site/PropertyCard";
 import { Reveal } from "@/components/site/Reveal";
 import { propertiesListQuery } from "@/lib/queries";
 
-const SITE = "https://debymo.lovable.app";
+const SITE = "https://vincentdeby.lovable.app";
 
 export const Route = createFileRoute("/biens/")({
   head: () => ({

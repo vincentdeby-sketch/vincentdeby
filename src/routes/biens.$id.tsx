@@ -5,7 +5,7 @@ import { ContactMenu } from "@/components/site/ContactMenu";
 import { formatEUR } from "@/lib/domain";
 import { propertyByIdQuery } from "@/lib/queries";
 
-const SITE = "https://debymo.lovable.app";
+const SITE = "https://vincentdeby.lovable.app";
 
 export const Route = createFileRoute("/biens/$id")({
   loader: async ({ context, params }) => {

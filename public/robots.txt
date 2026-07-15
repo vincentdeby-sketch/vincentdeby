@@ -3,4 +3,4 @@ Allow: /
 Disallow: /auth
 Disallow: /admin
 
-Sitemap: https://debymo.lovable.app/sitemap.xml
+Sitemap: https://vincentdeby.lovable.app/sitemap.xml

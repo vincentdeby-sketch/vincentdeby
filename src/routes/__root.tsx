@@ -103,7 +103,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           "@context": "https://schema.org",
           "@type": "RealEstateAgent",
           name: "Vincent Deby — Conseiller Immobilier",
-          url: "https://debymo.lovable.app",
+          url: "https://vincentdeby.lovable.app",
           telephone: "+33610022436",
           email: "vdeby@efficity.com",
           areaServed: "France",

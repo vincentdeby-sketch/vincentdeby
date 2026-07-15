@@ -6,7 +6,7 @@ import { SiteShell } from "@/components/site/SiteShell";
 import { LazyGlobe } from "@/components/site/LazyGlobe";
 import { searchAddress, type NominatimResult } from "@/lib/nominatim";
 
-const SITE = "https://debymo.lovable.app";
+const SITE = "https://vincentdeby.lovable.app";
 
 export const Route = createFileRoute("/estimation")({
   head: () => ({
