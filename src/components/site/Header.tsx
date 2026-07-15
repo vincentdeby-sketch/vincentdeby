@@ -2,9 +2,12 @@ import { Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { Menu, X, ChevronDown, Phone, Mail, CalendarClock } from "lucide-react";
 import portrait from "@/assets/vincent-deby-200.webp";
+import { useIsDesktop } from "@/hooks/use-is-desktop";
+import { QrLinkDialog } from "./QrLinkDialog";
 
 const CALENDLY_URL = "https://calendly.com/vdeby-efficity/30min";
 const PHONE = "+33610022436";
+const PHONE_DISPLAY = "+33 6 10 02 24 36";
 const EMAIL = "vdeby@efficity.com";
 
 const nav = [
@@ -19,7 +22,19 @@ export function Header() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [contactOpen, setContactOpen] = useState(false);
+  const [qr, setQr] = useState<{ url: string; title: string; description?: string } | null>(null);
   const contactRef = useRef<HTMLDivElement | null>(null);
+  const isDesktop = useIsDesktop();
+
+  const handleDesktopContact = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    target: { url: string; title: string; description?: string },
+  ) => {
+    if (!isDesktop) return;
+    e.preventDefault();
+    setContactOpen(false);
+    setQr(target);
+  };
 
   useEffect(() => {
     if (!contactOpen) return;
@@ -128,7 +143,10 @@ export function Header() {
                   <a
                     role="menuitem"
                     href={`tel:${PHONE}`}
-                    onClick={() => setContactOpen(false)}
+                    onClick={(e) => {
+                      handleDesktopContact(e, { url: `tel:${PHONE}`, title: "Nous appeler", description: PHONE_DISPLAY });
+                      setContactOpen(false);
+                    }}
                     className="flex items-center gap-3 border-b border-foreground/5 px-4 py-3 text-sm text-foreground/80 transition-colors hover:bg-foreground/5 hover:text-foreground"
                   >
                     <Phone className="h-4 w-4" aria-hidden="true" />
@@ -137,7 +155,10 @@ export function Header() {
                   <a
                     role="menuitem"
                     href={`mailto:${EMAIL}`}
-                    onClick={() => setContactOpen(false)}
+                    onClick={(e) => {
+                      handleDesktopContact(e, { url: `mailto:${EMAIL}`, title: "Nous écrire", description: EMAIL });
+                      setContactOpen(false);
+                    }}
                     className="flex items-center gap-3 border-b border-foreground/5 px-4 py-3 text-sm text-foreground/80 transition-colors hover:bg-foreground/5 hover:text-foreground"
                   >
                     <Mail className="h-4 w-4" aria-hidden="true" />
@@ -148,7 +169,10 @@ export function Header() {
                     href={CALENDLY_URL}
                     target="_blank"
                     rel="noopener noreferrer"
-                    onClick={() => setContactOpen(false)}
+                    onClick={(e) => {
+                      handleDesktopContact(e, { url: CALENDLY_URL, title: "Prendre rendez-vous", description: "Calendly" });
+                      setContactOpen(false);
+                    }}
                     className="flex items-center gap-3 px-4 py-3 text-sm text-foreground/80 transition-colors hover:bg-foreground/5 hover:text-foreground"
                   >
                     <CalendarClock className="h-4 w-4" aria-hidden="true" />
@@ -264,6 +288,13 @@ export function Header() {
           </nav>
         </div>
       )}
+      <QrLinkDialog
+        open={!!qr}
+        onClose={() => setQr(null)}
+        url={qr?.url ?? ""}
+        title={qr?.title ?? ""}
+        description={qr?.description}
+      />
     </header>
   );
 }

@@ -1,7 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useState } from "react";
 import { SiteShell } from "@/components/site/SiteShell";
 import { Reveal } from "@/components/site/Reveal";
 import { NewsletterForm } from "@/components/site/NewsletterForm";
+import { QrLinkDialog } from "@/components/site/QrLinkDialog";
+import { useIsDesktop } from "@/hooks/use-is-desktop";
 
 const SITE = "https://debymo.lovable.app";
 
@@ -43,6 +46,15 @@ const EMAIL = "vdeby@efficity.com";
 const RDV_URL = "https://calendly.com/vdeby-efficity/30min";
 
 function ContactPage() {
+  const isDesktop = useIsDesktop();
+  const [qr, setQr] = useState<{ url: string; title: string; description?: string } | null>(null);
+  const openQr = (target: { url: string; title: string; description?: string }) =>
+    (e: React.MouseEvent<HTMLAnchorElement>) => {
+      if (!isDesktop) return;
+      e.preventDefault();
+      setQr(target);
+    };
+
   return (
     <SiteShell>
       <section className="container-narrow pt-16 md:pt-24">
@@ -71,7 +83,11 @@ function ContactPage() {
               <div>
                 <dt className="text-xs uppercase tracking-widest text-muted-foreground">Téléphone</dt>
                 <dd className="mt-2">
-                  <a href={`tel:${PHONE}`} className="font-serif text-2xl hover:text-primary">
+                  <a
+                    href={`tel:${PHONE}`}
+                    onClick={openQr({ url: `tel:${PHONE}`, title: "Nous appeler", description: PHONE_DISPLAY })}
+                    className="font-serif text-2xl hover:text-primary"
+                  >
                     {PHONE_DISPLAY}
                   </a>
                 </dd>
@@ -79,7 +95,11 @@ function ContactPage() {
               <div>
                 <dt className="text-xs uppercase tracking-widest text-muted-foreground">E-mail</dt>
                 <dd className="mt-2">
-                  <a href={`mailto:${EMAIL}`} className="font-serif text-2xl hover:text-primary">
+                  <a
+                    href={`mailto:${EMAIL}`}
+                    onClick={openQr({ url: `mailto:${EMAIL}`, title: "Nous écrire", description: EMAIL })}
+                    className="font-serif text-2xl hover:text-primary"
+                  >
                     {EMAIL}
                   </a>
                 </dd>
@@ -91,12 +111,14 @@ function ContactPage() {
                 href={RDV_URL}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={openQr({ url: RDV_URL, title: "Prendre rendez-vous", description: "Calendly" })}
                 className="border border-foreground bg-foreground px-6 py-3 text-xs uppercase tracking-widest text-background transition-opacity hover:opacity-90"
               >
                 Prendre rendez-vous
               </a>
               <a
                 href={`tel:${PHONE}`}
+                onClick={openQr({ url: `tel:${PHONE}`, title: "Nous appeler", description: PHONE_DISPLAY })}
                 className="border border-foreground/20 px-6 py-3 text-xs uppercase tracking-widest transition-colors hover:border-foreground"
               >
                 Appeler maintenant
@@ -118,6 +140,14 @@ function ContactPage() {
           </div>
         </Reveal>
       </section>
+
+      <QrLinkDialog
+        open={!!qr}
+        onClose={() => setQr(null)}
+        url={qr?.url ?? ""}
+        title={qr?.title ?? ""}
+        description={qr?.description}
+      />
     </SiteShell>
   );
 }

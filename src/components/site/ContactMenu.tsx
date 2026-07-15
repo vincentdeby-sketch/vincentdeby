@@ -1,8 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { ChevronDown, Phone, Mail, CalendarClock } from "lucide-react";
+import { useIsDesktop } from "@/hooks/use-is-desktop";
+import { QrLinkDialog } from "./QrLinkDialog";
 
 const CALENDLY_URL = "https://calendly.com/vdeby-efficity/30min";
 const PHONE = "+33610022436";
+const PHONE_DISPLAY = "+33 6 10 02 24 36";
 const EMAIL = "vdeby@efficity.com";
 
 type Props = {
@@ -12,6 +15,8 @@ type Props = {
   className?: string;
 };
 
+type QrTarget = { url: string; title: string; description?: string } | null;
+
 export function ContactMenu({
   label = "Me contacter",
   variant = "solid",
@@ -19,7 +24,9 @@ export function ContactMenu({
   className = "",
 }: Props) {
   const [open, setOpen] = useState(false);
+  const [qr, setQr] = useState<QrTarget>(null);
   const ref = useRef<HTMLDivElement | null>(null);
+  const isDesktop = useIsDesktop();
 
   useEffect(() => {
     if (!open) return;
@@ -43,6 +50,16 @@ export function ContactMenu({
   const menuPos =
     align === "right" ? "right-0" : align === "center" ? "left-1/2 -translate-x-1/2" : "left-0";
 
+  const handleDesktopClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    target: { url: string; title: string; description?: string },
+  ) => {
+    if (!isDesktop) return; // mobile: keep native behavior
+    e.preventDefault();
+    setOpen(false);
+    setQr(target);
+  };
+
   return (
     <div ref={ref} className={`relative inline-block ${className}`}>
       <button
@@ -63,7 +80,7 @@ export function ContactMenu({
           <a
             role="menuitem"
             href={`tel:${PHONE}`}
-            onClick={() => setOpen(false)}
+            onClick={(e) => handleDesktopClick(e, { url: `tel:${PHONE}`, title: "Nous appeler", description: PHONE_DISPLAY })}
             className="flex items-center gap-3 border-b border-foreground/5 px-4 py-3 text-sm text-foreground/80 transition-colors hover:bg-foreground/5 hover:text-foreground"
           >
             <Phone className="h-4 w-4" aria-hidden="true" />
@@ -72,7 +89,7 @@ export function ContactMenu({
           <a
             role="menuitem"
             href={`mailto:${EMAIL}`}
-            onClick={() => setOpen(false)}
+            onClick={(e) => handleDesktopClick(e, { url: `mailto:${EMAIL}`, title: "Nous écrire", description: EMAIL })}
             className="flex items-center gap-3 border-b border-foreground/5 px-4 py-3 text-sm text-foreground/80 transition-colors hover:bg-foreground/5 hover:text-foreground"
           >
             <Mail className="h-4 w-4" aria-hidden="true" />
@@ -83,7 +100,7 @@ export function ContactMenu({
             href={CALENDLY_URL}
             target="_blank"
             rel="noopener noreferrer"
-            onClick={() => setOpen(false)}
+            onClick={(e) => handleDesktopClick(e, { url: CALENDLY_URL, title: "Prendre rendez-vous", description: "Calendly" })}
             className="flex items-center gap-3 px-4 py-3 text-sm text-foreground/80 transition-colors hover:bg-foreground/5 hover:text-foreground"
           >
             <CalendarClock className="h-4 w-4" aria-hidden="true" />
@@ -91,6 +108,14 @@ export function ContactMenu({
           </a>
         </div>
       )}
+
+      <QrLinkDialog
+        open={!!qr}
+        onClose={() => setQr(null)}
+        url={qr?.url ?? ""}
+        title={qr?.title ?? ""}
+        description={qr?.description}
+      />
     </div>
   );
 }
