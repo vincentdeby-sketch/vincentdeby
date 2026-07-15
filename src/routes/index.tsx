@@ -7,6 +7,7 @@ import { PropertyCard } from "@/components/site/PropertyCard";
 import { homeArticlesQuery, homePropertiesQuery } from "@/lib/queries";
 import heroWebp1600 from "@/assets/hero-home-1600.webp";
 import heroWebp960 from "@/assets/hero-home-960.webp";
+import heroWebp640 from "@/assets/hero-home-640.webp";
 import heroJpg from "@/assets/hero-home-1600.jpg";
 
 const SITE = "https://vincentdeby.lovable.app";
@@ -26,7 +27,7 @@ export const Route = createFileRoute("/")({
     ],
     links: [
       { rel: "canonical", href: `${SITE}/` },
-      { rel: "preload", as: "image", href: heroWebp1600, imageSrcSet: `${heroWebp960} 960w, ${heroWebp1600} 1600w`, imageSizes: "100vw", type: "image/webp", fetchPriority: "high" } as never,
+      { rel: "preload", as: "image", href: heroWebp960, imageSrcSet: `${heroWebp640} 640w, ${heroWebp960} 960w, ${heroWebp1600} 1600w`, imageSizes: "100vw", type: "image/webp", fetchPriority: "high" } as never,
     ],
     scripts: [
       {
@@ -97,7 +98,7 @@ function Home() {
             <picture>
               <source
                 type="image/webp"
-                srcSet={`${heroWebp960} 960w, ${heroWebp1600} 1600w`}
+                srcSet={`${heroWebp640} 640w, ${heroWebp960} 960w, ${heroWebp1600} 1600w`}
                 sizes="100vw"
               />
               <img
