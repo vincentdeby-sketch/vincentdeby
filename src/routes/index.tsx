@@ -16,8 +16,8 @@ export const Route = createFileRoute("/")({
     meta: [
       { title: "Vincent Deby — Conseiller Immobilier à Boulogne-Billancourt (Efficity)" },
       { name: "description", content: "Estimation immobilière juste et accompagnement à Boulogne-Billancourt et dans l'ouest parisien. Vincent Deby, ancien journaliste devenu mandataire Efficity : rigueur, sources vérifiées, ventes réelles du quartier." },
-      { property: "og:title", content: "Vincent Deby — Conseiller Immobilier à Boulogne-Billancourt" },
-      { property: "og:description", content: "Estimation juste à Boulogne-Billancourt et dans l'ouest parisien. Ancien journaliste, j'applique à l'immobilier la rigueur de vérification des sources." },
+      { property: "og:title", content: "Vincent Deby — Conseiller Immobilier à Boulogne-Billancourt (Efficity)" },
+      { property: "og:description", content: "Estimation immobilière juste et accompagnement à Boulogne-Billancourt et dans l'ouest parisien. Vincent Deby, ancien journaliste devenu mandataire Efficity : rigueur, sources vérifiées, ventes réelles du quartier." },
       { property: "og:url", content: `${SITE}/` },
       { property: "og:image", content: `${SITE}${heroJpg}` },
       { name: "twitter:image", content: `${SITE}${heroJpg}` },
