@@ -1,7 +1,11 @@
 import { Link } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
-import { Menu, X } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { Menu, X, ChevronDown, Phone, Mail } from "lucide-react";
 import portrait from "@/assets/vincent-deby.jpg";
+
+const CALENDLY_URL = "https://calendly.com/vdeby-efficity/30min";
+const PHONE = "+33610022436";
+const EMAIL = "vincentdeby@gmail.com";
 
 const nav = [
   { to: "/", label: "Accueil" },
@@ -9,12 +13,27 @@ const nav = [
   { to: "/biens", label: "Nos biens" },
   { to: "/actualites", label: "Actualités" },
   { to: "/estimation", label: "Estimation" },
-  { to: "/contact", label: "Contact" },
 ];
 
 export function Header() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [contactOpen, setContactOpen] = useState(false);
+  const contactRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    if (!contactOpen) return;
+    const onClick = (e: MouseEvent) => {
+      if (contactRef.current && !contactRef.current.contains(e.target as Node)) setContactOpen(false);
+    };
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setContactOpen(false); };
+    document.addEventListener("mousedown", onClick);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("mousedown", onClick);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [contactOpen]);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -86,6 +105,54 @@ export function Header() {
                 />
               </Link>
             ))}
+
+            {/* Contact dropdown */}
+            <div ref={contactRef} className="relative">
+              <button
+                type="button"
+                aria-haspopup="menu"
+                aria-expanded={contactOpen}
+                onClick={() => setContactOpen((v) => !v)}
+                className="relative flex items-center gap-1 py-1 text-foreground/65 transition-colors duration-200 hover:text-foreground"
+              >
+                Contact
+                <ChevronDown className={`h-3.5 w-3.5 transition-transform duration-200 ${contactOpen ? "rotate-180" : ""}`} aria-hidden="true" />
+              </button>
+              {contactOpen && (
+                <div
+                  role="menu"
+                  className="absolute right-0 top-full mt-3 w-56 border border-foreground/10 bg-background shadow-lg animate-fade-in"
+                >
+                  <a
+                    role="menuitem"
+                    href={`tel:${PHONE}`}
+                    onClick={() => setContactOpen(false)}
+                    className="flex items-center gap-3 border-b border-foreground/5 px-4 py-3 text-sm text-foreground/80 transition-colors hover:bg-foreground/5 hover:text-foreground"
+                  >
+                    <Phone className="h-4 w-4" aria-hidden="true" />
+                    Nous appeler
+                  </a>
+                  <a
+                    role="menuitem"
+                    href={`mailto:${EMAIL}`}
+                    onClick={() => setContactOpen(false)}
+                    className="flex items-center gap-3 px-4 py-3 text-sm text-foreground/80 transition-colors hover:bg-foreground/5 hover:text-foreground"
+                  >
+                    <Mail className="h-4 w-4" aria-hidden="true" />
+                    Nous écrire
+                  </a>
+                </div>
+              )}
+            </div>
+
+            <a
+              href={CALENDLY_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="relative py-1 text-foreground/65 transition-colors duration-200 hover:text-foreground"
+            >
+              Prendre rendez-vous
+            </a>
           </nav>
 
           {/* Actions */}
@@ -145,7 +212,35 @@ export function Header() {
                 {n.label}
               </Link>
             ))}
+            <div className="mt-4 border-t border-foreground/5 pt-3">
+              <div className="px-1 py-2 text-[10px] uppercase tracking-[0.22em] text-muted-foreground">Contact</div>
+              <a
+                href={`tel:${PHONE}`}
+                onClick={() => setOpen(false)}
+                className="flex items-center gap-3 border-b border-foreground/5 py-3.5 text-foreground/80 transition-colors hover:text-foreground"
+              >
+                <Phone className="h-4 w-4" aria-hidden="true" />
+                Nous appeler
+              </a>
+              <a
+                href={`mailto:${EMAIL}`}
+                onClick={() => setOpen(false)}
+                className="flex items-center gap-3 border-b border-foreground/5 py-3.5 text-foreground/80 transition-colors hover:text-foreground"
+              >
+                <Mail className="h-4 w-4" aria-hidden="true" />
+                Nous écrire
+              </a>
+            </div>
             <div className="mt-5 flex flex-col gap-2">
+              <a
+                href={CALENDLY_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setOpen(false)}
+                className="bg-primary py-3.5 text-center text-xs uppercase tracking-[0.2em] text-primary-foreground"
+              >
+                Prendre rendez-vous
+              </a>
               <Link
                 to="/estimation"
                 onClick={() => setOpen(false)}
