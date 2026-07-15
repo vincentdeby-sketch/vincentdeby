@@ -1,6 +1,7 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { SiteShell } from "@/components/site/SiteShell";
+import { ContactMenu } from "@/components/site/ContactMenu";
 import { formatDate } from "@/lib/domain";
 import { articleBySlugQuery } from "@/lib/queries";
 
