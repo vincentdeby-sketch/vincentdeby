@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
-import { Menu, X, ChevronDown, Phone, Mail } from "lucide-react";
+import { Menu, X, ChevronDown, Phone, Mail, CalendarClock } from "lucide-react";
 import portrait from "@/assets/vincent-deby.jpg";
 
 const CALENDLY_URL = "https://calendly.com/vdeby-efficity/30min";
