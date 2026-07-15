@@ -74,8 +74,8 @@ export function Header() {
       className={[
         "sticky top-0 z-40 border-b transition-[background-color,border-color,backdrop-filter] duration-300",
         scrolled
-          ? "border-foreground/10 bg-background/85 backdrop-blur-md"
-          : "border-transparent bg-background/60 backdrop-blur-sm",
+          ? "border-foreground/10 bg-background/60 backdrop-blur-2xl backdrop-saturate-150"
+          : "border-transparent bg-background/40 backdrop-blur-xl backdrop-saturate-150",
       ].join(" ")}
     >
       <div className="container-narrow">
