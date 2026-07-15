@@ -5,7 +5,9 @@ import { Reveal } from "@/components/site/Reveal";
 import { ArticleCard } from "@/components/site/ArticleCard";
 import { PropertyCard } from "@/components/site/PropertyCard";
 import { homeArticlesQuery, homePropertiesQuery } from "@/lib/queries";
-import hero from "@/assets/hero-home.jpg";
+import heroWebp1600 from "@/assets/hero-home-1600.webp";
+import heroWebp960 from "@/assets/hero-home-960.webp";
+import heroJpg from "@/assets/hero-home-1600.jpg";
 
 const SITE = "https://debymo.lovable.app";
 
@@ -17,12 +19,12 @@ export const Route = createFileRoute("/")({
       { property: "og:title", content: "Vincent Deby — Conseiller Immobilier à Boulogne-Billancourt" },
       { property: "og:description", content: "Estimation juste à Boulogne-Billancourt et dans l'ouest parisien. Ancien journaliste, j'applique à l'immobilier la rigueur de vérification des sources." },
       { property: "og:url", content: `${SITE}/` },
-      { property: "og:image", content: `${SITE}${hero}` },
-      { name: "twitter:image", content: `${SITE}${hero}` },
+      { property: "og:image", content: `${SITE}${heroJpg}` },
+      { name: "twitter:image", content: `${SITE}${heroJpg}` },
     ],
     links: [
       { rel: "canonical", href: `${SITE}/` },
-      { rel: "preload", as: "image", href: hero, fetchpriority: "high" } as never,
+      { rel: "preload", as: "image", href: heroWebp1600, imagesrcset: `${heroWebp960} 960w, ${heroWebp1600} 1600w`, imagesizes: "100vw", type: "image/webp", fetchpriority: "high" } as never,
     ],
     scripts: [
       {
@@ -90,15 +92,22 @@ function Home() {
         </div>
         <Reveal className="container-narrow mt-16 md:mt-24">
           <div className="aspect-[16/9] w-full overflow-hidden bg-muted md:aspect-[21/9]">
-            <img
-              src={hero}
-              alt="Immeubles haussmanniens parisiens au coucher du soleil"
-              width={1920}
-              height={1280}
-              fetchPriority="high"
-              decoding="async"
-              className="h-full w-full object-cover"
-            />
+            <picture>
+              <source
+                type="image/webp"
+                srcSet={`${heroWebp960} 960w, ${heroWebp1600} 1600w`}
+                sizes="100vw"
+              />
+              <img
+                src={heroJpg}
+                alt="Immeubles haussmanniens parisiens au coucher du soleil"
+                width={1600}
+                height={1067}
+                fetchPriority="high"
+                decoding="async"
+                className="h-full w-full object-cover"
+              />
+            </picture>
           </div>
         </Reveal>
       </section>
