@@ -10,7 +10,7 @@ const SITE = "https://vincentdeby.lovable.app";
 export const Route = createFileRoute("/actualites/")({
   head: () => ({
     meta: [
-      { title: "Actualités et analyses du marché immobilier — Vincent Deby" },
+      { title: "Actualités immobilières — Vincent Deby" },
       { name: "description", content: "Analyses de marché, décryptages et notes sur l'immobilier par Vincent Deby, conseiller immobilier mandataire Efficity." },
       { property: "og:title", content: "Actualités immobilières — Vincent Deby" },
       { property: "og:description", content: "Analyses de marché, décryptages et notes sur l'immobilier." },
