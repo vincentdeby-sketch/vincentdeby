@@ -24,7 +24,7 @@ export const Route = createFileRoute("/")({
     ],
     links: [
       { rel: "canonical", href: `${SITE}/` },
-      { rel: "preload", as: "image", href: heroWebp1600, imagesrcset: `${heroWebp960} 960w, ${heroWebp1600} 1600w`, imagesizes: "100vw", type: "image/webp", fetchpriority: "high" } as never,
+      { rel: "preload", as: "image", href: heroWebp1600, imageSrcSet: `${heroWebp960} 960w, ${heroWebp1600} 1600w`, imageSizes: "100vw", type: "image/webp", fetchPriority: "high" } as never,
     ],
     scripts: [
       {
