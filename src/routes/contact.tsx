@@ -83,7 +83,11 @@ function ContactPage() {
               <div>
                 <dt className="text-xs uppercase tracking-widest text-muted-foreground">Téléphone</dt>
                 <dd className="mt-2">
-                  <a href={`tel:${PHONE}`} className="font-serif text-2xl hover:text-primary">
+                  <a
+                    href={`tel:${PHONE}`}
+                    onClick={openQr({ url: `tel:${PHONE}`, title: "Nous appeler", description: PHONE_DISPLAY })}
+                    className="font-serif text-2xl hover:text-primary"
+                  >
                     {PHONE_DISPLAY}
                   </a>
                 </dd>
@@ -91,7 +95,11 @@ function ContactPage() {
               <div>
                 <dt className="text-xs uppercase tracking-widest text-muted-foreground">E-mail</dt>
                 <dd className="mt-2">
-                  <a href={`mailto:${EMAIL}`} className="font-serif text-2xl hover:text-primary">
+                  <a
+                    href={`mailto:${EMAIL}`}
+                    onClick={openQr({ url: `mailto:${EMAIL}`, title: "Nous écrire", description: EMAIL })}
+                    className="font-serif text-2xl hover:text-primary"
+                  >
                     {EMAIL}
                   </a>
                 </dd>
@@ -103,12 +111,14 @@ function ContactPage() {
                 href={RDV_URL}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={openQr({ url: RDV_URL, title: "Prendre rendez-vous", description: "Calendly" })}
                 className="border border-foreground bg-foreground px-6 py-3 text-xs uppercase tracking-widest text-background transition-opacity hover:opacity-90"
               >
                 Prendre rendez-vous
               </a>
               <a
                 href={`tel:${PHONE}`}
+                onClick={openQr({ url: `tel:${PHONE}`, title: "Nous appeler", description: PHONE_DISPLAY })}
                 className="border border-foreground/20 px-6 py-3 text-xs uppercase tracking-widest transition-colors hover:border-foreground"
               >
                 Appeler maintenant
