@@ -7,6 +7,7 @@ import { PropertyCard } from "@/components/site/PropertyCard";
 import { homeArticlesQuery, homePropertiesQuery } from "@/lib/queries";
 import heroWebp1600 from "@/assets/hero-home-1600.webp";
 import heroWebp960 from "@/assets/hero-home-960.webp";
+import heroWebp640 from "@/assets/hero-home-640.webp";
 import heroJpg from "@/assets/hero-home-1600.jpg";
 
 const SITE = "https://vincentdeby.lovable.app";
