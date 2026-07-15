@@ -1,7 +1,11 @@
 import { Link } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
-import { Menu, X } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { Menu, X, ChevronDown, Phone, Mail } from "lucide-react";
 import portrait from "@/assets/vincent-deby.jpg";
+
+const CALENDLY_URL = "https://calendly.com/vdeby-efficity/30min";
+const PHONE = "+33610022436";
+const EMAIL = "vincentdeby@gmail.com";
 
 const nav = [
   { to: "/", label: "Accueil" },
@@ -9,7 +13,6 @@ const nav = [
   { to: "/biens", label: "Nos biens" },
   { to: "/actualites", label: "Actualités" },
   { to: "/estimation", label: "Estimation" },
-  { to: "/contact", label: "Contact" },
 ];
 
 export function Header() {
