@@ -212,7 +212,35 @@ export function Header() {
                 {n.label}
               </Link>
             ))}
+            <div className="mt-4 border-t border-foreground/5 pt-3">
+              <div className="px-1 py-2 text-[10px] uppercase tracking-[0.22em] text-muted-foreground">Contact</div>
+              <a
+                href={`tel:${PHONE}`}
+                onClick={() => setOpen(false)}
+                className="flex items-center gap-3 border-b border-foreground/5 py-3.5 text-foreground/80 transition-colors hover:text-foreground"
+              >
+                <Phone className="h-4 w-4" aria-hidden="true" />
+                Nous appeler
+              </a>
+              <a
+                href={`mailto:${EMAIL}`}
+                onClick={() => setOpen(false)}
+                className="flex items-center gap-3 border-b border-foreground/5 py-3.5 text-foreground/80 transition-colors hover:text-foreground"
+              >
+                <Mail className="h-4 w-4" aria-hidden="true" />
+                Nous écrire
+              </a>
+            </div>
             <div className="mt-5 flex flex-col gap-2">
+              <a
+                href={CALENDLY_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setOpen(false)}
+                className="bg-primary py-3.5 text-center text-xs uppercase tracking-[0.2em] text-primary-foreground"
+              >
+                Prendre rendez-vous
+              </a>
               <Link
                 to="/estimation"
                 onClick={() => setOpen(false)}
