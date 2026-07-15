@@ -1,6 +1,7 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { SiteShell } from "@/components/site/SiteShell";
+import { ContactMenu } from "@/components/site/ContactMenu";
 import { formatDate } from "@/lib/domain";
 import { articleBySlugQuery } from "@/lib/queries";
 
@@ -117,6 +118,10 @@ function ArticleDetail() {
         )}
         <div className="prose prose-neutral mx-auto mt-12 max-w-2xl whitespace-pre-wrap text-lg leading-relaxed text-foreground/90">
           {a.content}
+        </div>
+        <div className="mx-auto mt-16 flex max-w-2xl flex-col items-center gap-4 border-t border-foreground/10 pt-10 text-center">
+          <p className="text-sm text-muted-foreground">Une question ou envie d'échanger sur votre projet ?</p>
+          <ContactMenu align="center" />
         </div>
       </article>
     </SiteShell>

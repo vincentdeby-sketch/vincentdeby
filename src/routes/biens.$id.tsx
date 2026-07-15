@@ -1,6 +1,7 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { SiteShell } from "@/components/site/SiteShell";
+import { ContactMenu } from "@/components/site/ContactMenu";
 import { formatEUR } from "@/lib/domain";
 import { propertyByIdQuery } from "@/lib/queries";
 
@@ -141,9 +142,9 @@ function Detail() {
             {p.rooms && <><dt className="text-muted-foreground">Pièces</dt><dd className="text-right">{p.rooms}</dd></>}
             {p.bedrooms && <><dt className="text-muted-foreground">Chambres</dt><dd className="text-right">{p.bedrooms}</dd></>}
           </dl>
-          <a href="mailto:vincentdeby@gmail.com" className="mt-8 block border border-foreground bg-foreground px-6 py-4 text-center text-xs uppercase tracking-widest text-background">
-            Me contacter
-          </a>
+          <div className="mt-8">
+            <ContactMenu align="center" className="w-full" />
+          </div>
         </aside>
       </section>
       <section className="container-narrow mt-16 max-w-3xl">
