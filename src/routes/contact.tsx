@@ -89,6 +89,8 @@ function ContactPage() {
             <div className="mt-10 flex flex-wrap gap-3">
               <a
                 href={RDV_URL}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="border border-foreground bg-foreground px-6 py-3 text-xs uppercase tracking-widest text-background transition-opacity hover:opacity-90"
               >
                 Prendre rendez-vous
