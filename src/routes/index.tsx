@@ -109,7 +109,7 @@ function Home() {
           <div className="md:col-span-5">
             <div className="text-[11px] uppercase tracking-[0.3em] text-muted-foreground sm:text-xs">Mon approche</div>
             <h2 className="mt-4 font-serif text-3xl leading-tight sm:text-4xl md:mt-6 md:text-5xl">
-              Vendre <span className="italic text-primary">vite, bien, et au juste prix</span>
+              Vendre <span className="italic text-primary">vite, bien et au juste prix</span>
             </h2>
           </div>
           <div className="space-y-6 text-base leading-relaxed text-muted-foreground md:col-span-7 md:text-lg">
