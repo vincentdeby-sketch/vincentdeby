@@ -18,6 +18,22 @@ const nav = [
 export function Header() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [contactOpen, setContactOpen] = useState(false);
+  const contactRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    if (!contactOpen) return;
+    const onClick = (e: MouseEvent) => {
+      if (contactRef.current && !contactRef.current.contains(e.target as Node)) setContactOpen(false);
+    };
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setContactOpen(false); };
+    document.addEventListener("mousedown", onClick);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("mousedown", onClick);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [contactOpen]);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
