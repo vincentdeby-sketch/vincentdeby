@@ -7,7 +7,7 @@ import { articlesListQuery } from "@/lib/queries";
 
 const SITE = "https://debymo.lovable.app";
 
-export const Route = createFileRoute("/actualites")({
+export const Route = createFileRoute("/actualites/")({
   head: () => ({
     meta: [
       { title: "Actualités et analyses du marché immobilier — Vincent Deby" },

@@ -7,7 +7,7 @@ import { propertiesListQuery } from "@/lib/queries";
 
 const SITE = "https://debymo.lovable.app";
 
-export const Route = createFileRoute("/biens")({
+export const Route = createFileRoute("/biens/")({
   head: () => ({
     meta: [
       { title: "Nos biens à la vente — Vincent Deby, Mandataire Efficity" },
