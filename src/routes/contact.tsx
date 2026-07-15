@@ -40,7 +40,7 @@ export const Route = createFileRoute("/contact")({
 const PHONE = "+33610022436";
 const PHONE_DISPLAY = "+33 6 10 02 24 36";
 const EMAIL = "vdeby@efficity.com";
-const RDV_URL = `mailto:${EMAIL}?subject=Prise%20de%20rendez-vous`;
+const RDV_URL = "https://calendly.com/vdeby-efficity/30min";
 
 function ContactPage() {
   return (
@@ -89,6 +89,8 @@ function ContactPage() {
             <div className="mt-10 flex flex-wrap gap-3">
               <a
                 href={RDV_URL}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="border border-foreground bg-foreground px-6 py-3 text-xs uppercase tracking-widest text-background transition-opacity hover:opacity-90"
               >
                 Prendre rendez-vous
