@@ -136,23 +136,25 @@ export function Header() {
                     role="menuitem"
                     href={`mailto:${EMAIL}`}
                     onClick={() => setContactOpen(false)}
-                    className="flex items-center gap-3 px-4 py-3 text-sm text-foreground/80 transition-colors hover:bg-foreground/5 hover:text-foreground"
+                    className="flex items-center gap-3 border-b border-foreground/5 px-4 py-3 text-sm text-foreground/80 transition-colors hover:bg-foreground/5 hover:text-foreground"
                   >
                     <Mail className="h-4 w-4" aria-hidden="true" />
                     Nous écrire
                   </a>
+                  <a
+                    role="menuitem"
+                    href={CALENDLY_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => setContactOpen(false)}
+                    className="flex items-center gap-3 px-4 py-3 text-sm text-foreground/80 transition-colors hover:bg-foreground/5 hover:text-foreground"
+                  >
+                    <CalendarClock className="h-4 w-4" aria-hidden="true" />
+                    Prendre rendez-vous
+                  </a>
                 </div>
               )}
             </div>
-
-            <a
-              href={CALENDLY_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="relative py-1 text-foreground/65 transition-colors duration-200 hover:text-foreground"
-            >
-              Prendre rendez-vous
-            </a>
           </nav>
 
           {/* Actions */}
