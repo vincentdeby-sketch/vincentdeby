@@ -87,6 +87,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     ],
     links: [
       { rel: "stylesheet", href: appCss },
+      { rel: "preconnect", href: "https://d1q967606ga7w2.cloudfront.net", crossOrigin: "anonymous" } as never,
+      { rel: "preconnect", href: "https://yokxbjfcpwmjzydgrwmb.supabase.co", crossOrigin: "anonymous" } as never,
+      { rel: "preconnect", href: "https://images.unsplash.com", crossOrigin: "anonymous" } as never,
+      { rel: "dns-prefetch", href: "https://d1q967606ga7w2.cloudfront.net" },
+      { rel: "dns-prefetch", href: "https://yokxbjfcpwmjzydgrwmb.supabase.co" },
+      { rel: "dns-prefetch", href: "https://images.unsplash.com" },
     ],
     scripts: [
       {
