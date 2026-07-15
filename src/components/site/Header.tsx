@@ -143,7 +143,10 @@ export function Header() {
                   <a
                     role="menuitem"
                     href={`tel:${PHONE}`}
-                    onClick={() => setContactOpen(false)}
+                    onClick={(e) => {
+                      handleDesktopContact(e, { url: `tel:${PHONE}`, title: "Nous appeler", description: PHONE_DISPLAY });
+                      setContactOpen(false);
+                    }}
                     className="flex items-center gap-3 border-b border-foreground/5 px-4 py-3 text-sm text-foreground/80 transition-colors hover:bg-foreground/5 hover:text-foreground"
                   >
                     <Phone className="h-4 w-4" aria-hidden="true" />
@@ -152,7 +155,10 @@ export function Header() {
                   <a
                     role="menuitem"
                     href={`mailto:${EMAIL}`}
-                    onClick={() => setContactOpen(false)}
+                    onClick={(e) => {
+                      handleDesktopContact(e, { url: `mailto:${EMAIL}`, title: "Nous écrire", description: EMAIL });
+                      setContactOpen(false);
+                    }}
                     className="flex items-center gap-3 border-b border-foreground/5 px-4 py-3 text-sm text-foreground/80 transition-colors hover:bg-foreground/5 hover:text-foreground"
                   >
                     <Mail className="h-4 w-4" aria-hidden="true" />
@@ -163,7 +169,10 @@ export function Header() {
                     href={CALENDLY_URL}
                     target="_blank"
                     rel="noopener noreferrer"
-                    onClick={() => setContactOpen(false)}
+                    onClick={(e) => {
+                      handleDesktopContact(e, { url: CALENDLY_URL, title: "Prendre rendez-vous", description: "Calendly" });
+                      setContactOpen(false);
+                    }}
                     className="flex items-center gap-3 px-4 py-3 text-sm text-foreground/80 transition-colors hover:bg-foreground/5 hover:text-foreground"
                   >
                     <CalendarClock className="h-4 w-4" aria-hidden="true" />
