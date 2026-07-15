@@ -1,7 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useState } from "react";
 import { SiteShell } from "@/components/site/SiteShell";
 import { Reveal } from "@/components/site/Reveal";
 import { NewsletterForm } from "@/components/site/NewsletterForm";
+import { QrLinkDialog } from "@/components/site/QrLinkDialog";
+import { useIsDesktop } from "@/hooks/use-is-desktop";
 
 const SITE = "https://debymo.lovable.app";
 
