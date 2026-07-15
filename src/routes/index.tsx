@@ -92,15 +92,22 @@ function Home() {
         </div>
         <Reveal className="container-narrow mt-16 md:mt-24">
           <div className="aspect-[16/9] w-full overflow-hidden bg-muted md:aspect-[21/9]">
-            <img
-              src={hero}
-              alt="Immeubles haussmanniens parisiens au coucher du soleil"
-              width={1920}
-              height={1280}
-              fetchPriority="high"
-              decoding="async"
-              className="h-full w-full object-cover"
-            />
+            <picture>
+              <source
+                type="image/webp"
+                srcSet={`${heroWebp960} 960w, ${heroWebp1600} 1600w`}
+                sizes="100vw"
+              />
+              <img
+                src={heroJpg}
+                alt="Immeubles haussmanniens parisiens au coucher du soleil"
+                width={1600}
+                height={1067}
+                fetchPriority="high"
+                decoding="async"
+                className="h-full w-full object-cover"
+              />
+            </picture>
           </div>
         </Reveal>
       </section>
