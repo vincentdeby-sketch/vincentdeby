@@ -19,12 +19,12 @@ export const Route = createFileRoute("/")({
       { property: "og:title", content: "Vincent Deby — Conseiller Immobilier à Boulogne-Billancourt" },
       { property: "og:description", content: "Estimation juste à Boulogne-Billancourt et dans l'ouest parisien. Ancien journaliste, j'applique à l'immobilier la rigueur de vérification des sources." },
       { property: "og:url", content: `${SITE}/` },
-      { property: "og:image", content: `${SITE}${hero}` },
-      { name: "twitter:image", content: `${SITE}${hero}` },
+      { property: "og:image", content: `${SITE}${heroJpg}` },
+      { name: "twitter:image", content: `${SITE}${heroJpg}` },
     ],
     links: [
       { rel: "canonical", href: `${SITE}/` },
-      { rel: "preload", as: "image", href: hero, fetchpriority: "high" } as never,
+      { rel: "preload", as: "image", href: heroWebp1600, imagesrcset: `${heroWebp960} 960w, ${heroWebp1600} 1600w`, imagesizes: "100vw", type: "image/webp", fetchpriority: "high" } as never,
     ],
     scripts: [
       {
