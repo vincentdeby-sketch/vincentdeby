@@ -98,7 +98,7 @@ function Home() {
             <picture>
               <source
                 type="image/webp"
-                srcSet={`${heroWebp960} 960w, ${heroWebp1600} 1600w`}
+                srcSet={`${heroWebp640} 640w, ${heroWebp960} 960w, ${heroWebp1600} 1600w`}
                 sizes="100vw"
               />
               <img
