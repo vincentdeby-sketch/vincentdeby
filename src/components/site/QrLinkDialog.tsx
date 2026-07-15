@@ -44,7 +44,7 @@ export function QrLinkDialog({ open, onClose, url, title, description }: Props) 
       role="dialog"
       aria-modal="true"
       aria-label={title}
-      className="fixed inset-0 z-50 grid place-items-center bg-black/50 p-4 animate-fade-in"
+      className="fixed inset-0 z-50 grid place-items-center bg-foreground/30 p-4 backdrop-blur-xl animate-fade-in"
       onClick={onClose}
     >
       <div
