@@ -225,7 +225,7 @@ export function Header() {
       </div>
 
       {open && (
-        <div id="mobile-menu" className="border-t border-foreground/10 bg-background/95 backdrop-blur-md md:hidden animate-fade-in">
+        <div id="mobile-menu" className="border-t border-foreground/10 bg-background/60 backdrop-blur-2xl backdrop-saturate-150 md:hidden animate-fade-in">
           <nav aria-label="Navigation mobile" className="container-narrow flex flex-col py-3 text-sm">
             {nav.map((n, i) => (
               <Link
