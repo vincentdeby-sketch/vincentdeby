@@ -288,6 +288,13 @@ export function Header() {
           </nav>
         </div>
       )}
+      <QrLinkDialog
+        open={!!qr}
+        onClose={() => setQr(null)}
+        url={qr?.url ?? ""}
+        title={qr?.title ?? ""}
+        description={qr?.description}
+      />
     </header>
   );
 }
