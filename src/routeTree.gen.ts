@@ -13,11 +13,11 @@ import { Route as VideosRouteImport } from './routes/videos'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as EstimationRouteImport } from './routes/estimation'
 import { Route as ContactRouteImport } from './routes/contact'
-import { Route as BiensRouteImport } from './routes/biens'
 import { Route as AuthRouteImport } from './routes/auth'
-import { Route as ActualitesRouteImport } from './routes/actualites'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as BiensIndexRouteImport } from './routes/biens.index'
+import { Route as ActualitesIndexRouteImport } from './routes/actualites.index'
 import { Route as BiensIdRouteImport } from './routes/biens.$id'
 import { Route as ActualitesSlugRouteImport } from './routes/actualites.$slug'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
@@ -45,19 +45,9 @@ const ContactRoute = ContactRouteImport.update({
   path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
-const BiensRoute = BiensRouteImport.update({
-  id: '/biens',
-  path: '/biens',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
   path: '/auth',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ActualitesRoute = ActualitesRouteImport.update({
-  id: '/actualites',
-  path: '/actualites',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
@@ -69,15 +59,25 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BiensIndexRoute = BiensIndexRouteImport.update({
+  id: '/biens/',
+  path: '/biens/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ActualitesIndexRoute = ActualitesIndexRouteImport.update({
+  id: '/actualites/',
+  path: '/actualites/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const BiensIdRoute = BiensIdRouteImport.update({
-  id: '/$id',
-  path: '/$id',
-  getParentRoute: () => BiensRoute,
+  id: '/biens/$id',
+  path: '/biens/$id',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const ActualitesSlugRoute = ActualitesSlugRouteImport.update({
-  id: '/$slug',
-  path: '/$slug',
-  getParentRoute: () => ActualitesRoute,
+  id: '/actualites/$slug',
+  path: '/actualites/$slug',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
   id: '/admin/',
@@ -104,15 +104,15 @@ const AuthenticatedAdminArticlesRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/actualites': typeof ActualitesRouteWithChildren
   '/auth': typeof AuthRoute
-  '/biens': typeof BiensRouteWithChildren
   '/contact': typeof ContactRoute
   '/estimation': typeof EstimationRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/videos': typeof VideosRoute
   '/actualites/$slug': typeof ActualitesSlugRoute
   '/biens/$id': typeof BiensIdRoute
+  '/actualites/': typeof ActualitesIndexRoute
+  '/biens/': typeof BiensIndexRoute
   '/admin/articles': typeof AuthenticatedAdminArticlesRoute
   '/admin/biens': typeof AuthenticatedAdminBiensRoute
   '/admin/estimations': typeof AuthenticatedAdminEstimationsRoute
@@ -120,15 +120,15 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/actualites': typeof ActualitesRouteWithChildren
   '/auth': typeof AuthRoute
-  '/biens': typeof BiensRouteWithChildren
   '/contact': typeof ContactRoute
   '/estimation': typeof EstimationRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/videos': typeof VideosRoute
   '/actualites/$slug': typeof ActualitesSlugRoute
   '/biens/$id': typeof BiensIdRoute
+  '/actualites': typeof ActualitesIndexRoute
+  '/biens': typeof BiensIndexRoute
   '/admin/articles': typeof AuthenticatedAdminArticlesRoute
   '/admin/biens': typeof AuthenticatedAdminBiensRoute
   '/admin/estimations': typeof AuthenticatedAdminEstimationsRoute
@@ -138,15 +138,15 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
-  '/actualites': typeof ActualitesRouteWithChildren
   '/auth': typeof AuthRoute
-  '/biens': typeof BiensRouteWithChildren
   '/contact': typeof ContactRoute
   '/estimation': typeof EstimationRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/videos': typeof VideosRoute
   '/actualites/$slug': typeof ActualitesSlugRoute
   '/biens/$id': typeof BiensIdRoute
+  '/actualites/': typeof ActualitesIndexRoute
+  '/biens/': typeof BiensIndexRoute
   '/_authenticated/admin/articles': typeof AuthenticatedAdminArticlesRoute
   '/_authenticated/admin/biens': typeof AuthenticatedAdminBiensRoute
   '/_authenticated/admin/estimations': typeof AuthenticatedAdminEstimationsRoute
@@ -156,15 +156,15 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/actualites'
     | '/auth'
-    | '/biens'
     | '/contact'
     | '/estimation'
     | '/sitemap.xml'
     | '/videos'
     | '/actualites/$slug'
     | '/biens/$id'
+    | '/actualites/'
+    | '/biens/'
     | '/admin/articles'
     | '/admin/biens'
     | '/admin/estimations'
@@ -172,15 +172,15 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/actualites'
     | '/auth'
-    | '/biens'
     | '/contact'
     | '/estimation'
     | '/sitemap.xml'
     | '/videos'
     | '/actualites/$slug'
     | '/biens/$id'
+    | '/actualites'
+    | '/biens'
     | '/admin/articles'
     | '/admin/biens'
     | '/admin/estimations'
@@ -189,15 +189,15 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/_authenticated'
-    | '/actualites'
     | '/auth'
-    | '/biens'
     | '/contact'
     | '/estimation'
     | '/sitemap.xml'
     | '/videos'
     | '/actualites/$slug'
     | '/biens/$id'
+    | '/actualites/'
+    | '/biens/'
     | '/_authenticated/admin/articles'
     | '/_authenticated/admin/biens'
     | '/_authenticated/admin/estimations'
@@ -207,13 +207,15 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
-  ActualitesRoute: typeof ActualitesRouteWithChildren
   AuthRoute: typeof AuthRoute
-  BiensRoute: typeof BiensRouteWithChildren
   ContactRoute: typeof ContactRoute
   EstimationRoute: typeof EstimationRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   VideosRoute: typeof VideosRoute
+  ActualitesSlugRoute: typeof ActualitesSlugRoute
+  BiensIdRoute: typeof BiensIdRoute
+  ActualitesIndexRoute: typeof ActualitesIndexRoute
+  BiensIndexRoute: typeof BiensIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -246,25 +248,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/biens': {
-      id: '/biens'
-      path: '/biens'
-      fullPath: '/biens'
-      preLoaderRoute: typeof BiensRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/auth': {
       id: '/auth'
       path: '/auth'
       fullPath: '/auth'
       preLoaderRoute: typeof AuthRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/actualites': {
-      id: '/actualites'
-      path: '/actualites'
-      fullPath: '/actualites'
-      preLoaderRoute: typeof ActualitesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated': {
@@ -281,19 +269,33 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/biens/': {
+      id: '/biens/'
+      path: '/biens'
+      fullPath: '/biens/'
+      preLoaderRoute: typeof BiensIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/actualites/': {
+      id: '/actualites/'
+      path: '/actualites'
+      fullPath: '/actualites/'
+      preLoaderRoute: typeof ActualitesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/biens/$id': {
       id: '/biens/$id'
-      path: '/$id'
+      path: '/biens/$id'
       fullPath: '/biens/$id'
       preLoaderRoute: typeof BiensIdRouteImport
-      parentRoute: typeof BiensRoute
+      parentRoute: typeof rootRouteImport
     }
     '/actualites/$slug': {
       id: '/actualites/$slug'
-      path: '/$slug'
+      path: '/actualites/$slug'
       fullPath: '/actualites/$slug'
       preLoaderRoute: typeof ActualitesSlugRouteImport
-      parentRoute: typeof ActualitesRoute
+      parentRoute: typeof rootRouteImport
     }
     '/_authenticated/admin/': {
       id: '/_authenticated/admin/'
@@ -343,49 +345,19 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
 const AuthenticatedRouteRouteWithChildren =
   AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
 
-interface ActualitesRouteChildren {
-  ActualitesSlugRoute: typeof ActualitesSlugRoute
-}
-
-const ActualitesRouteChildren: ActualitesRouteChildren = {
-  ActualitesSlugRoute: ActualitesSlugRoute,
-}
-
-const ActualitesRouteWithChildren = ActualitesRoute._addFileChildren(
-  ActualitesRouteChildren,
-)
-
-interface BiensRouteChildren {
-  BiensIdRoute: typeof BiensIdRoute
-}
-
-const BiensRouteChildren: BiensRouteChildren = {
-  BiensIdRoute: BiensIdRoute,
-}
-
-const BiensRouteWithChildren = BiensRoute._addFileChildren(BiensRouteChildren)
-
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
-  ActualitesRoute: ActualitesRouteWithChildren,
   AuthRoute: AuthRoute,
-  BiensRoute: BiensRouteWithChildren,
   ContactRoute: ContactRoute,
   EstimationRoute: EstimationRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   VideosRoute: VideosRoute,
+  ActualitesSlugRoute: ActualitesSlugRoute,
+  BiensIdRoute: BiensIdRoute,
+  ActualitesIndexRoute: ActualitesIndexRoute,
+  BiensIndexRoute: BiensIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
