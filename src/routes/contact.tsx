@@ -46,6 +46,15 @@ const EMAIL = "vdeby@efficity.com";
 const RDV_URL = "https://calendly.com/vdeby-efficity/30min";
 
 function ContactPage() {
+  const isDesktop = useIsDesktop();
+  const [qr, setQr] = useState<{ url: string; title: string; description?: string } | null>(null);
+  const openQr = (target: { url: string; title: string; description?: string }) =>
+    (e: React.MouseEvent<HTMLAnchorElement>) => {
+      if (!isDesktop) return;
+      e.preventDefault();
+      setQr(target);
+    };
+
   return (
     <SiteShell>
       <section className="container-narrow pt-16 md:pt-24">
