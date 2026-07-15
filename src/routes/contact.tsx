@@ -140,6 +140,14 @@ function ContactPage() {
           </div>
         </Reveal>
       </section>
+
+      <QrLinkDialog
+        open={!!qr}
+        onClose={() => setQr(null)}
+        url={qr?.url ?? ""}
+        title={qr?.title ?? ""}
+        description={qr?.description}
+      />
     </SiteShell>
   );
 }
