@@ -24,6 +24,7 @@ export function NewsletterForm({ compact = false }: { compact?: boolean }) {
       <input
         type="email"
         required
+        aria-label="Votre adresse e-mail"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         placeholder="votre@email.fr"

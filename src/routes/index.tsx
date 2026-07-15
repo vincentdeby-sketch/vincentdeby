@@ -9,15 +9,17 @@ import heroWebp1600 from "@/assets/hero-home-1600.webp";
 import heroWebp960 from "@/assets/hero-home-960.webp";
 import heroJpg from "@/assets/hero-home-1600.jpg";
 
-const SITE = "https://debymo.lovable.app";
+const SITE = "https://vincentdeby.lovable.app";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Vincent Deby — Conseiller Immobilier à Boulogne-Billancourt (Efficity)" },
-      { name: "description", content: "Estimation immobilière juste et accompagnement à Boulogne-Billancourt et dans l'ouest parisien. Vincent Deby, ancien journaliste devenu mandataire Efficity : rigueur, sources vérifiées, ventes réelles du quartier." },
-      { property: "og:title", content: "Vincent Deby — Conseiller Immobilier à Boulogne-Billancourt (Efficity)" },
-      { property: "og:description", content: "Estimation immobilière juste et accompagnement à Boulogne-Billancourt et dans l'ouest parisien. Vincent Deby, ancien journaliste devenu mandataire Efficity : rigueur, sources vérifiées, ventes réelles du quartier." },
+      { title: "Vincent Deby — Conseiller Immobilier à Boulogne-Billancourt" },
+      { name: "description", content: "Estimation immobilière et accompagnement à Boulogne-Billancourt par Vincent Deby, mandataire Efficity. Rigueur, données réelles et suivi de A à Z." },
+      { property: "og:title", content: "Vincent Deby — Conseiller Immobilier à Boulogne-Billancourt" },
+      { property: "og:description", content: "Estimation immobilière et accompagnement à Boulogne-Billancourt par Vincent Deby, mandataire Efficity. Rigueur, données réelles et suivi de A à Z." },
+      { name: "twitter:title", content: "Vincent Deby — Conseiller Immobilier à Boulogne-Billancourt" },
+      { name: "twitter:description", content: "Estimation immobilière et accompagnement à Boulogne-Billancourt par Vincent Deby, mandataire Efficity." },
       { property: "og:url", content: `${SITE}/` },
       { property: "og:image", content: `${SITE}${heroJpg}` },
       { name: "twitter:image", content: `${SITE}${heroJpg}` },

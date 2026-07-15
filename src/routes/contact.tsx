@@ -6,7 +6,7 @@ import { NewsletterForm } from "@/components/site/NewsletterForm";
 import { QrLinkDialog } from "@/components/site/QrLinkDialog";
 import { useIsDesktop } from "@/hooks/use-is-desktop";
 
-const SITE = "https://debymo.lovable.app";
+const SITE = "https://vincentdeby.lovable.app";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({

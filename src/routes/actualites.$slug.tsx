@@ -5,7 +5,7 @@ import { ContactMenu } from "@/components/site/ContactMenu";
 import { formatDate } from "@/lib/domain";
 import { articleBySlugQuery } from "@/lib/queries";
 
-const SITE = "https://debymo.lovable.app";
+const SITE = "https://vincentdeby.lovable.app";
 
 export const Route = createFileRoute("/actualites/$slug")({
   loader: async ({ context, params }) => {
