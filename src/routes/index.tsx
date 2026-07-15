@@ -109,7 +109,7 @@ function Home() {
           <div className="md:col-span-5">
             <div className="text-[11px] uppercase tracking-[0.3em] text-muted-foreground sm:text-xs">Mon approche</div>
             <h2 className="mt-4 font-serif text-3xl leading-tight sm:text-4xl md:mt-6 md:text-5xl">
-              <span className="italic text-primary">Qui suis-je ?</span>
+              Vendre <span className="italic text-primary">vite, bien, et au juste prix</span>
             </h2>
           </div>
           <div className="space-y-6 text-base leading-relaxed text-muted-foreground md:col-span-7 md:text-lg">
@@ -128,7 +128,14 @@ function Home() {
               Je vous dis le prix juste, même quand il ne fait pas plaisir.
               C'est la condition d'une vente qui aboutit, et d'une relation qui dure.
             </p>
+            <p>
+              J'applique à chaque mandat des <span className="text-foreground">stratégies éprouvées, issues du marché du luxe</span> :
+              mise en scène du bien, photographies soignées, diffusion ciblée,
+              sélection rigoureuse des acquéreurs et négociation menée avec méthode.
+              Résultat : des biens qui se vendent vite, au bon prix, et sans concession sur la qualité du parcours.
+            </p>
           </div>
+
         </Reveal>
       </section>
 
