@@ -139,7 +139,7 @@ function Estimation() {
           <p className="mx-auto mt-6 max-w-xl text-muted-foreground">
             Vincent Deby étudie votre bien et vous reviendra sous 48 h ouvrées
             avec une estimation argumentée. En cas d'urgence, écrivez-moi à
-            <a href="mailto:vincentdeby@gmail.com" className="ml-1 text-primary underline">vincentdeby@gmail.com</a>.
+            <a href="mailto:vdeby@efficity.com" className="ml-1 text-primary underline">vdeby@efficity.com</a>.
           </p>
         </section>
       </SiteShell>

@@ -33,7 +33,7 @@ export const Route = createFileRoute("/")({
           name: "Vincent Deby — Conseiller Immobilier",
           url: `${SITE}/`,
           inLanguage: "fr-FR",
-          publisher: { "@type": "RealEstateAgent", name: "Vincent Deby", telephone: "+33610022436", email: "vincentdeby@gmail.com", areaServed: "Boulogne-Billancourt, Issy-les-Moulineaux, Sèvres, Saint-Cloud, Paris 15e, Paris 16e" },
+          publisher: { "@type": "RealEstateAgent", name: "Vincent Deby", telephone: "+33610022436", email: "vdeby@efficity.com", areaServed: "Boulogne-Billancourt, Issy-les-Moulineaux, Sèvres, Saint-Cloud, Paris 15e, Paris 16e" },
         }),
       },
     ],

@@ -3,7 +3,7 @@ import { ChevronDown, Phone, Mail, CalendarClock } from "lucide-react";
 
 const CALENDLY_URL = "https://calendly.com/vdeby-efficity/30min";
 const PHONE = "+33610022436";
-const EMAIL = "vincentdeby@gmail.com";
+const EMAIL = "vdeby@efficity.com";
 
 type Props = {
   label?: string;
