@@ -5,7 +5,9 @@ import { Reveal } from "@/components/site/Reveal";
 import { ArticleCard } from "@/components/site/ArticleCard";
 import { PropertyCard } from "@/components/site/PropertyCard";
 import { homeArticlesQuery, homePropertiesQuery } from "@/lib/queries";
-import hero from "@/assets/hero-home.jpg";
+import heroWebp1600 from "@/assets/hero-home-1600.webp";
+import heroWebp960 from "@/assets/hero-home-960.webp";
+import heroJpg from "@/assets/hero-home-1600.jpg";
 
 const SITE = "https://debymo.lovable.app";
 
