@@ -2,9 +2,12 @@ import { Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { Menu, X, ChevronDown, Phone, Mail, CalendarClock } from "lucide-react";
 import portrait from "@/assets/vincent-deby-200.webp";
+import { useIsDesktop } from "@/hooks/use-is-desktop";
+import { QrLinkDialog } from "./QrLinkDialog";
 
 const CALENDLY_URL = "https://calendly.com/vdeby-efficity/30min";
 const PHONE = "+33610022436";
+const PHONE_DISPLAY = "+33 6 10 02 24 36";
 const EMAIL = "vdeby@efficity.com";
 
 const nav = [
