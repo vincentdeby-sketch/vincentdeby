@@ -74,6 +74,8 @@ export function Header() {
             <img
               src={portrait}
               alt="Portrait de Vincent Deby"
+              width={44}
+              height={44}
               loading="eager"
               decoding="async"
               className="h-10 w-10 rounded-full object-cover ring-1 ring-foreground/15 transition-transform duration-300 group-hover/logo:scale-[1.03] sm:h-11 sm:w-11"
