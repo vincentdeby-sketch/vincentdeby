@@ -105,6 +105,54 @@ export function Header() {
                 />
               </Link>
             ))}
+
+            {/* Contact dropdown */}
+            <div ref={contactRef} className="relative">
+              <button
+                type="button"
+                aria-haspopup="menu"
+                aria-expanded={contactOpen}
+                onClick={() => setContactOpen((v) => !v)}
+                className="relative flex items-center gap-1 py-1 text-foreground/65 transition-colors duration-200 hover:text-foreground"
+              >
+                Contact
+                <ChevronDown className={`h-3.5 w-3.5 transition-transform duration-200 ${contactOpen ? "rotate-180" : ""}`} aria-hidden="true" />
+              </button>
+              {contactOpen && (
+                <div
+                  role="menu"
+                  className="absolute right-0 top-full mt-3 w-56 border border-foreground/10 bg-background shadow-lg animate-fade-in"
+                >
+                  <a
+                    role="menuitem"
+                    href={`tel:${PHONE}`}
+                    onClick={() => setContactOpen(false)}
+                    className="flex items-center gap-3 border-b border-foreground/5 px-4 py-3 text-sm text-foreground/80 transition-colors hover:bg-foreground/5 hover:text-foreground"
+                  >
+                    <Phone className="h-4 w-4" aria-hidden="true" />
+                    Nous appeler
+                  </a>
+                  <a
+                    role="menuitem"
+                    href={`mailto:${EMAIL}`}
+                    onClick={() => setContactOpen(false)}
+                    className="flex items-center gap-3 px-4 py-3 text-sm text-foreground/80 transition-colors hover:bg-foreground/5 hover:text-foreground"
+                  >
+                    <Mail className="h-4 w-4" aria-hidden="true" />
+                    Nous écrire
+                  </a>
+                </div>
+              )}
+            </div>
+
+            <a
+              href={CALENDLY_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="relative py-1 text-foreground/65 transition-colors duration-200 hover:text-foreground"
+            >
+              Prendre rendez-vous
+            </a>
           </nav>
 
           {/* Actions */}
