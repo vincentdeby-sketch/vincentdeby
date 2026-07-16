@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as VideosRouteImport } from './routes/videos'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as FormulaireRouteImport } from './routes/formulaire'
 import { Route as EstimationRouteImport } from './routes/estimation'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as AuthRouteImport } from './routes/auth'
@@ -33,6 +34,11 @@ const VideosRoute = VideosRouteImport.update({
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FormulaireRoute = FormulaireRouteImport.update({
+  id: '/formulaire',
+  path: '/formulaire',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EstimationRoute = EstimationRouteImport.update({
@@ -107,6 +113,7 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/contact': typeof ContactRoute
   '/estimation': typeof EstimationRoute
+  '/formulaire': typeof FormulaireRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/videos': typeof VideosRoute
   '/actualites/$slug': typeof ActualitesSlugRoute
@@ -123,6 +130,7 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/contact': typeof ContactRoute
   '/estimation': typeof EstimationRoute
+  '/formulaire': typeof FormulaireRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/videos': typeof VideosRoute
   '/actualites/$slug': typeof ActualitesSlugRoute
@@ -141,6 +149,7 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/contact': typeof ContactRoute
   '/estimation': typeof EstimationRoute
+  '/formulaire': typeof FormulaireRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/videos': typeof VideosRoute
   '/actualites/$slug': typeof ActualitesSlugRoute
@@ -159,6 +168,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/contact'
     | '/estimation'
+    | '/formulaire'
     | '/sitemap.xml'
     | '/videos'
     | '/actualites/$slug'
@@ -175,6 +185,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/contact'
     | '/estimation'
+    | '/formulaire'
     | '/sitemap.xml'
     | '/videos'
     | '/actualites/$slug'
@@ -192,6 +203,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/contact'
     | '/estimation'
+    | '/formulaire'
     | '/sitemap.xml'
     | '/videos'
     | '/actualites/$slug'
@@ -210,6 +222,7 @@ export interface RootRouteChildren {
   AuthRoute: typeof AuthRoute
   ContactRoute: typeof ContactRoute
   EstimationRoute: typeof EstimationRoute
+  FormulaireRoute: typeof FormulaireRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   VideosRoute: typeof VideosRoute
   ActualitesSlugRoute: typeof ActualitesSlugRoute
@@ -232,6 +245,13 @@ declare module '@tanstack/react-router' {
       path: '/sitemap.xml'
       fullPath: '/sitemap.xml'
       preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/formulaire': {
+      id: '/formulaire'
+      path: '/formulaire'
+      fullPath: '/formulaire'
+      preLoaderRoute: typeof FormulaireRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/estimation': {
@@ -351,6 +371,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuthRoute: AuthRoute,
   ContactRoute: ContactRoute,
   EstimationRoute: EstimationRoute,
+  FormulaireRoute: FormulaireRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   VideosRoute: VideosRoute,
   ActualitesSlugRoute: ActualitesSlugRoute,
