@@ -141,6 +141,14 @@ function Estimation() {
             avec une estimation argumentée. En cas d'urgence, écrivez-moi à
             <a href="mailto:vdeby@efficity.com" className="ml-1 text-primary underline">vdeby@efficity.com</a>.
           </p>
+          <div className="mt-10">
+            <a
+              href="/formulaire"
+              className="inline-flex min-h-11 items-center rounded-full bg-foreground px-6 py-3 text-[11px] uppercase tracking-[0.18em] text-background transition-opacity hover:opacity-90 sm:px-8"
+            >
+              Continuer avec le formulaire de qualification
+            </a>
+          </div>
         </section>
       </SiteShell>
     );

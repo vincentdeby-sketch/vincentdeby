@@ -137,6 +137,51 @@ export type Database = {
         }
         Relationships: []
       }
+      leads: {
+        Row: {
+          contact_method: string
+          contact_name: string
+          contact_value: string
+          created_at: string
+          id: string
+          location: string
+          motivation: string | null
+          occupation: string
+          price_basis: string
+          slot: string | null
+          timeline: string
+          updated_at: string
+        }
+        Insert: {
+          contact_method: string
+          contact_name: string
+          contact_value: string
+          created_at?: string
+          id?: string
+          location: string
+          motivation?: string | null
+          occupation: string
+          price_basis: string
+          slot?: string | null
+          timeline: string
+          updated_at?: string
+        }
+        Update: {
+          contact_method?: string
+          contact_name?: string
+          contact_value?: string
+          created_at?: string
+          id?: string
+          location?: string
+          motivation?: string | null
+          occupation?: string
+          price_basis?: string
+          slot?: string | null
+          timeline?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       properties: {
         Row: {
           address: string
