@@ -81,62 +81,29 @@ export function Header() {
       <div className="container-narrow">
         <div className="flex items-center justify-between gap-6 py-3 md:py-4">
           {/* Brand */}
-          <div className="flex items-center gap-4 md:gap-6">
-            <Link
-              to="/"
-              aria-label="Vincent Deby — Accueil"
-              className="group/logo flex min-w-0 items-center gap-3 shrink-0"
-            >
-              <img
-                src={portrait}
-                alt="Portrait de Vincent Deby"
-                width={44}
-                height={44}
-                loading="eager"
-                decoding="async"
-                className="h-10 w-10 rounded-full object-cover ring-1 ring-foreground/15 transition-transform duration-300 group-hover/logo:scale-[1.03] sm:h-11 sm:w-11"
-              />
-              <span className="flex flex-col leading-tight">
-                <span className="font-serif text-lg tracking-tight text-foreground md:text-xl">
-                  Vincent Deby
-                </span>
-                <span className="text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
-                  Conseiller immobilier · Efficity
-                </span>
+          <Link
+            to="/"
+            aria-label="Vincent Deby — Accueil"
+            className="group/logo flex min-w-0 items-center gap-3 shrink-0"
+          >
+            <img
+              src={portrait}
+              alt="Portrait de Vincent Deby"
+              width={44}
+              height={44}
+              loading="eager"
+              decoding="async"
+              className="h-10 w-10 rounded-full object-cover ring-1 ring-foreground/15 transition-transform duration-300 group-hover/logo:scale-[1.03] sm:h-11 sm:w-11"
+            />
+            <span className="flex flex-col leading-tight">
+              <span className="font-serif text-lg tracking-tight text-foreground md:text-xl">
+                Vincent Deby
               </span>
-            </Link>
-
-            <div className="hidden md:flex flex-col gap-0.5 border-l border-foreground/10 pl-4 lg:pl-6">
-              <a
-                href={`tel:${PHONE}`}
-                onClick={(e) =>
-                  handleDesktopContact(e, {
-                    url: `tel:${PHONE}`,
-                    title: "Nous appeler",
-                    description: PHONE_DISPLAY,
-                  })
-                }
-                className="flex items-center gap-2 text-xs text-foreground/70 transition-colors hover:text-foreground"
-              >
-                <Phone className="h-3.5 w-3.5" aria-hidden="true" />
-                <span className="tracking-wide">{PHONE_DISPLAY}</span>
-              </a>
-              <a
-                href={`mailto:${EMAIL}`}
-                onClick={(e) =>
-                  handleDesktopContact(e, {
-                    url: `mailto:${EMAIL}`,
-                    title: "Nous écrire",
-                    description: EMAIL,
-                  })
-                }
-                className="flex items-center gap-2 text-xs text-foreground/70 transition-colors hover:text-foreground"
-              >
-                <Mail className="h-3.5 w-3.5" aria-hidden="true" />
-                <span>{EMAIL}</span>
-              </a>
-            </div>
-          </div>
+              <span className="text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
+                Conseiller immobilier · Efficity
+              </span>
+            </span>
+          </Link>
 
           {/* Nav */}
           <nav aria-label="Navigation principale" className="hidden items-center gap-7 text-sm md:flex">
