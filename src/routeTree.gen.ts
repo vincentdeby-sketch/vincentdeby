@@ -9,50 +9,26 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as IndexRouteImport } from './routes/index'
-import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
-import { Route as AuthRouteImport } from './routes/auth'
-import { Route as ContactRouteImport } from './routes/contact'
-import { Route as EstimationRouteImport } from './routes/estimation'
-import { Route as FormulaireRouteImport } from './routes/formulaire'
-import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as VideosRouteImport } from './routes/videos'
-import { Route as ActualitesIndexRouteImport } from './routes/actualites.index'
-import { Route as ActualitesSlugRouteImport } from './routes/actualites.$slug'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as FormulaireRouteImport } from './routes/formulaire'
+import { Route as EstimationRouteImport } from './routes/estimation'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
+import { Route as IndexRouteImport } from './routes/index'
 import { Route as BiensIndexRouteImport } from './routes/biens.index'
+import { Route as ActualitesIndexRouteImport } from './routes/actualites.index'
 import { Route as BiensIdRouteImport } from './routes/biens.$id'
+import { Route as ActualitesSlugRouteImport } from './routes/actualites.$slug'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
-import { Route as AuthenticatedAdminArticlesRouteImport } from './routes/_authenticated/admin.articles'
-import { Route as AuthenticatedAdminBiensRouteImport } from './routes/_authenticated/admin.biens'
 import { Route as AuthenticatedAdminEstimationsRouteImport } from './routes/_authenticated/admin.estimations'
+import { Route as AuthenticatedAdminBiensRouteImport } from './routes/_authenticated/admin.biens'
+import { Route as AuthenticatedAdminArticlesRouteImport } from './routes/_authenticated/admin.articles'
 
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
-  id: '/_authenticated',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AuthRoute = AuthRouteImport.update({
-  id: '/auth',
-  path: '/auth',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ContactRoute = ContactRouteImport.update({
-  id: '/contact',
-  path: '/contact',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const EstimationRoute = EstimationRouteImport.update({
-  id: '/estimation',
-  path: '/estimation',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const FormulaireRoute = FormulaireRouteImport.update({
-  id: '/formulaire',
-  path: '/formulaire',
+const VideosRoute = VideosRouteImport.update({
+  id: '/videos',
+  path: '/videos',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
@@ -60,19 +36,33 @@ const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
-const VideosRoute = VideosRouteImport.update({
-  id: '/videos',
-  path: '/videos',
+const FormulaireRoute = FormulaireRouteImport.update({
+  id: '/formulaire',
+  path: '/formulaire',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ActualitesIndexRoute = ActualitesIndexRouteImport.update({
-  id: '/actualites/',
-  path: '/actualites/',
+const EstimationRoute = EstimationRouteImport.update({
+  id: '/estimation',
+  path: '/estimation',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ActualitesSlugRoute = ActualitesSlugRouteImport.update({
-  id: '/actualites/$slug',
-  path: '/actualites/$slug',
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BiensIndexRoute = BiensIndexRouteImport.update({
@@ -80,9 +70,19 @@ const BiensIndexRoute = BiensIndexRouteImport.update({
   path: '/biens/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ActualitesIndexRoute = ActualitesIndexRouteImport.update({
+  id: '/actualites/',
+  path: '/actualites/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const BiensIdRoute = BiensIdRouteImport.update({
   id: '/biens/$id',
   path: '/biens/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ActualitesSlugRoute = ActualitesSlugRouteImport.update({
+  id: '/actualites/$slug',
+  path: '/actualites/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
@@ -90,10 +90,10 @@ const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
   path: '/admin/',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
-const AuthenticatedAdminArticlesRoute =
-  AuthenticatedAdminArticlesRouteImport.update({
-    id: '/admin/articles',
-    path: '/admin/articles',
+const AuthenticatedAdminEstimationsRoute =
+  AuthenticatedAdminEstimationsRouteImport.update({
+    id: '/admin/estimations',
+    path: '/admin/estimations',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
 const AuthenticatedAdminBiensRoute = AuthenticatedAdminBiensRouteImport.update({
@@ -101,10 +101,10 @@ const AuthenticatedAdminBiensRoute = AuthenticatedAdminBiensRouteImport.update({
   path: '/admin/biens',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
-const AuthenticatedAdminEstimationsRoute =
-  AuthenticatedAdminEstimationsRouteImport.update({
-    id: '/admin/estimations',
-    path: '/admin/estimations',
+const AuthenticatedAdminArticlesRoute =
+  AuthenticatedAdminArticlesRouteImport.update({
+    id: '/admin/articles',
+    path: '/admin/articles',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
 
@@ -233,46 +233,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/_authenticated': {
-      id: '/_authenticated'
-      path: ''
-      fullPath: '/'
-      preLoaderRoute: typeof AuthenticatedRouteRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/auth': {
-      id: '/auth'
-      path: '/auth'
-      fullPath: '/auth'
-      preLoaderRoute: typeof AuthRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/contact': {
-      id: '/contact'
-      path: '/contact'
-      fullPath: '/contact'
-      preLoaderRoute: typeof ContactRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/estimation': {
-      id: '/estimation'
-      path: '/estimation'
-      fullPath: '/estimation'
-      preLoaderRoute: typeof EstimationRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/formulaire': {
-      id: '/formulaire'
-      path: '/formulaire'
-      fullPath: '/formulaire'
-      preLoaderRoute: typeof FormulaireRouteImport
+    '/videos': {
+      id: '/videos'
+      path: '/videos'
+      fullPath: '/videos'
+      preLoaderRoute: typeof VideosRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/sitemap.xml': {
@@ -282,25 +247,46 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/videos': {
-      id: '/videos'
-      path: '/videos'
-      fullPath: '/videos'
-      preLoaderRoute: typeof VideosRouteImport
+    '/formulaire': {
+      id: '/formulaire'
+      path: '/formulaire'
+      fullPath: '/formulaire'
+      preLoaderRoute: typeof FormulaireRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/actualites/': {
-      id: '/actualites/'
-      path: '/actualites'
-      fullPath: '/actualites/'
-      preLoaderRoute: typeof ActualitesIndexRouteImport
+    '/estimation': {
+      id: '/estimation'
+      path: '/estimation'
+      fullPath: '/estimation'
+      preLoaderRoute: typeof EstimationRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/actualites/$slug': {
-      id: '/actualites/$slug'
-      path: '/actualites/$slug'
-      fullPath: '/actualites/$slug'
-      preLoaderRoute: typeof ActualitesSlugRouteImport
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/biens/': {
@@ -310,11 +296,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BiensIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/actualites/': {
+      id: '/actualites/'
+      path: '/actualites'
+      fullPath: '/actualites/'
+      preLoaderRoute: typeof ActualitesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/biens/$id': {
       id: '/biens/$id'
       path: '/biens/$id'
       fullPath: '/biens/$id'
       preLoaderRoute: typeof BiensIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/actualites/$slug': {
+      id: '/actualites/$slug'
+      path: '/actualites/$slug'
+      fullPath: '/actualites/$slug'
+      preLoaderRoute: typeof ActualitesSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated/admin/': {
@@ -324,11 +324,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminIndexRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/_authenticated/admin/articles': {
-      id: '/_authenticated/admin/articles'
-      path: '/admin/articles'
-      fullPath: '/admin/articles'
-      preLoaderRoute: typeof AuthenticatedAdminArticlesRouteImport
+    '/_authenticated/admin/estimations': {
+      id: '/_authenticated/admin/estimations'
+      path: '/admin/estimations'
+      fullPath: '/admin/estimations'
+      preLoaderRoute: typeof AuthenticatedAdminEstimationsRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/admin/biens': {
@@ -338,11 +338,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminBiensRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/_authenticated/admin/estimations': {
-      id: '/_authenticated/admin/estimations'
-      path: '/admin/estimations'
-      fullPath: '/admin/estimations'
-      preLoaderRoute: typeof AuthenticatedAdminEstimationsRouteImport
+    '/_authenticated/admin/articles': {
+      id: '/_authenticated/admin/articles'
+      path: '/admin/articles'
+      fullPath: '/admin/articles'
+      preLoaderRoute: typeof AuthenticatedAdminArticlesRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
   }
