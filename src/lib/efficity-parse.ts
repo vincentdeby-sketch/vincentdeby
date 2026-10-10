@@ -67,6 +67,8 @@ export function decode(s: string) {
     .replace(/&#(\d+);/g, (_, n) => String.fromCharCode(Number(n)));
 }
 
+const euros = (s: string) => Number(decode(s).replace(/[^\d]/g, ""));
+
 function text(html: string) {
   return decode(html.replace(/<br\s*\/?>/gi, "\n").replace(/<[^>]+>/g, " "))
     .replace(/[ \t ]+/g, " ")
@@ -104,9 +106,9 @@ export function parseListingsPage(html: string): { forSale: EfficityListing[]; s
   for (const chunk of splitItems(saleHtml)) {
     const id = attr(chunk, "data-id");
     const url = chunk.match(/href="(https:\/\/www\.efficity\.com\/achat-immobilier\/[^"]+)"/)?.[1];
-    const cover = chunk.match(/<img[^>]+src="([^"]+)"/)?.[1];
+    const cover = chunk.match(/<img[^>]+(?:data-src|src)="(https?:[^"]+|\/\/[^"]+)"/)?.[1]?.replace(/^\/\//, "https://");
     const alt = parseAlt(chunk.match(/<img[^>]+alt="([^"]*)"/)?.[1] ?? "");
-    const price = Number(attr(chunk, "data-price"));
+    const price = Number(attr(chunk, "data-price")) || euros(chunk.match(/<p class="price">([^<]+)<\/p>/)?.[1] ?? "");
     if (!id || !url || !cover || !alt || !price) continue;
     forSale.push({
       id,
@@ -133,8 +135,6 @@ export function parseListingsPage(html: string): { forSale: EfficityListing[]; s
 
   return { forSale, sold };
 }
-
-const euros = (s: string) => Number(decode(s).replace(/[^\d]/g, ""));
 
 // Bloc « Notre estimation du prix au m² à … » de la page consultant.
 export function parsePrices(html: string): EfficityPrices | null {

@@ -22,6 +22,7 @@ import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as VideosRouteImport } from './routes/videos'
 import { Route as ActualitesIndexRouteImport } from './routes/actualites.index'
 import { Route as ActualitesSlugRouteImport } from './routes/actualites.$slug'
+import { Route as ApiEfficityDiagnosticRouteImport } from './routes/api.efficity-diagnostic'
 import { Route as BiensIndexRouteImport } from './routes/biens.index'
 import { Route as BiensIdRouteImport } from './routes/biens.$id'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
@@ -93,6 +94,11 @@ const ActualitesSlugRoute = ActualitesSlugRouteImport.update({
   path: '/actualites/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiEfficityDiagnosticRoute = ApiEfficityDiagnosticRouteImport.update({
+  id: '/api/efficity-diagnostic',
+  path: '/api/efficity-diagnostic',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const BiensIndexRoute = BiensIndexRouteImport.update({
   id: '/biens/',
   path: '/biens/',
@@ -138,6 +144,7 @@ export interface FileRoutesByFullPath {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/videos': typeof VideosRoute
   '/actualites/$slug': typeof ActualitesSlugRoute
+  '/api/efficity-diagnostic': typeof ApiEfficityDiagnosticRoute
   '/biens/$id': typeof BiensIdRoute
   '/actualites/': typeof ActualitesIndexRoute
   '/biens/': typeof BiensIndexRoute
@@ -158,6 +165,7 @@ export interface FileRoutesByTo {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/videos': typeof VideosRoute
   '/actualites/$slug': typeof ActualitesSlugRoute
+  '/api/efficity-diagnostic': typeof ApiEfficityDiagnosticRoute
   '/biens/$id': typeof BiensIdRoute
   '/actualites': typeof ActualitesIndexRoute
   '/biens': typeof BiensIndexRoute
@@ -180,6 +188,7 @@ export interface FileRoutesById {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/videos': typeof VideosRoute
   '/actualites/$slug': typeof ActualitesSlugRoute
+  '/api/efficity-diagnostic': typeof ApiEfficityDiagnosticRoute
   '/biens/$id': typeof BiensIdRoute
   '/actualites/': typeof ActualitesIndexRoute
   '/biens/': typeof BiensIndexRoute
@@ -202,6 +211,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/videos'
     | '/actualites/$slug'
+    | '/api/efficity-diagnostic'
     | '/biens/$id'
     | '/actualites/'
     | '/biens/'
@@ -222,6 +232,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/videos'
     | '/actualites/$slug'
+    | '/api/efficity-diagnostic'
     | '/biens/$id'
     | '/actualites'
     | '/biens'
@@ -243,6 +254,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/videos'
     | '/actualites/$slug'
+    | '/api/efficity-diagnostic'
     | '/biens/$id'
     | '/actualites/'
     | '/biens/'
@@ -265,6 +277,7 @@ export interface RootRouteChildren {
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   VideosRoute: typeof VideosRoute
   ActualitesSlugRoute: typeof ActualitesSlugRoute
+  ApiEfficityDiagnosticRoute: typeof ApiEfficityDiagnosticRoute
   BiensIdRoute: typeof BiensIdRoute
   ActualitesIndexRoute: typeof ActualitesIndexRoute
   BiensIndexRoute: typeof BiensIndexRoute
@@ -363,6 +376,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ActualitesSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/efficity-diagnostic': {
+      id: '/api/efficity-diagnostic'
+      path: '/api/efficity-diagnostic'
+      fullPath: '/api/efficity-diagnostic'
+      preLoaderRoute: typeof ApiEfficityDiagnosticRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/biens/': {
       id: '/biens/'
       path: '/biens'
@@ -438,6 +458,7 @@ const rootRouteChildren: RootRouteChildren = {
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   VideosRoute: VideosRoute,
   ActualitesSlugRoute: ActualitesSlugRoute,
+  ApiEfficityDiagnosticRoute: ApiEfficityDiagnosticRoute,
   BiensIdRoute: BiensIdRoute,
   ActualitesIndexRoute: ActualitesIndexRoute,
   BiensIndexRoute: BiensIndexRoute,
