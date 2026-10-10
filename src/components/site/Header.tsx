@@ -79,12 +79,12 @@ export function Header() {
       ].join(" ")}
     >
       <div className="container-narrow">
-        <div className="flex items-center justify-between gap-6 py-3 md:py-4">
+        <div className="flex items-center justify-between gap-3 py-3 sm:gap-6 md:py-4">
           {/* Brand */}
           <Link
             to="/"
             aria-label="Vincent Deby — Accueil"
-            className="group/logo flex min-w-0 items-center gap-3 shrink-0"
+            className="group/logo flex min-w-0 items-center gap-3"
           >
             <img
               src={portrait}
@@ -93,13 +93,13 @@ export function Header() {
               height={44}
               loading="eager"
               decoding="async"
-              className="h-10 w-10 rounded-full object-cover ring-1 ring-foreground/15 transition-transform duration-300 group-hover/logo:scale-[1.03] sm:h-11 sm:w-11"
+              className="h-10 w-10 shrink-0 rounded-full object-cover ring-1 ring-foreground/15 transition-transform duration-300 group-hover/logo:scale-[1.03] sm:h-11 sm:w-11"
             />
-            <span className="flex flex-col leading-tight">
+            <span className="flex min-w-0 flex-col leading-tight">
               <span className="font-serif text-lg tracking-tight text-foreground md:text-xl">
                 Vincent Deby
               </span>
-              <span className="text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
+              <span className="truncate text-[10px] uppercase tracking-[0.12em] text-muted-foreground sm:tracking-[0.22em]">
                 Conseiller immobilier · Efficity
               </span>
             </span>
@@ -184,7 +184,7 @@ export function Header() {
           </nav>
 
           {/* Actions */}
-          <div className="flex items-center gap-3 shrink-0">
+          <div className="flex shrink-0 items-center gap-2 sm:gap-3">
             <Link
               to="/auth"
               className="hidden text-[11px] uppercase tracking-[0.2em] text-foreground/70 transition-colors hover:text-foreground sm:inline-block"
