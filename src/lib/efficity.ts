@@ -12,9 +12,9 @@ import {
   type EfficitySold,
 } from "./efficity-parse";
 
-// Les biens affichés sur le site sont lus en direct sur la page Efficity de Vincent
-// (mise en cache 15 minutes). Si Efficity ne répond pas, on sert la dernière copie enregistrée
-// dans src/data/efficity-snapshot.json.
+// Les biens affichés sur le site viennent de la page Efficity de Vincent. Le site tente une lecture
+// directe (mise en cache 15 minutes) ; Efficity la bloque souvent (Cloudflare), et l'on sert alors
+// la copie src/data/efficity-snapshot.json, rafraîchie par un service de lecture externe.
 
 export type Listing = Property & {
   exclusive: boolean;
@@ -68,8 +68,12 @@ async function loadIndex() {
       return parsed;
     });
   } catch (e) {
+    // Efficity filtre les serveurs (protection Cloudflare) : on sert la copie et on ne réessaie
+    // pas avant la fin du délai de cache, pour ne pas ralentir chaque page.
     console.error("[efficity] liste indisponible, copie de secours servie :", e);
-    return { forSale: snap.forSale, sold: snap.sold, prices: snap.prices };
+    const fallback = { forSale: snap.forSale, sold: snap.sold, prices: snap.prices };
+    cache.set("index", { at: Date.now(), value: fallback });
+    return fallback;
   }
 }
 
@@ -82,7 +86,9 @@ async function loadDetail(l: EfficityListing): Promise<EfficityDetail | null> {
     });
   } catch (e) {
     console.error(`[efficity] fiche ${l.id} indisponible :`, e);
-    return snap.details[l.id] ?? null;
+    const fallback = snap.details[l.id] ?? null;
+    cache.set(`detail:${l.id}`, { at: Date.now(), value: fallback });
+    return fallback;
   }
 }
 
