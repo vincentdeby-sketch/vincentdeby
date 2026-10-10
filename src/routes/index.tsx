@@ -8,7 +8,8 @@ import { SiteShell } from "@/components/site/SiteShell";
 import { Reveal } from "@/components/site/Reveal";
 import { ArticleCard } from "@/components/site/ArticleCard";
 import { PropertyCard } from "@/components/site/PropertyCard";
-import { homeArticlesQuery, homePropertiesQuery } from "@/lib/queries";
+import { homeArticlesQuery, listingsQuery } from "@/lib/queries";
+import { PriceGap } from "@/components/site/PriceGap";
 import heroWebp1600 from "@/assets/hero-home-1600.webp";
 import heroWebp960 from "@/assets/hero-home-960.webp";
 import heroWebp640 from "@/assets/hero-home-640.webp";
@@ -63,7 +64,7 @@ export const Route = createFileRoute("/")({
 
   loader: ({ context }) => {
     void context.queryClient.ensureQueryData(homeArticlesQuery);
-    void context.queryClient.ensureQueryData(homePropertiesQuery);
+    void context.queryClient.ensureQueryData(listingsQuery);
   },
   component: Home,
 });
@@ -103,7 +104,8 @@ const DOSSIER = [
 
 function Home() {
   const { data: articles } = useSuspenseQuery(homeArticlesQuery);
-  const { data: properties } = useSuspenseQuery(homePropertiesQuery);
+  const { data: listings } = useSuspenseQuery(listingsQuery);
+  const properties = listings.forSale.slice(0, 3);
 
   return (
     <SiteShell>
@@ -203,6 +205,15 @@ function Home() {
           ))}
         </div>
       </section>
+
+      {/* LE PIÈGE DES MOYENNES */}
+      {listings.prices && (
+        <section className="container-narrow pb-[clamp(4rem,9vw,8rem)]">
+          <Reveal>
+            <PriceGap prices={listings.prices} />
+          </Reveal>
+        </section>
+      )}
 
       {/* LE DOSSIER */}
       <section className="px-3 sm:px-5">

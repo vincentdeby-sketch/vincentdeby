@@ -1,9 +1,10 @@
 // Informations légales affichées sur /mentions-legales, /confidentialite et /cgu.
-// Les valeurs null s'affichent « à compléter » : à remplir avec les documents de Vincent et d'Efficity.
+// Source : bloc « Informations légales » de efficity.com/vdeby (relevé le 10/10/2026).
+// Les valeurs null s'affichent « à compléter ».
 export const LEGAL = {
   name: "Vincent Deby",
-  status: "Agent commercial immobilier indépendant, mandataire du réseau Efficity",
-  rsac: null as string | null, // ex. « 123 456 789 RSAC Nanterre »
+  status: "entrepreneur individuel (EI), agent commercial mandataire en immobilier du réseau Efficity",
+  rsac: "n° 524 616 448, Registre spécial des agents commerciaux du tribunal de commerce de Nanterre" as string | null,
   siret: null as string | null,
   address: null as string | null, // adresse postale professionnelle
   email: "vdeby@efficity.com",
@@ -13,16 +14,16 @@ export const LEGAL = {
   // Société mandante (titulaire de la carte professionnelle)
   agency: {
     name: "Efficity",
-    legalForm: null as string | null, // forme sociale et capital
-    address: null as string | null,
-    rcs: null as string | null,
-    cardT: null as string | null, // n° de carte professionnelle « Transaction » et CCI de délivrance
-    guarantee: null as string | null, // garant financier et montant
+    legalForm: "EFFICITY SAS au capital de 132 373,05 €" as string | null,
+    address: "48 avenue de Villiers, 75017 Paris" as string | null,
+    rcs: "Paris 497 617 746" as string | null,
+    cardT: "CPI 7501 2015 000 002 025, délivrée par la CCI Paris Île-de-France" as string | null,
+    guarantee: "500 000 €, GALIAN Assurances, 89 rue de la Boétie, 75008 Paris" as string | null,
     insurance: null as string | null, // assureur RCP
   },
 
   mediator: null as string | null, // médiateur de la consommation : nom, adresse, site
-  feesUrl: null as string | null, // lien vers le barème d'honoraires Efficity
+  feesUrl: "https://diszln7ft1ccx.cloudfront.net/pdf/BAREME_NATIONAL.pdf" as string | null,
 
   host: "Vercel Inc., 440 N Barranca Ave #4133, Covina, CA 91723, États-Unis — vercel.com",
   dataProvider: "Supabase Inc. (base de données des formulaires)",

@@ -28,7 +28,19 @@ export const Route = createFileRoute("/biens/")({
 });
 
 function List() {
-  const { data: items } = useSuspenseQuery(propertiesListQuery);
+  const { data } = useSuspenseQuery(propertiesListQuery);
+  const items = data.forSale;
+  // Ventes récentes lues sur Efficity, puis références plus anciennes (sans doublon).
+  const sold = [
+    ...data.sold.map((s) => ({
+      id: `s-${s.id}`,
+      type: s.type.charAt(0).toUpperCase() + s.type.slice(1),
+      city: `${s.city} (${s.postalCode})`,
+      surface: s.surface,
+      cover_url: s.cover,
+    })),
+    ...SOLD,
+  ].filter((s, i, all) => all.findIndex((x) => x.id === s.id) === i);
   return (
     <SiteShell>
       <PageHeader
@@ -60,7 +72,7 @@ function List() {
           Quelques transactions menées à bien.
         </p>
         <div className="mt-10 grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 md:mt-14">
-          {SOLD.map((s) => (
+          {sold.map((s) => (
             <Reveal key={s.id}>
               <article>
                 <div className="relative aspect-[4/3] overflow-hidden rounded-[1.5rem] bg-muted">

@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import type {} from "@tanstack/react-start";
 import { supabase } from "@/integrations/supabase/client";
+import { getListings } from "@/lib/efficity";
 
 import { SITE as BASE_URL } from "@/lib/site";
 
@@ -42,17 +43,9 @@ export const Route = createFileRoute("/sitemap.xml")({
             });
           }
 
-          const { data: props } = await supabase
-            .from("properties")
-            .select("id, updated_at")
-            .eq("published", true);
-          for (const p of props ?? []) {
-            entries.push({
-              path: `/biens/${p.id}`,
-              lastmod: p.updated_at?.slice(0, 10),
-              changefreq: "weekly",
-              priority: "0.7",
-            });
+          const { forSale } = await getListings();
+          for (const p of forSale) {
+            entries.push({ path: `/biens/${p.id}`, changefreq: "weekly", priority: "0.7" });
           }
         } catch {
           // If the database is unreachable, still serve static routes.

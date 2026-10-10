@@ -1,0 +1,377 @@
+{
+  "fetchedAt": "2026-10-10",
+  "forSale": [
+    {
+      "id": "30054767",
+      "type": "appartement",
+      "city": "Paris",
+      "postalCode": "75013",
+      "price": 790000,
+      "surface": 80,
+      "rooms": 4,
+      "cover": "https://d1q967606ga7w2.cloudfront.net/common/house/30054767/photos/s/balcon.jpg",
+      "url": "https://www.efficity.com/achat-immobilier/appartement_80-m2_paris_75013_30054767/",
+      "exclusive": false
+    },
+    {
+      "id": "30032166",
+      "type": "appartement",
+      "city": "Paris",
+      "postalCode": "75016",
+      "price": 450000,
+      "surface": 60,
+      "rooms": 2,
+      "cover": "https://d1q967606ga7w2.cloudfront.net/common/house/30032166/photos/s/sejour-2-3d.jpg",
+      "url": "https://www.efficity.com/achat-immobilier/appartement_60-m2_paris_75016_30032166/",
+      "exclusive": false
+    },
+    {
+      "id": "29852671",
+      "type": "appartement",
+      "city": "Paris",
+      "postalCode": "75016",
+      "price": 490000,
+      "surface": 60,
+      "rooms": 2,
+      "cover": "https://d1q967606ga7w2.cloudfront.net/common/house/29852671/photos/s/3d-salon-2-plante.jpg",
+      "url": "https://www.efficity.com/achat-immobilier/appartement_60-m2_paris_75016_29852671/",
+      "exclusive": false
+    },
+    {
+      "id": "29620637",
+      "type": "maison",
+      "city": "Chaville",
+      "postalCode": "92370",
+      "price": 795000,
+      "surface": 150,
+      "rooms": 7,
+      "cover": "https://d1q967606ga7w2.cloudfront.net/common/house/29620637/photos/s/watermark-whatsapp-image-2026-05-05-at-162806-48-1.jpeg",
+      "url": "https://www.efficity.com/achat-immobilier/maison_150-m2_chaville_92370_29620637/",
+      "exclusive": false
+    },
+    {
+      "id": "29503801",
+      "type": "appartement",
+      "city": "Paris",
+      "postalCode": "75007",
+      "price": 435000,
+      "surface": 35,
+      "rooms": 2,
+      "cover": "https://d1q967606ga7w2.cloudfront.net/common/house/29503801/photos/s/watermark-whatsapp-image-2026-06-05-at-153942-10.jpeg",
+      "url": "https://www.efficity.com/achat-immobilier/appartement_35-m2_paris_75007_29503801/",
+      "exclusive": true
+    },
+    {
+      "id": "29447119",
+      "type": "appartement",
+      "city": "Saint-Cloud",
+      "postalCode": "92210",
+      "price": 295000,
+      "surface": 50,
+      "rooms": 3,
+      "cover": "https://d1q967606ga7w2.cloudfront.net/common/house/29447119/photos/s/gemini_generated_image_suv8csuv8csuv8cs.jpg",
+      "url": "https://www.efficity.com/achat-immobilier/appartement_50-m2_saint-cloud_92210_29447119/",
+      "exclusive": true
+    },
+    {
+      "id": "29216110",
+      "type": "appartement",
+      "city": "Boulogne-Billancourt",
+      "postalCode": "92100",
+      "price": 390000,
+      "surface": 45,
+      "rooms": 3,
+      "cover": "https://d1q967606ga7w2.cloudfront.net/common/house/29216110/photos/s/watermark-gemini_generated_image_f1zdr7f1zdr7f1zd.jpg",
+      "url": "https://www.efficity.com/achat-immobilier/appartement_45-m2_boulogne-billancourt_92100_29216110/",
+      "exclusive": true
+    },
+    {
+      "id": "28515831",
+      "type": "appartement",
+      "city": "Boulogne-Billancourt",
+      "postalCode": "92100",
+      "price": 399000,
+      "surface": 45.71,
+      "rooms": 2,
+      "cover": "https://d1q967606ga7w2.cloudfront.net/common/house/28515831/photos/s/watermark-balcon-top-top-2.png",
+      "url": "https://www.efficity.com/achat-immobilier/appartement_45-m2_boulogne-billancourt_92100_28515831/",
+      "exclusive": false
+    }
+  ],
+  "sold": [
+    {
+      "id": "29266653",
+      "type": "appartement",
+      "city": "Paris",
+      "postalCode": "75016",
+      "surface": 30,
+      "rooms": 2,
+      "cover": "https://d1q967606ga7w2.cloudfront.net/common/house/29266653/photos/s/watermark-vue-salon-cuisine.JPG"
+    }
+  ],
+  "prices": {
+    "city": "Boulogne-Billancourt",
+    "month": "Octobre 2026",
+    "low": 6560,
+    "mid": 8040,
+    "high": 10020
+  },
+  "details": {
+    "28515831": {
+      "id": "28515831",
+      "description": "PROCHE 16EME - POINT DU JOUR - 2 PIÈCES\nBALCON OUEST - VUE DÉGAGÉE\n\nÀ la lisière immédiate du 16ᵉ arrondissement, dans le très recherché quartier du Point-du-Jour, à proximité des quais de Seine, de l'Ile Saint Germain.\n\nAu sein d’un immeuble de très bon standing de 1996, parfaitement entretenu et sécurisé, avec ascenseur.\n\nSitué au 3ème étage, cet appartement de 46 m² Carrez séduit par sa luminosité plein ouest, son séjour ouvrant sur un large balcon de 4 m² aux vues dégagées, sa chambre au calme, sa cuisine indépendante et son plan parfaitement optimisé.\n\nCalme absolu, parquet acajou, nombreux rangements, haute performance énergétique (DPE C).\n\nUne cave complète ce bien, avec possibilité d’acquérir un parking en sous-sol accessible par ascenseur en supplément (20.000 euros).\n\n📞 Contact : Vincent DEBY, mandataire indépendant Efficity – RSAC Nanterre 524 616 448.",
+      "photos": [
+        "https://d1q967606ga7w2.cloudfront.net/common/house/28515831/photos/l/watermark-balcon-top-top-2.png",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/28515831/photos/l/watermark-immeuble_enfants_paradis1.JPG",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/28515831/photos/l/watermark-hall.jfif",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/28515831/photos/l/watermark-vue.JPG",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/28515831/photos/l/watermark-plan-enfants-paradis.png",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/28515831/photos/l/watermark-salon-vide-2.jpeg",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/28515831/photos/l/watermark-salon-vide.JPG"
+      ],
+      "features": [
+        "1 chambre",
+        "1 salle de bains",
+        "Exposition Ouest",
+        "Ascenseur",
+        "Balcon de 4 m²",
+        "Cave de 2 m²",
+        "1 stationnement intérieur",
+        "3ème étage"
+      ],
+      "bedrooms": 1,
+      "dpe": "C",
+      "feesNote": "Le prix de vente est affiché hors frais de notaire, d'enregistrement et de publicité foncière.\nLes honoraires sont à la charge du vendeur."
+    },
+    "29216110": {
+      "id": "29216110",
+      "description": "92100 BOULOGNE-BILLANCOURT – BOULOGNE NORD – VERDUN / ESCUDIER – 3 PIÈCES – 42 M² – 2 CHAMBRES – 4EME ET DERNIER ÉTAGE – LUMINEUX – COMBLES AMÉNAGEABLES – CHARME DE L’ANCIEN – CAVE\n\nEXCLUSIVITÉ\n\nEffiCity, l’agence qui estime votre bien en ligne, vous propose dans l’un des secteurs les plus recherchés de Boulogne-Billancourt, au cœur du quartier Verdun / Escudier, ce charmant appartement 3 pièces de 42 m² situé au 4ème et dernier étage d’un immeuble ancien de caractère avec parties communes de qualité.\n\nÀ seulement 3 minutes à pied du métro Boulogne–Jean-Jaurès (ligne 10), ce bien bénéficie d’un emplacement particulièrement recherché à proximité immédiate des commerces de bouche, restaurants, marchés et commodités du centre-ville tout en offrant un environnement calme et résidentiel.\n\nL’appartement, exposé Sud / Est, profite d’une belle luminosité naturelle ainsi que d’une vue dégagée sans vis-à-vis direct. Le charme de l’ancien est préservé avec une distribution optimisée et un fort potentiel d’évolution.\n\nParfaitement agencé dans ses 42 m², le bien se compose actuellement de deux chambres, d’un séjour lumineux, d’une cuisine ouverte et d’une salle d’eau avec toilettes.\n\nL’appartement peut facilement être reconfiguré en grand deux pièces selon le plan d’origine afin de créer un vaste espace de vie traversant et confortable.\n\nUn véritable atout rare dans le secteur : des combles aménageables offrant un potentiel d’agrandissement ou d’optimisation supplémentaire sous réserve des autorisations nécessaires.\n\nL’appartement se compose de la manière suivante :\n\nUne entrée desservant les différentes pièces.\nUn séjour lumineux exposé Sud / Est.\nUne cuisine ouverte sur la pièce de vie.\nUne première chambre.\nUne seconde chambre.\nUne salle d’eau avec toilettes.\n\nConcernant les annexes :\n\nUne cave complète ce bien.\nDes combles aménageables accessibles au-dessus de l’appartement.\n\nInformations complémentaires :\n\nAppartement situé au 4ème et dernier étage.\nImmeuble ancien avec charme et parties communes de qualité.\nEau chaude et chauffage individuels au gaz.\nChaudière récente.\nCharges de copropriété : environ 140 € par mois.\nTaxe foncière : 376 € (avis 2025).\nDPE : F.\nIsolation des murs intérieurs permettant une estimation en DPE D après amélioration énergétique.\n\nConcernant l’environnement :\n\nMétro Boulogne–Jean-Jaurès (ligne 10) accessible en 3 minutes à pied.\nQuartier Verdun / Escudier particulièrement recherché.\nNombreux commerces de bouche, boulangeries, restaurants et cafés à proximité immédiate.\nEnvironnement résidentiel calme et agréable.\nProximité des écoles, transports et commodités du centre de Boulogne.\n\nUn bien rare sur le secteur, idéal pour un premier achat, un investissement patrimonial ou un projet de valorisation grâce à son potentiel d’aménagement et ses combles exploitables.",
+      "photos": [
+        "https://d1q967606ga7w2.cloudfront.net/common/house/29216110/photos/l/watermark-gemini_generated_image_f1zdr7f1zdr7f1zd.jpg",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/29216110/photos/l/watermark-gemini_generated_image_eycr2neycr2neycr.jpg",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/29216110/photos/l/watermark-gemini_generated_image_3jppdb3jppdb3jpp.jpg",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/29216110/photos/l/watermark-plan-2022.png",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/29216110/photos/l/watermark-vue-2-chambre.jpeg",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/29216110/photos/l/watermark-vue-3-chambre.jpeg",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/29216110/photos/l/watermark-gemini_generated_image_gdbkdkgdbkdkgdbk-4.png"
+      ],
+      "features": [
+        "2 chambres",
+        "1 salle d'eau",
+        "Exposition Sud-Est",
+        "Vue exceptionnelle",
+        "Cheminée",
+        "Cave de 7 m²",
+        "4ème étage"
+      ],
+      "bedrooms": 2,
+      "dpe": "F",
+      "feesNote": "Le prix de vente est affiché hors frais de notaire, d'enregistrement et de publicité foncière.\nLes honoraires sont à la charge du vendeur."
+    },
+    "29447119": {
+      "id": "29447119",
+      "description": "92210 - SAINT-CLOUD - COTEAUX - 3 PIÈCES - 2 CHAMBRES - 50m² - CAVE 8m2 - GRAND DRESSING - LUMINEUX - CALME - TRAMWAY T2 A 2 MIN\n\neffiCity, l’agence qui estime votre bien en ligne, vous propose cet ppartement en RDC de 50 m² au calme, idéalement situé au cœur de Saint-Cloud.\n\nDans un très bon état général, cet appartement bénéficie de rénovations datant de 2017.\n\nL'espace de vie, d'une surface de 20 m², est baigné de lumière naturelle grâce à son exposition SUD. Les deux chambres, dont une sur cour très calme, offrent un espace de vie confortable.\n\nCôté pratique, vous disposerez d'une cave de 10 m² pour ranger vos affaires en toute tranquillité. L'appartement est situé en plain-pied, un atout majeur pour faciliter votre quotidien.\n\nDans un immeuble en bon état général, avec ascenseur, cet appartement se distingue par sa tranquillité et son environnement agréable. Les matériaux de construction en béton offrent une solidité et une durabilité appréciables.\n\nL'appartement est dans une rue calme des Coteaux. À pied : le tram T2 en 2 minutes, les quais de Seine, puis la passerelle de l'Avre qui mène au Bois de Boulogne.\n\nIl est traversant, côté rue et côté cour. Fenêtres PVC double vitrage avec persiennes, parquet en point de Hongrie.\n\nLa distribution (surfaces Carrez mesurées en mai 2026) :\n\nentrée 3,8 m²\nséjour 18,5 m² côté rue\nchambre 10,5 m²\nchambre 9,6 m²\ndressing sur mesure\ncuisine indépendante aménagée et équipée\nsalle d'eau refaite avec douche, vasque et WC\ncave au sous-sol de 8M2\n\nChauffage électrique individuel par radiateurs à inertie programmables, eau chaude par ballon.\n\nCe que coûte l'appartement, chiffres réels :\n\ncharges de copropriété : 1 424 € par an (119 € par mois), sans chauffage collectif\ntaxe foncière 2025 : 509 €\nélectricité 2025 : 1 013 € TTC sur l'année, abonnement compris\n\nDiagnostics : électricité sans anomalie, ni amiante, ni plomb, ni termites. Le DPE indique lui-même les travaux (isolation intérieure des murs, VMC) qui permettraient de passer en classe C. Je vous remets le dossier complet dès la première visite : diagnostics, dernières AG, charges.\n\nPrix : 295 000 €, honoraires à la charge du vendeur. Copropriété de 313 lots.\n\nDPE : classe énergie E (271 kWh/m².an), classe climat B (10 kg CO2/m².an). Dépenses annuelles d'énergie estimées pour un usage standard : entre 1 270 € et 1 760 €. Informations sur les risques : georisques.gouv.fr.",
+      "photos": [
+        "https://d1q967606ga7w2.cloudfront.net/common/house/29447119/photos/l/gemini_generated_image_suv8csuv8csuv8cs.jpg",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/29447119/photos/l/gemini_generated_image_gbedpugbedpugbed.jpg",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/29447119/photos/l/gemini_generated_image_sbq0nlsbq0nlsbq0.jpg",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/29447119/photos/l/capture-decran-2026-05-14-111531.png",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/29447119/photos/l/gemini_generated_image_xt0prfxt0prfxt0p.jpg",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/29447119/photos/l/gemini_generated_image_wgbulcwgbulcwgbu.jpg",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/29447119/photos/l/gemini_generated_image_re6hiere6hiere6h.jpg",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/29447119/photos/l/gemini_generated_image_7asu7i7asu7i7asu.jpg",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/29447119/photos/l/gemini_generated_image_ebgxb9ebgxb9ebgx.jpg",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/29447119/photos/l/gemini_generated_image_jjjtmvjjjtmvjjjt.jpg",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/29447119/photos/l/gemini_generated_image_uz3qr5uz3qr5uz3q.jpg",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/29447119/photos/l/gemini_generated_image_72zkb72zkb72zkb7-1.png",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/29447119/photos/l/whatsapp-image-2026-05-08-at-230224-17.jpeg",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/29447119/photos/l/photo-environnement.jpeg",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/29447119/photos/l/whatsapp-image-2026-05-08-at-230223-1.jpeg",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/29447119/photos/l/whatsapp-image-2026-05-08-at-230224-3-3.jpeg",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/29447119/photos/l/whatsapp-image-2026-05-08-at-230224-10-1.jpeg",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/29447119/photos/l/whatsapp-image-2026-05-08-at-230224-11.jpeg",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/29447119/photos/l/whatsapp-image-2026-05-08-at-230224-15.jpeg",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/29447119/photos/l/whatsapp-image-2026-05-08-at-230225-2.jpeg"
+      ],
+      "features": [
+        "2 chambres",
+        "1 salle d'eau",
+        "Exposition Nord-Sud",
+        "Ascenseur",
+        "Cave de 10 m²",
+        "Rez-de-chaussée"
+      ],
+      "bedrooms": 2,
+      "dpe": "E",
+      "feesNote": "Le prix de vente est affiché hors frais de notaire, d'enregistrement et de publicité foncière.\nLes honoraires sont à la charge du vendeur."
+    },
+    "29503801": {
+      "id": "29503801",
+      "description": "75007 - ÉCOLE MILITAIRE / RUE CLER - CLAIR & CALME - ÉTAGE ÉLEVÉ - 1 CHAMBRE - EXCLUSIVITÉ – EMPLACEMENT EXCEPTIONNEL\n\nIdéalement situé au cœur du très prisé quartier du Gros Caillou, à deux pas du Champ de Mars, de la célèbre rue Cler piétonne et de ses commerces de bouche renommés, EffiCity vous invite à découvrir cet appartement de 35 m². Niché au 4ème étage sur 5 d’un bel immeuble parfaitement entretenu, ce bien rare bénéficie d'un calme absolu et d'une luminosité remarquable.\n\nActuellement configuré en studio, il peut être aménagé en 2 pièces.\n\nUn intérieur baigné de lumière et optimisé\n\nL'appartement vient tout juste d'être entièrement refait à neuf (peintures neuves, électricité et plomberie impeccables, aucun travaux à prévoir). Il se compose :\n\nD’un spacieux séjour de 30 m² offrant de superbes volumes et une belle hauteur sous plafond, exposé Plein Est, garantissant une superbe lumière naturelle avec une vue dégagée.\n\nD’une cuisine ouverte moderne, parfaitement intégrée à l'espace de vie pour plus de convivialité.\nD’une salle de bain avec baignoire.\n\nUne copropriété saine et de standing\nL’immeuble se trouve dans un excellent état général, avec des parties communes soignées. La copropriété est saine, conviviale et très bien gérée. Une cave saine de 4 m² vient compléter ce bien.\n\nUne vie de quartier typiquement parisienne\nVous profiterez d'un environnement exceptionnel et extrêmement commerçant, à seulement :\n\n3 minutes à pied de la station de métro École Militaire (Ligne 8).\n\n5 minutes à pied du Champ de Mars et de la Tour Eiffel.\n\nLes + de ce bien :\n\nEmplacement N°1 (Gros Caillou / Rue Cler).\n\nEntièrement refait à neuf (prêt à habiter ou à louer).\n\nÉtage élevé, très lumineux (Est) et vue dégagée.\n\nCalme absolu en plein Paris.\n\nIdéal premier achat, pied-à-terre ou investissement locatif premium à forte rentabilité.",
+      "photos": [
+        "https://d1q967606ga7w2.cloudfront.net/common/house/29503801/photos/l/watermark-whatsapp-image-2026-06-05-at-153942-10.jpeg",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/29503801/photos/l/watermark-chatgpt-image-15-juin-2026-13_28_18.jpg",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/29503801/photos/l/watermark-whatsapp-image-2026-06-05-at-153942-13.jpeg",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/29503801/photos/l/watermark-whatsapp-image-2026-06-05-at-153942-15.jpeg",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/29503801/photos/l/watermark-whatsapp-image-2026-06-05-at-153941-8.jpeg",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/29503801/photos/l/watermark-whatsapp-image-2026-06-05-at-153942-6.jpeg",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/29503801/photos/l/watermark-whatsapp-image-2026-06-05-at-153942-8.jpeg",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/29503801/photos/l/watermark-plan.jpg",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/29503801/photos/l/watermark-whatsapp-image-2026-06-05-at-153942-9.jpeg",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/29503801/photos/l/watermark-whatsapp-image-2026-06-05-at-153942-2.jpeg",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/29503801/photos/l/watermark-whatsapp-image-2026-06-05-at-170428.jpeg",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/29503801/photos/l/watermark-whatsapp-image-2026-06-05-at-153943-2.jpeg",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/29503801/photos/l/watermark-whatsapp-image-2026-06-05-at-153942-16.jpeg",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/29503801/photos/l/watermark-whatsapp-image-2026-06-05-at-153943-5.jpeg",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/29503801/photos/l/watermark-whatsapp-image-2026-06-05-at-153943.jpeg"
+      ],
+      "features": [
+        "1 chambre",
+        "1 salle de bains",
+        "Exposition Est",
+        "Cave de 4 m²",
+        "4ème étage"
+      ],
+      "bedrooms": 1,
+      "dpe": "F",
+      "feesNote": "Le prix de vente est affiché hors frais de notaire, d'enregistrement et de publicité foncière.\nLes honoraires sont à la charge du vendeur."
+    },
+    "29620637": {
+      "id": "29620637",
+      "description": "92370 - CHAVILLE - MAISON CONTEMPORAINE 150m² - DPE C - 4 CH - STUDIO INDÉPENDANT - PROCHE FORÊT\n\nIdéalement située, découvrez cette magnifique maison familiale de 150 m² au sol (répartis sur 3 niveaux).\n\nEntièrement REFAITE À NEUF par son propriétaire, elle offre des prestations de qualité rare et un CONFORT ÉNERGÉTIQUE EXEMPLAIRE (DPE C).\n\nUne opportunité exclusive à l'orée de la FORÊT DE MEUDON. --- UN CONFORT SUPÉRIEUR ET DES ÉCONOMIES MAÎTRISÉES ---\n\nGrâce à une isolation performante et des équipements haut de gamme (fenêtres, chauffage récent, plomberie neuve), la maison garantit une consommation énergétique très faible d’environ 1700 €/an. Aucun travaux à prévoir, posez vos valises.\n--- UNE DISTRIBUTION FLUIDE ET MODULABLE ---\n\n• REZ-DE-JARDIN : L'ATOUT INDÉPENDANCE (25 m²)\nCe niveau propose une grande pièce polyvalente (buanderie/garage) déjà équipée d'une cuisine, d'une salle d'eau et de WC. IDÉAL POUR UN STUDIO INDÉPENDANT (rendement locatif, profession libérale ou suite d'invités).\n\n• NIVEAU 1 : L’ESPACE DE VIE LUMINEUX\nUne entrée mène au SALON CHALEUREUX de 28 m² avec sa CHEMINÉE MODERNE, ouvert sur une cuisine équipée haut de gamme.\nDans le prolongement, une SALLE À MANGER de 18 m² donne un accès direct au jardin. WC indépendant à ce niveau.\n\n• NIVEAU 2 : L'ESPACE NUIT\nUne SUITE PARENTALE de 12 m² avec sa propre salle d'eau rénovée de 4 m². Deux chambres d'enfants lumineuses d'environ 10 m² chacune complètent ce niveau, ainsi qu'une salle de bain indépendante avec WC.\n\n• COMBLES AMÉNAGÉS (27 m² au sol)\nSous les toits, un bel espace avec rangements idéal pour une salle de jeux, un bureau ou une chambre d'amis.\n\n--- LES EXTÉRIEURS ---\nÀ l’arrière, vous profiterez d’un JARDIN d'une quarantaine de m² exposé SUD et à l’abri des regards, agrémenté d’un cabanon en dur.\n\n--- CADRE DE VIE ET TRANSPORTS CONNECTÉS ---\nVie de quartier idéale : accès immédiat aux écoles (Paul Bert, Saint-Thomas de Villeneuve) et commerces de l'avenue Salengro. Transports ultra-accessibles : Bus 171 direct vers Porte de Sèvres (Ligne 15), Gares Rive Gauche et Rive Droite, et RER C.",
+      "photos": [
+        "https://d1q967606ga7w2.cloudfront.net/common/house/29620637/photos/l/watermark-whatsapp-image-2026-05-05-at-162806-48-1.jpeg",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/29620637/photos/l/watermark-whatsapp-image-2026-05-05-at-162806-43-1.jpeg",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/29620637/photos/l/watermark-whatsapp-image-2026-05-05-at-162806.jpeg",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/29620637/photos/l/watermark-gemini_generated_image_dhxbu6dhxbu6dhxb.png",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/29620637/photos/l/watermark-whatsapp-image-2026-06-02-at-141459-2.jpeg",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/29620637/photos/l/watermark-gemini_generated_image_94afaa94afaa94af.png",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/29620637/photos/l/watermark-whatsapp-image-2026-05-05-at-162806-24-1.jpeg",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/29620637/photos/l/watermark-whatsapp-image-2026-05-05-at-162806-26.jpeg",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/29620637/photos/l/watermark-whatsapp-image-2026-05-05-at-162806-34-1.jpeg",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/29620637/photos/l/watermark-whatsapp-image-2026-05-05-at-162806-27.jpeg",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/29620637/photos/l/watermark-whatsapp-image-2026-05-05-at-162806-27-1.jpeg",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/29620637/photos/l/watermark-whatsapp-image-2026-05-05-at-162806-19-1.jpeg",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/29620637/photos/l/watermark-whatsapp-image-2026-05-05-at-162806-35.jpeg",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/29620637/photos/l/watermark-whatsapp-image-2026-05-05-at-162806-39-1.jpeg",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/29620637/photos/l/watermark-whatsapp-image-2026-05-05-at-162806-18.jpeg",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/29620637/photos/l/watermark-whatsapp-image-2026-05-05-at-162806-30.jpeg",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/29620637/photos/l/watermark-whatsapp-image-2026-05-05-at-162806-31-1.jpeg",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/29620637/photos/l/watermark-whatsapp-image-2026-05-05-at-162806-46-1.jpeg",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/29620637/photos/l/watermark-whatsapp-image-2026-05-05-at-162806-37.jpeg"
+      ],
+      "features": [
+        "5 chambres",
+        "1 salle d'eau",
+        "2 salles de bains",
+        "Toutes expositions",
+        "Cheminée",
+        "Jardin de 50 m²",
+        "Terrasse de 50 m²",
+        "Cave de 7 m²",
+        "1 stationnement extérieur"
+      ],
+      "bedrooms": 5,
+      "dpe": "C",
+      "feesNote": "Le prix de vente est affiché hors frais de notaire, d'enregistrement et de publicité foncière.\nLes honoraires sont à la charge du vendeur."
+    },
+    "29852671": {
+      "id": "29852671",
+      "description": "PARIS 16ème - EXELMANS MICHEL-ANGE - BALCON - LUMINEUX - CALME - VUE DEGAGEE SANS VIS A VIS - PARKING\nEfficity l'agence immobilière qui estime votre bien en ligne vous propose dans un immeuble de très bon standing des années 70 cet appartement au 7ème étage avec ascenseur bénéficiant de beaucoup de luminosité et d'une vue dégagée sans aucun vis à vis.\nL'appartement d'une superficie de 54,3m² carrez se compose d'une entrée, d'un vaste séjour donnant sur un balcon de près de 5m2, d'une chambre donnant également sur le balcon, d'une cuisine (Possibilité US), d'une salle de bain et d'un wc séparé et de nombreux rangements.\nL'appartement dispose également d'une cave et d'une place de parking.\nTravaux à prévoir",
+      "photos": [
+        "https://d1q967606ga7w2.cloudfront.net/common/house/29852671/photos/l/3d-salon-2-plante.jpg",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/29852671/photos/l/3d-balcon-2.jpg",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/29852671/photos/l/3d-chambre-3d.jpg",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/29852671/photos/l/3d-cuisine-3d.jpg",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/29852671/photos/l/3d-salle-de-bain-3d.jpg",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/29852671/photos/l/plan.jpg",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/29852671/photos/l/3d-salon-1-plante.jpg",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/29852671/photos/l/3d-balcon-3d.jpg",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/29852671/photos/l/sejour-1.jpg",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/29852671/photos/l/sejour-2.jpg",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/29852671/photos/l/chambre.jpg",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/29852671/photos/l/cuisine.jpg",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/29852671/photos/l/salle-de-bain.jpg",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/29852671/photos/l/balcon.jpg"
+      ],
+      "features": [
+        "1 chambre",
+        "1 salle de bains",
+        "Exposition Est",
+        "Vue exceptionnelle",
+        "Ascenseur",
+        "Balcon de 4 m²",
+        "Cave de 3 m²",
+        "1 stationnement intérieur",
+        "7ème étage"
+      ],
+      "bedrooms": 1,
+      "dpe": "D",
+      "feesNote": "Le prix de vente est affiché hors frais de notaire, d'enregistrement et de publicité foncière.\nLes honoraires sont à la charge de l'acquéreur et sont déjà inclus dans le prix de vente affiché."
+    },
+    "30032166": {
+      "id": "30032166",
+      "description": "PARIS 16ème - EXELMANS MICHEL-ANGE - BALCON - LUMINEUX - CALME - VUE DEGAGEE SANS VIS A VIS\nEfficity l'agence immobilière qui estime votre bien en ligne vous propose dans un immeuble de très bon standing des années 70 cet appartement au 7ème étage avec ascenseur bénéficiant de beaucoup de luminosité et d'une vue dégagée sans aucun vis à vis.\nL'appartement d'une superficie de 54,3m² carrez se compose d'une entrée, d'un vaste séjour donnant sur un balcon de près de 5m2, d'une chambre donnant également sur le balcon, d'une cuisine (Possibilité US), d'une salle de bain et d'un wc séparé et de nombreux rangements.\nL'appartement dispose également d'une cave.\nPossibilité d'une place de parking en supplément.\nTravaux à prévoir",
+      "photos": [
+        "https://d1q967606ga7w2.cloudfront.net/common/house/30032166/photos/l/sejour-2-3d.jpg",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/30032166/photos/l/sejour-1-3d.jpg",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/30032166/photos/l/3d-balcon-2.jpg",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/30032166/photos/l/sejour-3-3d.jpg",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/30032166/photos/l/sejour-vide.jpg",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/30032166/photos/l/plan.jpg",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/30032166/photos/l/3d-chambre-3d.jpg",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/30032166/photos/l/3d-cuisine-3d.jpg",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/30032166/photos/l/3d-salle-de-bain-3d.jpg",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/30032166/photos/l/3d-balcon-3d.jpg",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/30032166/photos/l/balcon.jpg",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/30032166/photos/l/chambre.jpg",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/30032166/photos/l/cuisine.jpg",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/30032166/photos/l/salle-de-bain.jpg"
+      ],
+      "features": [
+        "1 chambre",
+        "1 salle de bains",
+        "Exposition Est",
+        "Vue exceptionnelle",
+        "Ascenseur",
+        "Balcon de 4 m²",
+        "Cave de 2 m²",
+        "1 stationnement intérieur",
+        "7ème étage"
+      ],
+      "bedrooms": 1,
+      "dpe": "D",
+      "feesNote": "Le prix de vente est affiché hors frais de notaire, d'enregistrement et de publicité foncière.\nLes honoraires sont à la charge de l'acquéreur et sont déjà inclus dans le prix de vente affiché."
+    },
+    "30054767": {
+      "id": "30054767",
+      "description": "PARIS 75013 - DENFERT-ROCHEREAU – 4 PIÈCES – 2 CHAMBRES – TRAVERSANT – LUMINEUX – BALCON SUR JARDIN – DPE C – CAVE - PARKING\n\nEfficity l'agence qui estime votre bien en ligne vous propose un appartement au 4ème étage dans un immeuble de très bon standing des années 80 avec gardienne.\n\nCet appartement de 4 pièces de 75,2 m2 carrez, en très bon état et sans aucune perte de place se compose d'un séjour de 37 m² ouvert avec cuisine ouverte exposé ouest.\nLes grandes fenêtres donnent sur un balcon spacieux, assez profond aménager une table et des chaises.\n\nCôté nuit, un dégagement mène aux deux chambres (11 m² et 13 m²) côté est, très lumineuses et sans aucun vis-àvis. La salle de bains et le WC séparé complètent cette partie.\n\nLes points pratiques :\n\nDPE C (129 kWh/m²/an), GES C\nChauffage et eau chaude par le réseau de chauffage urbain, compris dans les charges\nGaz de ville\nDouble vitrage, volets roulants, VMC\nCave au 1er sous-sol\nLocaux vélos et jardin intérieur dans la résidence\nPlace de parking au 1er sous-sol disponible en supplément\n\nLa copropriété est entretenue : sous-station de chauffage refaite en 2023, étanchéité de terrasses et ravalement partiel récents, moteurs d'ascenseur votés et déjà payés. Les charges sont de 347 € par mois, chauffage et eau chaude inclus.\n\nLe quartier est agréable à vivre proche de Denfert-Rochereau.\n\nPrix : 790 000 € honoraires inclus, soit 760 000 € net vendeur et 3,95 % TTC à la charge de l'acquéreur. Copropriété de 467 lots. Charges annuelles : 4 158 €.",
+      "photos": [
+        "https://d1q967606ga7w2.cloudfront.net/common/house/30054767/photos/l/balcon.jpg",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/30054767/photos/l/generated_2026-10-08t19_02_48135.jpg",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/30054767/photos/l/sejour.jpg",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/30054767/photos/l/2026-10-05-14-00-38_essai1_robinet_manquant.jpg",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/30054767/photos/l/gemini_generated_image_adqht8adqht8adqh.jpeg",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/30054767/photos/l/chambre-enfant.jpg",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/30054767/photos/l/gemini_generated_image_amh1zxamh1zxamh1.jpeg",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/30054767/photos/l/degagement-couloir.jpg",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/30054767/photos/l/sdb-2.jpg",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/30054767/photos/l/2026-10-05-13-58-39.jpeg",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/30054767/photos/l/2026-10-05-14-08-30.jpeg"
+      ],
+      "features": [
+        "2 chambres",
+        "1 salle de bains",
+        "Exposition Sud-Est-Ouest",
+        "Ascenseur",
+        "Balcon de 7 m²",
+        "Cave de 5 m²",
+        "1 garage",
+        "4ème étage"
+      ],
+      "bedrooms": 2,
+      "dpe": "C",
+      "feesNote": "Le prix de vente est affiché hors frais de notaire, d'enregistrement et de publicité foncière.\nLes honoraires sont à la charge de l'acquéreur et sont déjà inclus dans le prix de vente affiché."
+    }
+  }
+}

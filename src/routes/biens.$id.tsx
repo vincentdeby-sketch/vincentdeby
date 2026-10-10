@@ -3,7 +3,7 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { SiteShell } from "@/components/site/SiteShell";
 import { formatEUR } from "@/lib/domain";
 import { propertyByIdQuery } from "@/lib/queries";
-import { PhotoImg } from "@/components/site/PhotoImg";
+import { Gallery } from "@/components/site/Gallery";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import portrait from "@/assets/vincent-deby-200.webp";
 
@@ -105,13 +105,44 @@ export const Route = createFileRoute("/biens/$id")({
   ),
 });
 
+// Les annonces Efficity commencent souvent par une ligne de mots-clés en capitales : on la sort en étiquette.
+function Description({ text }: { text: string }) {
+  const [first, ...rest] = text.split(/\n{2,}/);
+  const letters = (first ?? "").replace(/[^A-Za-zÀ-ÿ]/g, "");
+  const isTagline = letters.length > 20 && letters === letters.toUpperCase();
+  return (
+    <div className="mt-5 max-w-2xl">
+      {isTagline && (
+        <p className="mb-6 rounded-2xl bg-muted p-4 font-mono text-[11px] uppercase leading-relaxed tracking-[0.06em] text-muted-foreground">
+          {first}
+        </p>
+      )}
+      <div className="whitespace-pre-wrap text-lg leading-relaxed text-foreground/85">
+        {(isTagline ? rest : [first, ...rest]).join("\n\n")}
+      </div>
+    </div>
+  );
+}
+
+// Couleurs officielles de l'étiquette énergie.
+const DPE_COLORS: Record<string, string> = {
+  A: "bg-[#009c6d] text-white",
+  B: "bg-[#52b153] text-white",
+  C: "bg-[#78bd76] text-ink",
+  D: "bg-[#f4e70f] text-ink",
+  E: "bg-[#f0b40f] text-ink",
+  F: "bg-[#eb8235] text-ink",
+  G: "bg-[#d7221f] text-white",
+};
+
 function Detail() {
   const { id } = Route.useParams();
   const { data: p } = useSuspenseQuery(propertyByIdQuery(id));
   if (!p) throw notFound();
 
   const gallery = [p.cover_url, ...(p.photos ?? [])].filter(Boolean) as string[];
-  const locString = [p.address, p.city].filter(Boolean).join(", ");
+  const extra = "features" in p ? p : null;
+  const locString = [p.address, p.city && p.postal_code ? `${p.city} (${p.postal_code})` : p.city].filter(Boolean).join(", ");
 
   const facts = [
     p.surface ? { k: "Surface", v: `${p.surface} m²` } : null,
@@ -129,29 +160,7 @@ function Detail() {
       </div>
 
       <section className="container-narrow mt-6">
-        {gallery[0] ? (
-          <div className="grid gap-2 md:grid-cols-4 md:grid-rows-2">
-            <div className="aspect-[4/3] overflow-hidden rounded-[1.5rem] bg-muted md:col-span-3 md:row-span-2 md:aspect-auto md:h-[min(68vh,640px)]">
-              <PhotoImg
-                src={gallery[0]}
-                width={1280}
-                height={960}
-                sizes="(min-width: 768px) 75vw, 100vw"
-                alt={`${p.title}, photo principale${locString ? ` (${locString})` : ""}`}
-                fetchPriority="high"
-                decoding="async"
-                className="h-full w-full object-cover"
-              />
-            </div>
-            {gallery.slice(1, 3).map((src, i) => (
-              <div key={i} className="hidden overflow-hidden rounded-[1.5rem] bg-muted md:block">
-                <PhotoImg src={src} width={640} height={480} maxWidth={960} sizes="25vw" alt={`${p.title}, photo ${i + 2}`} loading="lazy" decoding="async" className="h-full w-full object-cover" />
-              </div>
-            ))}
-          </div>
-        ) : (
-          <div className="aspect-[16/9] rounded-[1.5rem] bg-muted" />
-        )}
+        <Gallery photos={gallery} title={`${p.title}${locString ? `, ${locString}` : ""}`} />
       </section>
 
       <section className="container-narrow mt-10 grid gap-12 md:mt-14 lg:grid-cols-12">
@@ -166,23 +175,43 @@ function Detail() {
               </div>
             ))}
           </dl>
-          <h2 className="mt-14 !text-3xl">Description</h2>
-          <div className="mt-5 max-w-2xl whitespace-pre-wrap text-lg leading-relaxed text-foreground/85">{p.description}</div>
-          {gallery.length > 3 && (
-            <div className="mt-12 grid grid-cols-2 gap-2 md:grid-cols-3">
-              {gallery.slice(3, 12).map((src, i) => (
-                <div key={i} className="aspect-[4/3] overflow-hidden rounded-2xl bg-muted">
-                  <PhotoImg src={src} width={400} height={300} maxWidth={640} sizes="(min-width: 768px) 22vw, 50vw" alt={`${p.title}, photo ${i + 4}`} loading="lazy" decoding="async" className="h-full w-full object-cover" />
-                </div>
+          {extra && (extra.features.length > 0 || extra.dpe) && (
+            <ul className="mt-6 flex flex-wrap gap-2">
+              {extra.dpe && (
+                <li className="flex items-center gap-2 rounded-full border border-foreground/15 py-1.5 pl-1.5 pr-4 text-sm">
+                  <span className={`grid h-7 w-7 place-items-center rounded-full font-mono text-xs font-semibold ${DPE_COLORS[extra.dpe] ?? "bg-muted"}`}>
+                    {extra.dpe}
+                  </span>
+                  DPE
+                </li>
+              )}
+              {extra.features.map((f) => (
+                <li key={f} className="rounded-full border border-foreground/15 px-4 py-2 text-sm">{f}</li>
               ))}
-            </div>
+            </ul>
           )}
+          <h2 className="mt-14 !text-3xl">Description</h2>
+          <Description text={p.description} />
+          {extra && (
+            <p className="mt-6 text-sm text-muted-foreground">
+              Annonce publiée sur{" "}
+              <a href={extra.sourceUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-4">efficity.com</a>
+              , mise à jour automatiquement.
+            </p>
+          )}
+
         </div>
 
         <aside className="lg:col-span-4">
           <div className="surface p-7 lg:sticky lg:top-28">
             <p className="font-mono text-[11px] uppercase tracking-[0.08em] text-muted-foreground">Prix de vente</p>
             <p className="mt-2 font-serif text-4xl tabular-nums">{formatEUR(p.price)}</p>
+            {extra?.exclusive && (
+              <p className="mt-3 inline-flex rounded-full bg-brand-soft px-3 py-1 font-mono text-[10px] uppercase tracking-[0.1em] text-brand-ink">
+                Exclusivité
+              </p>
+            )}
+            {extra?.feesNote && <p className="mt-3 text-xs leading-relaxed text-muted-foreground">{extra.feesNote}</p>}
             <div className="mt-6 grid gap-2">
               <a
                 href={`mailto:vdeby@efficity.com?subject=${encodeURIComponent(`Demande de visite : ${p.title}`)}&body=${encodeURIComponent(`Bonjour Vincent,\n\nJe souhaite visiter le bien « ${p.title} » (${SITE}/biens/${p.id}).\n\nMes disponibilités :\n\nMon téléphone :\n\nMerci.`)}`}

@@ -1,6 +1,7 @@
 import { queryOptions } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import type { Article, Property } from "@/lib/domain";
+import { getListing, getListings, type Listing } from "@/lib/efficity";
 
 export const homeArticlesQuery = queryOptions({
   queryKey: ["articles", "home"],
@@ -44,38 +45,22 @@ export const articleBySlugQuery = (slug: string) =>
     },
   });
 
-export const homePropertiesQuery = queryOptions({
-  queryKey: ["properties", "home"],
-  staleTime: 60_000,
-  queryFn: async () => {
-    const { data } = await supabase
-      .from("properties")
-      .select("id,title,price,address,city,cover_url,property_type,surface,rooms,bedrooms,created_at")
-      .eq("published", true)
-      .order("created_at", { ascending: false })
-      .limit(3);
-    return (data ?? []) as Property[];
-  },
+// Biens : lus sur la page Efficity de Vincent (voir src/lib/efficity.ts).
+export const listingsQuery = queryOptions({
+  queryKey: ["listings"],
+  staleTime: 5 * 60_000,
+  queryFn: () => getListings(),
 });
 
-export const propertiesListQuery = queryOptions({
-  queryKey: ["properties", "list"],
-  staleTime: 60_000,
-  queryFn: async () => {
-    const { data } = await supabase
-      .from("properties")
-      .select("id,title,price,address,city,cover_url,property_type,surface,rooms,bedrooms,created_at")
-      .eq("published", true)
-      .order("created_at", { ascending: false });
-    return (data ?? []) as Property[];
-  },
-});
+export const propertiesListQuery = listingsQuery;
 
+// Identifiant numérique : annonce Efficity. Sinon : ancienne fiche saisie dans l'espace admin.
 export const propertyByIdQuery = (id: string) =>
   queryOptions({
     queryKey: ["property", id],
-    staleTime: 60_000,
-    queryFn: async () => {
+    staleTime: 5 * 60_000,
+    queryFn: async (): Promise<Listing | Property | null> => {
+      if (/^\d+$/.test(id)) return getListing({ data: id });
       const { data } = await supabase
         .from("properties")
         .select("*")
