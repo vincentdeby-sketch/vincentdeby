@@ -1,10 +1,11 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useMemo, useState } from "react";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { z } from "zod";
 import { supabase } from "@/integrations/supabase/client";
 import { SiteShell } from "@/components/site/SiteShell";
 import { LazyGlobe } from "@/components/site/LazyGlobe";
-import { searchAddress, type NominatimResult } from "@/lib/nominatim";
+import { searchAddress, type AddressSuggestion } from "@/lib/address";
+import { trackLead } from "@/lib/tracking";
 
 import { SITE } from "@/lib/site";
 
@@ -26,7 +27,7 @@ export const Route = createFileRoute("/estimation")({
           "@type": "Service",
           serviceType: "Estimation immobilière",
           provider: { "@type": "RealEstateAgent", name: "Vincent Deby" },
-          areaServed: "France",
+          areaServed: ["Boulogne-Billancourt", "Issy-les-Moulineaux", "Sèvres", "Saint-Cloud", "Paris 15e", "Paris 16e"],
           offers: { "@type": "Offer", price: "0", priceCurrency: "EUR" },
         }),
       },
@@ -83,6 +84,19 @@ function Estimation() {
   const [step, setStep] = useState(0);
   const [form, setForm] = useState<FormState>(INITIAL);
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const cardRef = useRef<HTMLDivElement | null>(null);
+  const firstRender = useRef(true);
+
+  // À chaque étape, on remonte en haut de la carte : sur mobile, le bouton « Continuer » est loin en bas.
+  useEffect(() => {
+    if (firstRender.current) { firstRender.current = false; return; }
+    const el = cardRef.current;
+    if (!el) return;
+    const top = el.getBoundingClientRect().top + window.scrollY - 90;
+    if (window.scrollY > top) window.scrollTo({ top, behavior: "smooth" });
+  }, [step]);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -107,6 +121,8 @@ function Estimation() {
   }, [step, form]);
 
   const submit = async () => {
+    setError(null);
+    setSending(true);
     const { error } = await supabase.from("estimations").insert({
       address: form.address!.display,
       latitude: form.address!.lat,
@@ -125,7 +141,12 @@ function Estimation() {
       contact_email: form.contactEmail,
       contact_phone: form.contactPhone || null,
     });
-    if (error) { alert("Une erreur est survenue. Merci de réessayer."); return; }
+    setSending(false);
+    if (error) {
+      setError("L'envoi n'a pas abouti. Réessayez dans un instant, ou écrivez-moi directement à vdeby@efficity.com.");
+      return;
+    }
+    trackLead("estimation");
     sessionStorage.removeItem(STORAGE_KEY);
     setSubmitted(true);
   };
@@ -163,7 +184,7 @@ function Estimation() {
       </section>
 
       <section className="container-narrow mt-8 max-w-3xl md:mt-12">
-        <div className="glass rounded-3xl p-5 sm:p-6 md:p-10">
+        <div ref={cardRef} className="glass rounded-3xl p-5 sm:p-6 md:p-10">
           {/* Progress — desktop: full stepper. Mobile: compact indicator + progress bar */}
           <div className="mb-8 md:mb-12" aria-label="Progression du formulaire">
             <div className="flex items-center justify-between text-[11px] uppercase tracking-widest md:hidden">
@@ -173,6 +194,7 @@ function Estimation() {
             <div
               className="mt-3 h-1 w-full overflow-hidden rounded-full bg-muted md:hidden"
               role="progressbar"
+              aria-label={`Étape ${step + 1} sur ${STEPS.length}`}
               aria-valuenow={step + 1}
               aria-valuemin={1}
               aria-valuemax={STEPS.length}
@@ -184,7 +206,7 @@ function Estimation() {
             </div>
             <ol className="hidden flex-wrap gap-x-6 gap-y-2 text-xs uppercase tracking-widest md:flex">
               {STEPS.map((s, i) => (
-                <li key={s} className={i === step ? "text-foreground" : i < step ? "text-primary" : "text-muted-foreground"}>
+                <li key={s} aria-current={i === step ? "step" : undefined} className={i === step ? "text-foreground" : i < step ? "text-primary" : "text-muted-foreground"}>
                   <span className="tabular-nums">0{i + 1}</span> · {s}
                 </li>
               ))}
@@ -193,22 +215,42 @@ function Estimation() {
 
           <div className="min-h-[380px]">
             {step === 0 && <StepAddress value={form.address} onChange={(v) => update("address", v)} />}
-            {step === 1 && <StepType value={form.propertyType} onChange={(v) => update("propertyType", v)} />}
+            {step === 1 && (
+              <StepType
+                value={form.propertyType}
+                onChange={(v) => {
+                  update("propertyType", v);
+                  // Un seul choix possible : on passe à l'étape suivante sans clic supplémentaire.
+                  setTimeout(() => setStep(2), 250);
+                }}
+              />
+            )}
             {step === 2 && <StepFeatures form={form} update={update} />}
             {step === 3 && <StepContact form={form} update={update} />}
             {step === 4 && <StepSummary form={form} />}
           </div>
 
+          {error && (
+            <p role="alert" className="mt-8 border-l-2 border-destructive pl-4 text-sm text-foreground">
+              {error}
+            </p>
+          )}
+
           <div className="mt-10 flex items-center justify-between gap-3 border-t border-border pt-6 md:mt-12">
-            <button
-              onClick={() => setStep((s) => Math.max(0, s - 1))}
-              disabled={step === 0}
-              className="inline-flex min-h-11 items-center rounded-full px-4 text-sm text-muted-foreground transition-colors hover:text-foreground disabled:opacity-30"
-            >
-              ← Précédent
-            </button>
+            {step > 0 ? (
+              <button
+                type="button"
+                onClick={() => setStep((s) => Math.max(0, s - 1))}
+                className="inline-flex min-h-11 items-center rounded-full px-4 text-sm text-muted-foreground transition-colors hover:text-foreground"
+              >
+                ← Précédent
+              </button>
+            ) : (
+              <span />
+            )}
             {step < STEPS.length - 1 ? (
               <button
+                type="button"
                 onClick={() => setStep((s) => s + 1)}
                 disabled={!canNext}
                 className="inline-flex min-h-11 items-center rounded-full bg-foreground px-6 py-3 text-[11px] uppercase tracking-[0.18em] text-background transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40 sm:px-8"
@@ -217,10 +259,12 @@ function Estimation() {
               </button>
             ) : (
               <button
+                type="button"
                 onClick={submit}
-                className="inline-flex min-h-11 items-center rounded-full bg-primary px-6 py-3 text-[11px] uppercase tracking-[0.18em] text-primary-foreground transition-opacity hover:opacity-90 sm:px-8"
+                disabled={sending}
+                className="inline-flex min-h-11 items-center rounded-full bg-primary px-6 py-3 text-[11px] uppercase tracking-[0.18em] text-primary-foreground transition-opacity hover:opacity-90 disabled:opacity-50 sm:px-8"
               >
-                Envoyer ma demande
+                {sending ? "Envoi…" : "Envoyer ma demande"}
               </button>
             )}
           </div>
@@ -243,7 +287,7 @@ const selectCls = inputCls + " appearance-none";
 
 function StepAddress({ value, onChange }: { value: Address | null; onChange: (a: Address | null) => void }) {
   const [q, setQ] = useState(value?.display ?? "");
-  const [results, setResults] = useState<NominatimResult[]>([]);
+  const [results, setResults] = useState<AddressSuggestion[]>([]);
   const [busy, setBusy] = useState(false);
   const [showList, setShowList] = useState(false);
 
@@ -263,7 +307,7 @@ function StepAddress({ value, onChange }: { value: Address | null; onChange: (a:
   return (
     <div className="space-y-6">
       <div>
-        <div className="font-serif text-2xl">Où se trouve votre bien ?</div>
+        <h2 className="font-serif text-2xl">Où se trouve votre bien ?</h2>
         <p className="mt-2 text-sm text-muted-foreground">Commencez à taper l'adresse et sélectionnez la bonne suggestion.</p>
       </div>
       <div className="relative">
@@ -273,7 +317,7 @@ function StepAddress({ value, onChange }: { value: Address | null; onChange: (a:
           value={q}
           onChange={(e) => { setQ(e.target.value); if (value) onChange(null); }}
           onFocus={() => results.length > 0 && setShowList(true)}
-          placeholder="12 rue de Rivoli, Paris"
+          placeholder="12 rue de Silly, Boulogne-Billancourt"
           className={inputCls}
           autoComplete="off"
         />
@@ -281,23 +325,17 @@ function StepAddress({ value, onChange }: { value: Address | null; onChange: (a:
         {showList && results.length > 0 && (
           <ul className="absolute z-10 mt-1 max-h-72 w-full overflow-auto border border-border bg-background shadow-md">
             {results.map((r) => (
-              <li key={r.place_id}>
+              <li key={r.id}>
                 <button
                   type="button"
                   onClick={() => {
-                    onChange({
-                      display: r.display_name,
-                      lat: parseFloat(r.lat),
-                      lng: parseFloat(r.lon),
-                      postcode: r.address?.postcode,
-                      city: r.address?.city || r.address?.town || r.address?.village,
-                    });
-                    setQ(r.display_name);
+                    onChange({ display: r.label, lat: r.lat, lng: r.lng, postcode: r.postcode, city: r.city });
+                    setQ(r.label);
                     setShowList(false);
                   }}
                   className="block w-full px-4 py-3 text-left text-sm hover:bg-muted"
                 >
-                  {r.display_name}
+                  {r.label}
                 </button>
               </li>
             ))}
@@ -323,7 +361,7 @@ function StepType({ value, onChange }: { value: PropertyType | null; onChange: (
   return (
     <div className="space-y-6">
       <div>
-        <div className="font-serif text-2xl">De quel type de bien s'agit-il ?</div>
+        <h2 className="font-serif text-2xl">De quel type de bien s'agit-il ?</h2>
       </div>
       <div className="grid gap-4 sm:grid-cols-2">
         {types.map((t) => (
@@ -331,6 +369,7 @@ function StepType({ value, onChange }: { value: PropertyType | null; onChange: (
             key={t.v}
             type="button"
             onClick={() => onChange(t.v)}
+            aria-pressed={value === t.v}
             className={`border p-8 text-left transition-colors ${value === t.v ? "border-foreground bg-foreground text-background" : "border-border hover:border-foreground"}`}
           >
             <div className="font-serif text-2xl">{t.l}</div>
@@ -358,24 +397,24 @@ function StepFeatures({ form, update }: { form: FormState; update: <K extends ke
   return (
     <div className="space-y-8">
       <div>
-        <div className="font-serif text-2xl">Caractéristiques du bien</div>
-        <p className="mt-2 text-sm text-muted-foreground">Plus vous êtes précis, plus l'estimation est fiable.</p>
+        <h2 className="font-serif text-2xl">Caractéristiques du bien</h2>
+        <p className="mt-2 text-sm text-muted-foreground">Seule la surface est obligatoire. Le reste m'aide à affiner, mais on peut le voir ensemble.</p>
       </div>
 
       <div className="grid gap-6 md:grid-cols-2">
         <Field label="Surface habitable (m²)"><input type="number" min="0" value={form.surface} onChange={(e) => update("surface", e.target.value)} className={inputCls} /></Field>
-        {isHouse && <Field label="Surface du terrain (m²)"><input type="number" min="0" value={form.landSurface} onChange={(e) => update("landSurface", e.target.value)} className={inputCls} /></Field>}
-        <Field label="Nombre de pièces"><input type="number" min="0" value={form.rooms} onChange={(e) => update("rooms", e.target.value)} className={inputCls} /></Field>
-        <Field label="Chambres"><input type="number" min="0" value={form.bedrooms} onChange={(e) => update("bedrooms", e.target.value)} className={inputCls} /></Field>
-        <Field label="Salles de bain"><input type="number" min="0" value={form.bathrooms} onChange={(e) => update("bathrooms", e.target.value)} className={inputCls} /></Field>
-        <Field label="Année de construction"><input type="number" min="1500" max="2030" value={form.yearBuilt} onChange={(e) => update("yearBuilt", e.target.value)} className={inputCls} /></Field>
+        {isHouse && <Field label="Surface du terrain (m²) (facultatif)"><input type="number" min="0" value={form.landSurface} onChange={(e) => update("landSurface", e.target.value)} className={inputCls} /></Field>}
+        <Field label="Nombre de pièces (facultatif)"><input type="number" min="0" value={form.rooms} onChange={(e) => update("rooms", e.target.value)} className={inputCls} /></Field>
+        <Field label="Chambres (facultatif)"><input type="number" min="0" value={form.bedrooms} onChange={(e) => update("bedrooms", e.target.value)} className={inputCls} /></Field>
+        <Field label="Salles de bain (facultatif)"><input type="number" min="0" value={form.bathrooms} onChange={(e) => update("bathrooms", e.target.value)} className={inputCls} /></Field>
+        <Field label="Année de construction (facultatif)"><input type="number" min="1500" max="2030" value={form.yearBuilt} onChange={(e) => update("yearBuilt", e.target.value)} className={inputCls} /></Field>
         {isApt && (
           <>
-            <Field label="Étage"><input type="number" min="0" value={form.floor} onChange={(e) => update("floor", e.target.value)} className={inputCls} /></Field>
+            <Field label="Étage (facultatif)"><input type="number" min="0" value={form.floor} onChange={(e) => update("floor", e.target.value)} className={inputCls} /></Field>
             <div className="pt-8"><Check label="Ascenseur" checked={form.elevator} onChange={(v) => update("elevator", v)} /></div>
           </>
         )}
-        <Field label="État général">
+        <Field label="État général (facultatif)">
           <select value={form.condition} onChange={(e) => update("condition", e.target.value)} className={selectCls}>
             <option value="">—</option>
             <option value="neuf">Neuf</option>
@@ -385,13 +424,13 @@ function StepFeatures({ form, update }: { form: FormState; update: <K extends ke
             <option value="renover_total">À rénover entièrement</option>
           </select>
         </Field>
-        <Field label="Classe DPE">
+        <Field label="Classe DPE (facultatif)">
           <select value={form.dpe} onChange={(e) => update("dpe", e.target.value)} className={selectCls}>
             <option value="">—</option>
             {["A", "B", "C", "D", "E", "F", "G"].map((x) => <option key={x} value={x}>{x}</option>)}
           </select>
         </Field>
-        <Field label="Type de chauffage">
+        <Field label="Type de chauffage (facultatif)">
           <select value={form.heating} onChange={(e) => update("heating", e.target.value)} className={selectCls}>
             <option value="">—</option>
             <option value="gaz">Gaz</option>
@@ -402,7 +441,7 @@ function StepFeatures({ form, update }: { form: FormState; update: <K extends ke
             <option value="collectif">Collectif</option>
           </select>
         </Field>
-        <Field label="Stationnement">
+        <Field label="Stationnement (facultatif)">
           <select value={form.parking} onChange={(e) => update("parking", e.target.value)} className={selectCls}>
             <option value="">—</option>
             <option value="aucun">Aucun</option>
@@ -411,13 +450,13 @@ function StepFeatures({ form, update }: { form: FormState; update: <K extends ke
             <option value="garage">Garage</option>
           </select>
         </Field>
-        <Field label="Exposition">
+        <Field label="Exposition (facultatif)">
           <select value={form.exposure} onChange={(e) => update("exposure", e.target.value)} className={selectCls}>
             <option value="">—</option>
             {["Nord", "Sud", "Est", "Ouest", "Nord-Est", "Nord-Ouest", "Sud-Est", "Sud-Ouest"].map((x) => <option key={x} value={x}>{x}</option>)}
           </select>
         </Field>
-        <Field label="Vue">
+        <Field label="Vue (facultatif)">
           <select value={form.view} onChange={(e) => update("view", e.target.value)} className={selectCls}>
             <option value="">—</option>
             <option value="degagee">Dégagée</option>
@@ -440,7 +479,7 @@ function StepFeatures({ form, update }: { form: FormState; update: <K extends ke
 
       {isApt && (
         <div className="grid gap-6 md:grid-cols-2">
-          <Field label="Charges de copropriété (€/mois)"><input type="number" min="0" value={form.coproFees} onChange={(e) => update("coproFees", e.target.value)} className={inputCls} /></Field>
+          <Field label="Charges de copropriété (€/mois) (facultatif)"><input type="number" min="0" value={form.coproFees} onChange={(e) => update("coproFees", e.target.value)} className={inputCls} /></Field>
           <div className="pt-8"><Check label="Syndic professionnel" checked={form.coproSyndic} onChange={(v) => update("coproSyndic", v)} /></div>
         </div>
       )}
@@ -454,7 +493,7 @@ function StepFeatures({ form, update }: { form: FormState; update: <K extends ke
         </div>
       </div>
 
-      <Field label="Nuisances éventuelles">
+      <Field label="Nuisances éventuelles (facultatif)">
         <textarea value={form.nuisances} onChange={(e) => update("nuisances", e.target.value)} rows={3} placeholder="Bruit, vis-à-vis, etc." className={inputCls} />
       </Field>
     </div>
@@ -465,14 +504,19 @@ function StepContact({ form, update }: { form: FormState; update: <K extends key
   return (
     <div className="space-y-6">
       <div>
-        <div className="font-serif text-2xl">Comment vous joindre ?</div>
+        <h2 className="font-serif text-2xl">Comment vous joindre ?</h2>
         <p className="mt-2 text-sm text-muted-foreground">Vos coordonnées restent strictement confidentielles.</p>
       </div>
       <div className="grid gap-6 md:grid-cols-2">
-        <Field label="Nom complet"><input type="text" value={form.contactName} onChange={(e) => update("contactName", e.target.value)} className={inputCls} required /></Field>
-        <Field label="Email"><input type="email" value={form.contactEmail} onChange={(e) => update("contactEmail", e.target.value)} className={inputCls} required /></Field>
-        <Field label="Téléphone (optionnel)"><input type="tel" value={form.contactPhone} onChange={(e) => update("contactPhone", e.target.value)} className={inputCls} /></Field>
+        <Field label="Nom complet"><input type="text" autoComplete="name" value={form.contactName} onChange={(e) => update("contactName", e.target.value)} className={inputCls} required /></Field>
+        <Field label="Email"><input type="email" autoComplete="email" value={form.contactEmail} onChange={(e) => update("contactEmail", e.target.value)} className={inputCls} required /></Field>
+        <Field label="Téléphone (facultatif)"><input type="tel" autoComplete="tel" value={form.contactPhone} onChange={(e) => update("contactPhone", e.target.value)} className={inputCls} /></Field>
       </div>
+      <p className="text-xs leading-relaxed text-muted-foreground">
+        Ces informations servent uniquement à préparer votre estimation et à vous recontacter.
+        Elles ne sont ni vendues ni cédées.{" "}
+        <Link to="/confidentialite" className="underline underline-offset-2">Politique de confidentialité</Link>
+      </p>
     </div>
   );
 }
@@ -500,7 +544,7 @@ function StepSummary({ form }: { form: FormState }) {
   return (
     <div className="space-y-6">
       <div>
-        <div className="font-serif text-2xl">Récapitulatif</div>
+        <h2 className="font-serif text-2xl">Récapitulatif</h2>
         <p className="mt-2 text-sm text-muted-foreground">Vérifiez avant d'envoyer.</p>
       </div>
       <dl className="divide-y divide-border border-y border-border">

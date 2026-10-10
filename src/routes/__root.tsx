@@ -10,6 +10,8 @@ import {
 import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
+import frauncesTitle from "@fontsource/fraunces/files/fraunces-latin-500-normal.woff2?url";
+import interText from "@fontsource/inter/files/inter-latin-400-normal.woff2?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { CookieBanner } from "@/components/site/CookieBanner";
 
@@ -88,6 +90,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     ],
     links: [
       { rel: "stylesheet", href: appCss },
+      // Polices des titres et du texte courant : chargées d'emblée pour éviter le saut d'affichage.
+      { rel: "preload", href: frauncesTitle, as: "font", type: "font/woff2", crossOrigin: "anonymous" } as never,
+      { rel: "preload", href: interText, as: "font", type: "font/woff2", crossOrigin: "anonymous" } as never,
       { rel: "preconnect", href: "https://d1q967606ga7w2.cloudfront.net", crossOrigin: "anonymous" } as never,
       { rel: "preconnect", href: "https://yokxbjfcpwmjzydgrwmb.supabase.co", crossOrigin: "anonymous" } as never,
       { rel: "preconnect", href: "https://images.unsplash.com", crossOrigin: "anonymous" } as never,

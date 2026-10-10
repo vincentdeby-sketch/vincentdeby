@@ -4,14 +4,15 @@ import { SiteShell } from "@/components/site/SiteShell";
 import { PropertyCard } from "@/components/site/PropertyCard";
 import { Reveal } from "@/components/site/Reveal";
 import { propertiesListQuery } from "@/lib/queries";
+import { PhotoImg } from "@/components/site/PhotoImg";
 
 import { SITE } from "@/lib/site";
 
 export const Route = createFileRoute("/biens/")({
   head: () => ({
     meta: [
-      { title: "Nos biens à la vente — Vincent Deby, Mandataire Efficity" },
-      { name: "description", content: "Sélection de biens immobiliers à la vente : appartements, maisons et propriétés choisis avec soin par Vincent Deby." },
+      { title: "Biens à vendre à Boulogne-Billancourt | Vincent Deby" },
+      { name: "description", content: "Appartements et maisons à vendre à Boulogne-Billancourt, Issy-les-Moulineaux, Paris 15e et 16e, et les biens déjà vendus par Vincent Deby, mandataire Efficity." },
       { property: "og:title", content: "Nos biens à la vente — Vincent Deby" },
       { property: "og:description", content: "Une sélection de biens à la vente, choisis avec soin." },
       { property: "og:url", content: `${SITE}/biens` },
@@ -36,7 +37,8 @@ function List() {
           Des propriétés choisies avec soin, présentées sans artifice.
         </p>
       </section>
-      <section className="container-narrow mt-10 md:mt-16">
+      <section className="container-narrow mt-10 md:mt-16" aria-labelledby="a-vendre">
+        <h2 id="a-vendre" className="sr-only">Biens à vendre</h2>
         {items.length === 0 ? (
           <div className="rounded-3xl border border-dashed border-border py-20 text-center text-sm text-muted-foreground">
             Aucun bien en ligne pour le moment.
@@ -61,8 +63,12 @@ function List() {
                 <div className="group block">
                   <div className="overflow-hidden border border-foreground/10 bg-background/40">
                     <div className="relative aspect-[4/3] w-full overflow-hidden bg-muted">
-                      <img
+                      <PhotoImg
                         src={s.cover_url}
+                        width={640}
+                        height={480}
+                        maxWidth={960}
+                        sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                         alt={`Photo — ${s.type} ${s.surface} m² à ${s.city}`}
                         loading="lazy"
                         decoding="async"

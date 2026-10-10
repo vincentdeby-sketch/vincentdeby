@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import type { Property } from "@/lib/domain";
 import { formatEUR } from "@/lib/domain";
+import { PhotoImg } from "./PhotoImg";
 
 export function PropertyCard({ p }: { p: Property }) {
   return (
@@ -15,8 +16,11 @@ export function PropertyCard({ p }: { p: Property }) {
           <div className="aspect-[4/3] w-full overflow-hidden bg-muted">
 
             {p.cover_url ? (
-              <img
+              <PhotoImg
                 src={p.cover_url}
+                width={640}
+                height={480}
+                sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                 alt={`Photo — ${p.title}${p.city ? `, ${p.city}` : ""}`}
                 loading="lazy"
                 decoding="async"

@@ -4,6 +4,7 @@ import { SiteShell } from "@/components/site/SiteShell";
 import { ContactMenu } from "@/components/site/ContactMenu";
 import { formatDate } from "@/lib/domain";
 import { articleBySlugQuery } from "@/lib/queries";
+import { PhotoImg } from "@/components/site/PhotoImg";
 
 import { SITE } from "@/lib/site";
 
@@ -25,10 +26,14 @@ export const Route = createFileRoute("/actualites/$slug")({
       };
     }
     const a = loaderData;
-    const desc = (a.excerpt ?? a.content ?? "").slice(0, 160);
+    const raw = (a.excerpt ?? a.content ?? "").replace(/\s+/g, " ").trim();
+    const desc = raw.length > 155 ? `${raw.slice(0, 154).replace(/\s+\S*$/, "")}…` : raw;
+    // Google coupe vers 60 caractères : la signature n'est ajoutée que si elle tient.
+    const suffix = " | Vincent Deby";
+    const title = a.title.length + suffix.length <= 60 ? a.title + suffix : a.title;
     return {
       meta: [
-        { title: `${a.title} — Journal Vincent Deby` },
+        { title },
         { name: "description", content: desc },
         { property: "og:title", content: a.title },
         { property: "og:description", content: desc },
@@ -107,8 +112,11 @@ function ArticleDetail() {
         </div>
         {a.cover_url && (
           <div className="mt-12 aspect-[16/9] w-full overflow-hidden bg-muted">
-            <img
+            <PhotoImg
               src={a.cover_url}
+              width={1280}
+              height={720}
+              sizes="(min-width: 1024px) 1100px, 100vw"
               alt={a.title}
               fetchPriority="high"
               decoding="async"
@@ -119,10 +127,23 @@ function ArticleDetail() {
         <div className="prose prose-neutral mx-auto mt-12 max-w-2xl whitespace-pre-wrap text-lg leading-relaxed text-foreground/90">
           {a.content}
         </div>
-        <div className="mx-auto mt-16 flex max-w-2xl flex-col items-center gap-4 border-t border-foreground/10 pt-10 text-center">
-          <p className="text-sm text-muted-foreground">Une question ou envie d'échanger sur votre projet ?</p>
-          <ContactMenu align="center" />
-        </div>
+        <aside className="mx-auto mt-16 max-w-2xl border-t border-foreground/10 pt-10 text-center">
+          <p className="font-serif text-2xl">Vous envisagez de vendre ?</p>
+          <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-muted-foreground">
+            Je vous donne un prix appuyé sur les ventes récentes de votre quartier, avec les références
+            pour le vérifier.
+          </p>
+          <div className="mt-6 flex flex-col items-center gap-4">
+            <Link
+              to="/estimation"
+              className="inline-flex min-h-11 items-center rounded-full bg-foreground px-8 py-3 text-[11px] uppercase tracking-[0.18em] text-background transition-opacity hover:opacity-90"
+            >
+              Estimer mon bien
+            </Link>
+            <p className="text-xs text-muted-foreground">Ou parlons-en directement :</p>
+            <ContactMenu align="center" />
+          </div>
+        </aside>
       </article>
     </SiteShell>
   );

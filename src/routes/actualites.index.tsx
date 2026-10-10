@@ -10,8 +10,8 @@ import { SITE } from "@/lib/site";
 export const Route = createFileRoute("/actualites/")({
   head: () => ({
     meta: [
-      { title: "Actualités immobilières — Vincent Deby" },
-      { name: "description", content: "Analyses de marché, décryptages et notes sur l'immobilier par Vincent Deby, conseiller immobilier mandataire Efficity." },
+      { title: "Actualités immobilières à Boulogne-Billancourt | Vincent Deby" },
+      { name: "description", content: "Prix, ventes récentes et décryptages du marché immobilier à Boulogne-Billancourt et dans l'ouest parisien, par Vincent Deby, mandataire Efficity." },
       { property: "og:title", content: "Actualités immobilières — Vincent Deby" },
       { property: "og:description", content: "Analyses de marché, décryptages et notes sur l'immobilier." },
       { property: "og:url", content: `${SITE}/actualites` },

@@ -1,10 +1,11 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { z } from "zod";
 import { supabase } from "@/integrations/supabase/client";
 import { SiteShell } from "@/components/site/SiteShell";
 
 import { SITE } from "@/lib/site";
+import { trackLead } from "@/lib/tracking";
 const CALENDLY_URL = "https://calendly.com/vdeby-efficity/rdv-estimation-immobiliere";
 
 export const Route = createFileRoute("/formulaire")({
@@ -99,6 +100,24 @@ function FormulairePage() {
   const [form, setForm] = useState<Form>(INITIAL);
   const [submitted, setSubmitted] = useState(false);
   const [sending, setSending] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const cardRef = useRef<HTMLDivElement | null>(null);
+  const firstRender = useRef(true);
+
+  // À chaque étape, on remonte en haut de la carte (utile sur mobile).
+  useEffect(() => {
+    if (firstRender.current) { firstRender.current = false; return; }
+    const el = cardRef.current;
+    if (!el) return;
+    const top = el.getBoundingClientRect().top + window.scrollY - 90;
+    if (window.scrollY > top) window.scrollTo({ top, behavior: "smooth" });
+  }, [step]);
+
+  // Questions à choix unique : la réponse fait passer à l'étape suivante.
+  const choose = <K extends "timeline" | "occupation" | "priceBasis">(k: K, v: string) => {
+    update(k, v);
+    setTimeout(() => setStep((s) => Math.min(s + 1, STEPS.length - 1)), 250);
+  };
 
   const update = <K extends keyof Form>(k: K, v: Form[K]) =>
     setForm((f) => ({ ...f, [k]: v }));
@@ -125,6 +144,7 @@ function FormulairePage() {
   }, [step, form]);
 
   const submit = async () => {
+    setError(null);
     setSending(true);
     const motivation =
       form.motivation === "Autre" ? form.motivationOther.trim() : form.motivation;
@@ -141,9 +161,10 @@ function FormulairePage() {
     });
     setSending(false);
     if (error) {
-      alert("Une erreur est survenue. Merci de réessayer.");
+      setError("L'envoi n'a pas abouti. Réessayez dans un instant, ou appelez-moi au 06 10 02 24 36.");
       return;
     }
+    trackLead("qualification");
     setSubmitted(true);
   };
 
@@ -158,7 +179,7 @@ function FormulairePage() {
             Vos réponses sont bien reçues.
           </h1>
           <p className="mt-6 max-w-xl text-muted-foreground">
-            Réservez directement un créneau ci-dessous — sinon Vincent Deby vous
+            Vous pouvez réserver un rendez-vous ci-dessous. Sinon, je vous
             recontacte sous 48 h ouvrées.
           </p>
           <div className="mt-10 overflow-hidden rounded-2xl border border-border">
@@ -181,7 +202,7 @@ function FormulairePage() {
           Formulaire
         </div>
         <h1 className="mt-4 font-serif text-4xl leading-[1.05] sm:text-5xl md:mt-6">
-          Parlons de votre projet.
+          Préparons votre vente.
         </h1>
         <p className="mt-4 max-w-xl text-muted-foreground">
           Cinq questions pour cadrer votre projet, puis un créneau si vous le
@@ -190,7 +211,7 @@ function FormulairePage() {
       </section>
 
       <section className="container-narrow mt-8 max-w-3xl md:mt-12">
-        <div className="glass rounded-3xl p-5 sm:p-6 md:p-10">
+        <div ref={cardRef} className="glass rounded-3xl p-5 sm:p-6 md:p-10">
           <div className="mb-8 md:mb-12" aria-label="Progression du formulaire">
             <div className="flex items-center justify-between text-[11px] uppercase tracking-widest md:hidden">
               <span className="text-foreground">
@@ -203,6 +224,7 @@ function FormulairePage() {
             <div
               className="mt-3 h-1 w-full overflow-hidden rounded-full bg-muted md:hidden"
               role="progressbar"
+              aria-label={`Étape ${step + 1} sur ${STEPS.length}`}
               aria-valuenow={step + 1}
               aria-valuemin={1}
               aria-valuemax={STEPS.length}
@@ -238,7 +260,7 @@ function FormulairePage() {
                 label="Adresse ou quartier"
                 value={form.location}
                 onChange={(v) => update("location", v)}
-                placeholder="12 rue de Rivoli, Paris — ou Marais, Paris 4e"
+                placeholder="12 rue de Silly, Boulogne — ou quartier Point-du-Jour"
               />
             )}
             {step === 1 && (
@@ -246,7 +268,7 @@ function FormulairePage() {
                 title="Où en êtes-vous dans votre réflexion ?"
                 options={timelineOptions}
                 value={form.timeline}
-                onChange={(v) => update("timeline", v)}
+                onChange={(v) => choose("timeline", v)}
               />
             )}
             {step === 2 && (
@@ -277,7 +299,7 @@ function FormulairePage() {
                 title="Le bien est-il occupé ?"
                 options={occupationOptions}
                 value={form.occupation}
-                onChange={(v) => update("occupation", v)}
+                onChange={(v) => choose("occupation", v)}
               />
             )}
             {step === 4 && (
@@ -285,7 +307,7 @@ function FormulairePage() {
                 title="Avez-vous déjà une idée du prix, et sur quoi repose-t-elle ?"
                 options={priceBasisOptions}
                 value={form.priceBasis}
-                onChange={(v) => update("priceBasis", v)}
+                onChange={(v) => choose("priceBasis", v)}
               />
             )}
             {step === 5 && (
@@ -293,15 +315,24 @@ function FormulairePage() {
             )}
           </div>
 
+          {error && (
+            <p role="alert" className="mt-8 border-l-2 border-destructive pl-4 text-sm text-foreground">
+              {error}
+            </p>
+          )}
+
           <div className="mt-10 flex items-center justify-between gap-3 border-t border-border pt-6 md:mt-12">
-            <button
-              type="button"
-              onClick={() => setStep((s) => Math.max(0, s - 1))}
-              disabled={step === 0}
-              className="inline-flex min-h-11 items-center rounded-full px-4 text-sm text-muted-foreground transition-colors hover:text-foreground disabled:opacity-30"
-            >
-              ← Précédent
-            </button>
+            {step > 0 ? (
+              <button
+                type="button"
+                onClick={() => setStep((s) => Math.max(0, s - 1))}
+                className="inline-flex min-h-11 items-center rounded-full px-4 text-sm text-muted-foreground transition-colors hover:text-foreground"
+              >
+                ← Précédent
+              </button>
+            ) : (
+              <span />
+            )}
             {step < STEPS.length - 1 ? (
               <button
                 type="button"
@@ -365,7 +396,7 @@ function StepText({
   return (
     <div className="space-y-6">
       <div>
-        <div className="font-serif text-2xl">{title}</div>
+        <h2 className="font-serif text-2xl">{title}</h2>
         {hint && <p className="mt-2 text-sm text-muted-foreground">{hint}</p>}
       </div>
       <label className="block">
@@ -398,7 +429,7 @@ function StepChoice({
 }) {
   return (
     <div className="space-y-6">
-      <div className="font-serif text-2xl">{title}</div>
+      <h2 className="font-serif text-2xl">{title}</h2>
       <div className="grid gap-3">
         {options.map((opt) => {
           const selected = value === opt;
@@ -407,6 +438,7 @@ function StepChoice({
               key={opt}
               type="button"
               onClick={() => onChange(opt)}
+              aria-pressed={selected}
               className={`w-full rounded-2xl border px-5 py-4 text-left text-sm transition-colors ${
                 selected
                   ? "border-foreground bg-foreground text-background"
@@ -449,6 +481,7 @@ function StepContact({
               key={m.v}
               type="button"
               onClick={() => update("contactMethod", m.v)}
+              aria-pressed={selected}
               className={`rounded-2xl border p-5 text-left transition-colors ${
                 selected
                   ? "border-foreground bg-foreground text-background"
@@ -470,6 +503,7 @@ function StepContact({
             </div>
             <input
               type="text"
+              autoComplete="name"
               value={form.contactName}
               onChange={(e) => update("contactName", e.target.value)}
               className={inputCls}
@@ -502,6 +536,12 @@ function StepContact({
             />
           </label>
         </div>
+      )}
+      {form.contactMethod && (
+        <p className="text-xs leading-relaxed text-muted-foreground">
+          Vos réponses servent uniquement à préparer notre échange. Elles ne sont ni vendues ni cédées.{" "}
+          <Link to="/confidentialite" className="underline underline-offset-2">Politique de confidentialité</Link>
+        </p>
       )}
     </div>
   );

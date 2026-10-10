@@ -4,6 +4,7 @@ import { SiteShell } from "@/components/site/SiteShell";
 import { ContactMenu } from "@/components/site/ContactMenu";
 import { formatEUR } from "@/lib/domain";
 import { propertyByIdQuery } from "@/lib/queries";
+import { PhotoImg } from "@/components/site/PhotoImg";
 
 import { SITE } from "@/lib/site";
 
@@ -22,16 +23,19 @@ export const Route = createFileRoute("/biens/$id")({
       };
     }
     const p = loaderData;
-    const loc = [p.city, p.address].filter(Boolean).join(", ");
-    const desc = `${p.title} · ${formatEUR(p.price)}${p.surface ? ` · ${p.surface} m²` : ""}${loc ? ` · ${loc}` : ""}. ${(p.description ?? "").slice(0, 120)}`;
+    // La ville figure souvent déjà dans le titre : on ne la répète pas.
+    const city = p.city && !p.title.toLowerCase().includes(p.city.toLowerCase()) ? p.city : null;
+    const head = [p.title, formatEUR(p.price), p.surface ? `${p.surface} m²` : null, city].filter(Boolean).join(" · ");
+    const full = `${head}. ${(p.description ?? "").replace(/\s+/g, " ").trim()}`;
+    const desc = full.length > 155 ? `${full.slice(0, 154).replace(/\s+\S*$/, "")}…` : full;
     return {
       meta: [
-        { title: `${p.title} — ${formatEUR(p.price)}` },
+        { title: `${p.title} — ${formatEUR(p.price)} | Vincent Deby` },
         { name: "description", content: desc },
         { property: "og:title", content: p.title },
         { property: "og:description", content: desc },
         { property: "og:url", content: url },
-        { property: "og:type", content: "product" },
+        { property: "og:type", content: "website" },
         ...(p.cover_url
           ? [
               { property: "og:image", content: p.cover_url },
@@ -45,17 +49,29 @@ export const Route = createFileRoute("/biens/$id")({
           type: "application/ld+json",
           children: JSON.stringify({
             "@context": "https://schema.org",
-            "@type": "Product",
+            "@type": "RealEstateListing",
             name: p.title,
             description: p.description,
-            image: p.cover_url ?? undefined,
-            category: p.property_type,
+            url,
+            image: [p.cover_url, ...(p.photos ?? [])].filter(Boolean),
+            datePosted: p.created_at?.slice(0, 10),
+            about: {
+              "@type": p.property_type === "maison" ? "SingleFamilyResidence" : "Apartment",
+              ...(p.surface ? { floorSize: { "@type": "QuantitativeValue", value: p.surface, unitCode: "MTK" } } : {}),
+              ...(p.rooms ? { numberOfRooms: p.rooms } : {}),
+              address: {
+                "@type": "PostalAddress",
+                streetAddress: p.address || undefined,
+                addressLocality: p.city || undefined,
+                postalCode: p.postal_code || undefined,
+                addressCountry: "FR",
+              },
+            },
             offers: {
               "@type": "Offer",
               price: p.price,
               priceCurrency: "EUR",
               availability: "https://schema.org/InStock",
-              url,
             },
           }),
         },
@@ -105,8 +121,11 @@ function Detail() {
         <div>
           {gallery[0] ? (
             <div className="aspect-[4/3] w-full overflow-hidden bg-muted">
-              <img
+              <PhotoImg
                 src={gallery[0]}
+                width={1280}
+                height={960}
+                sizes="(min-width: 768px) 66vw, 100vw"
                 alt={`${p.title} — photo principale${locString ? ` (${locString})` : ""}`}
                 fetchPriority="high"
                 decoding="async"
@@ -120,8 +139,12 @@ function Detail() {
             <div className="mt-4 grid grid-cols-3 gap-4">
               {gallery.slice(1, 7).map((src, i) => (
                 <div key={i} className="aspect-square overflow-hidden bg-muted">
-                  <img
+                  <PhotoImg
                     src={src}
+                    width={400}
+                    height={400}
+                    maxWidth={640}
+                    sizes="(min-width: 768px) 22vw, 33vw"
                     alt={`${p.title} — photo ${i + 2}`}
                     loading="lazy"
                     decoding="async"
