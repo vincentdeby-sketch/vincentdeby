@@ -6,7 +6,7 @@ export const LEGAL = {
   status: "entrepreneur individuel (EI), agent commercial mandataire en immobilier du réseau Efficity",
   rsac: "n° 524 616 448, Registre spécial des agents commerciaux du tribunal de commerce de Nanterre" as string | null,
   siret: null as string | null,
-  address: null as string | null, // adresse postale professionnelle
+  address: "231 boulevard Jean Jaurès, 92100 Boulogne-Billancourt" as string | null, // adresse de la signature e-mail de Vincent
   email: "vdeby@efficity.com",
   phone: "+33 6 10 02 24 36",
   publicationDirector: "Vincent Deby",

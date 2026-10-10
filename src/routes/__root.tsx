@@ -15,6 +15,7 @@ import interText from "@fontsource/inter/files/inter-latin-400-normal.woff2?url"
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { CookieBanner } from "@/components/site/CookieBanner";
 import { Cursor } from "@/components/motion/Cursor";
+import { VisitPing } from "@/components/site/VisitPing";
 
 function NotFoundComponent() {
   return (
@@ -163,6 +164,7 @@ function RootComponent() {
       <Outlet />
       <CookieBanner />
       <Cursor />
+      <VisitPing />
     </QueryClientProvider>
   );
 }

@@ -1,6 +1,7 @@
 import { useState, type FormEvent } from "react";
 import { Check, Loader2 } from "lucide-react";
 import { subscribeNewsletter } from "@/lib/newsletter";
+import { notifyLead } from "@/lib/notify";
 
 const EMAIL = "vdeby@efficity.com";
 
@@ -13,6 +14,7 @@ export function NewsletterForm({ compact = false }: { compact?: boolean }) {
     e.preventDefault();
     if (!email.includes("@")) return;
     setState("sending");
+    void notifyLead({ data: { kind: "newsletter", email, fields: { Page: window.location.pathname } } }).catch(() => {});
     try {
       const r = await subscribeNewsletter({ data: email });
       if (r.ok) { setState("done"); return; }

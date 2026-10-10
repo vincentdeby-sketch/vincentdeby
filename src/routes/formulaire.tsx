@@ -10,6 +10,7 @@ import { ArrowLeft, ArrowRight, Check, Mail, Phone, CalendarClock } from "lucide
 
 import { SITE } from "@/lib/site";
 import { trackLead } from "@/lib/tracking";
+import { notifyLead } from "@/lib/notify";
 const CALENDLY_URL = "https://calendly.com/vdeby-efficity/rdv-estimation-immobiliere";
 
 export const Route = createFileRoute("/formulaire")({
@@ -174,6 +175,22 @@ function FormulairePage() {
       return;
     }
     trackLead("qualification");
+    void notifyLead({
+      data: {
+        kind: "projet",
+        name: form.contactName.trim(),
+        email: form.contactMethod === "email" ? form.contactValue.trim() : undefined,
+        phone: form.contactMethod === "telephone" ? form.contactValue.trim() : undefined,
+        fields: {
+          "Localisation du bien": form.location.trim(),
+          "Où en est-il": form.timeline,
+          Motivation: motivation,
+          Occupation: form.occupation,
+          "Idée du prix": form.priceBasis,
+          "Contact souhaité": form.contactMethod === "creneau" ? `Créneau : ${form.slot || form.contactValue}` : form.contactMethod,
+        },
+      },
+    }).catch(() => {});
     setSubmitted(true);
   };
 

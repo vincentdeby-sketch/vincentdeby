@@ -10,6 +10,7 @@ import { ArrowLeft, ArrowRight, Building2, Home as HomeIcon, LandPlot, Store, Ch
 import { LazyGlobe } from "@/components/site/LazyGlobe";
 import { searchAddress, type AddressSuggestion } from "@/lib/address";
 import { trackLead } from "@/lib/tracking";
+import { notifyLead } from "@/lib/notify";
 import { DRAFT_KEY } from "@/lib/estimation-draft";
 
 import { SITE } from "@/lib/site";
@@ -162,6 +163,33 @@ function Estimation() {
       return;
     }
     trackLead("estimation");
+    const TYPE_LABELS: Record<string, string> = { appartement: "Appartement", maison: "Maison", terrain: "Terrain", local_commercial: "Local commercial" };
+    void notifyLead({
+      data: {
+        kind: "estimation",
+        name: form.contactName,
+        email: form.contactEmail,
+        phone: form.contactPhone,
+        fields: {
+          Adresse: form.address?.display,
+          Type: TYPE_LABELS[form.propertyType ?? ""] ?? form.propertyType,
+          Surface: form.surface ? `${form.surface} m²` : "",
+          Terrain: form.landSurface ? `${form.landSurface} m²` : "",
+          "Pièces / chambres / SdB": [form.rooms, form.bedrooms, form.bathrooms].filter(Boolean).join(" / "),
+          Étage: form.floor ? `${form.floor}${form.elevator ? " (ascenseur)" : ""}` : "",
+          "Année de construction": form.yearBuilt,
+          État: form.condition,
+          DPE: form.dpe,
+          Chauffage: form.heating,
+          Stationnement: form.parking,
+          Extérieur: form.outdoor.join(", "),
+          "Exposition / vue": [form.exposure, form.view].filter(Boolean).join(" · "),
+          "Charges copro": form.coproFees ? `${form.coproFees} €/mois` : "",
+          Proximité: form.proximity.join(", "),
+          Nuisances: form.nuisances,
+        },
+      },
+    }).catch(() => {});
     sessionStorage.removeItem(STORAGE_KEY);
     setSubmitted(true);
   };

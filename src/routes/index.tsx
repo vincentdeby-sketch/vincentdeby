@@ -121,7 +121,7 @@ function Home() {
       {/* HERO */}
       <section className="container-narrow pt-8 md:pt-14">
         <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-12">
-          <div className="lg:col-span-7">
+          <div className="min-w-0 lg:col-span-7">
             <p className="eyebrow">
               <span className="live-dot" aria-hidden="true" /> Conseiller immobilier · Boulogne-Billancourt
             </p>

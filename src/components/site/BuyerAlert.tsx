@@ -3,6 +3,7 @@ import { BellRing, Check, Loader2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { ZONES } from "@/lib/zones";
 import { trackLead } from "@/lib/tracking";
+import { notifyLead } from "@/lib/notify";
 
 // Alerte acquéreurs : enregistrée dans la table des leads, visible dans l'espace pro.
 export function BuyerAlert() {
@@ -33,6 +34,19 @@ export function BuyerAlert() {
     });
     if (error) { setState("error"); return; }
     trackLead("alerte-acquereur");
+    void notifyLead({
+      data: {
+        kind: "alerte",
+        name: name.trim(),
+        email: email.trim(),
+        fields: {
+          Secteurs: zones.join(", "),
+          Type: kind,
+          "Budget maximum": `${Number(budget).toLocaleString("fr-FR")} €`,
+          "Surface minimum": surface ? `${surface} m²` : "",
+        },
+      },
+    }).catch(() => {});
     setState("done");
   };
 

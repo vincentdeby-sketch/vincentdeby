@@ -436,7 +436,7 @@ html.js .reveal.is-visible { opacity: 1; transform: none; }
 
 /* 1. Titre tapé à la machine (chaque lettre apparaît à son tour) */
 @keyframes type-in { from { opacity: 0; } to { opacity: 1; } }
-html.js .typewriter .ch { opacity: 0; animation: type-in 1ms steps(1) forwards; animation-delay: calc(var(--i) * 32ms + 150ms); }
+html.js .typewriter .ch { opacity: 0; animation: type-in 90ms ease-out forwards; animation-delay: calc(var(--i) * 32ms + 150ms); }
 html.js .typewriter .caret {
   display: inline-block; width: 0.06em; height: 0.85em; margin-left: 0.04em; vertical-align: -0.05em;
   background: var(--color-brand); opacity: 0; animation: caret 900ms steps(1) 5 forwards;

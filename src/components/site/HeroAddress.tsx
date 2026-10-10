@@ -70,7 +70,7 @@ export function HeroAddress() {
           aria-expanded={open && results.length > 0}
           aria-controls="hero-address-list"
           autoComplete="off"
-          className="min-w-0 flex-1 bg-transparent py-2.5 text-base outline-none placeholder:text-muted-foreground"
+          className="w-0 min-w-0 flex-1 bg-transparent py-2.5 text-base outline-none placeholder:text-muted-foreground"
         />
         <Magnetic strength={0.18}>
         <button type="submit" className="group btn btn-primary !min-h-11 shrink-0 !px-4 sm:!px-5">

@@ -17,7 +17,8 @@ export function Magnetic({ children, strength = 0.25, className = "" }: { childr
       ref={ref}
       onPointerMove={move}
       onPointerLeave={reset}
-      className={`inline-block transition-transform duration-300 ease-out ${className}`}
+      // La classe d'affichage (ex. « hidden sm:inline-block ») vient de l'appelant s'il en fournit une.
+      className={`${/\b(hidden|block|inline-block|flex|inline-flex)\b/.test(className) ? "" : "inline-block"} transition-transform duration-300 ease-out ${className}`}
     >
       {children}
     </span>
