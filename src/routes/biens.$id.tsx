@@ -196,7 +196,7 @@ function Detail() {
             <p className="mt-6 text-sm text-muted-foreground">
               Annonce publiée sur{" "}
               <a href={extra.sourceUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-4">efficity.com</a>
-              , mise à jour automatiquement.
+.
             </p>
           )}
 
