@@ -2,6 +2,7 @@ import { queryOptions } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import type { Article, Property } from "@/lib/domain";
 import { getListing, getListings, type Listing } from "@/lib/efficity";
+import { getSectorMarket } from "@/lib/dvf";
 
 export const homeArticlesQuery = queryOptions({
   queryKey: ["articles", "home"],
@@ -69,4 +70,12 @@ export const propertyByIdQuery = (id: string) =>
         .maybeSingle();
       return (data as Property | null) ?? null;
     },
+  });
+
+// Marché d'un secteur d'après les ventes DVF (voir src/lib/dvf.ts).
+export const sectorMarketQuery = (slug: string) =>
+  queryOptions({
+    queryKey: ["sector-market", slug],
+    staleTime: 60 * 60_000,
+    queryFn: () => getSectorMarket({ data: slug }),
   });

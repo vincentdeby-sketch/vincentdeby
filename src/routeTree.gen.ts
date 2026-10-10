@@ -18,12 +18,15 @@ import { Route as ContactRouteImport } from './routes/contact'
 import { Route as EstimationRouteImport } from './routes/estimation'
 import { Route as FormulaireRouteImport } from './routes/formulaire'
 import { Route as MentionsLegalesRouteImport } from './routes/mentions-legales'
+import { Route as RecitsRouteImport } from './routes/recits'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as VentesAutourDeChezMoiRouteImport } from './routes/ventes-autour-de-chez-moi'
 import { Route as VideosRouteImport } from './routes/videos'
 import { Route as ActualitesIndexRouteImport } from './routes/actualites.index'
 import { Route as ActualitesSlugRouteImport } from './routes/actualites.$slug'
 import { Route as BiensIndexRouteImport } from './routes/biens.index'
 import { Route as BiensIdRouteImport } from './routes/biens.$id'
+import { Route as SecteursSlugRouteImport } from './routes/secteurs.$slug'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
 import { Route as AuthenticatedAdminArticlesRouteImport } from './routes/_authenticated/admin.articles'
 import { Route as AuthenticatedAdminBiensRouteImport } from './routes/_authenticated/admin.biens'
@@ -73,9 +76,19 @@ const MentionsLegalesRoute = MentionsLegalesRouteImport.update({
   path: '/mentions-legales',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RecitsRoute = RecitsRouteImport.update({
+  id: '/recits',
+  path: '/recits',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const VentesAutourDeChezMoiRoute = VentesAutourDeChezMoiRouteImport.update({
+  id: '/ventes-autour-de-chez-moi',
+  path: '/ventes-autour-de-chez-moi',
   getParentRoute: () => rootRouteImport,
 } as any)
 const VideosRoute = VideosRouteImport.update({
@@ -101,6 +114,11 @@ const BiensIndexRoute = BiensIndexRouteImport.update({
 const BiensIdRoute = BiensIdRouteImport.update({
   id: '/biens/$id',
   path: '/biens/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SecteursSlugRoute = SecteursSlugRouteImport.update({
+  id: '/secteurs/$slug',
+  path: '/secteurs/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
@@ -135,10 +153,13 @@ export interface FileRoutesByFullPath {
   '/estimation': typeof EstimationRoute
   '/formulaire': typeof FormulaireRoute
   '/mentions-legales': typeof MentionsLegalesRoute
+  '/recits': typeof RecitsRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/ventes-autour-de-chez-moi': typeof VentesAutourDeChezMoiRoute
   '/videos': typeof VideosRoute
   '/actualites/$slug': typeof ActualitesSlugRoute
   '/biens/$id': typeof BiensIdRoute
+  '/secteurs/$slug': typeof SecteursSlugRoute
   '/actualites/': typeof ActualitesIndexRoute
   '/biens/': typeof BiensIndexRoute
   '/admin/articles': typeof AuthenticatedAdminArticlesRoute
@@ -155,10 +176,13 @@ export interface FileRoutesByTo {
   '/estimation': typeof EstimationRoute
   '/formulaire': typeof FormulaireRoute
   '/mentions-legales': typeof MentionsLegalesRoute
+  '/recits': typeof RecitsRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/ventes-autour-de-chez-moi': typeof VentesAutourDeChezMoiRoute
   '/videos': typeof VideosRoute
   '/actualites/$slug': typeof ActualitesSlugRoute
   '/biens/$id': typeof BiensIdRoute
+  '/secteurs/$slug': typeof SecteursSlugRoute
   '/actualites': typeof ActualitesIndexRoute
   '/biens': typeof BiensIndexRoute
   '/admin/articles': typeof AuthenticatedAdminArticlesRoute
@@ -177,10 +201,13 @@ export interface FileRoutesById {
   '/estimation': typeof EstimationRoute
   '/formulaire': typeof FormulaireRoute
   '/mentions-legales': typeof MentionsLegalesRoute
+  '/recits': typeof RecitsRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/ventes-autour-de-chez-moi': typeof VentesAutourDeChezMoiRoute
   '/videos': typeof VideosRoute
   '/actualites/$slug': typeof ActualitesSlugRoute
   '/biens/$id': typeof BiensIdRoute
+  '/secteurs/$slug': typeof SecteursSlugRoute
   '/actualites/': typeof ActualitesIndexRoute
   '/biens/': typeof BiensIndexRoute
   '/_authenticated/admin/articles': typeof AuthenticatedAdminArticlesRoute
@@ -199,10 +226,13 @@ export interface FileRouteTypes {
     | '/estimation'
     | '/formulaire'
     | '/mentions-legales'
+    | '/recits'
     | '/sitemap.xml'
+    | '/ventes-autour-de-chez-moi'
     | '/videos'
     | '/actualites/$slug'
     | '/biens/$id'
+    | '/secteurs/$slug'
     | '/actualites/'
     | '/biens/'
     | '/admin/articles'
@@ -219,10 +249,13 @@ export interface FileRouteTypes {
     | '/estimation'
     | '/formulaire'
     | '/mentions-legales'
+    | '/recits'
     | '/sitemap.xml'
+    | '/ventes-autour-de-chez-moi'
     | '/videos'
     | '/actualites/$slug'
     | '/biens/$id'
+    | '/secteurs/$slug'
     | '/actualites'
     | '/biens'
     | '/admin/articles'
@@ -240,10 +273,13 @@ export interface FileRouteTypes {
     | '/estimation'
     | '/formulaire'
     | '/mentions-legales'
+    | '/recits'
     | '/sitemap.xml'
+    | '/ventes-autour-de-chez-moi'
     | '/videos'
     | '/actualites/$slug'
     | '/biens/$id'
+    | '/secteurs/$slug'
     | '/actualites/'
     | '/biens/'
     | '/_authenticated/admin/articles'
@@ -262,10 +298,13 @@ export interface RootRouteChildren {
   EstimationRoute: typeof EstimationRoute
   FormulaireRoute: typeof FormulaireRoute
   MentionsLegalesRoute: typeof MentionsLegalesRoute
+  RecitsRoute: typeof RecitsRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  VentesAutourDeChezMoiRoute: typeof VentesAutourDeChezMoiRoute
   VideosRoute: typeof VideosRoute
   ActualitesSlugRoute: typeof ActualitesSlugRoute
   BiensIdRoute: typeof BiensIdRoute
+  SecteursSlugRoute: typeof SecteursSlugRoute
   ActualitesIndexRoute: typeof ActualitesIndexRoute
   BiensIndexRoute: typeof BiensIndexRoute
 }
@@ -335,11 +374,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MentionsLegalesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/recits': {
+      id: '/recits'
+      path: '/recits'
+      fullPath: '/recits'
+      preLoaderRoute: typeof RecitsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/sitemap.xml': {
       id: '/sitemap.xml'
       path: '/sitemap.xml'
       fullPath: '/sitemap.xml'
       preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ventes-autour-de-chez-moi': {
+      id: '/ventes-autour-de-chez-moi'
+      path: '/ventes-autour-de-chez-moi'
+      fullPath: '/ventes-autour-de-chez-moi'
+      preLoaderRoute: typeof VentesAutourDeChezMoiRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/videos': {
@@ -375,6 +428,13 @@ declare module '@tanstack/react-router' {
       path: '/biens/$id'
       fullPath: '/biens/$id'
       preLoaderRoute: typeof BiensIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/secteurs/$slug': {
+      id: '/secteurs/$slug'
+      path: '/secteurs/$slug'
+      fullPath: '/secteurs/$slug'
+      preLoaderRoute: typeof SecteursSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated/admin/': {
@@ -435,10 +495,13 @@ const rootRouteChildren: RootRouteChildren = {
   EstimationRoute: EstimationRoute,
   FormulaireRoute: FormulaireRoute,
   MentionsLegalesRoute: MentionsLegalesRoute,
+  RecitsRoute: RecitsRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  VentesAutourDeChezMoiRoute: VentesAutourDeChezMoiRoute,
   VideosRoute: VideosRoute,
   ActualitesSlugRoute: ActualitesSlugRoute,
   BiensIdRoute: BiensIdRoute,
+  SecteursSlugRoute: SecteursSlugRoute,
   ActualitesIndexRoute: ActualitesIndexRoute,
   BiensIndexRoute: BiensIndexRoute,
 }

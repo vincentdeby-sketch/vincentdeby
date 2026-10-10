@@ -2,6 +2,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import type {} from "@tanstack/react-start";
 import { supabase } from "@/integrations/supabase/client";
 import { getListings } from "@/lib/efficity";
+import { SECTORS } from "@/lib/sectors";
+import { STORIES } from "@/data/stories";
 
 import { SITE as BASE_URL } from "@/lib/site";
 
@@ -24,6 +26,9 @@ export const Route = createFileRoute("/sitemap.xml")({
           { path: "/formulaire", changefreq: "monthly", priority: "0.7" },
           { path: "/contact", changefreq: "monthly", priority: "0.6" },
           { path: "/videos", changefreq: "monthly", priority: "0.5" },
+          { path: "/ventes-autour-de-chez-moi", changefreq: "monthly", priority: "0.8" },
+          ...SECTORS.map((x) => ({ path: `/secteurs/${x.slug}`, changefreq: "monthly" as const, priority: "0.8" })),
+          ...(STORIES.length ? [{ path: "/recits", changefreq: "monthly" as const, priority: "0.6" }] : []),
           { path: "/mentions-legales", changefreq: "yearly", priority: "0.2" },
           { path: "/confidentialite", changefreq: "yearly", priority: "0.2" },
           { path: "/cgu", changefreq: "yearly", priority: "0.2" },

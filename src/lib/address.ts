@@ -7,11 +7,12 @@ export type AddressSuggestion = {
   lng: number;
   postcode?: string;
   city?: string;
+  citycode?: string;
 };
 
 type BanFeature = {
   geometry: { coordinates: [number, number] };
-  properties: { id: string; label: string; postcode?: string; city?: string };
+  properties: { id: string; label: string; postcode?: string; city?: string; citycode?: string };
 };
 
 let inflight: AbortController | null = null;
@@ -38,6 +39,7 @@ export async function searchAddress(query: string): Promise<AddressSuggestion[]>
       lat: f.geometry.coordinates[1],
       postcode: f.properties.postcode,
       city: f.properties.city,
+      citycode: f.properties.citycode,
     }));
   } catch {
     return [];

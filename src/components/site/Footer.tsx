@@ -2,6 +2,8 @@ import { Link } from "@tanstack/react-router";
 import { ArrowUpRight } from "lucide-react";
 import { NewsletterForm } from "./NewsletterForm";
 import { ZONES } from "@/lib/zones";
+import { SECTORS } from "@/lib/sectors";
+import { STORIES } from "@/data/stories";
 
 const PHONE = "+33610022436";
 const PHONE_DISPLAY = "06 10 02 24 36";
@@ -53,6 +55,7 @@ export function Footer() {
                 <li><Link to="/biens" className="text-paper/80 hover:text-paper">Biens à vendre</Link></li>
                 <li><Link to="/actualites" className="text-paper/80 hover:text-paper">Journal</Link></li>
                 <li><Link to="/videos" className="text-paper/80 hover:text-paper">Vidéos</Link></li>
+                {STORIES.length > 0 && <li><Link to="/recits" className="text-paper/80 hover:text-paper">Histoires de ventes</Link></li>}
                 <li><Link to="/contact" className="text-paper/80 hover:text-paper">Contact</Link></li>
               </ul>
             </nav>
@@ -61,6 +64,11 @@ export function Footer() {
               <ul className="mt-4 space-y-2.5">
                 <li><a href={`tel:${PHONE}`} className="tabular-nums text-paper/80 hover:text-paper">{PHONE_DISPLAY}</a></li>
                 <li><a href={`mailto:${EMAIL}`} className="break-all text-paper/80 hover:text-paper">{EMAIL}</a></li>
+                <li>
+                  <a href="https://www.immodvisor.com/pro/efficity-immobilier-vincent-deby-boulogne-billancourt-92100-92460.html" target="_blank" rel="noopener noreferrer" className="text-paper/80 hover:text-paper">
+                    Avis clients vérifiés (Immodvisor)
+                  </a>
+                </li>
                 <li>
                   <a href={CALENDLY_URL} target="_blank" rel="noopener noreferrer" className="text-paper/80 hover:text-paper">
                     Réserver un rendez-vous
@@ -71,10 +79,24 @@ export function Footer() {
             <div>
               <p className="eyebrow !text-paper/50">Secteur</p>
               <ul className="mt-4 flex flex-wrap gap-1.5">
-                {ZONES.map((z) => (
-                  <li key={z} className="rounded-full border border-paper/15 px-3 py-1 text-xs text-paper/75">{z}</li>
-                ))}
+                {ZONES.map((z) => {
+                  const sector = SECTORS.find((x) => x.name === z);
+                  return (
+                    <li key={z}>
+                      {sector ? (
+                        <Link to="/secteurs/$slug" params={{ slug: sector.slug }} className="block rounded-full border border-paper/15 px-3 py-1 text-xs text-paper/75 hover:border-paper hover:text-paper">
+                          {z}
+                        </Link>
+                      ) : (
+                        <span className="block rounded-full border border-paper/15 px-3 py-1 text-xs text-paper/75">{z}</span>
+                      )}
+                    </li>
+                  );
+                })}
               </ul>
+              <Link to="/ventes-autour-de-chez-moi" className="mt-4 inline-block text-sm text-brand hover:underline">
+                Les ventes autour de chez moi →
+              </Link>
             </div>
           </div>
 

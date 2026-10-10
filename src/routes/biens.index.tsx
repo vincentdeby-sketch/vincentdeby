@@ -6,6 +6,7 @@ import { PropertyCard } from "@/components/site/PropertyCard";
 import { Reveal } from "@/components/site/Reveal";
 import { propertiesListQuery } from "@/lib/queries";
 import { PhotoImg } from "@/components/site/PhotoImg";
+import { BuyerAlert } from "@/components/site/BuyerAlert";
 
 import { SITE } from "@/lib/site";
 
@@ -63,6 +64,12 @@ function List() {
             {items.map((p) => <Reveal key={p.id}><PropertyCard p={p} /></Reveal>)}
           </div>
         )}
+      </section>
+
+      <section className="container-narrow mt-20 md:mt-28">
+        <Reveal>
+          <BuyerAlert />
+        </Reveal>
       </section>
 
       <section className="container-narrow mt-24 md:mt-36">
