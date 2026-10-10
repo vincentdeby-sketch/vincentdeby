@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { SiteShell } from "@/components/site/SiteShell";
 import { PageHeader } from "@/components/site/PageHeader";
 import { Reveal } from "@/components/site/Reveal";
+import { VideoCard } from "@/components/site/VideoCard";
 
 import { SITE } from "@/lib/site";
 
@@ -11,8 +12,26 @@ type Video = {
   youtubeId: string;
 };
 
-// Ajoutez ici vos vraies vidéos YouTube (youtubeId = l'ID après ?v= dans l'URL).
-const videos: Video[] = [];
+// Vidéos de la chaîne YouTube @vincent_immo (youtubeId = l'identifiant après ?v= dans l'URL).
+// Pour en ajouter une : copier une ligne et changer le titre, la description et l'identifiant.
+const CHANNEL_URL = "https://www.youtube.com/@vincent_immo";
+const videos: Video[] = [
+  {
+    title: "Podcast OFF MARKET, épisode 1 : les pires erreurs de vente révélées par une notaire",
+    description: "Le premier épisode du podcast OFF MARKET.",
+    youtubeId: "miHkcL2_TFc",
+  },
+  {
+    title: "La pire erreur en immobilier : le prix de départ",
+    description: "",
+    youtubeId: "PkiRUILlzgo",
+  },
+  {
+    title: "Prêt immobilier : ce que voit votre banquier et que vous ne voyez pas",
+    description: "",
+    youtubeId: "_1znolIGdXI",
+  },
+];
 
 
 export const Route = createFileRoute("/videos")({
@@ -36,7 +55,7 @@ function VideosPage() {
       <PageHeader
         eyebrow="Vidéos"
         title={<>L'immobilier, <em className="text-brand-ink">raconté en images.</em></>}
-        lede="Conseils, analyses de marché et visites de biens. Le marché expliqué simplement, en quelques minutes."
+        lede="Le podcast OFF MARKET et mes vidéos sur le marché : ce que les vendeurs et les acheteurs devraient savoir, expliqué simplement."
       />
 
       <section className="container-narrow mt-10 md:mt-16 pb-24">
@@ -51,28 +70,17 @@ function VideosPage() {
             </div>
           </Reveal>
         ) : (
-          <div className="grid gap-10 md:gap-16">
+          <div className="grid gap-x-6 gap-y-12 md:grid-cols-2">
             {videos.map((v, i) => (
-              <Reveal key={i}>
-                <article className="glass overflow-hidden rounded-3xl p-3">
-                  <div className="aspect-video w-full overflow-hidden rounded-2xl bg-muted">
-                    <iframe
-                      src={`https://www.youtube-nocookie.com/embed/${v.youtubeId}`}
-                      title={v.title}
-                      loading="lazy"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                      referrerPolicy="strict-origin-when-cross-origin"
-                      allowFullScreen
-                      className="h-full w-full border-0"
-                    />
-                  </div>
-                  <div className="px-2 pb-2 pt-5">
-                    <h2 className="font-serif text-xl leading-snug sm:text-2xl">{v.title}</h2>
-                    <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{v.description}</p>
-                  </div>
-                </article>
+              <Reveal key={v.youtubeId} className={i === 0 ? "md:col-span-2" : ""}>
+                <VideoCard id={v.youtubeId} title={v.title} description={v.description} featured={i === 0} />
               </Reveal>
             ))}
+            <div className="md:col-span-2">
+              <a href={CHANNEL_URL} target="_blank" rel="noopener noreferrer" className="btn btn-ghost">
+                Toutes les vidéos sur YouTube
+              </a>
+            </div>
           </div>
         )}
       </section>
