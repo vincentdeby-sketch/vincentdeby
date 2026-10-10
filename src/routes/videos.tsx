@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { SiteShell } from "@/components/site/SiteShell";
 import { Reveal } from "@/components/site/Reveal";
 
-const SITE = "https://vincentdeby.lovable.app";
+import { SITE } from "@/lib/site";
 
 type Video = {
   title: string;

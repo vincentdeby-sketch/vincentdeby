@@ -48,7 +48,18 @@ export function Footer() {
         </div>
         <div className="mt-6 flex flex-col justify-between gap-2 px-2 text-xs text-muted-foreground sm:px-4 md:flex-row">
           <div>© {new Date().getFullYear()} Vincent Deby — Mandataire Efficity. Tous droits réservés.</div>
-          <div>Boulogne-Billancourt & ouest parisien.</div>
+          <nav aria-label="Informations légales" className="flex flex-wrap gap-x-4 gap-y-1">
+            <Link to="/mentions-legales" className="hover:text-foreground">Mentions légales</Link>
+            <Link to="/confidentialite" className="hover:text-foreground">Confidentialité</Link>
+            <Link to="/cgu" className="hover:text-foreground">CGU</Link>
+            <button
+              type="button"
+              onClick={() => window.dispatchEvent(new Event("open-cookie-banner"))}
+              className="hover:text-foreground"
+            >
+              Cookies
+            </button>
+          </nav>
         </div>
       </div>
     </footer>

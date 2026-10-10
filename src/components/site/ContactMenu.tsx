@@ -3,7 +3,7 @@ import { ChevronDown, Phone, Mail, CalendarClock } from "lucide-react";
 import { useIsDesktop } from "@/hooks/use-is-desktop";
 import { QrLinkDialog } from "./QrLinkDialog";
 
-const CALENDLY_URL = "https://calendly.com/vdeby-efficity/30min";
+const CALENDLY_URL = "https://calendly.com/vdeby-efficity/rdv-estimation-immobiliere";
 const PHONE = "+33610022436";
 const PHONE_DISPLAY = "+33 6 10 02 24 36";
 const EMAIL = "vdeby@efficity.com";

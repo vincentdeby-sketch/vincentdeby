@@ -9,46 +9,33 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as VideosRouteImport } from './routes/videos'
-import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
-import { Route as FormulaireRouteImport } from './routes/formulaire'
-import { Route as EstimationRouteImport } from './routes/estimation'
-import { Route as ContactRouteImport } from './routes/contact'
-import { Route as AuthRouteImport } from './routes/auth'
-import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as BiensIndexRouteImport } from './routes/biens.index'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as CguRouteImport } from './routes/cgu'
+import { Route as ConfidentialiteRouteImport } from './routes/confidentialite'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as EstimationRouteImport } from './routes/estimation'
+import { Route as FormulaireRouteImport } from './routes/formulaire'
+import { Route as MentionsLegalesRouteImport } from './routes/mentions-legales'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as VideosRouteImport } from './routes/videos'
 import { Route as ActualitesIndexRouteImport } from './routes/actualites.index'
-import { Route as BiensIdRouteImport } from './routes/biens.$id'
 import { Route as ActualitesSlugRouteImport } from './routes/actualites.$slug'
+import { Route as BiensIndexRouteImport } from './routes/biens.index'
+import { Route as BiensIdRouteImport } from './routes/biens.$id'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
-import { Route as AuthenticatedAdminEstimationsRouteImport } from './routes/_authenticated/admin.estimations'
-import { Route as AuthenticatedAdminBiensRouteImport } from './routes/_authenticated/admin.biens'
 import { Route as AuthenticatedAdminArticlesRouteImport } from './routes/_authenticated/admin.articles'
+import { Route as AuthenticatedAdminBiensRouteImport } from './routes/_authenticated/admin.biens'
+import { Route as AuthenticatedAdminEstimationsRouteImport } from './routes/_authenticated/admin.estimations'
 
-const VideosRoute = VideosRouteImport.update({
-  id: '/videos',
-  path: '/videos',
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
-  id: '/sitemap.xml',
-  path: '/sitemap.xml',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const FormulaireRoute = FormulaireRouteImport.update({
-  id: '/formulaire',
-  path: '/formulaire',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const EstimationRoute = EstimationRouteImport.update({
-  id: '/estimation',
-  path: '/estimation',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ContactRoute = ContactRouteImport.update({
-  id: '/contact',
-  path: '/contact',
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthRoute = AuthRouteImport.update({
@@ -56,18 +43,44 @@ const AuthRoute = AuthRouteImport.update({
   path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
-  id: '/_authenticated',
+const CguRoute = CguRouteImport.update({
+  id: '/cgu',
+  path: '/cgu',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+const ConfidentialiteRoute = ConfidentialiteRouteImport.update({
+  id: '/confidentialite',
+  path: '/confidentialite',
   getParentRoute: () => rootRouteImport,
 } as any)
-const BiensIndexRoute = BiensIndexRouteImport.update({
-  id: '/biens/',
-  path: '/biens/',
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EstimationRoute = EstimationRouteImport.update({
+  id: '/estimation',
+  path: '/estimation',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FormulaireRoute = FormulaireRouteImport.update({
+  id: '/formulaire',
+  path: '/formulaire',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MentionsLegalesRoute = MentionsLegalesRouteImport.update({
+  id: '/mentions-legales',
+  path: '/mentions-legales',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const VideosRoute = VideosRouteImport.update({
+  id: '/videos',
+  path: '/videos',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ActualitesIndexRoute = ActualitesIndexRouteImport.update({
@@ -75,30 +88,24 @@ const ActualitesIndexRoute = ActualitesIndexRouteImport.update({
   path: '/actualites/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const BiensIdRoute = BiensIdRouteImport.update({
-  id: '/biens/$id',
-  path: '/biens/$id',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const ActualitesSlugRoute = ActualitesSlugRouteImport.update({
   id: '/actualites/$slug',
   path: '/actualites/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BiensIndexRoute = BiensIndexRouteImport.update({
+  id: '/biens/',
+  path: '/biens/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BiensIdRoute = BiensIdRouteImport.update({
+  id: '/biens/$id',
+  path: '/biens/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
   id: '/admin/',
   path: '/admin/',
-  getParentRoute: () => AuthenticatedRouteRoute,
-} as any)
-const AuthenticatedAdminEstimationsRoute =
-  AuthenticatedAdminEstimationsRouteImport.update({
-    id: '/admin/estimations',
-    path: '/admin/estimations',
-    getParentRoute: () => AuthenticatedRouteRoute,
-  } as any)
-const AuthenticatedAdminBiensRoute = AuthenticatedAdminBiensRouteImport.update({
-  id: '/admin/biens',
-  path: '/admin/biens',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedAdminArticlesRoute =
@@ -107,13 +114,27 @@ const AuthenticatedAdminArticlesRoute =
     path: '/admin/articles',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedAdminBiensRoute = AuthenticatedAdminBiensRouteImport.update({
+  id: '/admin/biens',
+  path: '/admin/biens',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedAdminEstimationsRoute =
+  AuthenticatedAdminEstimationsRouteImport.update({
+    id: '/admin/estimations',
+    path: '/admin/estimations',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/cgu': typeof CguRoute
+  '/confidentialite': typeof ConfidentialiteRoute
   '/contact': typeof ContactRoute
   '/estimation': typeof EstimationRoute
   '/formulaire': typeof FormulaireRoute
+  '/mentions-legales': typeof MentionsLegalesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/videos': typeof VideosRoute
   '/actualites/$slug': typeof ActualitesSlugRoute
@@ -128,9 +149,12 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/cgu': typeof CguRoute
+  '/confidentialite': typeof ConfidentialiteRoute
   '/contact': typeof ContactRoute
   '/estimation': typeof EstimationRoute
   '/formulaire': typeof FormulaireRoute
+  '/mentions-legales': typeof MentionsLegalesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/videos': typeof VideosRoute
   '/actualites/$slug': typeof ActualitesSlugRoute
@@ -147,9 +171,12 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
+  '/cgu': typeof CguRoute
+  '/confidentialite': typeof ConfidentialiteRoute
   '/contact': typeof ContactRoute
   '/estimation': typeof EstimationRoute
   '/formulaire': typeof FormulaireRoute
+  '/mentions-legales': typeof MentionsLegalesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/videos': typeof VideosRoute
   '/actualites/$slug': typeof ActualitesSlugRoute
@@ -166,9 +193,12 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/auth'
+    | '/cgu'
+    | '/confidentialite'
     | '/contact'
     | '/estimation'
     | '/formulaire'
+    | '/mentions-legales'
     | '/sitemap.xml'
     | '/videos'
     | '/actualites/$slug'
@@ -183,9 +213,12 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/auth'
+    | '/cgu'
+    | '/confidentialite'
     | '/contact'
     | '/estimation'
     | '/formulaire'
+    | '/mentions-legales'
     | '/sitemap.xml'
     | '/videos'
     | '/actualites/$slug'
@@ -201,9 +234,12 @@ export interface FileRouteTypes {
     | '/'
     | '/_authenticated'
     | '/auth'
+    | '/cgu'
+    | '/confidentialite'
     | '/contact'
     | '/estimation'
     | '/formulaire'
+    | '/mentions-legales'
     | '/sitemap.xml'
     | '/videos'
     | '/actualites/$slug'
@@ -220,9 +256,12 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AuthRoute: typeof AuthRoute
+  CguRoute: typeof CguRoute
+  ConfidentialiteRoute: typeof ConfidentialiteRoute
   ContactRoute: typeof ContactRoute
   EstimationRoute: typeof EstimationRoute
   FormulaireRoute: typeof FormulaireRoute
+  MentionsLegalesRoute: typeof MentionsLegalesRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   VideosRoute: typeof VideosRoute
   ActualitesSlugRoute: typeof ActualitesSlugRoute
@@ -233,46 +272,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/videos': {
-      id: '/videos'
-      path: '/videos'
-      fullPath: '/videos'
-      preLoaderRoute: typeof VideosRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/sitemap.xml': {
-      id: '/sitemap.xml'
-      path: '/sitemap.xml'
-      fullPath: '/sitemap.xml'
-      preLoaderRoute: typeof SitemapDotxmlRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/formulaire': {
-      id: '/formulaire'
-      path: '/formulaire'
-      fullPath: '/formulaire'
-      preLoaderRoute: typeof FormulaireRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/estimation': {
-      id: '/estimation'
-      path: '/estimation'
-      fullPath: '/estimation'
-      preLoaderRoute: typeof EstimationRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/contact': {
-      id: '/contact'
-      path: '/contact'
-      fullPath: '/contact'
-      preLoaderRoute: typeof ContactRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/auth': {
-      id: '/auth'
-      path: '/auth'
-      fullPath: '/auth'
-      preLoaderRoute: typeof AuthRouteImport
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated': {
@@ -282,18 +286,67 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/biens/': {
-      id: '/biens/'
-      path: '/biens'
-      fullPath: '/biens/'
-      preLoaderRoute: typeof BiensIndexRouteImport
+    '/cgu': {
+      id: '/cgu'
+      path: '/cgu'
+      fullPath: '/cgu'
+      preLoaderRoute: typeof CguRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/confidentialite': {
+      id: '/confidentialite'
+      path: '/confidentialite'
+      fullPath: '/confidentialite'
+      preLoaderRoute: typeof ConfidentialiteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/estimation': {
+      id: '/estimation'
+      path: '/estimation'
+      fullPath: '/estimation'
+      preLoaderRoute: typeof EstimationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/formulaire': {
+      id: '/formulaire'
+      path: '/formulaire'
+      fullPath: '/formulaire'
+      preLoaderRoute: typeof FormulaireRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/mentions-legales': {
+      id: '/mentions-legales'
+      path: '/mentions-legales'
+      fullPath: '/mentions-legales'
+      preLoaderRoute: typeof MentionsLegalesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/videos': {
+      id: '/videos'
+      path: '/videos'
+      fullPath: '/videos'
+      preLoaderRoute: typeof VideosRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/actualites/': {
@@ -303,18 +356,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ActualitesIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/biens/$id': {
-      id: '/biens/$id'
-      path: '/biens/$id'
-      fullPath: '/biens/$id'
-      preLoaderRoute: typeof BiensIdRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/actualites/$slug': {
       id: '/actualites/$slug'
       path: '/actualites/$slug'
       fullPath: '/actualites/$slug'
       preLoaderRoute: typeof ActualitesSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/biens/': {
+      id: '/biens/'
+      path: '/biens'
+      fullPath: '/biens/'
+      preLoaderRoute: typeof BiensIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/biens/$id': {
+      id: '/biens/$id'
+      path: '/biens/$id'
+      fullPath: '/biens/$id'
+      preLoaderRoute: typeof BiensIdRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated/admin/': {
@@ -324,11 +384,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminIndexRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/_authenticated/admin/estimations': {
-      id: '/_authenticated/admin/estimations'
-      path: '/admin/estimations'
-      fullPath: '/admin/estimations'
-      preLoaderRoute: typeof AuthenticatedAdminEstimationsRouteImport
+    '/_authenticated/admin/articles': {
+      id: '/_authenticated/admin/articles'
+      path: '/admin/articles'
+      fullPath: '/admin/articles'
+      preLoaderRoute: typeof AuthenticatedAdminArticlesRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/admin/biens': {
@@ -338,11 +398,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminBiensRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/_authenticated/admin/articles': {
-      id: '/_authenticated/admin/articles'
-      path: '/admin/articles'
-      fullPath: '/admin/articles'
-      preLoaderRoute: typeof AuthenticatedAdminArticlesRouteImport
+    '/_authenticated/admin/estimations': {
+      id: '/_authenticated/admin/estimations'
+      path: '/admin/estimations'
+      fullPath: '/admin/estimations'
+      preLoaderRoute: typeof AuthenticatedAdminEstimationsRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
   }
@@ -369,9 +429,12 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AuthRoute: AuthRoute,
+  CguRoute: CguRoute,
+  ConfidentialiteRoute: ConfidentialiteRoute,
   ContactRoute: ContactRoute,
   EstimationRoute: EstimationRoute,
   FormulaireRoute: FormulaireRoute,
+  MentionsLegalesRoute: MentionsLegalesRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   VideosRoute: VideosRoute,
   ActualitesSlugRoute: ActualitesSlugRoute,

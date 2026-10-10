@@ -1,20 +1,29 @@
 import { useState, type FormEvent } from "react";
 
+const EMAIL = "vdeby@efficity.com";
+
+// Pas encore de base d'abonnés : l'inscription passe par un e-mail que le visiteur envoie lui-même.
 export function NewsletterForm({ compact = false }: { compact?: boolean }) {
   const [email, setEmail] = useState("");
-  const [status, setStatus] = useState<"idle" | "ok">("idle");
+  const [sent, setSent] = useState(false);
 
   function onSubmit(e: FormEvent) {
     e.preventDefault();
     if (!email.includes("@")) return;
-    setStatus("ok");
-    setEmail("");
+    const subject = encodeURIComponent("Inscription à la lettre mensuelle");
+    const body = encodeURIComponent(
+      `Bonjour Vincent,\n\nJe souhaite recevoir votre lettre mensuelle sur le marché immobilier à cette adresse : ${email}\n\nMerci.`,
+    );
+    window.location.href = `mailto:${EMAIL}?subject=${subject}&body=${body}`;
+    setSent(true);
   }
 
-  if (status === "ok") {
+  if (sent) {
     return (
       <p className="text-sm text-muted-foreground">
-        Merci — votre inscription est enregistrée.
+        Votre messagerie s'est ouverte avec un message prêt. Envoyez-le et je vous ajoute à la liste.
+        Rien ne s'est ouvert ? Écrivez-moi à{" "}
+        <a href={`mailto:${EMAIL}`} className="underline underline-offset-2">{EMAIL}</a>.
       </p>
     );
   }
@@ -34,7 +43,7 @@ export function NewsletterForm({ compact = false }: { compact?: boolean }) {
         type="submit"
         className="border border-foreground bg-foreground px-5 py-3 text-xs uppercase tracking-widest text-background transition-opacity hover:opacity-90"
       >
-        S'inscrire
+        Recevoir la lettre
       </button>
     </form>
   );

@@ -10,7 +10,7 @@ import heroWebp960 from "@/assets/hero-home-960.webp";
 import heroWebp640 from "@/assets/hero-home-640.webp";
 import heroJpg from "@/assets/hero-home-1600.jpg";
 
-const SITE = "https://vincentdeby.lovable.app";
+import { SITE } from "@/lib/site";
 
 export const Route = createFileRoute("/")({
   head: () => ({

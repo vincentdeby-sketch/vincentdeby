@@ -4,8 +4,8 @@ import { z } from "zod";
 import { supabase } from "@/integrations/supabase/client";
 import { SiteShell } from "@/components/site/SiteShell";
 
-const SITE = "https://vincentdeby.lovable.app";
-const CALENDLY_URL = "https://calendly.com/vdeby/30min";
+import { SITE } from "@/lib/site";
+const CALENDLY_URL = "https://calendly.com/vdeby-efficity/rdv-estimation-immobiliere";
 
 export const Route = createFileRoute("/formulaire")({
   head: () => ({

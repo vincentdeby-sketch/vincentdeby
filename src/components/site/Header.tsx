@@ -5,7 +5,7 @@ import portrait from "@/assets/vincent-deby-200.webp";
 import { useIsDesktop } from "@/hooks/use-is-desktop";
 import { QrLinkDialog } from "./QrLinkDialog";
 
-const CALENDLY_URL = "https://calendly.com/vdeby-efficity/30min";
+const CALENDLY_URL = "https://calendly.com/vdeby-efficity/rdv-estimation-immobiliere";
 const PHONE = "+33610022436";
 const PHONE_DISPLAY = "+33 6 10 02 24 36";
 const EMAIL = "vdeby@efficity.com";
@@ -197,6 +197,13 @@ export function Header() {
             >
               Estimer
             </Link>
+            <a
+              href={`tel:${PHONE}`}
+              aria-label={`Appeler Vincent Deby au ${PHONE_DISPLAY}`}
+              className="grid h-10 w-10 place-items-center border border-foreground/20 transition-colors hover:bg-foreground/5 md:hidden"
+            >
+              <Phone className="h-4 w-4" aria-hidden="true" />
+            </a>
             <button
               type="button"
               className="grid h-10 w-10 place-items-center border border-foreground/20 transition-colors hover:bg-foreground/5 md:hidden"

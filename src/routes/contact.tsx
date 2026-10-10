@@ -6,15 +6,15 @@ import { NewsletterForm } from "@/components/site/NewsletterForm";
 import { QrLinkDialog } from "@/components/site/QrLinkDialog";
 import { useIsDesktop } from "@/hooks/use-is-desktop";
 
-const SITE = "https://vincentdeby.lovable.app";
+import { SITE } from "@/lib/site";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
       { title: "Contact — Vincent Deby, Conseiller Immobilier Efficity" },
-      { name: "description", content: "Contacter Vincent Deby, conseiller immobilier mandataire Efficity. Téléphone, e-mail et prise de rendez-vous, réponse sous 24 h ouvrées." },
+      { name: "description", content: "Contacter Vincent Deby, conseiller immobilier mandataire Efficity. Téléphone, e-mail et prise de rendez-vous, réponse sous 48 h ouvrées." },
       { property: "og:title", content: "Contact — Vincent Deby" },
-      { property: "og:description", content: "Vincent Deby, conseiller immobilier, mandataire Efficity. Réponse sous 24 h ouvrées." },
+      { property: "og:description", content: "Vincent Deby, conseiller immobilier, mandataire Efficity. Réponse sous 48 h ouvrées." },
       { property: "og:url", content: `${SITE}/contact` },
     ],
     links: [{ rel: "canonical", href: `${SITE}/contact` }],
@@ -43,7 +43,7 @@ export const Route = createFileRoute("/contact")({
 const PHONE = "+33610022436";
 const PHONE_DISPLAY = "+33 6 10 02 24 36";
 const EMAIL = "vdeby@efficity.com";
-const RDV_URL = "https://calendly.com/vdeby-efficity/30min";
+const RDV_URL = "https://calendly.com/vdeby-efficity/rdv-estimation-immobiliere";
 
 function ContactPage() {
   const isDesktop = useIsDesktop();
@@ -61,10 +61,10 @@ function ContactPage() {
         <Reveal>
           <div className="text-xs uppercase tracking-[0.3em] text-muted-foreground">Contact</div>
           <h1 className="mt-6 font-serif text-[clamp(2.25rem,5vw,4rem)] leading-[1.05]">
-            Parlons de votre projet.
+            Contactez Vincent Deby.
           </h1>
           <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground">
-            Un échange direct, sans détour, à Boulogne-Billancourt et dans l'ouest parisien. Je vous réponds sous 24 heures ouvrées.
+            Un échange direct, sans détour, à Boulogne-Billancourt et dans l'ouest parisien. Je vous réponds sous 48 heures ouvrées.
           </p>
 
         </Reveal>
