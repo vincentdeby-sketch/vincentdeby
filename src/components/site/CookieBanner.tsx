@@ -70,7 +70,7 @@ export function CookieBanner() {
       role="dialog"
       aria-live="polite"
       aria-label="Gestion des cookies"
-      className="fixed inset-x-3 bottom-3 z-50 mx-auto max-w-xl border border-foreground/15 bg-background p-5 text-sm shadow-xl sm:inset-x-6 sm:bottom-6"
+      className="fixed inset-x-3 bottom-3 z-50 mx-auto max-w-md rounded-3xl border border-foreground/10 bg-background p-5 text-sm shadow-[0_24px_60px_-24px_rgb(18_20_17/0.5)] sm:inset-x-auto sm:right-6 sm:bottom-6"
     >
       <p className="leading-relaxed text-foreground/85">
         Ce site n'utilise des cookies publicitaires (Google Ads) qu'avec votre accord, pour mesurer
@@ -83,14 +83,14 @@ export function CookieBanner() {
         <button
           type="button"
           onClick={() => decide("denied")}
-          className="flex-1 border border-foreground/25 px-4 py-2.5 text-xs uppercase tracking-[0.18em] hover:bg-foreground/5"
+          className="btn btn-ghost !min-h-11 flex-1"
         >
           Refuser
         </button>
         <button
           type="button"
           onClick={() => decide("granted")}
-          className="flex-1 bg-foreground px-4 py-2.5 text-xs uppercase tracking-[0.18em] text-background hover:bg-primary"
+          className="btn btn-primary !min-h-11 flex-1"
         >
           Accepter
         </button>

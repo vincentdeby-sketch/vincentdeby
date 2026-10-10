@@ -3,6 +3,9 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { z } from "zod";
 import { supabase } from "@/integrations/supabase/client";
 import { SiteShell } from "@/components/site/SiteShell";
+import { PageHeader } from "@/components/site/PageHeader";
+import { FormProgress, NextSteps } from "@/components/site/FormChrome";
+import { ArrowLeft, ArrowRight, Check, Mail, Phone, CalendarClock } from "lucide-react";
 
 import { SITE } from "@/lib/site";
 import { trackLead } from "@/lib/tracking";
@@ -170,25 +173,19 @@ function FormulairePage() {
 
   if (submitted) {
     return (
-      <SiteShell>
-        <section className="container-narrow py-24 md:py-32">
-          <div className="text-xs uppercase tracking-[0.3em] text-muted-foreground">
-            Merci
+      <SiteShell hideActionBar>
+        <section className="container-narrow pt-10 md:pt-16">
+          <div className="max-w-2xl">
+            <span className="grid h-14 w-14 place-items-center rounded-full bg-brand text-ink">
+              <Check className="h-6 w-6" aria-hidden="true" />
+            </span>
+            <h1 className="mt-8">Vos réponses sont bien reçues.</h1>
+            <p className="mt-6 text-lg text-muted-foreground">
+              Vous pouvez réserver un rendez-vous ci-dessous. Sinon, je vous recontacte sous 48 h ouvrées.
+            </p>
           </div>
-          <h1 className="mt-6 font-serif text-4xl md:text-5xl">
-            Vos réponses sont bien reçues.
-          </h1>
-          <p className="mt-6 max-w-xl text-muted-foreground">
-            Vous pouvez réserver un rendez-vous ci-dessous. Sinon, je vous
-            recontacte sous 48 h ouvrées.
-          </p>
-          <div className="mt-10 overflow-hidden rounded-2xl border border-border">
-            <iframe
-              src={CALENDLY_URL}
-              title="Réserver un créneau Calendly"
-              className="h-[720px] w-full"
-              loading="lazy"
-            />
+          <div className="mt-10 overflow-hidden rounded-[1.75rem] border border-border bg-card">
+            <iframe src={CALENDLY_URL} title="Réserver un créneau Calendly" className="h-[720px] w-full" loading="lazy" />
           </div>
         </section>
       </SiteShell>
@@ -196,63 +193,18 @@ function FormulairePage() {
   }
 
   return (
-    <SiteShell>
-      <section className="container-narrow pt-12 md:pt-24">
-        <div className="text-[11px] uppercase tracking-[0.3em] text-muted-foreground sm:text-xs">
-          Formulaire
-        </div>
-        <h1 className="mt-4 font-serif text-4xl leading-[1.05] sm:text-5xl md:mt-6">
-          Préparons votre vente.
-        </h1>
-        <p className="mt-4 max-w-xl text-muted-foreground">
-          Cinq questions pour cadrer votre projet, puis un créneau si vous le
-          souhaitez.
-        </p>
-      </section>
+    <SiteShell hideActionBar>
+      <PageHeader
+        eyebrow="Projet de vente"
+        title={<>Préparons <em className="text-brand-ink">votre vente.</em></>}
+        lede="Cinq questions pour cadrer votre projet, puis un créneau si vous le souhaitez. Deux minutes, pas plus."
+      />
 
-      <section className="container-narrow mt-8 max-w-3xl md:mt-12">
-        <div ref={cardRef} className="glass rounded-3xl p-5 sm:p-6 md:p-10">
-          <div className="mb-8 md:mb-12" aria-label="Progression du formulaire">
-            <div className="flex items-center justify-between text-[11px] uppercase tracking-widest md:hidden">
-              <span className="text-foreground">
-                <span className="tabular-nums">0{step + 1}</span> · {STEPS[step]}
-              </span>
-              <span className="text-muted-foreground tabular-nums">
-                {step + 1} / {STEPS.length}
-              </span>
-            </div>
-            <div
-              className="mt-3 h-1 w-full overflow-hidden rounded-full bg-muted md:hidden"
-              role="progressbar"
-              aria-label={`Étape ${step + 1} sur ${STEPS.length}`}
-              aria-valuenow={step + 1}
-              aria-valuemin={1}
-              aria-valuemax={STEPS.length}
-            >
-              <div
-                className="h-full rounded-full bg-primary transition-all duration-500"
-                style={{ width: `${((step + 1) / STEPS.length) * 100}%` }}
-              />
-            </div>
-            <ol className="hidden flex-wrap gap-x-6 gap-y-2 text-xs uppercase tracking-widest md:flex">
-              {STEPS.map((s, i) => (
-                <li
-                  key={s}
-                  className={
-                    i === step
-                      ? "text-foreground"
-                      : i < step
-                      ? "text-primary"
-                      : "text-muted-foreground"
-                  }
-                >
-                  <span className="tabular-nums">0{i + 1}</span> · {s}
-                </li>
-              ))}
-            </ol>
-          </div>
+      <section className="container-narrow mt-10 grid gap-6 md:mt-14 lg:grid-cols-12 lg:items-start">
+        <div ref={cardRef} className="surface p-5 sm:p-7 md:p-10 lg:col-span-8">
+          <FormProgress steps={STEPS} step={step} />
 
-          <div className="min-h-[380px]">
+          <div className="min-h-[240px] md:min-h-[340px]">
             {step === 0 && (
               <StepText
                 title="Où se situe le bien que vous envisagez de vendre ?"
@@ -281,7 +233,7 @@ function FormulairePage() {
                 />
                 {form.motivation === "Autre" && (
                   <label className="block">
-                    <div className="mb-2 text-xs uppercase tracking-widest text-muted-foreground">
+                    <div className="mb-2 text-sm font-medium">
                       Précisez
                     </div>
                     <input
@@ -316,52 +268,41 @@ function FormulairePage() {
           </div>
 
           {error && (
-            <p role="alert" className="mt-8 border-l-2 border-destructive pl-4 text-sm text-foreground">
+            <p role="alert" className="mt-8 rounded-xl border border-destructive/30 bg-destructive/5 p-4 text-sm text-foreground">
               {error}
             </p>
           )}
 
-          <div className="mt-10 flex items-center justify-between gap-3 border-t border-border pt-6 md:mt-12">
+          <div className="mt-10 flex items-center justify-between gap-3 border-t border-border pt-6">
             {step > 0 ? (
-              <button
-                type="button"
-                onClick={() => setStep((s) => Math.max(0, s - 1))}
-                className="inline-flex min-h-11 items-center rounded-full px-4 text-sm text-muted-foreground transition-colors hover:text-foreground"
-              >
-                ← Précédent
+              <button type="button" onClick={() => setStep((s) => Math.max(0, s - 1))} className="btn btn-ghost !border-transparent !px-3">
+                <ArrowLeft className="h-4 w-4" aria-hidden="true" /> Retour
               </button>
             ) : (
               <span />
             )}
             {step < STEPS.length - 1 ? (
-              <button
-                type="button"
-                onClick={() => setStep((s) => s + 1)}
-                disabled={!canNext}
-                className="inline-flex min-h-11 items-center rounded-full bg-foreground px-6 py-3 text-[11px] uppercase tracking-[0.18em] text-background transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40 sm:px-8"
-              >
+              <button type="button" onClick={() => setStep((s) => s + 1)} disabled={!canNext} className="group btn btn-primary">
                 Continuer
+                <span className="btn-arrow" aria-hidden="true"><ArrowRight className="h-3.5 w-3.5" /></span>
               </button>
             ) : (
-              <button
-                type="button"
-                onClick={submit}
-                disabled={!canNext || sending}
-                className="inline-flex min-h-11 items-center rounded-full bg-primary px-6 py-3 text-[11px] uppercase tracking-[0.18em] text-primary-foreground transition-opacity hover:opacity-90 disabled:opacity-40 sm:px-8"
-              >
+              <button type="button" onClick={submit} disabled={!canNext || sending} className="group btn btn-brand">
                 {sending ? "Envoi…" : "Envoyer mes réponses"}
               </button>
             )}
           </div>
         </div>
+
+        <div className="lg:col-span-4">
+          <NextSteps />
+        </div>
       </section>
 
       {form.contactMethod === "creneau" && step === 5 && (
-        <section className="container-narrow mt-12 max-w-3xl">
-          <div className="mb-3 text-xs uppercase tracking-[0.3em] text-muted-foreground">
-            Réserver un créneau
-          </div>
-          <div className="overflow-hidden rounded-2xl border border-border">
+        <section className="container-narrow mt-6">
+          <p className="eyebrow mb-3">Réserver un créneau</p>
+          <div className="overflow-hidden rounded-[1.75rem] border border-border bg-card">
             <iframe
               src={CALENDLY_URL}
               title="Réserver un créneau Calendly"
@@ -375,8 +316,7 @@ function FormulairePage() {
   );
 }
 
-const inputCls =
-  "w-full border border-border bg-background px-4 py-3 text-sm outline-none transition-colors focus:border-foreground";
+const inputCls = "field";
 
 function StepText({
   title,
@@ -400,7 +340,7 @@ function StepText({
         {hint && <p className="mt-2 text-sm text-muted-foreground">{hint}</p>}
       </div>
       <label className="block">
-        <div className="mb-2 text-xs uppercase tracking-widest text-muted-foreground">
+        <div className="mb-2 text-sm font-medium">
           {label}
         </div>
         <input
@@ -439,13 +379,12 @@ function StepChoice({
               type="button"
               onClick={() => onChange(opt)}
               aria-pressed={selected}
-              className={`w-full rounded-2xl border px-5 py-4 text-left text-sm transition-colors ${
-                selected
-                  ? "border-foreground bg-foreground text-background"
-                  : "border-border hover:border-foreground"
-              }`}
+              className="choice flex items-center justify-between gap-4 text-[0.95rem]"
             >
               {opt}
+              <span className={`grid h-6 w-6 shrink-0 place-items-center rounded-full border ${selected ? "border-ink bg-ink text-brand" : "border-foreground/20"}`}>
+                {selected && <Check className="h-3.5 w-3.5" aria-hidden="true" />}
+              </span>
             </button>
           );
         })}
@@ -461,10 +400,10 @@ function StepContact({
   form: Form;
   update: <K extends keyof Form>(k: K, v: Form[K]) => void;
 }) {
-  const methods: { v: Form["contactMethod"]; l: string; sub: string }[] = [
-    { v: "telephone", l: "Téléphone", sub: "Nom + numéro" },
-    { v: "email", l: "Email", sub: "Nom + adresse" },
-    { v: "creneau", l: "Créneau", sub: "Je choisis un horaire" },
+  const methods: { v: Form["contactMethod"]; l: string; sub: string; Icon: typeof Phone }[] = [
+    { v: "telephone", l: "Téléphone", sub: "Je vous appelle", Icon: Phone },
+    { v: "email", l: "E-mail", sub: "Je vous écris", Icon: Mail },
+    { v: "creneau", l: "Rendez-vous", sub: "Vous choisissez l'horaire", Icon: CalendarClock },
   ];
   return (
     <div className="space-y-6">
@@ -482,14 +421,11 @@ function StepContact({
               type="button"
               onClick={() => update("contactMethod", m.v)}
               aria-pressed={selected}
-              className={`rounded-2xl border p-5 text-left transition-colors ${
-                selected
-                  ? "border-foreground bg-foreground text-background"
-                  : "border-border hover:border-foreground"
-              }`}
+              className="choice"
             >
-              <div className="font-serif text-lg">{m.l}</div>
-              <div className="mt-1 text-xs opacity-70">{m.sub}</div>
+              <m.Icon className="h-5 w-5" aria-hidden="true" />
+              <div className="mt-4 font-serif text-xl">{m.l}</div>
+              <div className="mt-1 text-xs text-muted-foreground">{m.sub}</div>
             </button>
           );
         })}
@@ -498,7 +434,7 @@ function StepContact({
       {form.contactMethod && (
         <div className="grid gap-6 md:grid-cols-2">
           <label className="block">
-            <div className="mb-2 text-xs uppercase tracking-widest text-muted-foreground">
+            <div className="mb-2 text-sm font-medium">
               Votre nom
             </div>
             <input
@@ -510,7 +446,7 @@ function StepContact({
             />
           </label>
           <label className="block">
-            <div className="mb-2 text-xs uppercase tracking-widest text-muted-foreground">
+            <div className="mb-2 text-sm font-medium">
               {form.contactMethod === "email"
                 ? "Adresse email"
                 : form.contactMethod === "telephone"

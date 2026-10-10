@@ -1,8 +1,9 @@
 import type { ReactNode } from "react";
 import { Header } from "./Header";
 import { Footer } from "./Footer";
+import { MobileActionBar } from "./MobileActionBar";
 
-export function SiteShell({ children }: { children: ReactNode }) {
+export function SiteShell({ children, hideActionBar = false }: { children: ReactNode; hideActionBar?: boolean }) {
   return (
     <div className="flex min-h-dvh flex-col">
       <a href="#main-content" className="skip-link">Aller au contenu</a>
@@ -11,6 +12,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
         {children}
       </main>
       <Footer />
+      <MobileActionBar hidden={hideActionBar} />
     </div>
   );
 }

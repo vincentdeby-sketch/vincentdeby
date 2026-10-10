@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SiteShell } from "@/components/site/SiteShell";
+import { PageHeader } from "@/components/site/PageHeader";
 import { Reveal } from "@/components/site/Reveal";
 
 import { SITE } from "@/lib/site";
@@ -32,20 +33,18 @@ export const Route = createFileRoute("/videos")({
 function VideosPage() {
   return (
     <SiteShell>
-      <section className="container-narrow pt-12 md:pt-24">
-        <div className="text-[11px] uppercase tracking-[0.3em] text-muted-foreground sm:text-xs">Média</div>
-        <h1 className="mt-4 font-serif text-4xl leading-[1.05] sm:text-5xl md:mt-6 md:text-6xl">Vidéos</h1>
-        <p className="mt-5 max-w-xl text-muted-foreground md:mt-6">
-          Présentations, conseils et analyses — l'immobilier expliqué en images.
-        </p>
-      </section>
+      <PageHeader
+        eyebrow="Vidéos"
+        title={<>L'immobilier, <em className="text-brand-ink">raconté en images.</em></>}
+        lede="Conseils, analyses de marché et visites de biens. Le format court d'un ancien réalisateur."
+      />
 
       <section className="container-narrow mt-10 md:mt-16 pb-24">
         {videos.length === 0 ? (
           <Reveal>
-            <div className="liquid-glass rounded-3xl px-6 py-16 text-center sm:px-10 md:py-24">
-              <div className="text-[11px] uppercase tracking-[0.3em] text-muted-foreground">Bientôt</div>
-              <h2 className="mt-4 font-serif text-2xl sm:text-3xl md:text-4xl">Les vidéos arrivent prochainement</h2>
+            <div className="surface px-6 py-16 text-center sm:px-10 md:py-24">
+              <p className="eyebrow">Bientôt</p>
+              <h2 className="mt-4">Les vidéos arrivent prochainement</h2>
               <p className="mx-auto mt-4 max-w-md text-sm text-muted-foreground md:text-base">
                 Cette section accueillera bientôt des présentations, conseils et analyses de marché en vidéo.
               </p>

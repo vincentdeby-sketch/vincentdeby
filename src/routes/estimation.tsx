@@ -3,6 +3,9 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { z } from "zod";
 import { supabase } from "@/integrations/supabase/client";
 import { SiteShell } from "@/components/site/SiteShell";
+import { PageHeader } from "@/components/site/PageHeader";
+import { FormProgress, NextSteps } from "@/components/site/FormChrome";
+import { ArrowLeft, ArrowRight, Building2, Home as HomeIcon, LandPlot, Store, Check as CheckIcon } from "lucide-react";
 import { LazyGlobe } from "@/components/site/LazyGlobe";
 import { searchAddress, type AddressSuggestion } from "@/lib/address";
 import { trackLead } from "@/lib/tracking";
@@ -153,22 +156,29 @@ function Estimation() {
 
   if (submitted) {
     return (
-      <SiteShell>
-        <section className="container-narrow py-32 text-center">
-          <div className="text-xs uppercase tracking-[0.3em] text-muted-foreground">Merci</div>
-          <h1 className="mt-6 font-serif text-4xl md:text-5xl">Votre demande est bien enregistrée.</h1>
-          <p className="mx-auto mt-6 max-w-xl text-muted-foreground">
-            Vincent Deby étudie votre bien et vous reviendra sous 48 h ouvrées
-            avec une estimation argumentée. En cas d'urgence, écrivez-moi à
-            <a href="mailto:vdeby@efficity.com" className="ml-1 text-primary underline">vdeby@efficity.com</a>.
-          </p>
-          <div className="mt-10">
-            <a
-              href="/formulaire"
-              className="inline-flex min-h-11 items-center rounded-full bg-foreground px-6 py-3 text-[11px] uppercase tracking-[0.18em] text-background transition-opacity hover:opacity-90 sm:px-8"
-            >
-              Continuer avec le formulaire de qualification
-            </a>
+      <SiteShell hideActionBar>
+        <section className="container-narrow pt-10 md:pt-16">
+          <div className="mx-auto max-w-2xl text-center">
+            <span className="mx-auto grid h-14 w-14 place-items-center rounded-full bg-brand text-ink">
+              <CheckIcon className="h-6 w-6" aria-hidden="true" />
+            </span>
+            <h1 className="mt-8">Demande bien reçue.</h1>
+            <p className="mt-6 text-lg text-muted-foreground">
+              J'étudie votre bien et je vous rappelle sous 48 heures ouvrées pour organiser la visite.
+              Une urgence ? Écrivez-moi à{" "}
+              <a href="mailto:vdeby@efficity.com" className="text-foreground underline decoration-brand decoration-2 underline-offset-4">vdeby@efficity.com</a>.
+            </p>
+            <div className="mt-10 surface p-7 text-left">
+              <p className="eyebrow">Facultatif · 2 minutes</p>
+              <p className="mt-3 font-serif text-2xl">Pour gagner du temps lors de notre appel</p>
+              <p className="mt-2 text-sm text-muted-foreground">
+                Cinq questions sur votre calendrier et votre projet. Je préparerai notre échange en conséquence.
+              </p>
+              <Link to="/formulaire" className="group btn btn-primary mt-6">
+                Répondre aux 5 questions
+                <span className="btn-arrow" aria-hidden="true"><ArrowRight className="h-3.5 w-3.5" /></span>
+              </Link>
+            </div>
           </div>
         </section>
       </SiteShell>
@@ -176,44 +186,18 @@ function Estimation() {
   }
 
   return (
-    <SiteShell>
-      <section className="container-narrow pt-12 md:pt-24">
-        <div className="text-[11px] uppercase tracking-[0.3em] text-muted-foreground sm:text-xs">Estimation</div>
-        <h1 className="mt-4 font-serif text-4xl leading-[1.05] sm:text-5xl md:mt-6">Estimez votre bien.</h1>
-        <p className="mt-4 max-w-xl text-muted-foreground">Cinq étapes, sans compte, sans engagement.</p>
-      </section>
+    <SiteShell hideActionBar>
+      <PageHeader
+        eyebrow="Estimation gratuite"
+        title={<>Estimez votre bien, <em className="text-brand-ink">pour de vrai.</em></>}
+        lede="Cinq étapes, sans compte, sans engagement. Je reviens vers vous avec un prix appuyé sur des ventes réelles, pas sur un algorithme."
+      />
 
-      <section className="container-narrow mt-8 max-w-3xl md:mt-12">
-        <div ref={cardRef} className="glass rounded-3xl p-5 sm:p-6 md:p-10">
-          {/* Progress — desktop: full stepper. Mobile: compact indicator + progress bar */}
-          <div className="mb-8 md:mb-12" aria-label="Progression du formulaire">
-            <div className="flex items-center justify-between text-[11px] uppercase tracking-widest md:hidden">
-              <span className="text-foreground"><span className="tabular-nums">0{step + 1}</span> · {STEPS[step]}</span>
-              <span className="text-muted-foreground tabular-nums">{step + 1} / {STEPS.length}</span>
-            </div>
-            <div
-              className="mt-3 h-1 w-full overflow-hidden rounded-full bg-muted md:hidden"
-              role="progressbar"
-              aria-label={`Étape ${step + 1} sur ${STEPS.length}`}
-              aria-valuenow={step + 1}
-              aria-valuemin={1}
-              aria-valuemax={STEPS.length}
-            >
-              <div
-                className="h-full rounded-full bg-primary transition-all duration-500"
-                style={{ width: `${((step + 1) / STEPS.length) * 100}%` }}
-              />
-            </div>
-            <ol className="hidden flex-wrap gap-x-6 gap-y-2 text-xs uppercase tracking-widest md:flex">
-              {STEPS.map((s, i) => (
-                <li key={s} aria-current={i === step ? "step" : undefined} className={i === step ? "text-foreground" : i < step ? "text-primary" : "text-muted-foreground"}>
-                  <span className="tabular-nums">0{i + 1}</span> · {s}
-                </li>
-              ))}
-            </ol>
-          </div>
+      <section className="container-narrow mt-10 grid gap-6 md:mt-14 lg:grid-cols-12 lg:items-start">
+        <div ref={cardRef} className="surface p-5 sm:p-7 md:p-10 lg:col-span-8">
+          <FormProgress steps={STEPS} step={step} />
 
-          <div className="min-h-[380px]">
+          <div className="min-h-[240px] md:min-h-[340px]">
             {step === 0 && <StepAddress value={form.address} onChange={(v) => update("address", v)} />}
             {step === 1 && (
               <StepType
@@ -231,43 +215,35 @@ function Estimation() {
           </div>
 
           {error && (
-            <p role="alert" className="mt-8 border-l-2 border-destructive pl-4 text-sm text-foreground">
+            <p role="alert" className="mt-8 rounded-xl border border-destructive/30 bg-destructive/5 p-4 text-sm text-foreground">
               {error}
             </p>
           )}
 
-          <div className="mt-10 flex items-center justify-between gap-3 border-t border-border pt-6 md:mt-12">
+          <div className="mt-10 flex items-center justify-between gap-3 border-t border-border pt-6">
             {step > 0 ? (
-              <button
-                type="button"
-                onClick={() => setStep((s) => Math.max(0, s - 1))}
-                className="inline-flex min-h-11 items-center rounded-full px-4 text-sm text-muted-foreground transition-colors hover:text-foreground"
-              >
-                ← Précédent
+              <button type="button" onClick={() => setStep((s) => Math.max(0, s - 1))} className="btn btn-ghost !border-transparent !px-3">
+                <ArrowLeft className="h-4 w-4" aria-hidden="true" /> Retour
               </button>
             ) : (
               <span />
             )}
             {step < STEPS.length - 1 ? (
-              <button
-                type="button"
-                onClick={() => setStep((s) => s + 1)}
-                disabled={!canNext}
-                className="inline-flex min-h-11 items-center rounded-full bg-foreground px-6 py-3 text-[11px] uppercase tracking-[0.18em] text-background transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40 sm:px-8"
-              >
+              <button type="button" onClick={() => setStep((s) => s + 1)} disabled={!canNext} className="group btn btn-primary">
                 Continuer
+                <span className="btn-arrow" aria-hidden="true"><ArrowRight className="h-3.5 w-3.5" /></span>
               </button>
             ) : (
-              <button
-                type="button"
-                onClick={submit}
-                disabled={sending}
-                className="inline-flex min-h-11 items-center rounded-full bg-primary px-6 py-3 text-[11px] uppercase tracking-[0.18em] text-primary-foreground transition-opacity hover:opacity-90 disabled:opacity-50 sm:px-8"
-              >
+              <button type="button" onClick={submit} disabled={sending} className="group btn btn-brand">
                 {sending ? "Envoi…" : "Envoyer ma demande"}
+                {!sending && <span className="btn-arrow !bg-ink !text-brand" aria-hidden="true"><ArrowRight className="h-3.5 w-3.5" /></span>}
               </button>
             )}
           </div>
+        </div>
+
+        <div className="lg:col-span-4">
+          <NextSteps />
         </div>
       </section>
     </SiteShell>
@@ -277,13 +253,13 @@ function Estimation() {
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <label className="block">
-      <div className="mb-2 text-xs uppercase tracking-widest text-muted-foreground">{label}</div>
+      <div className="mb-2 text-sm font-medium">{label}</div>
       {children}
     </label>
   );
 }
-const inputCls = "w-full border border-border bg-background px-4 py-3 text-sm outline-none transition-colors focus:border-foreground";
-const selectCls = inputCls + " appearance-none";
+const inputCls = "field";
+const selectCls = "field pr-10";
 
 function StepAddress({ value, onChange }: { value: Address | null; onChange: (a: Address | null) => void }) {
   const [q, setQ] = useState(value?.display ?? "");
@@ -323,7 +299,7 @@ function StepAddress({ value, onChange }: { value: Address | null; onChange: (a:
         />
         {busy && <div className="absolute right-4 top-1/2 -translate-y-1/2 text-xs text-muted-foreground">…</div>}
         {showList && results.length > 0 && (
-          <ul className="absolute z-10 mt-1 max-h-72 w-full overflow-auto border border-border bg-background shadow-md">
+          <ul className="absolute z-10 mt-2 max-h-72 w-full overflow-auto rounded-2xl border border-border bg-card p-1.5 shadow-[0_24px_48px_-24px_rgb(18_20_17/0.4)]">
             {results.map((r) => (
               <li key={r.id}>
                 <button
@@ -333,7 +309,7 @@ function StepAddress({ value, onChange }: { value: Address | null; onChange: (a:
                     setQ(r.label);
                     setShowList(false);
                   }}
-                  className="block w-full px-4 py-3 text-left text-sm hover:bg-muted"
+                  className="block w-full rounded-xl px-4 py-3 text-left text-sm hover:bg-muted"
                 >
                   {r.label}
                 </button>
@@ -343,7 +319,7 @@ function StepAddress({ value, onChange }: { value: Address | null; onChange: (a:
         )}
       </div>
       {value && (
-        <div className="border border-border">
+        <div className="overflow-hidden rounded-2xl border border-border">
           <LazyGlobe lat={value.lat} lng={value.lng} className="w-full" />
         </div>
       )}
@@ -352,11 +328,11 @@ function StepAddress({ value, onChange }: { value: Address | null; onChange: (a:
 }
 
 function StepType({ value, onChange }: { value: PropertyType | null; onChange: (v: PropertyType) => void }) {
-  const types: { v: PropertyType; l: string }[] = [
-    { v: "appartement", l: "Appartement" },
-    { v: "maison", l: "Maison" },
-    { v: "terrain", l: "Terrain" },
-    { v: "local_commercial", l: "Local commercial" },
+  const types: { v: PropertyType; l: string; Icon: typeof Building2 }[] = [
+    { v: "appartement", l: "Appartement", Icon: Building2 },
+    { v: "maison", l: "Maison", Icon: HomeIcon },
+    { v: "terrain", l: "Terrain", Icon: LandPlot },
+    { v: "local_commercial", l: "Local commercial", Icon: Store },
   ];
   return (
     <div className="space-y-6">
@@ -370,9 +346,12 @@ function StepType({ value, onChange }: { value: PropertyType | null; onChange: (
             type="button"
             onClick={() => onChange(t.v)}
             aria-pressed={value === t.v}
-            className={`border p-8 text-left transition-colors ${value === t.v ? "border-foreground bg-foreground text-background" : "border-border hover:border-foreground"}`}
+            className="choice flex items-center gap-4 !p-5"
           >
-            <div className="font-serif text-2xl">{t.l}</div>
+            <span className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-foreground/5">
+              <t.Icon className="h-5 w-5" aria-hidden="true" />
+            </span>
+            <span className="font-serif text-2xl">{t.l}</span>
           </button>
         ))}
       </div>
@@ -383,7 +362,7 @@ function StepType({ value, onChange }: { value: PropertyType | null; onChange: (
 function Check({ label, checked, onChange }: { label: string; checked: boolean; onChange: (v: boolean) => void }) {
   return (
     <label className="flex cursor-pointer items-center gap-3 text-sm">
-      <input type="checkbox" checked={checked} onChange={(e) => onChange(e.target.checked)} className="h-4 w-4 accent-[color:var(--primary)]" />
+      <input type="checkbox" checked={checked} onChange={(e) => onChange(e.target.checked)} className="h-5 w-5 rounded accent-[#2c6a1b]" />
       {label}
     </label>
   );
@@ -469,7 +448,7 @@ function StepFeatures({ form, update }: { form: FormState; update: <K extends ke
       </div>
 
       <div>
-        <div className="mb-3 text-xs uppercase tracking-widest text-muted-foreground">Extérieur</div>
+        <div className="mb-3 text-sm font-medium">Extérieur (facultatif)</div>
         <div className="flex flex-wrap gap-x-8 gap-y-3">
           {["Balcon", "Terrasse", "Jardin", "Piscine"].map((o) => (
             <Check key={o} label={o} checked={form.outdoor.includes(o)} onChange={() => update("outdoor", toggleArr(form.outdoor, o))} />
@@ -485,7 +464,7 @@ function StepFeatures({ form, update }: { form: FormState; update: <K extends ke
       )}
 
       <div>
-        <div className="mb-3 text-xs uppercase tracking-widest text-muted-foreground">Proximité</div>
+        <div className="mb-3 text-sm font-medium">Proximité (facultatif)</div>
         <div className="flex flex-wrap gap-x-8 gap-y-3">
           {["Transports en commun", "Commerces", "Écoles"].map((o) => (
             <Check key={o} label={o} checked={form.proximity.includes(o)} onChange={() => update("proximity", toggleArr(form.proximity, o))} />
@@ -547,7 +526,7 @@ function StepSummary({ form }: { form: FormState }) {
         <h2 className="font-serif text-2xl">Récapitulatif</h2>
         <p className="mt-2 text-sm text-muted-foreground">Vérifiez avant d'envoyer.</p>
       </div>
-      <dl className="divide-y divide-border border-y border-border">
+      <dl className="divide-y divide-border overflow-hidden rounded-2xl border border-border bg-background/50 px-5">
         {rows.filter(([, v]) => v).map(([k, v]) => (
           <div key={k} className="grid grid-cols-3 gap-6 py-3 text-sm">
             <dt className="text-muted-foreground">{k}</dt>

@@ -37,11 +37,11 @@ export function NewsletterForm({ compact = false }: { compact?: boolean }) {
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         placeholder="votre@email.fr"
-        className="flex-1 border border-border bg-background px-4 py-3 text-sm outline-none focus:border-foreground"
+        className="field flex-1"
       />
       <button
         type="submit"
-        className="border border-foreground bg-foreground px-5 py-3 text-xs uppercase tracking-widest text-background transition-opacity hover:opacity-90"
+        className="btn btn-primary"
       >
         Recevoir la lettre
       </button>

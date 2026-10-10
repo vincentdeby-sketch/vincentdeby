@@ -44,8 +44,8 @@ export function ContactMenu({
 
   const btn =
     variant === "solid"
-      ? "bg-foreground text-background hover:bg-primary"
-      : "border border-foreground/30 text-foreground hover:bg-foreground/5";
+      ? "btn-primary"
+      : "btn-ghost";
 
   const menuPos =
     align === "right" ? "right-0" : align === "center" ? "left-1/2 -translate-x-1/2" : "left-0";
@@ -67,7 +67,7 @@ export function ContactMenu({
         aria-haspopup="menu"
         aria-expanded={open}
         onClick={() => setOpen((v) => !v)}
-        className={`flex w-full items-center justify-center gap-2 px-6 py-3.5 text-xs uppercase tracking-widest transition-colors ${btn}`}
+        className={`btn w-full ${btn}`}
       >
         {label}
         <ChevronDown className={`h-3.5 w-3.5 transition-transform duration-200 ${open ? "rotate-180" : ""}`} aria-hidden="true" />
@@ -75,25 +75,25 @@ export function ContactMenu({
       {open && (
         <div
           role="menu"
-          className={`absolute top-full z-30 mt-2 w-60 border border-foreground/10 bg-background shadow-lg animate-fade-in ${menuPos}`}
+          className={`absolute top-full z-30 mt-2 w-64 overflow-hidden rounded-2xl border border-foreground/10 bg-card p-1.5 shadow-[0_24px_48px_-24px_rgb(18_20_17/0.45)] animate-in fade-in slide-in-from-top-1 duration-150 ${menuPos}`}
         >
           <a
             role="menuitem"
             href={`tel:${PHONE}`}
-            onClick={(e) => handleDesktopClick(e, { url: `tel:${PHONE}`, title: "Nous appeler", description: PHONE_DISPLAY })}
-            className="flex items-center gap-3 border-b border-foreground/5 px-4 py-3 text-sm text-foreground/80 transition-colors hover:bg-foreground/5 hover:text-foreground"
+            onClick={(e) => handleDesktopClick(e, { url: `tel:${PHONE}`, title: "Appeler Vincent", description: PHONE_DISPLAY })}
+            className="flex items-center gap-3 rounded-xl px-4 py-3 text-sm text-foreground/80 transition-colors hover:bg-foreground/5 hover:text-foreground"
           >
             <Phone className="h-4 w-4" aria-hidden="true" />
-            Nous appeler
+            Appeler Vincent
           </a>
           <a
             role="menuitem"
             href={`mailto:${EMAIL}`}
-            onClick={(e) => handleDesktopClick(e, { url: `mailto:${EMAIL}`, title: "Nous écrire", description: EMAIL })}
-            className="flex items-center gap-3 border-b border-foreground/5 px-4 py-3 text-sm text-foreground/80 transition-colors hover:bg-foreground/5 hover:text-foreground"
+            onClick={(e) => handleDesktopClick(e, { url: `mailto:${EMAIL}`, title: "Écrire à Vincent", description: EMAIL })}
+            className="flex items-center gap-3 rounded-xl px-4 py-3 text-sm text-foreground/80 transition-colors hover:bg-foreground/5 hover:text-foreground"
           >
             <Mail className="h-4 w-4" aria-hidden="true" />
-            Nous écrire
+            Écrire à Vincent
           </a>
           <a
             role="menuitem"
@@ -101,7 +101,7 @@ export function ContactMenu({
             target="_blank"
             rel="noopener noreferrer"
             onClick={(e) => handleDesktopClick(e, { url: CALENDLY_URL, title: "Prendre rendez-vous", description: "Calendly" })}
-            className="flex items-center gap-3 px-4 py-3 text-sm text-foreground/80 transition-colors hover:bg-foreground/5 hover:text-foreground"
+            className="flex items-center gap-3 rounded-xl px-4 py-3 text-sm text-foreground/80 transition-colors hover:bg-foreground/5 hover:text-foreground"
           >
             <CalendarClock className="h-4 w-4" aria-hidden="true" />
             Prendre rendez-vous

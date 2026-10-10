@@ -80,7 +80,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { name: "theme-color", content: "#F7F5F0" },
+      { name: "theme-color", content: "#F6F4EE" },
       { name: "format-detection", content: "telephone=no" },
       { name: "google-site-verification", content: "ohcGpz5lQjx3mV96WTSYv34NvaBs7emZH75wjQw3YIY" },
       { property: "og:site_name", content: "Vincent Deby — Conseiller Immobilier" },
@@ -101,6 +101,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "dns-prefetch", href: "https://images.unsplash.com" },
     ],
     scripts: [
+      {
+        // Active les animations d'apparition seulement quand le JavaScript tourne.
+        children: `document.documentElement.classList.add('js')`,
+      },
       {
         // Consent Mode v2 : tout est refusé par défaut. Le script Google Ads n'est
         // chargé que si le visiteur accepte (voir CookieBanner).
@@ -138,7 +142,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="fr">
+    <html lang="fr" suppressHydrationWarning>
       <head>
         <HeadContent />
       </head>

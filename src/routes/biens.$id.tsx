@@ -5,6 +5,8 @@ import { ContactMenu } from "@/components/site/ContactMenu";
 import { formatEUR } from "@/lib/domain";
 import { propertyByIdQuery } from "@/lib/queries";
 import { PhotoImg } from "@/components/site/PhotoImg";
+import { ArrowLeft } from "lucide-react";
+import portrait from "@/assets/vincent-deby-200.webp";
 
 import { SITE } from "@/lib/site";
 
@@ -112,67 +114,88 @@ function Detail() {
   const gallery = [p.cover_url, ...(p.photos ?? [])].filter(Boolean) as string[];
   const locString = [p.address, p.city].filter(Boolean).join(", ");
 
+  const facts = [
+    p.surface ? { k: "Surface", v: `${p.surface} m²` } : null,
+    p.rooms ? { k: "Pièces", v: String(p.rooms) } : null,
+    p.bedrooms ? { k: "Chambres", v: String(p.bedrooms) } : null,
+    p.surface ? { k: "Prix au m²", v: formatEUR(Math.round(p.price / p.surface)) } : null,
+  ].filter(Boolean) as { k: string; v: string }[];
+
   return (
     <SiteShell>
-      <div className="container-narrow pt-10">
-        <Link to="/biens" className="text-xs uppercase tracking-[0.3em] text-muted-foreground hover:text-foreground">← Nos biens</Link>
+      <div className="container-narrow pt-8">
+        <Link to="/biens" className="inline-flex items-center gap-2 rounded-full px-1 text-sm text-muted-foreground hover:text-foreground">
+          <ArrowLeft className="h-4 w-4" aria-hidden="true" /> Tous les biens
+        </Link>
       </div>
-      <section className="container-narrow mt-8 grid gap-12 md:grid-cols-[2fr_1fr]">
-        <div>
-          {gallery[0] ? (
-            <div className="aspect-[4/3] w-full overflow-hidden bg-muted">
+
+      <section className="container-narrow mt-6">
+        {gallery[0] ? (
+          <div className="grid gap-2 md:grid-cols-4 md:grid-rows-2">
+            <div className="aspect-[4/3] overflow-hidden rounded-[1.5rem] bg-muted md:col-span-3 md:row-span-2 md:aspect-auto md:h-[min(68vh,640px)]">
               <PhotoImg
                 src={gallery[0]}
                 width={1280}
                 height={960}
-                sizes="(min-width: 768px) 66vw, 100vw"
-                alt={`${p.title} — photo principale${locString ? ` (${locString})` : ""}`}
+                sizes="(min-width: 768px) 75vw, 100vw"
+                alt={`${p.title}, photo principale${locString ? ` (${locString})` : ""}`}
                 fetchPriority="high"
                 decoding="async"
                 className="h-full w-full object-cover"
               />
             </div>
-          ) : (
-            <div className="aspect-[4/3] w-full bg-muted" />
-          )}
-          {gallery.length > 1 && (
-            <div className="mt-4 grid grid-cols-3 gap-4">
-              {gallery.slice(1, 7).map((src, i) => (
-                <div key={i} className="aspect-square overflow-hidden bg-muted">
-                  <PhotoImg
-                    src={src}
-                    width={400}
-                    height={400}
-                    maxWidth={640}
-                    sizes="(min-width: 768px) 22vw, 33vw"
-                    alt={`${p.title} — photo ${i + 2}`}
-                    loading="lazy"
-                    decoding="async"
-                    className="h-full w-full object-cover"
-                  />
+            {gallery.slice(1, 3).map((src, i) => (
+              <div key={i} className="hidden overflow-hidden rounded-[1.5rem] bg-muted md:block">
+                <PhotoImg src={src} width={640} height={480} maxWidth={960} sizes="25vw" alt={`${p.title}, photo ${i + 2}`} loading="lazy" decoding="async" className="h-full w-full object-cover" />
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="aspect-[16/9] rounded-[1.5rem] bg-muted" />
+        )}
+      </section>
+
+      <section className="container-narrow mt-10 grid gap-12 md:mt-14 lg:grid-cols-12">
+        <div className="lg:col-span-8">
+          <p className="eyebrow">{[p.property_type, locString].filter(Boolean).join(" · ")}</p>
+          <h1 className="mt-4 !text-[clamp(2.2rem,4.5vw,3.75rem)]">{p.title}</h1>
+          <dl className="mt-8 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-4">
+            {facts.map((f) => (
+              <div key={f.k} className="bg-card p-4">
+                <dt className="font-mono text-[11px] uppercase tracking-[0.08em] text-muted-foreground">{f.k}</dt>
+                <dd className="mt-1 font-serif text-2xl tabular-nums">{f.v}</dd>
+              </div>
+            ))}
+          </dl>
+          <h2 className="mt-14 !text-3xl">Description</h2>
+          <div className="mt-5 max-w-2xl whitespace-pre-wrap text-lg leading-relaxed text-foreground/85">{p.description}</div>
+          {gallery.length > 3 && (
+            <div className="mt-12 grid grid-cols-2 gap-2 md:grid-cols-3">
+              {gallery.slice(3, 12).map((src, i) => (
+                <div key={i} className="aspect-[4/3] overflow-hidden rounded-2xl bg-muted">
+                  <PhotoImg src={src} width={400} height={300} maxWidth={640} sizes="(min-width: 768px) 22vw, 50vw" alt={`${p.title}, photo ${i + 4}`} loading="lazy" decoding="async" className="h-full w-full object-cover" />
                 </div>
               ))}
             </div>
           )}
         </div>
-        <aside className="md:pt-4">
-          <div className="text-xs uppercase tracking-[0.3em] text-muted-foreground">{p.property_type}</div>
-          <h1 className="mt-3 font-serif text-3xl leading-tight md:text-4xl">{p.title}</h1>
-          <div className="mt-2 text-muted-foreground">{locString}</div>
-          <div className="mt-6 font-serif text-3xl text-primary">{formatEUR(p.price)}</div>
-          <dl className="mt-8 grid grid-cols-2 gap-y-4 border-t border-border pt-6 text-sm">
-            {p.surface && <><dt className="text-muted-foreground">Surface</dt><dd className="text-right">{p.surface} m²</dd></>}
-            {p.rooms && <><dt className="text-muted-foreground">Pièces</dt><dd className="text-right">{p.rooms}</dd></>}
-            {p.bedrooms && <><dt className="text-muted-foreground">Chambres</dt><dd className="text-right">{p.bedrooms}</dd></>}
-          </dl>
-          <div className="mt-8">
-            <ContactMenu align="center" className="w-full" />
+
+        <aside className="lg:col-span-4">
+          <div className="surface p-7 lg:sticky lg:top-28">
+            <p className="font-mono text-[11px] uppercase tracking-[0.08em] text-muted-foreground">Prix de vente</p>
+            <p className="mt-2 font-serif text-4xl tabular-nums">{formatEUR(p.price)}</p>
+            <div className="mt-6 grid gap-2">
+              <ContactMenu align="center" className="w-full" />
+            </div>
+            <div className="mt-6 flex items-center gap-3 border-t border-border pt-5">
+              <img src={portrait} alt="" width={44} height={44} className="h-11 w-11 rounded-full object-cover" />
+              <div className="text-sm">
+                <p className="font-medium">Vincent Deby</p>
+                <p className="text-muted-foreground">Votre interlocuteur pour ce bien</p>
+              </div>
+            </div>
           </div>
         </aside>
-      </section>
-      <section className="container-narrow mt-16 max-w-3xl">
-        <h2 className="font-serif text-2xl">Description</h2>
-        <div className="mt-6 whitespace-pre-wrap leading-relaxed text-foreground/85">{p.description}</div>
       </section>
     </SiteShell>
   );

@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { SiteShell } from "@/components/site/SiteShell";
+import { PageHeader } from "@/components/site/PageHeader";
 import { PropertyCard } from "@/components/site/PropertyCard";
 import { Reveal } from "@/components/site/Reveal";
 import { propertiesListQuery } from "@/lib/queries";
@@ -30,61 +31,57 @@ function List() {
   const { data: items } = useSuspenseQuery(propertiesListQuery);
   return (
     <SiteShell>
-      <section className="container-narrow pt-12 md:pt-24">
-        <div className="text-[11px] uppercase tracking-[0.3em] text-muted-foreground sm:text-xs">Sélection</div>
-        <h1 className="mt-4 font-serif text-4xl leading-[1.05] sm:text-5xl md:mt-6 md:text-6xl">Nos biens</h1>
-        <p className="mt-5 max-w-xl text-muted-foreground md:mt-6">
-          Des propriétés choisies avec soin, présentées sans artifice.
-        </p>
-      </section>
+      <PageHeader
+        eyebrow="Biens à vendre"
+        title={<>Des biens présentés <em className="text-brand-ink">tels qu'ils sont.</em></>}
+        lede="Des annonces claires et fidèles au bien. Une annonce honnête fait gagner du temps à tout le monde."
+      />
       <section className="container-narrow mt-10 md:mt-16" aria-labelledby="a-vendre">
         <h2 id="a-vendre" className="sr-only">Biens à vendre</h2>
         {items.length === 0 ? (
-          <div className="rounded-3xl border border-dashed border-border py-20 text-center text-sm text-muted-foreground">
-            Aucun bien en ligne pour le moment.
+          <div className="surface px-6 py-16 text-center">
+            <p className="font-serif text-2xl">Aucun bien en ligne pour le moment.</p>
+            <p className="mx-auto mt-3 max-w-md text-sm text-muted-foreground">
+              Certains biens se vendent avant d'être publiés. Dites-moi ce que vous cherchez, je vous préviens.
+            </p>
+            <a href="/contact" className="btn btn-primary mt-6">Me dire ce que je cherche</a>
           </div>
         ) : (
-          <div className="grid gap-8 sm:grid-cols-2 md:gap-12 lg:grid-cols-3 lg:gap-16">
+          <div className="grid gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
             {items.map((p) => <Reveal key={p.id}><PropertyCard p={p} /></Reveal>)}
           </div>
         )}
       </section>
 
-      <section className="container-narrow mt-24 md:mt-32">
-        <div className="text-[11px] uppercase tracking-[0.3em] text-muted-foreground sm:text-xs">Références</div>
-        <h2 className="mt-4 font-serif text-3xl leading-[1.05] sm:text-4xl md:mt-6 md:text-5xl">Biens vendus</h2>
-        <p className="mt-5 max-w-xl text-muted-foreground md:mt-6">
-          Quelques transactions récemment menées à bien.
+      <section className="container-narrow mt-24 md:mt-36">
+        <p className="eyebrow">Références</p>
+        <h2 className="mt-4">Biens vendus</h2>
+        <p className="mt-5 max-w-xl text-muted-foreground">
+          Quelques transactions menées à bien.
         </p>
-        <div className="mt-10 grid gap-8 sm:grid-cols-2 md:gap-12 lg:grid-cols-3 lg:gap-16">
+        <div className="mt-10 grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 md:mt-14">
           {SOLD.map((s) => (
             <Reveal key={s.id}>
               <article>
-                <div className="group block">
-                  <div className="overflow-hidden border border-foreground/10 bg-background/40">
-                    <div className="relative aspect-[4/3] w-full overflow-hidden bg-muted">
-                      <PhotoImg
-                        src={s.cover_url}
-                        width={640}
-                        height={480}
-                        maxWidth={960}
-                        sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                        alt={`Photo — ${s.type} ${s.surface} m² à ${s.city}`}
-                        loading="lazy"
-                        decoding="async"
-                        className="h-full w-full object-cover grayscale"
-                      />
-                      <div className="absolute left-3 top-3 bg-foreground px-3 py-1 text-[10px] uppercase tracking-[0.25em] text-background">
-                        Vendu
-                      </div>
-                    </div>
-                    <div className="px-4 pb-4 pt-4">
-                      <h3 className="font-serif text-lg leading-snug sm:text-xl">{s.type} — {s.surface} m²</h3>
-                      <div className="mt-1.5 text-sm text-muted-foreground">
-                        {[s.city, s.surface ? `${s.surface} m²` : null].filter(Boolean).join(" · ")}
-                      </div>
-                    </div>
-                  </div>
+                <div className="relative aspect-[4/3] overflow-hidden rounded-[1.5rem] bg-muted">
+                  <PhotoImg
+                    src={s.cover_url}
+                    width={640}
+                    height={480}
+                    maxWidth={960}
+                    sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                    alt={`${s.type} de ${s.surface} m² à ${s.city}`}
+                    loading="lazy"
+                    decoding="async"
+                    className="h-full w-full object-cover grayscale-[0.6]"
+                  />
+                  <span className="absolute left-3 top-3 rounded-full bg-ink px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.1em] text-paper">
+                    Vendu
+                  </span>
+                </div>
+                <div className="px-1 pt-4">
+                  <p className="font-mono text-[11px] uppercase tracking-[0.08em] text-muted-foreground">{s.city}</p>
+                  <h3 className="mt-1.5 text-xl">{s.type} · {s.surface} m²</h3>
                 </div>
               </article>
             </Reveal>
