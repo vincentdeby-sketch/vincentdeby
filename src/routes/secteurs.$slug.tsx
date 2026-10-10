@@ -2,6 +2,7 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { ArrowRight } from "lucide-react";
 import { SiteShell } from "@/components/site/SiteShell";
+import { ListSkeleton } from "@/components/site/Skeletons";
 import { PageHeader } from "@/components/site/PageHeader";
 import { PropertyCard } from "@/components/site/PropertyCard";
 import { Reveal } from "@/components/site/Reveal";
@@ -12,6 +13,8 @@ import { SECTORS } from "@/lib/sectors";
 import { SITE } from "@/lib/site";
 
 export const Route = createFileRoute("/secteurs/$slug")({
+  pendingComponent: ListSkeleton,
+  pendingMs: 200,
   loader: async ({ context, params }) => {
     const sector = SECTORS.find((s) => s.slug === params.slug);
     if (!sector) throw notFound();

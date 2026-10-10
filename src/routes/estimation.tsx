@@ -5,6 +5,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { SiteShell } from "@/components/site/SiteShell";
 import { PageHeader } from "@/components/site/PageHeader";
 import { FormProgress, NextSteps } from "@/components/site/FormChrome";
+import { Confetti } from "@/components/motion/Confetti";
 import { ArrowLeft, ArrowRight, Building2, Home as HomeIcon, LandPlot, Store, Check as CheckIcon } from "lucide-react";
 import { LazyGlobe } from "@/components/site/LazyGlobe";
 import { searchAddress, type AddressSuggestion } from "@/lib/address";
@@ -92,6 +93,10 @@ function Estimation() {
   const [sending, setSending] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const cardRef = useRef<HTMLDivElement | null>(null);
+  // Sens de l'animation entre étapes (glisse vers la gauche en avançant, vers la droite en revenant).
+  const prevStep = useRef(step);
+  const stepAnim = step === prevStep.current ? "" : step > prevStep.current ? "step-forward" : "step-back";
+  useEffect(() => { prevStep.current = step; }, [step]);
   const firstRender = useRef(true);
 
   // À chaque étape, on remonte en haut de la carte : sur mobile, le bouton « Continuer » est loin en bas.
@@ -166,7 +171,8 @@ function Estimation() {
       <SiteShell hideActionBar>
         <section className="container-narrow pt-10 md:pt-16">
           <div className="mx-auto max-w-2xl text-center">
-            <span className="mx-auto grid h-14 w-14 place-items-center rounded-full bg-brand text-ink">
+              <Confetti />
+          <span className="mx-auto grid h-14 w-14 place-items-center rounded-full bg-brand text-ink">
               <CheckIcon className="h-6 w-6" aria-hidden="true" />
             </span>
             <h1 className="mt-8">Demande bien reçue.</h1>
@@ -204,13 +210,14 @@ function Estimation() {
         <div ref={cardRef} className="surface p-5 sm:p-7 md:p-10 lg:col-span-8">
           <FormProgress steps={STEPS} step={step} />
 
-          <div className="min-h-[240px] md:min-h-[340px]">
+          <div key={step} className={`min-h-[240px] md:min-h-[340px] ${stepAnim}`}>
             {step === 0 && <StepAddress value={form.address} onChange={(v) => update("address", v)} />}
             {step === 1 && (
               <StepType
                 value={form.propertyType}
                 onChange={(v) => {
                   update("propertyType", v);
+                  navigator.vibrate?.(10);
                   // Un seul choix possible : on passe à l'étape suivante sans clic supplémentaire.
                   setTimeout(() => setStep(2), 250);
                 }}

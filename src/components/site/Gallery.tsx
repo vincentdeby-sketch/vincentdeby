@@ -4,7 +4,7 @@ import { PhotoImg } from "./PhotoImg";
 
 // Galerie de fiche bien : mosaïque sur ordinateur, défilement au doigt sur mobile,
 // visionneuse plein écran (clavier, glisser) au clic sur une photo.
-export function Gallery({ photos, title }: { photos: string[]; title: string }) {
+export function Gallery({ photos, title, transitionName }: { photos: string[]; title: string; transitionName?: string }) {
   const [open, setOpen] = useState<number | null>(null);
   const [mobileIndex, setMobileIndex] = useState(0);
   const stripRef = useRef<HTMLDivElement | null>(null);
@@ -34,6 +34,7 @@ export function Gallery({ photos, title }: { photos: string[]; title: string }) 
                 loading={i === 0 ? "eager" : "lazy"}
                 fetchPriority={i === 0 ? "high" : undefined}
                 decoding="async"
+                style={{ viewTransitionName: i === 0 ? transitionName : undefined }}
                 className="h-full w-full object-cover"
               />
             </button>
@@ -51,6 +52,7 @@ export function Gallery({ photos, title }: { photos: string[]; title: string }) 
             key={src}
             type="button"
             onClick={() => setOpen(i)}
+            data-cursor="Voir"
             className={`group relative overflow-hidden rounded-[1.25rem] bg-muted ${i === 0 ? "col-span-2 row-span-2 h-[min(64vh,600px)]" : ""}`}
           >
             <PhotoImg
@@ -63,6 +65,7 @@ export function Gallery({ photos, title }: { photos: string[]; title: string }) 
               loading={i === 0 ? "eager" : "lazy"}
               fetchPriority={i === 0 ? "high" : undefined}
               decoding="async"
+              style={{ viewTransitionName: i === 0 ? transitionName : undefined }}
               className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
             />
             {i === 4 && photos.length > 5 && (

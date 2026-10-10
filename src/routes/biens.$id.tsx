@@ -1,6 +1,7 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { SiteShell } from "@/components/site/SiteShell";
+import { DetailSkeleton } from "@/components/site/Skeletons";
 import { formatEUR } from "@/lib/domain";
 import { propertyByIdQuery } from "@/lib/queries";
 import { Gallery } from "@/components/site/Gallery";
@@ -10,6 +11,8 @@ import portrait from "@/assets/vincent-deby-200.webp";
 import { SITE } from "@/lib/site";
 
 export const Route = createFileRoute("/biens/$id")({
+  pendingComponent: DetailSkeleton,
+  pendingMs: 200,
   loader: async ({ context, params }) => {
     const data = await context.queryClient.ensureQueryData(propertyByIdQuery(params.id));
     if (!data) throw notFound();
@@ -160,7 +163,7 @@ function Detail() {
       </div>
 
       <section className="container-narrow mt-6">
-        <Gallery photos={gallery} title={`${p.title}${locString ? `, ${locString}` : ""}`} />
+        <Gallery photos={gallery} title={`${p.title}${locString ? `, ${locString}` : ""}`} transitionName={`bien-${p.id}`} />
       </section>
 
       <section className="container-narrow mt-10 grid gap-12 md:mt-14 lg:grid-cols-12">

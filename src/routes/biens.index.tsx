@@ -1,6 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { lazy, Suspense, useEffect, useState } from "react";
+import { Map as MapIcon } from "lucide-react";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { SiteShell } from "@/components/site/SiteShell";
+import { ListSkeleton } from "@/components/site/Skeletons";
 import { PageHeader } from "@/components/site/PageHeader";
 import { PropertyCard } from "@/components/site/PropertyCard";
 import { Reveal } from "@/components/site/Reveal";
@@ -11,6 +14,8 @@ import { BuyerAlert } from "@/components/site/BuyerAlert";
 import { SITE } from "@/lib/site";
 
 export const Route = createFileRoute("/biens/")({
+  pendingComponent: ListSkeleton,
+  pendingMs: 200,
   head: () => ({
     meta: [
       { title: "Biens à vendre à Boulogne-Billancourt | Vincent Deby" },
@@ -28,8 +33,14 @@ export const Route = createFileRoute("/biens/")({
   ),
 });
 
+const PropertyMap = lazy(() => import("@/components/site/PropertyMap"));
+
 function List() {
   const { data } = useSuspenseQuery(propertiesListQuery);
+  const [active, setActive] = useState<string | null>(null);
+  const [showMap, setShowMap] = useState(false);
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
   const items = data.forSale;
   // Ventes récentes lues sur Efficity, puis références plus anciennes (sans doublon).
   const sold = [
@@ -60,8 +71,26 @@ function List() {
             <a href="/contact" className="btn btn-primary mt-6">Me dire ce que je cherche</a>
           </div>
         ) : (
-          <div className="grid gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
-            {items.map((p) => <Reveal key={p.id}><PropertyCard p={p} /></Reveal>)}
+          <div className="grid gap-8 lg:grid-cols-12">
+            <div className="grid content-start gap-x-6 gap-y-12 sm:grid-cols-2 lg:col-span-7">
+              {items.map((p) => (
+                <Reveal key={p.id} onMouseEnter={() => setActive(p.id)} onMouseLeave={() => setActive(null)}>
+                  <PropertyCard p={p} highlighted={active === p.id} />
+                </Reveal>
+              ))}
+            </div>
+            <div className="order-first lg:order-none lg:col-span-5">
+              <button type="button" onClick={() => setShowMap((v) => !v)} className="btn btn-ghost w-full lg:hidden" aria-expanded={showMap}>
+                <MapIcon className="h-4 w-4" aria-hidden="true" /> {showMap ? "Masquer la carte" : "Voir la carte"}
+              </button>
+              <div className={`${showMap ? "mt-4 block" : "hidden"} h-[360px] lg:sticky lg:top-28 lg:mt-0 lg:block lg:h-[calc(100dvh-9rem)]`}>
+                {mounted && (
+                  <Suspense fallback={<div className="skeleton h-full w-full rounded-[1.5rem]" />}>
+                    <PropertyMap pins={items} activeId={active} onHover={setActive} />
+                  </Suspense>
+                )}
+              </div>
+            </div>
           </div>
         )}
       </section>

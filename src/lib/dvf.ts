@@ -3,7 +3,8 @@ import { comparables, parseDvfCsv, stats, type Sale } from "./dvf-parse";
 import { SECTORS } from "./sectors";
 
 // Ventes DVF lues sur data.gouv.fr (fichiers geo-dvf par commune), gardées 24 h en mémoire.
-const BASE = "https://files.data.gouv.fr/geo-dvf/latest/csv";
+// DVF_BASE_URL permet de pointer vers une copie locale pour les tests.
+const BASE = process.env.DVF_BASE_URL || "https://files.data.gouv.fr/geo-dvf/latest/csv";
 const TTL = 24 * 60 * 60 * 1000;
 const cache = new Map<string, { at: number; value: Promise<Sale[]> }>();
 

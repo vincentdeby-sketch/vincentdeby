@@ -28,6 +28,14 @@ export function CountUp({ value, format = (n: number) => n.toLocaleString("fr-FR
       raf = requestAnimationFrame(tick);
     };
     if (started.current) { run(); return () => cancelAnimationFrame(raf); }
+    // Déjà à l'écran au montage : on anime tout de suite, sans repasser par zéro.
+    const r = el.getBoundingClientRect();
+    if (r.top < window.innerHeight && r.bottom > 0) {
+      started.current = true;
+      from.current = Math.round(value * 0.6);
+      run();
+      return () => cancelAnimationFrame(raf);
+    }
     const io = new IntersectionObserver(([e]) => {
       if (!e.isIntersecting) return;
       started.current = true;

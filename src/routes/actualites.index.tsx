@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { SiteShell } from "@/components/site/SiteShell";
+import { ListSkeleton } from "@/components/site/Skeletons";
 import { PageHeader } from "@/components/site/PageHeader";
 import { ArticleCard } from "@/components/site/ArticleCard";
 import { Reveal } from "@/components/site/Reveal";
@@ -9,6 +10,8 @@ import { articlesListQuery } from "@/lib/queries";
 import { SITE } from "@/lib/site";
 
 export const Route = createFileRoute("/actualites/")({
+  pendingComponent: ListSkeleton,
+  pendingMs: 200,
   head: () => ({
     meta: [
       { title: "Actualités immobilières à Boulogne-Billancourt | Vincent Deby" },

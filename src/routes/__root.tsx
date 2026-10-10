@@ -14,6 +14,7 @@ import frauncesTitle from "@fontsource/fraunces/files/fraunces-latin-500-normal.
 import interText from "@fontsource/inter/files/inter-latin-400-normal.woff2?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { CookieBanner } from "@/components/site/CookieBanner";
+import { Cursor } from "@/components/motion/Cursor";
 
 function NotFoundComponent() {
   return (
@@ -161,6 +162,7 @@ function RootComponent() {
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <Outlet />
       <CookieBanner />
+      <Cursor />
     </QueryClientProvider>
   );
 }

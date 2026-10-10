@@ -5,6 +5,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { SiteShell } from "@/components/site/SiteShell";
 import { PageHeader } from "@/components/site/PageHeader";
 import { FormProgress, NextSteps } from "@/components/site/FormChrome";
+import { Confetti } from "@/components/motion/Confetti";
 import { ArrowLeft, ArrowRight, Check, Mail, Phone, CalendarClock } from "lucide-react";
 
 import { SITE } from "@/lib/site";
@@ -105,6 +106,10 @@ function FormulairePage() {
   const [sending, setSending] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const cardRef = useRef<HTMLDivElement | null>(null);
+  // Sens de l'animation entre étapes (glisse vers la gauche en avançant, vers la droite en revenant).
+  const prevStep = useRef(step);
+  const stepAnim = step === prevStep.current ? "" : step > prevStep.current ? "step-forward" : "step-back";
+  useEffect(() => { prevStep.current = step; }, [step]);
   const firstRender = useRef(true);
 
   // À chaque étape, on remonte en haut de la carte (utile sur mobile).
@@ -119,6 +124,7 @@ function FormulairePage() {
   // Questions à choix unique : la réponse fait passer à l'étape suivante.
   const choose = <K extends "timeline" | "occupation" | "priceBasis">(k: K, v: string) => {
     update(k, v);
+    navigator.vibrate?.(10);
     setTimeout(() => setStep((s) => Math.min(s + 1, STEPS.length - 1)), 250);
   };
 
@@ -176,6 +182,7 @@ function FormulairePage() {
       <SiteShell hideActionBar>
         <section className="container-narrow pt-10 md:pt-16">
           <div className="max-w-2xl">
+            <Confetti />
             <span className="grid h-14 w-14 place-items-center rounded-full bg-brand text-ink">
               <Check className="h-6 w-6" aria-hidden="true" />
             </span>
@@ -204,7 +211,7 @@ function FormulairePage() {
         <div ref={cardRef} className="surface p-5 sm:p-7 md:p-10 lg:col-span-8">
           <FormProgress steps={STEPS} step={step} />
 
-          <div className="min-h-[240px] md:min-h-[340px]">
+          <div key={step} className={`min-h-[240px] md:min-h-[340px] ${stepAnim}`}>
             {step === 0 && (
               <StepText
                 title="Où se situe le bien que vous envisagez de vendre ?"

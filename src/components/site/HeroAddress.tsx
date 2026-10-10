@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { ArrowRight, MapPin } from "lucide-react";
 import { searchAddress, type AddressSuggestion } from "@/lib/address";
 import { saveDraftAddress } from "@/lib/estimation-draft";
+import { Magnetic } from "@/components/motion/Magnetic";
 
 // Point d'entrée de l'estimation dès l'accueil : l'adresse choisie ici pré-remplit le formulaire.
 export function HeroAddress() {
@@ -71,11 +72,13 @@ export function HeroAddress() {
           autoComplete="off"
           className="min-w-0 flex-1 bg-transparent py-2.5 text-base outline-none placeholder:text-muted-foreground"
         />
+        <Magnetic strength={0.18}>
         <button type="submit" className="group btn btn-primary !min-h-11 shrink-0 !px-4 sm:!px-5">
           <span className="hidden sm:inline">Estimer</span>
           <span className="btn-arrow !mr-0 sm:!-mr-2" aria-hidden="true"><ArrowRight className="h-3.5 w-3.5" /></span>
           <span className="sr-only sm:hidden">Estimer</span>
         </button>
+        </Magnetic>
       </form>
       {open && results.length > 0 && (
         <ul

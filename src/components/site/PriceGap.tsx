@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { useId, useState } from "react";
 import { ArrowRight } from "lucide-react";
 import { formatEUR } from "@/lib/domain";
+import { CountUp } from "./CountUp";
 import type { EfficityPrices } from "@/lib/efficity-parse";
 
 // Outil « le piège des moyennes » : multiplie la surface par les prix au m² bas et haut
@@ -54,15 +55,15 @@ export function PriceGap({ prices }: { prices: EfficityPrices }) {
           <dl className="mt-4 grid grid-cols-3 gap-2 text-sm">
             <div>
               <dt className="font-mono text-[11px] uppercase tracking-[0.08em] text-muted-foreground">Bas</dt>
-              <dd className="mt-1 font-serif text-xl tabular-nums sm:text-2xl">{formatEUR(low)}</dd>
+              <dd className="mt-1 font-serif text-xl tabular-nums sm:text-2xl"><CountUp value={low} format={formatEUR} duration={450} /></dd>
             </div>
             <div className="text-center">
               <dt className="font-mono text-[11px] uppercase tracking-[0.08em] text-muted-foreground">Moyen</dt>
-              <dd className="mt-1 font-serif text-xl tabular-nums sm:text-2xl">{formatEUR(mid)}</dd>
+              <dd className="mt-1 font-serif text-xl tabular-nums sm:text-2xl"><CountUp value={mid} format={formatEUR} duration={450} /></dd>
             </div>
             <div className="text-right">
               <dt className="font-mono text-[11px] uppercase tracking-[0.08em] text-muted-foreground">Haut</dt>
-              <dd className="mt-1 font-serif text-xl tabular-nums sm:text-2xl">{formatEUR(high)}</dd>
+              <dd className="mt-1 font-serif text-xl tabular-nums sm:text-2xl"><CountUp value={high} format={formatEUR} duration={450} /></dd>
             </div>
           </dl>
         </div>
@@ -70,7 +71,7 @@ export function PriceGap({ prices }: { prices: EfficityPrices }) {
         <div className="mt-8 flex flex-col gap-5 rounded-2xl bg-ink p-5 text-paper sm:flex-row sm:items-center sm:justify-between md:p-6">
           <div>
             <p className="font-mono text-[11px] uppercase tracking-[0.08em] text-paper/60">Écart entre le bas et le haut</p>
-            <p className="mt-1 font-serif text-3xl tabular-nums text-brand" aria-live="polite">{formatEUR(high - low)}</p>
+            <p className="mt-1 font-serif text-3xl tabular-nums text-brand" aria-live="polite"><CountUp value={high - low} format={formatEUR} duration={450} /></p>
           </div>
           <Link to="/estimation" className="group btn btn-brand shrink-0">
             Trouver mon prix juste

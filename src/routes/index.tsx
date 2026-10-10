@@ -3,6 +3,12 @@ import { ArrowUpRight, Check, Plus } from "lucide-react";
 import portrait from "@/assets/vincent-deby-200.webp";
 import { FAQ } from "@/lib/faq";
 import { HeroAddress } from "@/components/site/HeroAddress";
+import { Typewriter } from "@/components/motion/Typewriter";
+import { MethodSteps } from "@/components/motion/MethodSteps";
+import { WordReveal } from "@/components/motion/WordReveal";
+import { BeforeAfter } from "@/components/site/BeforeAfter";
+import { STAGINGS } from "@/data/home-staging";
+import { SECTORS } from "@/lib/sectors";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { SiteShell } from "@/components/site/SiteShell";
 import { Reveal } from "@/components/site/Reveal";
@@ -70,6 +76,9 @@ export const Route = createFileRoute("/")({
 });
 
 
+// Vidéo du haut de page (boucle muette de quelques secondes). Laisser vide pour afficher la photo.
+const HERO_VIDEO = "";
+
 const METHOD = [
   {
     n: "01",
@@ -116,10 +125,8 @@ function Home() {
             <p className="eyebrow">
               <span className="live-dot" aria-hidden="true" /> Conseiller immobilier · Boulogne-Billancourt
             </p>
-            <h1 className="mt-6">
-              Le prix juste,
-              <br />
-              <em className="text-brand-ink">preuves à l'appui.</em>
+            <h1 className="mt-6" aria-label="Le prix juste, preuves à l'appui.">
+              <Typewriter parts={[{ text: "Le prix juste," }, "br", { text: "preuves à l'appui.", em: true, className: "text-brand-ink" }]} />
             </h1>
             <p className="mt-7 max-w-xl text-lg leading-relaxed text-muted-foreground md:text-xl">
               Vingt-cinq ans de journalisme m'ont appris à vérifier avant d'affirmer. Pour votre bien,
@@ -129,7 +136,11 @@ function Home() {
             <div className="mt-9">
               <HeroAddress />
               <p className="mt-4 text-sm text-muted-foreground">
-                Plutôt en parler de vive voix ?{" "}
+                <Link to="/ventes-autour-de-chez-moi" className="font-medium text-foreground underline decoration-brand decoration-2 underline-offset-4">
+                  Voir les ventes autour de chez moi
+                </Link>
+                <span className="mx-2" aria-hidden="true">·</span>
+                Ou parlons-en :{" "}
                 <a href="tel:+33610022436" className="whitespace-nowrap font-medium text-foreground underline decoration-brand decoration-2 underline-offset-4">
                   06 10 02 24 36
                 </a>
@@ -144,7 +155,20 @@ function Home() {
 
           <div className="relative lg:col-span-5">
             <div className="aspect-[4/3] overflow-hidden rounded-[2rem] bg-muted lg:aspect-[4/5]">
-              <picture>
+              {HERO_VIDEO ? (
+                <video
+                  className="h-full w-full object-cover"
+                  src={HERO_VIDEO}
+                  poster={heroJpg}
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  preload="metadata"
+                  aria-label="Vincent Deby dans les rues de Boulogne-Billancourt"
+                />
+              ) : (
+              <picture className="parallax block h-full">
                 <source
                   type="image/webp"
                   srcSet={`${heroWebp640} 640w, ${heroWebp960} 960w, ${heroWebp1600} 1600w`}
@@ -160,6 +184,7 @@ function Home() {
                   className="scroll-zoom h-full w-full object-cover"
                 />
               </picture>
+              )}
             </div>
             <div className="absolute -bottom-6 left-4 right-4 flex items-center gap-3 rounded-2xl border border-foreground/10 bg-background/90 p-3 pr-4 shadow-[0_20px_50px_-24px_rgb(18_20_17/0.5)] backdrop-blur-xl sm:left-6 sm:right-auto">
               <img src={portrait} alt="Vincent Deby" width={48} height={48} className="h-12 w-12 rounded-full object-cover" />
@@ -173,14 +198,24 @@ function Home() {
       </section>
 
       {/* COMMUNES */}
-      <section aria-label="Secteur couvert" className="mt-20 overflow-hidden border-y border-foreground/10 py-5 md:mt-28">
-        <div className="marquee-track gap-10 pr-10 font-serif text-2xl text-foreground/70 md:text-3xl">
-          {[...ZONES, ...ZONES].map((z, i) => (
-            <span key={i} className="flex items-center gap-10" aria-hidden={i >= ZONES.length}>
-              {z}
-              <span className="h-2 w-2 rounded-full bg-brand" aria-hidden="true" />
-            </span>
-          ))}
+      <section aria-label="Secteur couvert" className="marquee mt-20 overflow-hidden border-y border-foreground/10 py-5 md:mt-28">
+        <div className="marquee-track gap-10 pr-10 font-serif text-2xl md:text-3xl">
+          {[...ZONES, ...ZONES].map((z, i) => {
+            const sector = SECTORS.find((x) => x.name === z);
+            const hidden = i >= ZONES.length;
+            return (
+              <span key={i} className="flex items-center gap-10" aria-hidden={hidden || undefined}>
+                {sector ? (
+                  <Link to="/secteurs/$slug" params={{ slug: sector.slug }} tabIndex={hidden ? -1 : undefined} className="text-foreground/70 transition-colors hover:text-brand-ink">
+                    {z}
+                  </Link>
+                ) : (
+                  <span className="text-foreground/70">{z}</span>
+                )}
+                <span className="h-2 w-2 rounded-full bg-brand" aria-hidden="true" />
+              </span>
+            );
+          })}
         </div>
       </section>
 
@@ -192,18 +227,7 @@ function Home() {
             Un métier de journaliste, <em className="text-brand-ink">appliqué à votre vente.</em>
           </h2>
         </Reveal>
-        <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4 md:mt-16">
-          {METHOD.map((m) => (
-            <Reveal key={m.n} className="surface group flex flex-col p-6 transition-colors hover:border-foreground/40 md:p-7">
-              <span className="font-mono text-xs text-muted-foreground">{m.n}</span>
-              <h3 className="mt-10 flex items-center gap-2">
-                {m.title}
-                <span className="h-1.5 w-1.5 rounded-full bg-brand transition-transform group-hover:scale-150" aria-hidden="true" />
-              </h3>
-              <p className="mt-3 text-[0.95rem] leading-relaxed text-muted-foreground">{m.text}</p>
-            </Reveal>
-          ))}
-        </div>
+        <MethodSteps steps={METHOD} />
       </section>
 
       {/* LE PIÈGE DES MOYENNES */}
@@ -245,7 +269,7 @@ function Home() {
                 <div className="rotate-[-1.5deg] rounded-3xl bg-paper p-6 text-ink shadow-[0_40px_80px_-30px_rgb(0_0_0/0.6)] md:p-8">
                   <div className="flex items-center justify-between border-b border-ink/10 pb-4">
                     <span className="font-mono text-[11px] uppercase tracking-[0.08em] text-ink/60">Dossier d'estimation</span>
-                    <span className="rounded-full bg-brand-soft px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.08em] text-brand-ink">Sources vérifiées</span>
+                    <span className="stamp rounded-md border-2 border-brand-ink px-2.5 py-1 font-mono text-[10px] font-semibold uppercase tracking-[0.08em] text-brand-ink">Sources vérifiées</span>
                   </div>
                   <p className="mt-5 font-serif text-2xl leading-tight">Ventes comparables, rayon de 500 m</p>
                   <div className="mt-5 space-y-3">
@@ -253,16 +277,16 @@ function Home() {
                       <div key={i} className="flex items-center gap-3 rounded-xl border border-ink/10 p-3">
                         <span className="font-mono text-[11px] text-ink/50">0{i + 1}</span>
                         <div className="flex-1 space-y-1.5">
-                          <div className="h-2 rounded-full bg-ink/15" style={{ width: `${w * 100}%` }} />
+                          <div className="fill-bar h-2 rounded-full bg-ink/15" style={{ width: `${w * 100}%`, transitionDelay: `${300 + i * 250}ms` }} />
                           <div className="h-2 w-1/3 rounded-full bg-ink/8" />
                         </div>
-                        <span className="h-5 w-16 rounded-md bg-brand/30" />
+                        <span className="fill-bar h-5 w-16 rounded-md bg-brand/40" style={{ transitionDelay: `${450 + i * 250}ms` }} />
                       </div>
                     ))}
                   </div>
                   <div className="mt-5 flex items-end justify-between border-t border-ink/10 pt-4">
                     <span className="font-mono text-[11px] uppercase tracking-[0.08em] text-ink/60">Prix juste</span>
-                    <span className="h-7 w-32 rounded-lg bg-ink" />
+                    <span className="fill-bar h-7 w-32 rounded-lg bg-ink" style={{ transitionDelay: "1350ms" }} />
                   </div>
                 </div>
                 <figcaption className="mt-6 text-center font-mono text-[11px] uppercase tracking-[0.08em] text-paper/50">
@@ -274,14 +298,37 @@ function Home() {
         </div>
       </section>
 
+      {/* HOME STAGING AVANT / APRÈS */}
+      {STAGINGS.length > 0 && (
+        <section className="container-narrow section">
+          <Reveal className="flex flex-wrap items-end justify-between gap-6">
+            <div>
+              <p className="eyebrow">Mise en valeur</p>
+              <h2 className="mt-4">Le même bien, <em className="text-brand-ink">mieux raconté.</em></h2>
+            </div>
+          </Reveal>
+          <div className="mt-10 grid gap-6 md:grid-cols-2">
+            {STAGINGS.map((st, i) => (
+              <Reveal key={i}>
+                <BeforeAfter before={st.before} after={st.after} alt={st.caption} />
+                <p className="mt-3 text-sm text-muted-foreground">{st.caption}</p>
+              </Reveal>
+            ))}
+          </div>
+        </section>
+      )}
+
       {/* QUI JE SUIS */}
       <section className="container-narrow section">
         <div className="grid gap-12 lg:grid-cols-12">
           <Reveal className="lg:col-span-7">
             <p className="eyebrow">03 — Qui je suis</p>
-            <blockquote className="mt-6 font-serif text-[clamp(1.8rem,3.2vw,2.9rem)] leading-[1.1] tracking-[-0.03em]">
-              « J'ai passé ma vie à écouter des histoires. Aujourd'hui, j'écoute{" "}
-              <span className="mark">celle de votre bien.</span> »
+            <blockquote className="mt-6">
+              <WordReveal
+                text="« J'ai passé ma vie à écouter des histoires. Aujourd'hui, j'écoute celle de votre bien. »"
+                highlight="celle de votre bien."
+                className="font-serif text-[clamp(1.8rem,3.2vw,2.9rem)] leading-[1.1] tracking-[-0.03em]"
+              />
             </blockquote>
             <div className="mt-8 flex items-center gap-4">
               <img src={portrait} alt="" width={56} height={56} className="h-14 w-14 rounded-full object-cover" />

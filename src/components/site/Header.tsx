@@ -4,6 +4,7 @@ import { Menu, X, Phone, ArrowUpRight } from "lucide-react";
 import portrait from "@/assets/vincent-deby-200.webp";
 import { useIsDesktop } from "@/hooks/use-is-desktop";
 import { QrLinkDialog } from "./QrLinkDialog";
+import { Magnetic } from "@/components/motion/Magnetic";
 
 const CALENDLY_URL = "https://calendly.com/vdeby-efficity/rdv-estimation-immobiliere";
 const PHONE = "+33610022436";
@@ -13,6 +14,7 @@ const EMAIL = "vdeby@efficity.com";
 const nav = [
   { to: "/", label: "Accueil" },
   { to: "/biens", label: "Biens" },
+  { to: "/ventes-autour-de-chez-moi", label: "Prix & ventes" },
   { to: "/actualites", label: "Journal" },
   { to: "/videos", label: "Vidéos" },
   { to: "/contact", label: "Contact" },
@@ -109,10 +111,12 @@ export function Header() {
             <Phone className="h-4 w-4" aria-hidden="true" />
             <span className="hidden tabular-nums xl:inline">{PHONE_DISPLAY}</span>
           </a>
-          <Link to="/estimation" className="group btn btn-primary hidden !min-h-11 !py-2 sm:inline-flex">
-            Estimer mon bien
-            <span className="btn-arrow" aria-hidden="true"><ArrowUpRight className="h-3.5 w-3.5" /></span>
-          </Link>
+          <Magnetic className="hidden sm:inline-block">
+            <Link to="/estimation" className="group btn btn-primary !min-h-11 !py-2">
+              Estimer mon bien
+              <span className="btn-arrow" aria-hidden="true"><ArrowUpRight className="h-3.5 w-3.5" /></span>
+            </Link>
+          </Magnetic>
           <button
             type="button"
             className="grid h-11 w-11 place-items-center rounded-full bg-foreground text-background lg:hidden"

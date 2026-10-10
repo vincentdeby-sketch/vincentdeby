@@ -35,6 +35,7 @@ function parseLine(line: string): string[] {
 function titleCase(s: string) {
   return s.toLowerCase().replace(/(^|[\s'-])(\p{L})/gu, (_, a, b) => a + b.toUpperCase())
     .replace(/\b(De|Du|Des|La|Le|Les|D'|L')\b/g, (m) => m.toLowerCase())
+    .replace(/\b([LD]) (?=\p{Lu})/gu, (_, l: string) => `${l.toLowerCase()}'`) // « Rue de L Est » → « Rue de l'Est »
     .replace(/^./, (c) => c.toUpperCase());
 }
 
@@ -129,11 +130,15 @@ export type Comparable = Sale & { distance: number };
 
 // Ventes comparables : même type, surface proche, au plus près de l'adresse (rayon élargi si besoin).
 export function comparables(sales: Sale[], q: { lat: number; lng: number; type: Sale["type"]; surface: number }) {
-  const near = (radius: number) =>
-    sales
+  const near = (radius: number) => {
+    const found = sales
       .filter((s) => s.type === q.type && s.surface >= q.surface * 0.65 && s.surface <= q.surface * 1.35)
       .map((s) => ({ ...s, distance: Math.round(distanceM(q.lat, q.lng, s.lat, s.lng)) }))
       .filter((s) => s.distance <= radius);
+    // Écarte les ventes atypiques (vente en bloc, lot mal renseigné) : trop loin de la médiane locale.
+    const med = quantile(found.map((s) => s.pricePerM2).sort((a, b) => a - b), 0.5);
+    return found.filter((s) => s.pricePerM2 >= med * 0.55 && s.pricePerM2 <= med * 1.6);
+  };
   let radius = 400;
   let found = near(radius);
   while (found.length < 6 && radius < 1500) {
