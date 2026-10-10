@@ -62,8 +62,9 @@ async function loadIndex() {
     return await cached("index", async () => {
       const html = await fetchHtml(EFFICITY_PAGE);
       const parsed = { ...parseListingsPage(html), prices: parsePrices(html) ?? snap.prices };
-      // Une page vide signale un changement de mise en page côté Efficity : on garde la copie.
-      if (parsed.forSale.length === 0 && parsed.sold.length === 0) throw new Error("Efficity : aucune annonce lue");
+      // Aucune annonce à vendre lue : la page a pu changer ou ne pas être servie en entier.
+      // On garde alors la copie enregistrée plutôt que d'afficher une liste vide.
+      if (parsed.forSale.length === 0) throw new Error("Efficity : aucune annonce à vendre lue");
       return parsed;
     });
   } catch (e) {
