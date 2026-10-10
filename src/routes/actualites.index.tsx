@@ -12,7 +12,7 @@ export const Route = createFileRoute("/actualites/")({
   head: () => ({
     meta: [
       { title: "Actualités immobilières à Boulogne-Billancourt | Vincent Deby" },
-      { name: "description", content: "Prix, ventes récentes et décryptages du marché immobilier à Boulogne-Billancourt et dans l'ouest parisien, par Vincent Deby, mandataire Efficity." },
+      { name: "description", content: "Prix, ventes récentes et décryptages du marché immobilier à Boulogne-Billancourt, Issy-les-Moulineaux et Paris Ouest, par Vincent Deby, mandataire Efficity." },
       { property: "og:title", content: "Actualités immobilières — Vincent Deby" },
       { property: "og:description", content: "Analyses de marché, décryptages et notes sur l'immobilier." },
       { property: "og:url", content: `${SITE}/actualites` },
@@ -33,7 +33,7 @@ function ArticlesList() {
       <PageHeader
         eyebrow="Le journal"
         title={<>Ce que disent <em className="text-brand-ink">vraiment</em> les ventes.</>}
-        lede="Analyses et décryptages du marché immobilier à Boulogne-Billancourt et dans l'ouest parisien. Des chiffres sourcés, sans effet d'annonce."
+        lede="Analyses et décryptages du marché immobilier à Boulogne-Billancourt, Issy-les-Moulineaux et Paris Ouest. Des chiffres sourcés, sans effet d'annonce."
       />
       <section className="container-narrow mt-10 md:mt-16">
         {items.length === 0 ? (

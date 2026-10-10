@@ -1,11 +1,10 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { SiteShell } from "@/components/site/SiteShell";
-import { ContactMenu } from "@/components/site/ContactMenu";
 import { formatEUR } from "@/lib/domain";
 import { propertyByIdQuery } from "@/lib/queries";
 import { PhotoImg } from "@/components/site/PhotoImg";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import portrait from "@/assets/vincent-deby-200.webp";
 
 import { SITE } from "@/lib/site";
@@ -185,7 +184,13 @@ function Detail() {
             <p className="font-mono text-[11px] uppercase tracking-[0.08em] text-muted-foreground">Prix de vente</p>
             <p className="mt-2 font-serif text-4xl tabular-nums">{formatEUR(p.price)}</p>
             <div className="mt-6 grid gap-2">
-              <ContactMenu align="center" className="w-full" />
+              <a
+                href={`mailto:vdeby@efficity.com?subject=${encodeURIComponent(`Demande de visite : ${p.title}`)}&body=${encodeURIComponent(`Bonjour Vincent,\n\nJe souhaite visiter le bien « ${p.title} » (${SITE}/biens/${p.id}).\n\nMes disponibilités :\n\nMon téléphone :\n\nMerci.`)}`}
+                className="btn btn-primary w-full"
+              >
+                Demander une visite
+              </a>
+              <a href="tel:+33610022436" className="btn btn-ghost w-full">Appeler · 06 10 02 24 36</a>
             </div>
             <div className="mt-6 flex items-center gap-3 border-t border-border pt-5">
               <img src={portrait} alt="" width={44} height={44} className="h-11 w-11 rounded-full object-cover" />
@@ -196,6 +201,23 @@ function Detail() {
             </div>
           </div>
         </aside>
+      </section>
+
+      <section className="container-narrow mt-20">
+        <div className="grid gap-6 rounded-[1.75rem] bg-brand-soft p-7 md:grid-cols-12 md:items-center md:p-10">
+          <div className="md:col-span-8">
+            <p className="eyebrow !text-brand-ink">Vous êtes propriétaire dans le quartier ?</p>
+            <p className="mt-3 font-serif text-[clamp(1.6rem,2.6vw,2.3rem)] leading-tight">
+              Ce bien vous donne une idée du marché. Votre estimation, elle, part des ventes réelles autour de chez vous.
+            </p>
+          </div>
+          <div className="md:col-span-4 md:text-right">
+            <Link to="/estimation" className="group btn btn-primary">
+              Estimer mon bien
+              <span className="btn-arrow" aria-hidden="true"><ArrowRight className="h-3.5 w-3.5" /></span>
+            </Link>
+          </div>
+        </div>
       </section>
     </SiteShell>
   );

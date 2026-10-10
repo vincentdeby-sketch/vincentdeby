@@ -9,8 +9,10 @@ import { ArrowLeft, ArrowRight, Building2, Home as HomeIcon, LandPlot, Store, Ch
 import { LazyGlobe } from "@/components/site/LazyGlobe";
 import { searchAddress, type AddressSuggestion } from "@/lib/address";
 import { trackLead } from "@/lib/tracking";
+import { DRAFT_KEY } from "@/lib/estimation-draft";
 
 import { SITE } from "@/lib/site";
+import { ZONES } from "@/lib/zones";
 
 export const Route = createFileRoute("/estimation")({
   head: () => ({
@@ -30,7 +32,7 @@ export const Route = createFileRoute("/estimation")({
           "@type": "Service",
           serviceType: "Estimation immobilière",
           provider: { "@type": "RealEstateAgent", name: "Vincent Deby" },
-          areaServed: ["Boulogne-Billancourt", "Issy-les-Moulineaux", "Sèvres", "Saint-Cloud", "Paris 15e", "Paris 16e"],
+          areaServed: ZONES,
           offers: { "@type": "Offer", price: "0", priceCurrency: "EUR" },
         }),
       },
@@ -79,7 +81,7 @@ const INITIAL: FormState = {
   contactName: "", contactEmail: "", contactPhone: "",
 };
 
-const STORAGE_KEY = "estimation-draft-v1";
+const STORAGE_KEY = DRAFT_KEY;
 
 const STEPS = ["Adresse", "Type de bien", "Caractéristiques", "Coordonnées", "Récapitulatif"];
 
@@ -105,7 +107,12 @@ function Estimation() {
     if (typeof window === "undefined") return;
     const raw = sessionStorage.getItem(STORAGE_KEY);
     if (raw) {
-      try { setForm({ ...INITIAL, ...JSON.parse(raw) }); } catch {}
+      try {
+        const draft = { ...INITIAL, ...JSON.parse(raw) };
+        setForm(draft);
+        // Adresse déjà choisie sur l'accueil : on passe directement au type de bien.
+        if (draft.address && new URLSearchParams(window.location.search).get("depart") === "accueil") setStep(1);
+      } catch {}
     }
   }, []);
   useEffect(() => {
@@ -240,6 +247,9 @@ function Estimation() {
               </button>
             )}
           </div>
+          <p className="mt-4 text-right font-mono text-[11px] uppercase tracking-[0.08em] text-muted-foreground">
+            Gratuit · Sans engagement · Données jamais revendues
+          </p>
         </div>
 
         <div className="lg:col-span-4">
@@ -266,6 +276,11 @@ function StepAddress({ value, onChange }: { value: Address | null; onChange: (a:
   const [results, setResults] = useState<AddressSuggestion[]>([]);
   const [busy, setBusy] = useState(false);
   const [showList, setShowList] = useState(false);
+
+  // Adresse restaurée depuis le brouillon après le premier rendu.
+  useEffect(() => {
+    if (value?.display) setQ((cur) => cur || value.display);
+  }, [value?.display]);
 
   useEffect(() => {
     if (!q || q === value?.display) { setResults([]); return; }
@@ -484,7 +499,7 @@ function StepContact({ form, update }: { form: FormState; update: <K extends key
     <div className="space-y-6">
       <div>
         <h2 className="font-serif text-2xl">Comment vous joindre ?</h2>
-        <p className="mt-2 text-sm text-muted-foreground">Vos coordonnées restent strictement confidentielles.</p>
+        <p className="mt-2 text-sm text-muted-foreground">Avec votre numéro, je peux vous rappeler plus vite pour fixer la visite.</p>
       </div>
       <div className="grid gap-6 md:grid-cols-2">
         <Field label="Nom complet"><input type="text" autoComplete="name" value={form.contactName} onChange={(e) => update("contactName", e.target.value)} className={inputCls} required /></Field>

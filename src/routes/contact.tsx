@@ -7,6 +7,7 @@ import { QrLinkDialog } from "@/components/site/QrLinkDialog";
 import { useIsDesktop } from "@/hooks/use-is-desktop";
 
 import { SITE } from "@/lib/site";
+import { ZONES } from "@/lib/zones";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
@@ -60,7 +61,7 @@ function ContactPage() {
       <PageHeader
         eyebrow="Contact"
         title={<>Contactez <em className="text-brand-ink">Vincent Deby.</em></>}
-        lede="Un échange direct, sans détour, à Boulogne-Billancourt et dans l'ouest parisien. Je vous réponds sous 48 heures ouvrées."
+        lede="Un échange direct, sans détour, à Boulogne-Billancourt et à Paris Ouest. Je vous réponds sous 48 heures ouvrées."
       />
 
       <section className="container-narrow mt-12 grid gap-4 md:mt-16 md:grid-cols-3">
@@ -110,7 +111,7 @@ function ContactPage() {
             </p>
           </div>
           <ul className="flex flex-wrap gap-2 md:col-span-7 md:justify-end">
-            {["Boulogne-Billancourt", "Issy-les-Moulineaux", "Sèvres", "Saint-Cloud", "Paris 15e", "Paris 16e"].map((z) => (
+            {ZONES.map((z) => (
               <li key={z} className="rounded-full border border-foreground/15 px-4 py-2 text-sm">{z}</li>
             ))}
           </ul>

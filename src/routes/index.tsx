@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowUpRight, Check, Plus } from "lucide-react";
 import portrait from "@/assets/vincent-deby-200.webp";
 import { FAQ } from "@/lib/faq";
+import { HeroAddress } from "@/components/site/HeroAddress";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { SiteShell } from "@/components/site/SiteShell";
 import { Reveal } from "@/components/site/Reveal";
@@ -14,12 +15,13 @@ import heroWebp640 from "@/assets/hero-home-640.webp";
 import heroJpg from "@/assets/hero-home-1600.jpg";
 
 import { SITE } from "@/lib/site";
+import { ZONES } from "@/lib/zones";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "Vincent Deby — Conseiller Immobilier à Boulogne-Billancourt" },
-      { name: "description", content: "Le prix juste, preuves à l'appui. Estimation immobilière gratuite à Boulogne-Billancourt, Issy, Sèvres, Saint-Cloud, Paris 15e et 16e par Vincent Deby, mandataire Efficity." },
+      { name: "description", content: "Le prix juste, preuves à l'appui. Estimation immobilière gratuite à Boulogne-Billancourt, Issy-les-Moulineaux, Paris 15e, 16e et Paris Ouest par Vincent Deby, mandataire Efficity." },
       { property: "og:title", content: "Vincent Deby — Conseiller Immobilier à Boulogne-Billancourt" },
       { property: "og:description", content: "Estimation immobilière et accompagnement à Boulogne-Billancourt par Vincent Deby, mandataire Efficity. Rigueur, données réelles et suivi de A à Z." },
       { name: "twitter:title", content: "Vincent Deby — Conseiller Immobilier à Boulogne-Billancourt" },
@@ -30,7 +32,7 @@ export const Route = createFileRoute("/")({
     ],
     links: [
       { rel: "canonical", href: `${SITE}/` },
-      { rel: "preload", as: "image", href: heroWebp960, imageSrcSet: `${heroWebp640} 640w, ${heroWebp960} 960w, ${heroWebp1600} 1600w`, imageSizes: "100vw", type: "image/webp", fetchPriority: "high" } as never,
+      { rel: "preload", as: "image", href: heroWebp960, imageSrcSet: `${heroWebp640} 640w, ${heroWebp960} 960w, ${heroWebp1600} 1600w`, imageSizes: "(min-width: 1024px) 40vw, 100vw", type: "image/webp", fetchPriority: "high" } as never,
     ],
     scripts: [
       {
@@ -53,7 +55,7 @@ export const Route = createFileRoute("/")({
           name: "Vincent Deby — Conseiller Immobilier",
           url: `${SITE}/`,
           inLanguage: "fr-FR",
-          publisher: { "@type": "RealEstateAgent", name: "Vincent Deby", telephone: "+33610022436", email: "vdeby@efficity.com", areaServed: "Boulogne-Billancourt, Issy-les-Moulineaux, Sèvres, Saint-Cloud, Paris 15e, Paris 16e" },
+          publisher: { "@type": "RealEstateAgent", name: "Vincent Deby", telephone: "+33610022436", email: "vdeby@efficity.com", areaServed: ZONES },
         }),
       },
     ],
@@ -66,7 +68,6 @@ export const Route = createFileRoute("/")({
   component: Home,
 });
 
-const ZONES = ["Boulogne-Billancourt", "Issy-les-Moulineaux", "Sèvres", "Saint-Cloud", "Paris 15e", "Paris 16e"];
 
 const METHOD = [
   {
@@ -123,12 +124,14 @@ function Home() {
               c'est pareil : un prix adossé aux ventes réelles et récentes du quartier, que je vous
               montre une par une.
             </p>
-            <div className="mt-9 flex flex-wrap gap-3">
-              <Link to="/estimation" className="group btn btn-primary">
-                Estimer mon bien
-                <span className="btn-arrow" aria-hidden="true"><ArrowUpRight className="h-3.5 w-3.5" /></span>
-              </Link>
-              <Link to="/contact" className="btn btn-ghost">Parler de mon projet</Link>
+            <div className="mt-9">
+              <HeroAddress />
+              <p className="mt-4 text-sm text-muted-foreground">
+                Plutôt en parler de vive voix ?{" "}
+                <a href="tel:+33610022436" className="whitespace-nowrap font-medium text-foreground underline decoration-brand decoration-2 underline-offset-4">
+                  06 10 02 24 36
+                </a>
+              </p>
             </div>
             <ul className="mt-10 flex flex-wrap gap-x-6 gap-y-2 font-mono text-[11px] uppercase tracking-[0.08em] text-muted-foreground">
               <li className="flex items-center gap-2"><Check className="h-3.5 w-3.5 text-brand-ink" aria-hidden="true" />Gratuit, sans engagement</li>
@@ -152,7 +155,7 @@ function Home() {
                   height={1067}
                   fetchPriority="high"
                   decoding="async"
-                  className="h-full w-full object-cover"
+                  className="scroll-zoom h-full w-full object-cover"
                 />
               </picture>
             </div>
@@ -160,7 +163,7 @@ function Home() {
               <img src={portrait} alt="Vincent Deby" width={48} height={48} className="h-12 w-12 rounded-full object-cover" />
               <div className="min-w-0">
                 <p className="font-serif text-lg leading-tight">Vincent Deby</p>
-                <p className="text-xs text-muted-foreground">Ancien journaliste et réalisateur</p>
+                <p className="text-xs text-muted-foreground">Ancien journaliste, 25 ans de métier</p>
               </div>
             </div>
           </div>
@@ -279,7 +282,7 @@ function Home() {
           </Reveal>
           <Reveal className="space-y-5 text-muted-foreground lg:col-span-5 lg:pt-12">
             <p>
-              Journaliste, réalisateur de documentaires, chef opérateur : pendant vingt-cinq ans, mon
+              Journaliste pendant vingt-cinq ans : mon
               travail a été de vérifier les faits et de comprendre les gens avant de raconter quoi que
               ce soit.
             </p>
@@ -291,7 +294,7 @@ function Home() {
             <dl className="grid grid-cols-2 gap-4 border-t border-foreground/10 pt-6">
               <div>
                 <dt className="font-mono text-[11px] uppercase tracking-[0.08em]">Avant</dt>
-                <dd className="mt-1 text-foreground">25 ans de journalisme et de documentaire</dd>
+                <dd className="mt-1 text-foreground">25 ans de journalisme</dd>
               </div>
               <div>
                 <dt className="font-mono text-[11px] uppercase tracking-[0.08em]">Depuis 2025</dt>

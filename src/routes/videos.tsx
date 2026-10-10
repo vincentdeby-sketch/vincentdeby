@@ -36,7 +36,7 @@ function VideosPage() {
       <PageHeader
         eyebrow="Vidéos"
         title={<>L'immobilier, <em className="text-brand-ink">raconté en images.</em></>}
-        lede="Conseils, analyses de marché et visites de biens. Le format court d'un ancien réalisateur."
+        lede="Conseils, analyses de marché et visites de biens. Le marché expliqué simplement, en quelques minutes."
       />
 
       <section className="container-narrow mt-10 md:mt-16 pb-24">

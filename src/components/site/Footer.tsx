@@ -1,13 +1,13 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowUpRight } from "lucide-react";
 import { NewsletterForm } from "./NewsletterForm";
+import { ZONES } from "@/lib/zones";
 
 const PHONE = "+33610022436";
 const PHONE_DISPLAY = "06 10 02 24 36";
 const EMAIL = "vdeby@efficity.com";
 const CALENDLY_URL = "https://calendly.com/vdeby-efficity/rdv-estimation-immobiliere";
 
-const ZONES = ["Boulogne-Billancourt", "Issy-les-Moulineaux", "Sèvres", "Saint-Cloud", "Paris 15e", "Paris 16e"];
 
 export function Footer() {
   return (
@@ -17,7 +17,7 @@ export function Footer() {
           <div className="grid gap-12 md:grid-cols-12">
             <div className="md:col-span-7">
               <p className="eyebrow !text-paper/60">
-                <span className="live-dot" aria-hidden="true" /> Boulogne-Billancourt &amp; ouest parisien
+                <span className="live-dot" aria-hidden="true" /> Boulogne-Billancourt &amp; Paris Ouest
               </p>
               <p className="mt-6 max-w-xl font-serif text-[clamp(2rem,4vw,3.4rem)] leading-[1.02] tracking-[-0.035em]">
                 Un projet de vente ? Commençons par{" "}

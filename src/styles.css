@@ -383,6 +383,25 @@ html.js .reveal.is-visible { opacity: 1; transform: none; }
   html.js .reveal { opacity: 1; transform: none; }
 }
 
+/* Transition douce entre les pages */
+::view-transition-old(root),
+::view-transition-new(root) { animation-duration: 220ms; }
+
+/* Image du haut de l'accueil : léger zoom arrière au défilement, si le navigateur le permet */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .scroll-zoom {
+      animation: scroll-zoom linear both;
+      animation-timeline: view();
+      animation-range: exit 0% exit 100%;
+    }
+  }
+}
+@keyframes scroll-zoom {
+  from { transform: scale(1); }
+  to { transform: scale(1.12); }
+}
+
 /* Carte Leaflet aux couleurs du site */
 .leaflet-container { font-family: var(--font-sans) !important; background: var(--color-muted); }
 .estate-map-marker {

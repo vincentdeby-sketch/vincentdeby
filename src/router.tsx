@@ -10,6 +10,9 @@ export const getRouter = () => {
     context: { queryClient },
     scrollRestoration: true,
     defaultPreloadStaleTime: 0,
+    // Précharge la page au survol d'un lien et fond les pages entre elles (navigateurs compatibles).
+    defaultPreload: "intent",
+    defaultViewTransition: true,
   });
 
   return router;

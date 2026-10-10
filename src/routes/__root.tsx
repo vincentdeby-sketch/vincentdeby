@@ -122,10 +122,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           areaServed: [
             "Boulogne-Billancourt",
             "Issy-les-Moulineaux",
-            "Sèvres",
-            "Saint-Cloud",
             "Paris 15e",
             "Paris 16e",
+            "Paris Ouest",
           ],
           knowsLanguage: "fr",
           brand: { "@type": "Brand", name: "Efficity" },
