@@ -25,6 +25,6 @@ export const LEGAL = {
   mediator: null as string | null, // médiateur de la consommation : nom, adresse, site
   feesUrl: "https://diszln7ft1ccx.cloudfront.net/pdf/BAREME_NATIONAL.pdf" as string | null,
 
-  host: "Vercel Inc., 440 N Barranca Ave #4133, Covina, CA 91723, États-Unis — vercel.com",
+  host: "Vercel Inc., 440 N Barranca Ave #4133, Covina, CA 91723, États-Unis (vercel.com)",
   dataProvider: "Supabase Inc. (base de données des formulaires)",
 };

@@ -5,9 +5,8 @@ import { supabase } from "@/integrations/supabase/client";
 import { SiteShell } from "@/components/site/SiteShell";
 import { PageHeader } from "@/components/site/PageHeader";
 import { FormProgress, NextSteps } from "@/components/site/FormChrome";
-import { Confetti } from "@/components/motion/Confetti";
 import { ArrowLeft, ArrowRight, Building2, Home as HomeIcon, LandPlot, Store, Check as CheckIcon } from "lucide-react";
-import { LazyGlobe } from "@/components/site/LazyGlobe";
+import { LazyMap } from "@/components/site/LazyMap";
 import { searchAddress, type AddressSuggestion } from "@/lib/address";
 import { trackLead } from "@/lib/tracking";
 import { notifyLead } from "@/lib/notify";
@@ -19,9 +18,9 @@ import { ZONES } from "@/lib/zones";
 export const Route = createFileRoute("/estimation")({
   head: () => ({
     meta: [
-      { title: "Estimation immobilière gratuite en ligne — Vincent Deby" },
-      { name: "description", content: "Formulaire d'estimation immobilière en cinq étapes. Retour humain, argumenté, sans engagement — appartement, maison, terrain ou local." },
-      { property: "og:title", content: "Estimation immobilière gratuite — Vincent Deby" },
+      { title: "Estimation immobilière gratuite en ligne | Vincent Deby" },
+      { name: "description", content: "Formulaire d'estimation immobilière en cinq étapes. Retour humain, argumenté, sans engagement. Appartement, maison, terrain ou local." },
+      { property: "og:title", content: "Estimation immobilière gratuite | Vincent Deby" },
       { property: "og:description", content: "Formulaire d'estimation en cinq étapes. Retour humain, sans engagement." },
       { property: "og:url", content: `${SITE}/estimation` },
     ],
@@ -199,7 +198,6 @@ function Estimation() {
       <SiteShell hideActionBar>
         <section className="container-narrow pt-10 md:pt-16">
           <div className="mx-auto max-w-2xl text-center">
-              <Confetti />
           <span className="mx-auto grid h-14 w-14 place-items-center rounded-full bg-brand text-ink">
               <CheckIcon className="h-6 w-6" aria-hidden="true" />
             </span>
@@ -231,7 +229,7 @@ function Estimation() {
       <PageHeader
         eyebrow="Estimation gratuite"
         title={<>Estimez votre bien, <em className="text-brand-ink">pour de vrai.</em></>}
-        lede="Cinq étapes, sans compte, sans engagement. Je reviens vers vous avec un prix appuyé sur des ventes réelles, pas sur un algorithme."
+        lede="Cinq étapes, sans créer de compte. Je vous rappelle avec un prix appuyé sur les ventes signées autour de chez vous, et je vous montre d'où il vient."
       />
 
       <section className="container-narrow mt-10 grid gap-6 md:mt-14 lg:grid-cols-12 lg:items-start">
@@ -370,7 +368,7 @@ function StepAddress({ value, onChange }: { value: Address | null; onChange: (a:
       </div>
       {value && (
         <div className="overflow-hidden rounded-2xl border border-border">
-          <LazyGlobe lat={value.lat} lng={value.lng} className="w-full" />
+          <LazyMap lat={value.lat} lng={value.lng} className="h-[240px] w-full" />
         </div>
       )}
     </div>
@@ -445,7 +443,7 @@ function StepFeatures({ form, update }: { form: FormState; update: <K extends ke
         )}
         <Field label="État général (facultatif)">
           <select value={form.condition} onChange={(e) => update("condition", e.target.value)} className={selectCls}>
-            <option value="">—</option>
+            <option value="">Choisir</option>
             <option value="neuf">Neuf</option>
             <option value="bon">Bon état</option>
             <option value="rafraichir">À rafraîchir</option>
@@ -455,13 +453,13 @@ function StepFeatures({ form, update }: { form: FormState; update: <K extends ke
         </Field>
         <Field label="Classe DPE (facultatif)">
           <select value={form.dpe} onChange={(e) => update("dpe", e.target.value)} className={selectCls}>
-            <option value="">—</option>
+            <option value="">Choisir</option>
             {["A", "B", "C", "D", "E", "F", "G"].map((x) => <option key={x} value={x}>{x}</option>)}
           </select>
         </Field>
         <Field label="Type de chauffage (facultatif)">
           <select value={form.heating} onChange={(e) => update("heating", e.target.value)} className={selectCls}>
-            <option value="">—</option>
+            <option value="">Choisir</option>
             <option value="gaz">Gaz</option>
             <option value="electrique">Électrique</option>
             <option value="fioul">Fioul</option>
@@ -472,7 +470,7 @@ function StepFeatures({ form, update }: { form: FormState; update: <K extends ke
         </Field>
         <Field label="Stationnement (facultatif)">
           <select value={form.parking} onChange={(e) => update("parking", e.target.value)} className={selectCls}>
-            <option value="">—</option>
+            <option value="">Choisir</option>
             <option value="aucun">Aucun</option>
             <option value="parking">Parking</option>
             <option value="box">Box</option>
@@ -481,13 +479,13 @@ function StepFeatures({ form, update }: { form: FormState; update: <K extends ke
         </Field>
         <Field label="Exposition (facultatif)">
           <select value={form.exposure} onChange={(e) => update("exposure", e.target.value)} className={selectCls}>
-            <option value="">—</option>
+            <option value="">Choisir</option>
             {["Nord", "Sud", "Est", "Ouest", "Nord-Est", "Nord-Ouest", "Sud-Est", "Sud-Ouest"].map((x) => <option key={x} value={x}>{x}</option>)}
           </select>
         </Field>
         <Field label="Vue (facultatif)">
           <select value={form.view} onChange={(e) => update("view", e.target.value)} className={selectCls}>
-            <option value="">—</option>
+            <option value="">Choisir</option>
             <option value="degagee">Dégagée</option>
             <option value="rue">Sur rue</option>
             <option value="cour">Sur cour</option>
@@ -568,7 +566,7 @@ function StepSummary({ form }: { form: FormState }) {
     ["Charges copro", form.coproFees ? `${form.coproFees} €/mois` : undefined],
     ["Proximité", form.proximity.join(", ") || undefined],
     ["Nuisances", form.nuisances || undefined],
-    ["Contact", `${form.contactName} — ${form.contactEmail}${form.contactPhone ? ` — ${form.contactPhone}` : ""}`],
+    ["Contact", `${form.contactName} · ${form.contactEmail}${form.contactPhone ? ` · ${form.contactPhone}` : ""}`],
   ];
   return (
     <div className="space-y-6">

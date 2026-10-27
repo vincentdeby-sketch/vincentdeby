@@ -5,7 +5,6 @@ import { supabase } from "@/integrations/supabase/client";
 import { SiteShell } from "@/components/site/SiteShell";
 import { PageHeader } from "@/components/site/PageHeader";
 import { FormProgress, NextSteps } from "@/components/site/FormChrome";
-import { Confetti } from "@/components/motion/Confetti";
 import { ArrowLeft, ArrowRight, Check, Mail, Phone, CalendarClock } from "lucide-react";
 
 import { SITE } from "@/lib/site";
@@ -16,13 +15,13 @@ const CALENDLY_URL = "https://calendly.com/vdeby-efficity/rdv-estimation-immobil
 export const Route = createFileRoute("/formulaire")({
   head: () => ({
     meta: [
-      { title: "Formulaire de qualification — Vincent Deby" },
+      { title: "Formulaire de qualification | Vincent Deby" },
       {
         name: "description",
         content:
           "Cinq questions rapides pour préparer votre projet de vente et un créneau Calendly pour en parler avec Vincent Deby.",
       },
-      { property: "og:title", content: "Formulaire de qualification — Vincent Deby" },
+      { property: "og:title", content: "Formulaire de qualification | Vincent Deby" },
       {
         property: "og:description",
         content: "Préparez votre projet de vente en cinq questions et réservez un échange.",
@@ -199,7 +198,6 @@ function FormulairePage() {
       <SiteShell hideActionBar>
         <section className="container-narrow pt-10 md:pt-16">
           <div className="max-w-2xl">
-            <Confetti />
             <span className="grid h-14 w-14 place-items-center rounded-full bg-brand text-ink">
               <Check className="h-6 w-6" aria-hidden="true" />
             </span>
@@ -221,7 +219,7 @@ function FormulairePage() {
       <PageHeader
         eyebrow="Projet de vente"
         title={<>Préparons <em className="text-brand-ink">votre vente.</em></>}
-        lede="Cinq questions pour cadrer votre projet, puis un créneau si vous le souhaitez. Deux minutes, pas plus."
+        lede="Cinq questions pour cadrer votre projet, puis un créneau de rendez-vous si vous le souhaitez."
       />
 
       <section className="container-narrow mt-10 grid gap-6 md:mt-14 lg:grid-cols-12 lg:items-start">
@@ -236,7 +234,7 @@ function FormulairePage() {
                 label="Adresse ou quartier"
                 value={form.location}
                 onChange={(v) => update("location", v)}
-                placeholder="12 rue de Silly, Boulogne — ou quartier Point-du-Jour"
+                placeholder="12 rue de Silly, Boulogne, ou quartier Point-du-Jour"
               />
             )}
             {step === 1 && (
@@ -489,7 +487,7 @@ function StepContact({
               onChange={(e) => update("contactValue", e.target.value)}
               placeholder={
                 form.contactMethod === "creneau"
-                  ? "Ex. mardi 10 h — ou choisissez ci-dessous"
+                  ? "Ex. mardi 10 h, ou choisissez ci-dessous"
                   : undefined
               }
               className={inputCls}

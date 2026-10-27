@@ -64,9 +64,15 @@ function Confidentialite() {
       <div>
         <h2>Cookies</h2>
         <p>
-          Aucun cookie publicitaire n'est déposé sans votre accord. Si vous acceptez, Google Ads mesure
-          les visites issues de mes annonces. Vous pouvez changer d'avis à tout moment via le lien
-          « Cookies » en bas de chaque page. Le site garde votre choix dans votre navigateur.
+          Aucun cookie publicitaire ou de mesure d'audience n'est déposé sans votre accord. Si vous
+          acceptez, Google Ads et Google Analytics mesurent les visites, notamment celles issues de mes
+          annonces. Vous pouvez changer d'avis à tout moment via le lien « Cookies » en bas de chaque
+          page. Le site garde votre choix dans votre navigateur.
+        </p>
+        <p>
+          Sans cookie et sans votre accord, le site compte les pages vues avec Vercel Web Analytics. Cet
+          outil ne dépose aucun cookie et ne permet pas de vous identifier : il produit des statistiques
+          globales (pages consultées, pays, type d'appareil, site d'origine).
         </p>
       </div>
 

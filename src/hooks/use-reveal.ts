@@ -32,16 +32,33 @@ export function useReveal<T extends HTMLElement = HTMLDivElement>() {
       el.classList.add("is-visible");
       return;
     }
-    // Fallback: reveal immediately if already in viewport at mount
-    const rect = el.getBoundingClientRect();
-    const vh = window.innerHeight || document.documentElement.clientHeight;
-    if (rect.top < vh && rect.bottom > 0) {
+    const show = () => {
+      el.classList.add("is-visible");
+      callbacks.delete(el);
+      io.unobserve(el);
+    };
+    // Déjà à l'écran : on l'affiche tout de suite. On revérifie après la mise en page
+    // (polices et styles chargés), sinon un bloc visible au chargement pouvait rester
+    // masqué tant que le visiteur ne faisait pas défiler la page.
+    const inView = () => {
+      const rect = el.getBoundingClientRect();
+      const vh = window.innerHeight || document.documentElement.clientHeight;
+      return rect.top < vh && rect.bottom > 0;
+    };
+    if (inView()) {
       el.classList.add("is-visible");
       return;
     }
-    callbacks.set(el, () => el.classList.add("is-visible"));
+    callbacks.set(el, show);
     io.observe(el);
+    const recheck = () => { if (!el.classList.contains("is-visible") && inView()) show(); };
+    const raf = requestAnimationFrame(recheck);
+    const timers = [setTimeout(recheck, 300), setTimeout(recheck, 1200)];
+    window.addEventListener("load", recheck, { once: true });
     return () => {
+      cancelAnimationFrame(raf);
+      timers.forEach(clearTimeout);
+      window.removeEventListener("load", recheck);
       callbacks.delete(el);
       io.unobserve(el);
     };

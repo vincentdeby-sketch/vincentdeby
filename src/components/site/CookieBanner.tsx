@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
+import { GA4_ID } from "@/lib/tracking";
 
 const STORAGE_KEY = "cookie-consent";
 const ADS_ID = "AW-18327944952";
@@ -22,7 +23,8 @@ function readChoice(): Choice | null {
   }
 }
 
-// Google Ads n'est chargé qu'après un accord explicite (Consent Mode v2, refus par défaut dans <head>).
+// Google Ads (et GA4 si VITE_GA4_ID est renseigné) ne sont chargés qu'après un accord explicite
+// (Consent Mode v2, refus par défaut dans <head>).
 function loadAds() {
   if (document.getElementById("gtag-ads")) return;
   window.gtag?.("consent", "update", {
@@ -38,6 +40,7 @@ function loadAds() {
   document.head.appendChild(s);
   window.gtag?.("js", new Date());
   window.gtag?.("config", ADS_ID);
+  if (GA4_ID) window.gtag?.("config", GA4_ID);
 }
 
 export function CookieBanner() {
@@ -73,8 +76,9 @@ export function CookieBanner() {
       className="fixed inset-x-3 bottom-3 z-50 mx-auto max-w-md rounded-3xl border border-foreground/10 bg-background p-5 text-sm shadow-[0_24px_60px_-24px_rgb(18_20_17/0.5)] sm:inset-x-auto sm:right-6 sm:bottom-6"
     >
       <p className="leading-relaxed text-foreground/85">
-        Ce site n'utilise des cookies publicitaires (Google Ads) qu'avec votre accord, pour mesurer
-        l'efficacité de mes annonces. Refuser ne change rien à votre navigation.{" "}
+        J'utilise des cookies Google (publicité et mesure d'audience) seulement si vous êtes
+        d'accord, pour savoir quelles annonces vous amènent ici. Refuser ne change rien à votre
+        navigation.{" "}
         <Link to="/confidentialite" className="underline underline-offset-2 hover:text-primary">
           En savoir plus
         </Link>

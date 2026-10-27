@@ -28,14 +28,20 @@ export function ArticleCard({ a }: { a: Article }) {
               className="h-full w-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.04]"
             />
           ) : (
-            <div className="h-full w-full bg-sand" />
+            // Pas de photo : une couverture typographique, sobre, à la place d'une image d'illustration.
+            <div className="flex h-full w-full flex-col justify-between bg-ink p-6 text-paper transition-colors duration-500 group-hover:bg-brand-ink">
+              <span className="font-mono text-[11px] uppercase tracking-[0.08em] text-paper/60">{a.category ?? "Le journal"}</span>
+              <span className="font-serif text-[1.65rem] leading-[1.1] tracking-[-0.02em] line-clamp-3">{a.title}</span>
+              <span className="h-1 w-10 rounded-full bg-brand" aria-hidden="true" />
+            </div>
           )}
         </div>
         <div className="px-1 pt-4">
           {date && (
-            <time dateTime={date} className="font-mono text-[11px] uppercase tracking-[0.08em] text-muted-foreground">
-              {formatDate(date)}
-            </time>
+            <p className="font-mono text-[11px] uppercase tracking-[0.08em] text-muted-foreground">
+              {a.category && <>{a.category} · </>}
+              <time dateTime={date}>{formatDate(date)}</time>
+            </p>
           )}
           <h3 className="mt-2 text-xl leading-snug">
             <span className="line-clamp-2 transition-colors group-hover:text-brand-ink">{a.title}</span>

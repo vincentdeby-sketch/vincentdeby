@@ -9,6 +9,8 @@ export type Article = {
   published_at: string | null;
   created_at: string;
   updated_at: string;
+  // Rubrique affichée sur la carte et la page (articles du fichier src/data/articles.ts).
+  category?: string | null;
 };
 
 export type Property = {

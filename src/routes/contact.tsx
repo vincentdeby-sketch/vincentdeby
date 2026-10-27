@@ -12,9 +12,9 @@ import { ZONES } from "@/lib/zones";
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
-      { title: "Contact — Vincent Deby, Conseiller Immobilier Efficity" },
+      { title: "Contact | Vincent Deby, Conseiller Immobilier Efficity" },
       { name: "description", content: "Contacter Vincent Deby, conseiller immobilier mandataire Efficity. Téléphone, e-mail et prise de rendez-vous, réponse sous 48 h ouvrées." },
-      { property: "og:title", content: "Contact — Vincent Deby" },
+      { property: "og:title", content: "Contact | Vincent Deby" },
       { property: "og:description", content: "Vincent Deby, conseiller immobilier, mandataire Efficity. Réponse sous 48 h ouvrées." },
       { property: "og:url", content: `${SITE}/contact` },
     ],
@@ -61,7 +61,7 @@ function ContactPage() {
       <PageHeader
         eyebrow="Contact"
         title={<>Contactez <em className="text-brand-ink">Vincent Deby.</em></>}
-        lede="Un échange direct, sans détour, à Boulogne-Billancourt et à Paris Ouest. Je vous réponds sous 48 heures ouvrées."
+        lede="Appelez-moi ou écrivez-moi. C'est moi qui réponds, sous 48 heures ouvrées."
       />
 
       <section className="container-narrow mt-12 grid gap-4 md:mt-16 md:grid-cols-3">

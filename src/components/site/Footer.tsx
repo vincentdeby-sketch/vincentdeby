@@ -19,7 +19,7 @@ export function Footer() {
           <div className="grid gap-12 md:grid-cols-12">
             <div className="md:col-span-7">
               <p className="eyebrow !text-paper/60">
-                <span className="live-dot" aria-hidden="true" /> Boulogne-Billancourt &amp; Paris Ouest
+                Boulogne-Billancourt &amp; Paris Ouest
               </p>
               <p className="mt-6 max-w-xl font-serif text-[clamp(2rem,4vw,3.4rem)] leading-[1.02] tracking-[-0.035em]">
                 Un projet de vente ? Commençons par{" "}

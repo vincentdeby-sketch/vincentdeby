@@ -20,7 +20,7 @@ export const Route = createFileRoute("/biens/")({
     meta: [
       { title: "Biens à vendre à Boulogne-Billancourt | Vincent Deby" },
       { name: "description", content: "Appartements et maisons à vendre à Boulogne-Billancourt, Issy-les-Moulineaux, Paris 15e et 16e, et les biens déjà vendus par Vincent Deby, mandataire Efficity." },
-      { property: "og:title", content: "Nos biens à la vente — Vincent Deby" },
+      { property: "og:title", content: "Nos biens à la vente | Vincent Deby" },
       { property: "og:description", content: "Une sélection de biens à la vente, choisis avec soin." },
       { property: "og:url", content: `${SITE}/biens` },
     ],
@@ -58,7 +58,7 @@ function List() {
       <PageHeader
         eyebrow="Biens à vendre"
         title={<>Des biens présentés <em className="text-brand-ink">tels qu'ils sont.</em></>}
-        lede="Des annonces claires et fidèles au bien. Une annonce honnête fait gagner du temps à tout le monde."
+        lede="Les biens que j'ai en vente, décrits tels qu'ils sont. Si une annonce vous intéresse, appelez-moi : je réponds à vos questions avant la visite."
       />
       <section className="container-narrow mt-10 md:mt-16" aria-labelledby="a-vendre">
         <h2 id="a-vendre" className="sr-only">Biens à vendre</h2>

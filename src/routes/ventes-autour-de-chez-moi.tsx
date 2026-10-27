@@ -53,7 +53,7 @@ function Tool() {
       <PageHeader
         eyebrow="Outil gratuit · données publiques"
         title={<>Les ventes réelles <em className="text-brand-ink">autour de chez vous.</em></>}
-        lede="Pas d'algorithme opaque : les prix réellement signés chez le notaire pour des biens comparables au vôtre, à quelques rues. C'est la matière première de toute estimation sérieuse."
+        lede="Les prix réellement signés chez le notaire pour des biens comparables au vôtre, à quelques rues. C'est avec ces ventes que je construis une estimation."
       />
 
       <section className="container-narrow mt-10 md:mt-14">

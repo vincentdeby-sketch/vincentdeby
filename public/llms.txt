@@ -1,14 +1,22 @@
-# Vincent Deby — Conseiller Immobilier
+# Vincent Deby, conseiller immobilier
 
-> Vincent Deby, mandataire Efficity à Boulogne-Billancourt. Estimation immobilière juste et accompagnement à Boulogne-Billancourt et à Issy-les-Moulineaux, Paris 15e, Paris 16e et Paris Ouest.
+> Vincent Deby est conseiller immobilier, mandataire du réseau Efficity, à Boulogne-Billancourt. Il estime et vend des biens à Boulogne-Billancourt, Issy-les-Moulineaux, Paris 15e, Paris 16e et dans l'ouest parisien.
 
-Ancien journaliste, Vincent Deby applique à l'estimation la rigueur du métier : données croisées, ventes réelles et récentes du quartier, terrain. Un prix argumenté — jamais gonflé pour plaire, jamais dévalué. Accompagnement personnalisé de A à Z jusqu'à la remise des clés.
+Ancien journaliste (25 ans de métier), il fonde ses estimations sur les ventes réellement signées chez le notaire (base publique DVF) et sur la visite du bien. Il montre au propriétaire chaque vente de référence retenue, avec son adresse, sa date et son prix. Estimation gratuite et sans engagement. Téléphone : 06 10 02 24 36. E-mail : vdeby@efficity.com.
 
-## Pages
+## Pages principales
 
-- [Accueil](/): Présentation, approche et sélection de biens.
-- [Biens](/biens): Biens en vente et références vendues avec ma partenaire Corinne Abi-Khalil.
-- [Estimation](/estimation): Formulaire d'estimation gratuite en 5 minutes.
-- [Actualités](/actualites): Journal — analyses de marché et conseils immobiliers.
-- [Vidéos](/videos): Présentations, conseils et analyses en vidéo.
-- [Contact](/contact): Prendre rendez-vous avec Vincent Deby.
+- [Accueil](https://www.vincentimmo.com/): présentation, méthode, biens en vente.
+- [Estimation](https://www.vincentimmo.com/estimation): demande d'estimation en cinq étapes.
+- [Les ventes autour de chez moi](https://www.vincentimmo.com/ventes-autour-de-chez-moi): outil gratuit qui affiche les ventes comparables publiées (DVF) près d'une adresse.
+- [Biens à vendre](https://www.vincentimmo.com/biens): biens en vente, repris de la page Efficity de Vincent Deby.
+- [Journal](https://www.vincentimmo.com/actualites): articles sur le marché, la méthode d'estimation, les diagnostics, la fiscalité et les démarches de vente.
+- [Vidéos](https://www.vincentimmo.com/videos): vidéos de la chaîne YouTube @vincent_immo.
+- [Contact](https://www.vincentimmo.com/contact)
+
+## Marché par commune (ventes DVF)
+
+- [Boulogne-Billancourt](https://www.vincentimmo.com/secteurs/boulogne-billancourt)
+- [Issy-les-Moulineaux](https://www.vincentimmo.com/secteurs/issy-les-moulineaux)
+- [Paris 15e](https://www.vincentimmo.com/secteurs/paris-15e)
+- [Paris 16e](https://www.vincentimmo.com/secteurs/paris-16e)

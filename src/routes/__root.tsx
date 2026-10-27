@@ -10,30 +10,32 @@ import {
 import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
+import heroJpg from "@/assets/hero-home-1600.jpg";
+import portrait from "@/assets/vincent-deby-200.webp";
 import frauncesTitle from "@fontsource/fraunces/files/fraunces-latin-500-normal.woff2?url";
 import interText from "@fontsource/inter/files/inter-latin-400-normal.woff2?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { CookieBanner } from "@/components/site/CookieBanner";
-import { Cursor } from "@/components/motion/Cursor";
 import { VisitPing } from "@/components/site/VisitPing";
+import { Analytics } from "@/components/site/Analytics";
 
 function NotFoundComponent() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
+      <title>Page introuvable | Vincent Deby</title>
+      <meta name="robots" content="noindex" />
       <div className="max-w-md text-center">
         <h1 className="text-7xl font-bold text-foreground">404</h1>
         <h2 className="mt-4 text-xl font-semibold text-foreground">Page introuvable</h2>
         <p className="mt-2 text-sm text-muted-foreground">
-          Cette page n'existe pas ou a été déplacée.
+          Cette page n'existe pas ou a été déplacée. Vous cherchiez peut-être une estimation, ou les
+          ventes récentes de votre quartier ?
         </p>
-        <div className="mt-6">
-          <Link
-            to="/"
-            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
-          >
-            Retour à l'accueil
-          </Link>
+        <div className="mt-6 flex flex-wrap justify-center gap-2">
+          <Link to="/estimation" className="btn btn-primary !min-h-11">Estimer mon bien</Link>
+          <Link to="/ventes-autour-de-chez-moi" className="btn btn-ghost !min-h-11">Les ventes près de chez moi</Link>
         </div>
+        <Link to="/" className="mt-4 inline-block text-sm text-muted-foreground underline underline-offset-4">Retour à l'accueil</Link>
       </div>
     </div>
   );
@@ -85,10 +87,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "theme-color", content: "#F6F4EE" },
       { name: "format-detection", content: "telephone=no" },
       { name: "google-site-verification", content: "ohcGpz5lQjx3mV96WTSYv34NvaBs7emZH75wjQw3YIY" },
-      { property: "og:site_name", content: "Vincent Deby — Conseiller Immobilier" },
+      { property: "og:site_name", content: "Vincent Deby, conseiller immobilier" },
       { property: "og:locale", content: "fr_FR" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      // Image de partage par défaut (les pages qui en ont une la remplacent).
+      { property: "og:image", content: `https://www.vincentimmo.com${heroJpg}` },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
@@ -117,7 +121,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         children: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "RealEstateAgent",
-          name: "Vincent Deby — Conseiller Immobilier",
+          name: "Vincent Deby, conseiller immobilier",
           url: "https://www.vincentimmo.com",
           telephone: "+33610022436",
           email: "vdeby@efficity.com",
@@ -128,9 +132,20 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
             "Paris 16e",
             "Paris Ouest",
           ],
+          image: `https://www.vincentimmo.com${portrait}`,
           knowsLanguage: "fr",
+          priceRange: "Estimation gratuite",
           brand: { "@type": "Brand", name: "Efficity" },
-          sameAs: [] as string[],
+          founder: {
+            "@type": "Person",
+            name: "Vincent Deby",
+            jobTitle: "Conseiller immobilier, mandataire Efficity",
+          },
+          sameAs: [
+            "https://www.efficity.com/vdeby",
+            "https://www.youtube.com/@vincent_immo",
+            "https://www.immodvisor.com/pro/efficity-immobilier-vincent-deby-boulogne-billancourt-92100-92460.html",
+          ],
         }),
       },
     ],
@@ -163,8 +178,8 @@ function RootComponent() {
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <Outlet />
       <CookieBanner />
-      <Cursor />
       <VisitPing />
+      <Analytics />
     </QueryClientProvider>
   );
 }

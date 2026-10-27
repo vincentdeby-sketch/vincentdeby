@@ -27,7 +27,8 @@ export const Route = createFileRoute("/secteurs/$slug")({
   head: ({ loaderData, params }) => {
     const name = loaderData?.name ?? "";
     const url = `${SITE}/secteurs/${params.slug}`;
-    const title = `Prix immobilier à ${name} : les ventes réelles | Vincent Deby`;
+    const base = `Prix immobilier ${name} : ventes réelles`;
+    const title = base.length + 15 <= 60 ? `${base} | Vincent Deby` : base;
     const desc = `Prix au m² et dernières ventes réelles à ${name}, d'après les données publiques DVF. Analyse et estimation par Vincent Deby, conseiller Efficity.`;
     return {
       meta: [
@@ -38,6 +39,19 @@ export const Route = createFileRoute("/secteurs/$slug")({
         { property: "og:url", content: url },
       ],
       links: [{ rel: "canonical", href: url }],
+      scripts: [
+        {
+          type: "application/ld+json",
+          children: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Accueil", item: `${SITE}/` },
+              { "@type": "ListItem", position: 2, name: `Prix immobilier à ${name}`, item: url },
+            ],
+          }),
+        },
+      ],
     };
   },
   component: SectorPage,

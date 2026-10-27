@@ -3,9 +3,7 @@ import { ArrowUpRight, Check, Plus } from "lucide-react";
 import portrait from "@/assets/vincent-deby-200.webp";
 import { FAQ } from "@/lib/faq";
 import { HeroAddress } from "@/components/site/HeroAddress";
-import { Typewriter } from "@/components/motion/Typewriter";
 import { MethodSteps } from "@/components/motion/MethodSteps";
-import { WordReveal } from "@/components/motion/WordReveal";
 import { BeforeAfter } from "@/components/site/BeforeAfter";
 import { STAGINGS } from "@/data/home-staging";
 import { SECTORS } from "@/lib/sectors";
@@ -14,7 +12,9 @@ import { SiteShell } from "@/components/site/SiteShell";
 import { Reveal } from "@/components/site/Reveal";
 import { ArticleCard } from "@/components/site/ArticleCard";
 import { PropertyCard } from "@/components/site/PropertyCard";
-import { homeArticlesQuery, listingsQuery } from "@/lib/queries";
+import { homeArticlesQuery, listingsQuery, sectorMarketQuery } from "@/lib/queries";
+import { useQuery } from "@tanstack/react-query";
+import { formatDate, formatEUR } from "@/lib/domain";
 import { PriceGap } from "@/components/site/PriceGap";
 import heroWebp1600 from "@/assets/hero-home-1600.webp";
 import heroWebp960 from "@/assets/hero-home-960.webp";
@@ -27,11 +27,11 @@ import { ZONES } from "@/lib/zones";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Vincent Deby — Conseiller Immobilier à Boulogne-Billancourt" },
+      { title: "Vincent Deby, conseiller immobilier à Boulogne-Billancourt" },
       { name: "description", content: "Le prix juste, preuves à l'appui. Estimation immobilière gratuite à Boulogne-Billancourt, Issy-les-Moulineaux, Paris 15e, 16e et Paris Ouest par Vincent Deby, mandataire Efficity." },
-      { property: "og:title", content: "Vincent Deby — Conseiller Immobilier à Boulogne-Billancourt" },
+      { property: "og:title", content: "Vincent Deby, conseiller immobilier à Boulogne-Billancourt" },
       { property: "og:description", content: "Estimation immobilière et accompagnement à Boulogne-Billancourt par Vincent Deby, mandataire Efficity. Rigueur, données réelles et suivi de A à Z." },
-      { name: "twitter:title", content: "Vincent Deby — Conseiller Immobilier à Boulogne-Billancourt" },
+      { name: "twitter:title", content: "Vincent Deby, conseiller immobilier à Boulogne-Billancourt" },
       { name: "twitter:description", content: "Estimation immobilière et accompagnement à Boulogne-Billancourt par Vincent Deby, mandataire Efficity." },
       { property: "og:url", content: `${SITE}/` },
       { property: "og:image", content: `${SITE}${heroJpg}` },
@@ -59,7 +59,7 @@ export const Route = createFileRoute("/")({
         children: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "WebSite",
-          name: "Vincent Deby — Conseiller Immobilier",
+          name: "Vincent Deby, conseiller immobilier",
           url: `${SITE}/`,
           inLanguage: "fr-FR",
           publisher: { "@type": "RealEstateAgent", name: "Vincent Deby", telephone: "+33610022436", email: "vdeby@efficity.com", areaServed: ZONES },
@@ -83,17 +83,17 @@ const METHOD = [
   {
     n: "01",
     title: "Écouter",
-    text: "Votre bien a une histoire, votre projet aussi. Je commence par l'entendre : vos délais, vos contraintes, ce qui compte vraiment pour vous.",
+    text: "Je commence par vous écouter : vos délais, vos contraintes, la raison de la vente. C'est ce qui décide de la stratégie, avant même les mètres carrés.",
   },
   {
     n: "02",
     title: "Vérifier",
-    text: "Je recoupe les ventes réelles et récentes de votre rue et de votre quartier. Pas les prix affichés en vitrine : les prix signés chez le notaire.",
+    text: "Je recoupe les ventes signées chez le notaire dans votre rue et votre quartier, et non les prix affichés en vitrine. Chaque référence vous est montrée avec sa date et son adresse.",
   },
   {
     n: "03",
     title: "Raconter",
-    text: "Photos soignées, annonce écrite avec soin, diffusion ciblée. Un bien bien raconté attire des acquéreurs qui savent pourquoi ils viennent.",
+    text: "J'écris l'annonce moi-même et je soigne les photos. Une annonce précise attire des acheteurs qui savent déjà ce qu'ils viennent voir, et les visites sont plus utiles.",
   },
   {
     n: "04",
@@ -123,10 +123,11 @@ function Home() {
         <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-12">
           <div className="min-w-0 lg:col-span-7">
             <p className="eyebrow">
-              <span className="live-dot" aria-hidden="true" /> Conseiller immobilier · Boulogne-Billancourt
+              Conseiller immobilier · Boulogne-Billancourt
             </p>
-            <h1 className="mt-6" aria-label="Le prix juste, preuves à l'appui.">
-              <Typewriter parts={[{ text: "Le prix juste," }, "br", { text: "preuves à l'appui.", em: true, className: "text-brand-ink" }]} />
+            <h1 className="mt-6">
+              Le prix juste,<br />
+              <em className="text-brand-ink">preuves à l'appui.</em>
             </h1>
             <p className="mt-7 max-w-xl text-lg leading-relaxed text-muted-foreground md:text-xl">
               Vingt-cinq ans de journalisme m'ont appris à vérifier avant d'affirmer. Pour votre bien,
@@ -222,7 +223,7 @@ function Home() {
       {/* MÉTHODE */}
       <section className="container-narrow section">
         <Reveal className="grid gap-6 md:grid-cols-12">
-          <p className="eyebrow md:col-span-3">01 — La méthode</p>
+          <p className="eyebrow md:col-span-3">01 · La méthode</p>
           <h2 className="md:col-span-9">
             Un métier de journaliste, <em className="text-brand-ink">appliqué à votre vente.</em>
           </h2>
@@ -244,9 +245,9 @@ function Home() {
         <div className="grain overflow-hidden rounded-[2rem] bg-ink text-paper">
           <div className="container-narrow section grid gap-14 lg:grid-cols-2 lg:items-center">
             <Reveal>
-              <p className="eyebrow !text-paper/60">02 — Ce que vous recevez</p>
+              <p className="eyebrow !text-paper/60">02 · Ce que vous recevez</p>
               <h2 className="mt-6">
-                Une estimation, c'est un dossier. <em className="text-brand">Pas un chiffre lancé en l'air.</em>
+                Une estimation, c'est un dossier <em className="text-brand">que vous pouvez vérifier.</em>
               </h2>
               <ul className="mt-10 space-y-4">
                 {DOSSIER.map((d) => (
@@ -265,34 +266,7 @@ function Home() {
             </Reveal>
 
             <Reveal>
-              <figure>
-                <div className="rotate-[-1.5deg] rounded-3xl bg-paper p-6 text-ink shadow-[0_40px_80px_-30px_rgb(0_0_0/0.6)] md:p-8">
-                  <div className="flex items-center justify-between border-b border-ink/10 pb-4">
-                    <span className="font-mono text-[11px] uppercase tracking-[0.08em] text-ink/60">Dossier d'estimation</span>
-                    <span className="stamp rounded-md border-2 border-brand-ink px-2.5 py-1 font-mono text-[10px] font-semibold uppercase tracking-[0.08em] text-brand-ink">Sources vérifiées</span>
-                  </div>
-                  <p className="mt-5 font-serif text-2xl leading-tight">Ventes comparables, rayon de 500 m</p>
-                  <div className="mt-5 space-y-3">
-                    {[0.82, 0.64, 0.74, 0.56].map((w, i) => (
-                      <div key={i} className="flex items-center gap-3 rounded-xl border border-ink/10 p-3">
-                        <span className="font-mono text-[11px] text-ink/50">0{i + 1}</span>
-                        <div className="flex-1 space-y-1.5">
-                          <div className="fill-bar h-2 rounded-full bg-ink/15" style={{ width: `${w * 100}%`, transitionDelay: `${300 + i * 250}ms` }} />
-                          <div className="h-2 w-1/3 rounded-full bg-ink/8" />
-                        </div>
-                        <span className="fill-bar h-5 w-16 rounded-md bg-brand/40" style={{ transitionDelay: `${450 + i * 250}ms` }} />
-                      </div>
-                    ))}
-                  </div>
-                  <div className="mt-5 flex items-end justify-between border-t border-ink/10 pt-4">
-                    <span className="font-mono text-[11px] uppercase tracking-[0.08em] text-ink/60">Prix juste</span>
-                    <span className="fill-bar h-7 w-32 rounded-lg bg-ink" style={{ transitionDelay: "1350ms" }} />
-                  </div>
-                </div>
-                <figcaption className="mt-6 text-center font-mono text-[11px] uppercase tracking-[0.08em] text-paper/50">
-                  Illustration · chaque dossier est construit sur vos ventes réelles
-                </figcaption>
-              </figure>
+              <DossierSample />
             </Reveal>
           </div>
         </div>
@@ -322,13 +296,11 @@ function Home() {
       <section className="container-narrow section">
         <div className="grid gap-12 lg:grid-cols-12">
           <Reveal className="lg:col-span-7">
-            <p className="eyebrow">03 — Qui je suis</p>
+            <p className="eyebrow">03 · Qui je suis</p>
             <blockquote className="mt-6">
-              <WordReveal
-                text="« J'ai passé ma vie à écouter des histoires. Aujourd'hui, j'écoute celle de votre bien. »"
-                highlight="celle de votre bien."
-                className="font-serif text-[clamp(1.8rem,3.2vw,2.9rem)] leading-[1.1] tracking-[-0.03em]"
-              />
+              <p className="font-serif text-[clamp(1.8rem,3.2vw,2.9rem)] leading-[1.1] tracking-[-0.03em]">
+                « J'ai passé vingt-cinq ans à écouter des gens avant d'écrire une ligne. Je fais pareil avant de donner un prix. »
+              </p>
             </blockquote>
             <div className="mt-8 flex items-center gap-4">
               <img src={portrait} alt="" width={56} height={56} className="h-14 w-14 rounded-full object-cover" />
@@ -368,7 +340,7 @@ function Home() {
         <section className="container-narrow">
           <Reveal className="flex flex-wrap items-end justify-between gap-6">
             <div>
-              <p className="eyebrow">04 — À vendre</p>
+              <p className="eyebrow">04 · À vendre</p>
               <h2 className="mt-4">Biens en ce moment</h2>
             </div>
             <Link to="/biens" className="group btn btn-ghost">
@@ -387,7 +359,7 @@ function Home() {
         <section className="container-narrow section">
           <Reveal className="flex flex-wrap items-end justify-between gap-6">
             <div>
-              <p className="eyebrow">05 — Le journal</p>
+              <p className="eyebrow">05 · Le journal</p>
               <h2 className="mt-4">Ce que disent les ventes</h2>
             </div>
             <Link to="/actualites" className="group btn btn-ghost">
@@ -405,7 +377,7 @@ function Home() {
       <section className={`container-narrow ${articles.length > 0 ? "" : "section"}`}>
         <div className="grid gap-10 lg:grid-cols-12">
           <Reveal className="lg:col-span-4">
-            <p className="eyebrow">06 — Questions fréquentes</p>
+            <p className="eyebrow">06 · Questions fréquentes</p>
             <h2 className="mt-4">Avant de se parler</h2>
             <p className="mt-5 text-muted-foreground">
               Une autre question ? Appelez-moi au{" "}
@@ -430,5 +402,49 @@ function Home() {
         </div>
       </section>
     </SiteShell>
+  );
+}
+
+// Extrait réel : les dernières ventes d'appartements publiées à Boulogne-Billancourt (DVF).
+function DossierSample() {
+  const { data, isPending } = useQuery(sectorMarketQuery("boulogne-billancourt"));
+  const sales = data?.recent.slice(0, 4) ?? [];
+  return (
+    <figure>
+      <div className="rounded-3xl bg-paper p-6 text-ink shadow-[0_40px_80px_-30px_rgb(0_0_0/0.6)] md:p-8">
+        <div className="flex items-center justify-between gap-4 border-b border-ink/10 pb-4">
+          <span className="font-mono text-[11px] uppercase tracking-[0.08em] text-ink/60">Extrait d'un dossier</span>
+          <span className="rounded-md border-2 border-brand-ink px-2.5 py-1 font-mono text-[10px] font-semibold uppercase tracking-[0.08em] text-brand-ink">Source : DVF</span>
+        </div>
+        <p className="mt-5 font-serif text-2xl leading-tight">Dernières ventes publiées à Boulogne-Billancourt</p>
+        {sales.length > 0 ? (
+          <ul className="mt-5 divide-y divide-ink/10">
+            {sales.map((v, i) => (
+              <li key={i} className="grid grid-cols-[1fr_auto] gap-x-4 py-3 text-sm">
+                <span className="font-medium">{v.address}</span>
+                <span className="text-right font-semibold tabular-nums">{formatEUR(v.pricePerM2)}/m²</span>
+                <span className="text-ink/60">{formatDate(v.date)} · {Math.round(v.surface)} m²{v.rooms ? ` · ${v.rooms} p.` : ""}</span>
+                <span className="text-right text-ink/60 tabular-nums">{formatEUR(v.price)}</span>
+              </li>
+            ))}
+          </ul>
+        ) : isPending ? (
+          <div className="mt-5 space-y-3" aria-hidden="true">
+            {Array.from({ length: 4 }).map((_, i) => <div key={i} className="skeleton h-12 rounded-xl" />)}
+          </div>
+        ) : (
+          <p className="mt-5 text-sm leading-relaxed text-ink/70">
+            Pour chaque vente retenue : l'adresse, la date de signature, la surface, le prix payé et le
+            prix au m². Ce sont les données publiques DVF, issues des actes notariés.
+          </p>
+        )}
+      </div>
+      <figcaption className="mt-6 text-center text-sm text-paper/60">
+        Pour votre bien, je retiens les ventes les plus proches et les plus comparables, rue par rue.{" "}
+        <Link to="/secteurs/$slug" params={{ slug: "boulogne-billancourt" }} className="text-paper underline decoration-brand decoration-2 underline-offset-4">
+          Voir le marché de Boulogne
+        </Link>
+      </figcaption>
+    </figure>
   );
 }

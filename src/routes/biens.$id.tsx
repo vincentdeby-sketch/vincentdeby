@@ -22,7 +22,7 @@ export const Route = createFileRoute("/biens/$id")({
     const url = `${SITE}/biens/${params?.id ?? ""}`;
     if (!loaderData) {
       return {
-        meta: [{ title: "Bien introuvable — Vincent Deby" }, { name: "robots", content: "noindex" }],
+        meta: [{ title: "Bien introuvable | Vincent Deby" }, { name: "robots", content: "noindex" }],
         links: [{ rel: "canonical", href: url }],
       };
     }
@@ -34,7 +34,7 @@ export const Route = createFileRoute("/biens/$id")({
     const desc = full.length > 155 ? `${full.slice(0, 154).replace(/\s+\S*$/, "")}…` : full;
     return {
       meta: [
-        { title: `${p.title} — ${formatEUR(p.price)} | Vincent Deby` },
+        { title: `${p.title}, ${formatEUR(p.price)} | Vincent Deby` },
         { name: "description", content: desc },
         { property: "og:title", content: p.title },
         { property: "og:description", content: desc },

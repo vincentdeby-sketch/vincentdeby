@@ -4,7 +4,6 @@ import { Menu, X, Phone, ArrowUpRight } from "lucide-react";
 import portrait from "@/assets/vincent-deby-200.webp";
 import { useIsDesktop } from "@/hooks/use-is-desktop";
 import { QrLinkDialog } from "./QrLinkDialog";
-import { Magnetic } from "@/components/motion/Magnetic";
 
 const CALENDLY_URL = "https://calendly.com/vdeby-efficity/rdv-estimation-immobiliere";
 const PHONE = "+33610022436";
@@ -111,12 +110,10 @@ export function Header() {
             <Phone className="h-4 w-4" aria-hidden="true" />
             <span className="hidden tabular-nums xl:inline">{PHONE_DISPLAY}</span>
           </a>
-          <Magnetic className="hidden sm:inline-block">
-            <Link to="/estimation" className="group btn btn-primary !min-h-11 !py-2">
+          <Link to="/estimation" className="group hidden sm:inline-flex btn btn-primary !min-h-11 !py-2">
               Estimer mon bien
               <span className="btn-arrow" aria-hidden="true"><ArrowUpRight className="h-3.5 w-3.5" /></span>
             </Link>
-          </Magnetic>
           <button
             type="button"
             className="grid h-11 w-11 place-items-center rounded-full bg-foreground text-background lg:hidden"

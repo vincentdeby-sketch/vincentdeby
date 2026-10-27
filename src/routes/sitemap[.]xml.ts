@@ -4,6 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { getListings } from "@/lib/efficity";
 import { SECTORS } from "@/lib/sectors";
 import { STORIES } from "@/data/stories";
+import { liveLocalArticles } from "@/lib/articles";
 
 import { SITE as BASE_URL } from "@/lib/site";
 
@@ -34,12 +35,19 @@ export const Route = createFileRoute("/sitemap.xml")({
           { path: "/cgu", changefreq: "yearly", priority: "0.2" },
         ];
 
+        const seen = new Set<string>();
+        for (const a of liveLocalArticles()) {
+          seen.add(a.slug);
+          entries.push({ path: `/actualites/${a.slug}`, lastmod: (a.updated_at ?? a.published_at)?.slice(0, 10), changefreq: "monthly", priority: "0.7" });
+        }
+
         try {
           const { data: articles } = await supabase
             .from("articles")
             .select("slug, updated_at, published_at")
             .eq("published", true);
           for (const a of articles ?? []) {
+            if (seen.has(a.slug)) continue;
             entries.push({
               path: `/actualites/${a.slug}`,
               lastmod: (a.updated_at ?? a.published_at ?? undefined)?.slice(0, 10),

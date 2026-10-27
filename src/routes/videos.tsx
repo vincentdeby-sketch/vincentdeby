@@ -37,9 +37,9 @@ const videos: Video[] = [
 export const Route = createFileRoute("/videos")({
   head: () => ({
     meta: [
-      { title: "Vidéos — Vincent Deby, conseiller immobilier" },
+      { title: "Vidéos | Vincent Deby, conseiller immobilier" },
       { name: "description", content: "Retrouvez toutes les vidéos de Vincent Deby : présentation, conseils immobiliers, analyses de marché et visites de biens." },
-      { property: "og:title", content: "Vidéos — Vincent Deby" },
+      { property: "og:title", content: "Vidéos | Vincent Deby" },
       { property: "og:description", content: "Présentations, conseils et analyses en vidéo par Vincent Deby, conseiller immobilier mandataire Efficity." },
       { property: "og:url", content: `${SITE}/videos` },
       { property: "og:type", content: "website" },

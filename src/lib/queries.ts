@@ -1,34 +1,35 @@
 import { queryOptions } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import type { Article, Property } from "@/lib/domain";
+import { localArticle, withLocalArticles } from "@/lib/articles";
 import { getListing, getListings, type Listing } from "@/lib/efficity";
 import { getSectorMarket } from "@/lib/dvf";
 
-export const homeArticlesQuery = queryOptions({
-  queryKey: ["articles", "home"],
-  staleTime: 60_000,
-  queryFn: async () => {
-    const { data } = await supabase
-      .from("articles")
-      .select("id,slug,title,excerpt,cover_url,published_at,created_at")
-      .eq("published", true)
-      .order("published_at", { ascending: false, nullsFirst: false })
-      .limit(3);
-    return (data ?? []) as Article[];
-  },
-});
-
-export const articlesListQuery = queryOptions({
-  queryKey: ["articles", "list"],
-  staleTime: 60_000,
-  queryFn: async () => {
+// Articles : ceux de l'espace admin (Supabase) et ceux du fichier src/data/articles.ts.
+// Si la base ne répond pas, les articles du fichier restent affichés.
+async function remoteArticles(): Promise<Article[]> {
+  try {
     const { data } = await supabase
       .from("articles")
       .select("id,slug,title,excerpt,cover_url,published_at,created_at")
       .eq("published", true)
       .order("published_at", { ascending: false, nullsFirst: false });
     return (data ?? []) as Article[];
-  },
+  } catch {
+    return [];
+  }
+}
+
+export const articlesListQuery = queryOptions({
+  queryKey: ["articles", "list"],
+  staleTime: 60_000,
+  queryFn: async () => withLocalArticles(await remoteArticles()),
+});
+
+export const homeArticlesQuery = queryOptions({
+  queryKey: ["articles", "home"],
+  staleTime: 60_000,
+  queryFn: async () => withLocalArticles(await remoteArticles()).slice(0, 3),
 });
 
 export const articleBySlugQuery = (slug: string) =>
@@ -36,13 +37,18 @@ export const articleBySlugQuery = (slug: string) =>
     queryKey: ["article", slug],
     staleTime: 60_000,
     queryFn: async () => {
-      const { data } = await supabase
-        .from("articles")
-        .select("*")
-        .eq("slug", slug)
-        .eq("published", true)
-        .maybeSingle();
-      return (data as Article | null) ?? null;
+      try {
+        const { data } = await supabase
+          .from("articles")
+          .select("*")
+          .eq("slug", slug)
+          .eq("published", true)
+          .maybeSingle();
+        if (data) return data as Article;
+      } catch {
+        // base injoignable : on tente le fichier local
+      }
+      return localArticle(slug);
     },
   });
 

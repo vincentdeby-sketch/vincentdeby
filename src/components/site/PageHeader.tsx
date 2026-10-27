@@ -15,7 +15,7 @@ export function PageHeader({
   return (
     <section className="container-narrow pt-10 md:pt-16">
       <p className="eyebrow">
-        <span className="live-dot" aria-hidden="true" /> {eyebrow}
+        {eyebrow}
       </p>
       <h1 className="mt-6 max-w-4xl">{title}</h1>
       {lede && <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground md:text-xl">{lede}</p>}

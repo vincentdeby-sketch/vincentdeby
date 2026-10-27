@@ -6,6 +6,7 @@ import { PageHeader } from "@/components/site/PageHeader";
 import { ArticleCard } from "@/components/site/ArticleCard";
 import { Reveal } from "@/components/site/Reveal";
 import { articlesListQuery } from "@/lib/queries";
+import { liveLocalArticles } from "@/lib/articles";
 
 import { SITE } from "@/lib/site";
 
@@ -14,13 +15,32 @@ export const Route = createFileRoute("/actualites/")({
   pendingMs: 200,
   head: () => ({
     meta: [
-      { title: "Actualités immobilières à Boulogne-Billancourt | Vincent Deby" },
+      { title: "Journal de l'immobilier à Boulogne | Vincent Deby" },
       { name: "description", content: "Prix, ventes récentes et décryptages du marché immobilier à Boulogne-Billancourt, Issy-les-Moulineaux et Paris Ouest, par Vincent Deby, mandataire Efficity." },
-      { property: "og:title", content: "Actualités immobilières — Vincent Deby" },
-      { property: "og:description", content: "Analyses de marché, décryptages et notes sur l'immobilier." },
+      { property: "og:title", content: "Actualités immobilières | Vincent Deby" },
+      { property: "og:description", content: "Prix, ventes réelles, diagnostics, fiscalité : ce qu'il faut savoir pour vendre ou acheter à Boulogne-Billancourt et dans l'ouest parisien." },
       { property: "og:url", content: `${SITE}/actualites` },
     ],
     links: [{ rel: "canonical", href: `${SITE}/actualites` }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Blog",
+          name: "Le journal de Vincent Deby",
+          url: `${SITE}/actualites`,
+          inLanguage: "fr-FR",
+          author: { "@type": "Person", name: "Vincent Deby" },
+          blogPost: liveLocalArticles().map((a) => ({
+            "@type": "BlogPosting",
+            headline: a.title,
+            url: `${SITE}/actualites/${a.slug}`,
+            datePublished: a.published_at,
+          })),
+        }),
+      },
+    ],
   }),
   loader: ({ context }) => context.queryClient.ensureQueryData(articlesListQuery),
   component: ArticlesList,
@@ -36,7 +56,7 @@ function ArticlesList() {
       <PageHeader
         eyebrow="Le journal"
         title={<>Ce que disent <em className="text-brand-ink">vraiment</em> les ventes.</>}
-        lede="Analyses et décryptages du marché immobilier à Boulogne-Billancourt, Issy-les-Moulineaux et Paris Ouest. Des chiffres sourcés, sans effet d'annonce."
+        lede="Ce que je vois sur le terrain et dans les ventes publiées, à Boulogne-Billancourt, Issy-les-Moulineaux et dans l'ouest parisien. Chaque chiffre a sa source."
       />
       <section className="container-narrow mt-10 md:mt-16">
         {items.length === 0 ? (
