@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-10-10",
+  "fetchedAt": "2026-10-27",
   "forSale": [
     {
       "id": "30054767",
@@ -50,18 +50,6 @@
       "exclusive": false
     },
     {
-      "id": "29503801",
-      "type": "appartement",
-      "city": "Paris",
-      "postalCode": "75007",
-      "price": 435000,
-      "surface": 35,
-      "rooms": 2,
-      "cover": "https://d1q967606ga7w2.cloudfront.net/common/house/29503801/photos/s/watermark-whatsapp-image-2026-06-05-at-153942-10.jpeg",
-      "url": "https://www.efficity.com/achat-immobilier/appartement_35-m2_paris_75007_29503801/",
-      "exclusive": true
-    },
-    {
       "id": "29447119",
       "type": "appartement",
       "city": "Saint-Cloud",
@@ -69,7 +57,7 @@
       "price": 295000,
       "surface": 50,
       "rooms": 3,
-      "cover": "https://d1q967606ga7w2.cloudfront.net/common/house/29447119/photos/s/gemini_generated_image_suv8csuv8csuv8cs.jpg",
+      "cover": "https://d1q967606ga7w2.cloudfront.net/common/house/29447119/photos/s/watermark-salon-6.jpeg",
       "url": "https://www.efficity.com/achat-immobilier/appartement_50-m2_saint-cloud_92210_29447119/",
       "exclusive": true
     },
@@ -100,13 +88,22 @@
   ],
   "sold": [
     {
+      "id": "29503801",
+      "type": "appartement",
+      "city": "Paris",
+      "postalCode": "75007",
+      "surface": 35,
+      "rooms": 2,
+      "cover": "//d1q967606ga7w2.cloudfront.net/common/house/29503801/photos/s/watermark-whatsapp-image-2026-06-05-at-153942-10.jpeg"
+    },
+    {
       "id": "29266653",
       "type": "appartement",
       "city": "Paris",
       "postalCode": "75016",
       "surface": 30,
       "rooms": 2,
-      "cover": "https://d1q967606ga7w2.cloudfront.net/common/house/29266653/photos/s/watermark-vue-salon-cuisine.JPG"
+      "cover": "//d1q967606ga7w2.cloudfront.net/common/house/29266653/photos/s/watermark-vue-salon-cuisine.JPG"
     }
   ],
   "prices": {
@@ -203,37 +200,6 @@
       ],
       "bedrooms": 2,
       "dpe": "E",
-      "feesNote": "Le prix de vente est affiché hors frais de notaire, d'enregistrement et de publicité foncière.\nLes honoraires sont à la charge du vendeur."
-    },
-    "29503801": {
-      "id": "29503801",
-      "description": "75007 - ÉCOLE MILITAIRE / RUE CLER - CLAIR & CALME - ÉTAGE ÉLEVÉ - 1 CHAMBRE - EXCLUSIVITÉ – EMPLACEMENT EXCEPTIONNEL\n\nIdéalement situé au cœur du très prisé quartier du Gros Caillou, à deux pas du Champ de Mars, de la célèbre rue Cler piétonne et de ses commerces de bouche renommés, EffiCity vous invite à découvrir cet appartement de 35 m². Niché au 4ème étage sur 5 d’un bel immeuble parfaitement entretenu, ce bien rare bénéficie d'un calme absolu et d'une luminosité remarquable.\n\nActuellement configuré en studio, il peut être aménagé en 2 pièces.\n\nUn intérieur baigné de lumière et optimisé\n\nL'appartement vient tout juste d'être entièrement refait à neuf (peintures neuves, électricité et plomberie impeccables, aucun travaux à prévoir). Il se compose :\n\nD’un spacieux séjour de 30 m² offrant de superbes volumes et une belle hauteur sous plafond, exposé Plein Est, garantissant une superbe lumière naturelle avec une vue dégagée.\n\nD’une cuisine ouverte moderne, parfaitement intégrée à l'espace de vie pour plus de convivialité.\nD’une salle de bain avec baignoire.\n\nUne copropriété saine et de standing\nL’immeuble se trouve dans un excellent état général, avec des parties communes soignées. La copropriété est saine, conviviale et très bien gérée. Une cave saine de 4 m² vient compléter ce bien.\n\nUne vie de quartier typiquement parisienne\nVous profiterez d'un environnement exceptionnel et extrêmement commerçant, à seulement :\n\n3 minutes à pied de la station de métro École Militaire (Ligne 8).\n\n5 minutes à pied du Champ de Mars et de la Tour Eiffel.\n\nLes + de ce bien :\n\nEmplacement N°1 (Gros Caillou / Rue Cler).\n\nEntièrement refait à neuf (prêt à habiter ou à louer).\n\nÉtage élevé, très lumineux (Est) et vue dégagée.\n\nCalme absolu en plein Paris.\n\nIdéal premier achat, pied-à-terre ou investissement locatif premium à forte rentabilité.",
-      "photos": [
-        "https://d1q967606ga7w2.cloudfront.net/common/house/29503801/photos/l/watermark-whatsapp-image-2026-06-05-at-153942-10.jpeg",
-        "https://d1q967606ga7w2.cloudfront.net/common/house/29503801/photos/l/watermark-chatgpt-image-15-juin-2026-13_28_18.jpg",
-        "https://d1q967606ga7w2.cloudfront.net/common/house/29503801/photos/l/watermark-whatsapp-image-2026-06-05-at-153942-13.jpeg",
-        "https://d1q967606ga7w2.cloudfront.net/common/house/29503801/photos/l/watermark-whatsapp-image-2026-06-05-at-153942-15.jpeg",
-        "https://d1q967606ga7w2.cloudfront.net/common/house/29503801/photos/l/watermark-whatsapp-image-2026-06-05-at-153941-8.jpeg",
-        "https://d1q967606ga7w2.cloudfront.net/common/house/29503801/photos/l/watermark-whatsapp-image-2026-06-05-at-153942-6.jpeg",
-        "https://d1q967606ga7w2.cloudfront.net/common/house/29503801/photos/l/watermark-whatsapp-image-2026-06-05-at-153942-8.jpeg",
-        "https://d1q967606ga7w2.cloudfront.net/common/house/29503801/photos/l/watermark-plan.jpg",
-        "https://d1q967606ga7w2.cloudfront.net/common/house/29503801/photos/l/watermark-whatsapp-image-2026-06-05-at-153942-9.jpeg",
-        "https://d1q967606ga7w2.cloudfront.net/common/house/29503801/photos/l/watermark-whatsapp-image-2026-06-05-at-153942-2.jpeg",
-        "https://d1q967606ga7w2.cloudfront.net/common/house/29503801/photos/l/watermark-whatsapp-image-2026-06-05-at-170428.jpeg",
-        "https://d1q967606ga7w2.cloudfront.net/common/house/29503801/photos/l/watermark-whatsapp-image-2026-06-05-at-153943-2.jpeg",
-        "https://d1q967606ga7w2.cloudfront.net/common/house/29503801/photos/l/watermark-whatsapp-image-2026-06-05-at-153942-16.jpeg",
-        "https://d1q967606ga7w2.cloudfront.net/common/house/29503801/photos/l/watermark-whatsapp-image-2026-06-05-at-153943-5.jpeg",
-        "https://d1q967606ga7w2.cloudfront.net/common/house/29503801/photos/l/watermark-whatsapp-image-2026-06-05-at-153943.jpeg"
-      ],
-      "features": [
-        "1 chambre",
-        "1 salle de bains",
-        "Exposition Est",
-        "Cave de 4 m²",
-        "4ème étage"
-      ],
-      "bedrooms": 1,
-      "dpe": "F",
       "feesNote": "Le prix de vente est affiché hors frais de notaire, d'enregistrement et de publicité foncière.\nLes honoraires sont à la charge du vendeur."
     },
     "29620637": {

@@ -105,7 +105,8 @@ export function parseListingsPage(html: string): { forSale: EfficityListing[]; s
   const forSale: EfficityListing[] = [];
   for (const chunk of splitItems(saleHtml)) {
     const id = attr(chunk, "data-id");
-    const url = chunk.match(/href="(https:\/\/www\.efficity\.com\/achat-immobilier\/[^"]+)"/)?.[1];
+    // Lien absolu ou relatif (« /achat-immobilier/… ») selon la version de la page.
+    const url = chunk.match(/href="((?:https:\/\/www\.efficity\.com)?\/achat-immobilier\/[^"]+)"/)?.[1]?.replace(/^\//, "https://www.efficity.com/");
     const cover = chunk.match(/<img[^>]+(?:data-src|src)="(https?:[^"]+|\/\/[^"]+)"/)?.[1]?.replace(/^\/\//, "https://");
     const alt = parseAlt(chunk.match(/<img[^>]+alt="([^"]*)"/)?.[1] ?? "");
     const price = Number(attr(chunk, "data-price")) || euros(chunk.match(/<p class="price">([^<]+)<\/p>/)?.[1] ?? "");
