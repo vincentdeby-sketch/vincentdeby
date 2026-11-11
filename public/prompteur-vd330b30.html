@@ -10,7 +10,10 @@
 :root{--v:#4eae32;--fs:30px}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;height:100%;background:#000;color:#fff;font-family:Montserrat,system-ui,-apple-system,sans-serif;overflow:hidden}
-video#cam{position:fixed;inset:0;width:100%;height:100%;object-fit:cover;transform:scaleX(-1)}
+video#cam,canvas#frame{position:fixed;inset:0;width:100%;height:100%;object-fit:cover;transform:scaleX(-1);background:#000}
+canvas#frame{display:none;object-fit:contain}
+button.tog{font-size:13px;padding:9px 11px}
+button.tog.on{background:var(--v);color:#000;font-weight:800}
 #prompt{position:fixed;left:0;right:0;top:env(safe-area-inset-top);height:var(--ph,42vh);overflow:hidden;background:linear-gradient(#000d 70%,#0000);padding:14px 18px 0}
 #scroll{font-weight:800;font-size:var(--fs);line-height:1.35;padding-bottom:42vh}
 #scroll p{margin:0 0 .5em}
@@ -37,6 +40,7 @@ input[type=range]{accent-color:var(--v);width:100%}
 </head>
 <body>
 <video id="cam" playsinline muted autoplay></video>
+<canvas id="frame" width="1080" height="1920"></canvas>
 <div id="prompt"><div id="scroll"></div></div>
 <div id="count"></div>
 
@@ -52,9 +56,11 @@ input[type=range]{accent-color:var(--v);width:100%}
     <label>Taille<input id="fs" type="range" min="20" max="56" value="30"></label>
   </div>
   <div class="row" style="justify-content:center;gap:22px">
+    <button id="fmt" class="tog on">9:16</button>
     <button id="back" title="Revenir au début du texte">↺</button>
     <button id="rec" aria-label="Enregistrer"><i></i></button>
     <button id="flip" title="Changer de caméra">⟲</button>
+    <button id="wide" class="tog on">Grand angle</button>
   </div>
 </div>
 
@@ -83,6 +89,8 @@ window.addEventListener("unhandledrejection",e=>showErr("Erreur : "+(e.reason&&(
 const D = [{"n": 1, "t": "Les prix baissent", "txt": ["Les prix de l'immobilier baissent. Pour la première fois cette année.", "Au 1er novembre, l'indice SeLoger et Meilleurs Agents recule de 0,1 % en un mois.", "Zéro virgule un. On est loin d'un effondrement.", "Mais l'acheteur a lu ce titre, comme vous.", "Il viendra en visite avec ce chiffre en tête.", "Si votre prix est calé sur l'annonce du voisin, il le sentira tout de suite.", "La moyenne nationale ne dit rien de votre appartement.", "Ce qui compte, c'est ce qui s'est vendu dans votre rue ces derniers mois.", "Ça, je peux vous le montrer. Le lien est en bio."]}, {"n": 2, "t": "Pas les annonces. Les ventes.", "txt": ["Avant de vous donner un prix, je ne regarde pas les annonces.", "Une annonce, c'est ce qu'un vendeur espère. Pas ce qu'un acheteur a payé.", "Je regarde les ventes signées. Elles sont publiques, dans la base DVF de l'État.", "Je prends celles de votre rue, de votre immeuble quand il y en a, sur les derniers mois.", "Ensuite je vais voir. L'étage, l'exposition, l'état, le vis-à-vis.", "Deux appartements de même surface, dans la même rue, peuvent avoir des prix très différents.", "Vérifier, recouper. C'est un réflexe de journaliste. Je l'ai gardé.", "Si vous voulez voir votre appartement traité comme ça, le lien est en bio."]}, {"n": 3, "t": "DPE : la lettre a peut-être changé", "txt": ["Votre appartement est chauffé à l'électricité ? Votre DPE a peut-être une lettre de trop.", "Depuis le 1er janvier 2026, le calcul a changé.", "Le coefficient de l'électricité est passé de 2,3 à 1,9.", "En clair, à consommation égale, un logement chauffé à l'électricité est mieux noté qu'avant.", "Une partie des logements peut gagner une lettre. Certains sortent même de la catégorie passoire.", "Si votre diagnostic date d'avant 2026 et que vous vendez, faites-le refaire.", "C'est l'une des premières pages que l'acheteur regarde.", "On le regarde ensemble ? Écrivez DPE en commentaire."]}, {"n": 4, "t": "L'État emprunte plus cher. Vous aussi.", "txt": ["Le 21 octobre, la France a emprunté à dix ans à plus de 5 %.", "Du jamais vu depuis 2002.", "Quel rapport avec votre appartement ? Les banques regardent ce taux pour fixer les leurs.", "En novembre, le taux moyen sur 25 ans est à 3,85 % chez le courtier Pretto. En début d'année, il était à 3,24 %.", "Pour un vendeur, ça veut dire une chose simple : votre acheteur peut emprunter moins qu'au printemps.", "Votre prix doit tenir compte de son budget d'aujourd'hui. Pas de celui d'il y a six mois.", "Écrivez ESTIM en commentaire, je vous explique comment je le calcule."]}, {"n": 5, "t": "Le pont qui vaut 2 600 € le m²", "txt": ["Il y a une frontière à Boulogne. Elle ne se voit pas, mais elle se paie.", "Paris 16e d'un côté. Boulogne de l'autre.", "En 2025, d'après les ventes enregistrées dans la base DVF, le prix médian d'un appartement dans le 16e, c'est 10 935 euros le mètre carré.", "À Boulogne, 8 290.", "Plus de 2 600 euros d'écart au mètre carré, à quelques rues près.", "Sur un 60 mètres carrés, ça fait plus de 150 000 euros.", "Pour un acheteur qui vise le 16e, Boulogne peut devenir l'option. Et ce profil-là, il faut savoir lui parler.", "Vous êtes à la limite des deux ? Dites-moi votre rue en commentaire."]}, {"n": 6, "t": "Je ne vous appellerai pas", "txt": ["Je ne vous appellerai jamais sans votre accord.", "Ce n'est pas de la politesse. C'est la loi.", "Depuis le 11 août 2026, le démarchage téléphonique sans consentement préalable est interdit.", "Avant, n'importe qui pouvait trouver votre numéro et vous appeler.", "Aujourd'hui, si vous voulez que je vous rappelle, c'est vous qui le demandez.", "Et ça me va très bien. Je préfère parler à quelqu'un qui a une vraie question qu'à quelqu'un que j'ai dérangé à table.", "Si vous en avez une, sur votre bien ou sur le marché, le formulaire est dans ma bio. Vous cochez, je rappelle."]}, {"n": 7, "t": "300 000 € : 3 740 € de plus", "txt": ["Vous empruntez 300 000 euros sur 20 ans.", "En un mois, votre crédit vient de coûter 3 740 euros de plus.", "C'est le calcul du courtier Pretto entre octobre et novembre. Mensualité : 1 780 euros, hors assurance, à 3,76 %.", "Personne ne vous a rien demandé. Le taux a bougé, c'est tout.", "Si vous achetez, comparez les banques maintenant. Pas dans trois mois.", "Si vous vendez, l'acheteur qui visite chez vous a fait ce calcul avant de venir. Il sait ce qu'il peut mettre.", "Vous voulez savoir si votre prix rentre dans son budget ? Le lien est en bio."]}, {"n": 8, "t": "Les papiers avant l'offre", "txt": ["Un acheteur sérieux vous demandera ces papiers avant même de faire une offre.", "Les trois derniers procès-verbaux d'assemblée générale.", "Le montant des charges. La dernière taxe foncière. Le DPE.", "Et si l'immeuble a plus de quinze ans, le plan pluriannuel de travaux.", "Dans les PV, il cherche une chose : les travaux votés, et ceux dont on parle depuis des années sans les voter.", "Si vous les avez lus avant lui, rien ne vous surprend pendant la négociation.", "Je les lis avec vous, ligne par ligne. Écrivez DOSSIER en commentaire."]}, {"n": 9, "t": "La maison de vos parents", "txt": ["Vendre l'appartement de ses parents, ce n'est pas une vente comme les autres.", "Il y a les souvenirs. Et souvent, des frères et sœurs.", "Une règle à connaître : en indivision, en principe, il faut l'accord de tous pour vendre.", "Il existe des exceptions. C'est votre notaire qui vous les expliquera.", "Mon rôle est ailleurs. Donner un prix que chacun peut vérifier, avec les ventes réelles du quartier.", "Quand tout le monde regarde les mêmes chiffres, la discussion change.", "Si vous êtes dans ce cas, prenons le temps d'en parler. Le lien est en bio."]}, {"n": 10, "t": "Ce que l'estimation en ligne ne voit pas", "txt": ["Vous avez tapé votre adresse sur un site d'estimation. Il vous a donné un chiffre.", "Ce chiffre ne sait pas à quel étage vous habitez.", "Il ne sait pas si vous avez un vis-à-vis à six mètres ou une vue dégagée.", "Il ne sait pas que la cuisine a été refaite. Ni que l'ascenseur est en panne depuis l'été.", "Il fait une moyenne. Votre appartement n'est pas une moyenne.", "Ces outils servent à se faire une idée. Pas à fixer un prix.", "Pour ça, il faut entrer, regarder, et comparer avec les vraies ventes. Je viens voir le vôtre ? Le lien est en bio."]}, {"n": 11, "t": "PTZ : les parents propriétaires", "txt": ["Vous êtes déjà propriétaire et un enfant arrive.", "Jusqu'ici, pour acheter plus grand, pas de prêt à taux zéro.", "Le projet de budget 2027 veut changer ça. Il crée un PTZ parentalité, ouvert aux parents déjà propriétaires.", "J'insiste sur un mot : projet. Rien n'est voté.", "L'an dernier, le budget a donné lieu à un long bras de fer. Ça peut encore bouger.", "Si la mesure passe, ceux qui vendent un deux-pièces pour un trois-pièces seront les premiers concernés.", "Je suivrai le vote et je vous dirai ce qui reste à la fin. Vous êtes dans ce cas ? Écrivez PTZ en commentaire."]}, {"n": 12, "t": "Trois mètres carrés", "txt": ["Trois mètres carrés de trop sur l'acte. Après la vente, ils peuvent vous coûter près de 25 000 euros.", "La loi Carrez est simple. Si la surface réelle est inférieure de plus de 5 % à celle de l'acte, l'acheteur a un an pour demander une baisse du prix proportionnelle.", "Trois mètres carrés de moins sur un 55 mètres carrés, c'est plus de 5 %.", "À Boulogne, avec un prix médian de 8 290 euros le mètre carré en 2025 selon DVF, ça fait près de 25 000 euros.", "C'est pour ça que je vérifie le métrage avant la mise en vente. Pas après la signature.", "Un doute sur le vôtre ? Écrivez CARREZ en commentaire."]}, {"n": 13, "t": "La lumière d'un appartement", "txt": ["Les photos de votre annonce, l'acheteur les voit avant de vous rencontrer.", "C'est sur elles qu'il décide s'il vient visiter.", "Alors je ne photographie pas un appartement à n'importe quelle heure.", "Je regarde où entre la lumière. Le salon au moment où il est le plus beau. Pas à midi, en plein contre-jour.", "J'ai passé des années derrière une caméra. La lumière, c'est ce qui raconte un lieu.", "Un appartement mal éclairé en photo, on le fait défiler sans s'arrêter.", "Vous voulez voir ce que ça donne chez vous ? Le lien est en bio."]}, {"n": 14, "t": "0,16 point = 7 100 €", "txt": ["Un couple de primo-accédants en Île-de-France emprunte 273 000 euros sur 25 ans.", "La banque propose 3,80 %. Ils négocient. Ils obtiennent 3,64 %.", "Seize centièmes. Ça paraît rien.", "C'est 24 euros de moins par mois. Et environ 7 100 euros d'intérêts en moins sur la durée.", "L'exemple est publié ce mois-ci par le courtier Pretto.", "La leçon vaut pour un prix d'appartement : un écart qui paraît petit pèse lourd à la fin.", "Vous achetez ou vous vendez dans le coin ? Dites-moi votre quartier en commentaire."]}, {"n": 15, "t": "Le DPE de l'immeuble", "txt": ["Vous vendez un appartement dans un petit immeuble ? Une question va arriver en visite.", "« L'immeuble a son DPE collectif ? »", "Depuis le 1er janvier 2026, les copropriétés de 50 lots ou moins, dont le permis date d'avant 2013, doivent en avoir un.", "Ça ne remplace pas le DPE de votre appartement. Il faut les deux.", "S'il manque, ce n'est pas votre oubli. C'est celui de la copropriété. Mais c'est votre vente qui peut ralentir.", "Avant de mettre en vente, posez la question à votre syndic.", "Vous voulez la liste complète des papiers à réunir ? Écrivez DOSSIER en commentaire."]}, {"n": 16, "t": "Vendre en décembre", "txt": ["Vous pensez peut-être : je vendrai au printemps, décembre c'est mort.", "Pas forcément.", "En décembre, ceux qui visitent ne se promènent pas. Ils ont une raison. Une mutation, une naissance, une séparation, un bail qui se termine.", "Et chaque vendeur qui attend janvier, c'est une annonce de moins à côté de la vôtre.", "Un acheteur motivé, avec moins de choix : pour un vendeur, ce n'est pas la pire situation.", "Le vrai sujet, ce n'est pas le mois. C'est le prix et le dossier.", "On en parle avant les fêtes ? Écrivez ESTIM en commentaire."]}, {"n": 17, "t": "Si c'est trop cher, je vous le dirai", "txt": ["Si votre prix est trop haut, je vous le dirai. Le premier jour.", "Ce n'est pas agréable à entendre. Je le sais.", "Mais un prix trop haut, ce n'est pas une marge de négociation. C'est une annonce que les acheteurs voient passer et laissent de côté.", "Et plus elle reste en ligne, plus ils se demandent ce qui cloche.", "Je préfère vous montrer les ventes de votre rue et en discuter franchement, plutôt que vous dire ce que vous voulez entendre pour signer un mandat.", "Si vous voulez un prix juste, avec les preuves qui vont avec, le lien est en bio."]}, {"n": 18, "t": "LMNP : le rabot du budget 2027", "txt": ["Vous louez un studio meublé, au régime réel ? Le projet de budget 2027 vise votre fiscalité.", "Aujourd'hui, vous déduisez les amortissements du bien.", "Demain, ils seraient plafonnés à 2,5 % de la valeur du bien, contre 3,8 % aujourd'hui. Et à 7 000 euros par an et par foyer.", "C'est un projet. Il peut encore bouger au Parlement.", "Mais si votre rentabilité tenait grâce à ces amortissements, faites le calcul avec votre expert-comptable avant le vote.", "Et si la conclusion, c'est de vendre, je vous dirai ce que vaut le studio aujourd'hui. Avec les ventes réelles. Le lien est en bio."]}, {"n": 19, "t": "Charges : le chiffre divisé par 12", "txt": ["Prenons un appartement avec 3 600 euros de charges par an.", "L'acheteur ne voit pas 3 600 euros. Il voit 300 euros par mois.", "Qu'il ajoute à sa mensualité de crédit.", "Avec des taux qui montent, son budget mensuel est déjà serré. Ces 300 euros, il les compte.", "Des charges élevées ne sont pas forcément un défaut. Un gardien, un chauffage collectif, un ascenseur : ça a une valeur.", "Mais il faut savoir l'expliquer avant qu'il fasse le calcul seul.", "Je vous aide à présenter les vôtres. Le lien est en bio."]}, {"n": 20, "t": "Les passoires et ceux qui les vendent", "txt": ["Si vous cherchez à acheter, regardez de près les logements classés F et G.", "Pas pour y vivre tels quels. Pour comprendre qui les vend.", "Les logements G ne peuvent plus être proposés à la location depuis 2025. Les F suivront en 2028. Les E en 2034.", "Leurs propriétaires ont une question à trancher : rénover ou vendre.", "Certains vendent avec un calendrier serré.", "Pour un acheteur, c'est une marge de discussion. À condition de chiffrer les travaux avant l'offre, pas après.", "Vous êtes bailleur et vous hésitez ? Je regarde les deux options avec vous. Le lien est en bio."]}, {"n": 21, "t": "Accord de principe ou offre de prêt ?", "txt": ["Un acheteur vous dit : j'ai mon accord de principe.", "Bonne nouvelle. Mais ce n'est pas une offre de prêt.", "L'accord de principe, c'est la banque qui dit : sur le papier, ça peut passer.", "L'offre de prêt, c'est la banque qui s'engage. Elle arrive après le compromis, une fois le dossier étudié en entier.", "Entre les deux, les taux peuvent bouger. Et en ce moment, ils bougent.", "Alors je pose des questions à l'acheteur. Son apport, la durée, le taux simulé.", "Ce n'est pas de la méfiance. C'est pour que votre vente ne tombe pas au bout de deux mois. Vous vendez ? Écrivez ESTIM en commentaire."]}, {"n": 22, "t": "Une vente, deux signatures", "txt": ["Une vente, ce n'est pas une signature. C'en est deux.", "D'abord l'avant-contrat. Le compromis ou la promesse.", "Ensuite, l'acheteur a dix jours pour se rétracter, sans avoir à se justifier.", "Puis il cherche son prêt. La banque étudie, propose, il accepte.", "Et quelques mois plus tard, l'acte définitif chez le notaire. C'est là que vous remettez les clés et que la vente devient définitive.", "Entre les deux, il se passe beaucoup de choses. Je suis là pour qu'aucune ne vous surprenne.", "Vous voulez le calendrier complet d'une vente ? Écrivez NOTAIRE en commentaire."]}];
 const $ = s => document.querySelector(s);
 let i = 0, stream = null, rec = null, chunks = [], blob = null, mime = '', facing = 'user';
+let fmt916 = true, wide = true, drawing = false, zoomInfo = '';
+try { fmt916 = localStorage.getItem('p_fmt') !== '0'; wide = localStorage.getItem('p_wide') !== '0'; } catch(e) {}
 let y = 0, last = 0, t0 = 0, scrolling = false, wake = null;
 const esc = s => s.replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
 try { const k = +localStorage.getItem('prompteur_i'); if (k >= 0 && k < D.length) i = k; } catch(e) {}
@@ -107,15 +115,38 @@ $('#fs').oninput = e => document.documentElement.style.setProperty('--fs', e.tar
 async function startCam() {
   if (stream) stream.getTracks().forEach(t => t.stop());
   if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) throw new Error("ce navigateur ne donne pas accès à la caméra. Ouvre le lien dans Safari (iPhone) ou Chrome (Android), pas depuis Instagram, WhatsApp ou Gmail.");
+  let vc = wide
+    ? { facingMode: facing, width: { ideal: 1920 }, height: { ideal: 1440 }, frameRate: { ideal: 30 } }
+    : { facingMode: facing, width: { ideal: 1920 }, height: { ideal: 1080 }, frameRate: { ideal: 30 } };
+  if (wide && facing === 'environment') {
+    try {
+      const devs = (await navigator.mediaDevices.enumerateDevices()).filter(d => d.kind === 'videoinput');
+      const uw = devs.find(d => /ultra|grand.angle|0[.,]5/i.test(d.label));
+      if (uw) vc = { deviceId: { exact: uw.deviceId }, width: { ideal: 1920 }, height: { ideal: 1440 }, frameRate: { ideal: 30 } };
+    } catch(e) {}
+  }
   try { stream = await navigator.mediaDevices.getUserMedia({
-    video: { facingMode: facing, width: { ideal: 1080 }, height: { ideal: 1920 }, frameRate: { ideal: 30 } },
+    video: vc,
     audio: { echoCancellation: false, noiseSuppression: false, autoGainControl: true }
   }); } catch (e) {
     if (e.name === 'NotAllowedError') throw e;
     stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: facing }, audio: true });
   }
   $('#cam').srcObject = stream;
-  $('#cam').style.transform = facing === 'user' ? 'scaleX(-1)' : 'none';
+  try { await $('#cam').play(); } catch(e) {}
+  const mir = facing === 'user' ? 'scaleX(-1)' : 'none';
+  $('#cam').style.transform = mir; $('#frame').style.transform = mir;
+  zoomInfo = '';
+  try {
+    const tr = stream.getVideoTracks()[0];
+    const caps = tr.getCapabilities ? tr.getCapabilities() : {};
+    if (caps.zoom) {
+      const z = wide ? caps.zoom.min : Math.max(caps.zoom.min, Math.min(1, caps.zoom.max));
+      await tr.applyConstraints({ advanced: [{ zoom: z }] });
+      zoomInfo = 'zoom ' + z;
+    }
+  } catch(e) {}
+  applyView();
 }
 $('#go').onclick = async () => {
   try { await startCam(); $('#start').classList.remove('show'); keepAwake(); }
@@ -124,6 +155,25 @@ $('#go').onclick = async () => {
 let nocam = false;
 $('#nocam').onclick = () => { nocam = true; $('#start').classList.remove('show'); $('#cam').style.display = 'none'; document.body.style.background = '#111'; keepAwake(); };
 $('#flip').onclick = async () => { if (rec && rec.state === 'recording') return; facing = facing === 'user' ? 'environment' : 'user'; await startCam(); };
+function applyView() {
+  $('#fmt').classList.toggle('on', fmt916); $('#wide').classList.toggle('on', wide);
+  $('#cam').style.display = 'block'; // la vidéo reste active derrière le cadre 9:16 (iOS met en pause une vidéo masquée)
+  $('#frame').style.display = fmt916 ? 'block' : 'none';
+  if (fmt916 && !drawing) { drawing = true; requestAnimationFrame(draw); }
+}
+function draw() {
+  if (!fmt916 || !stream) { drawing = false; return; }
+  const v = $('#cam'), c = $('#frame'), g = c.getContext('2d');
+  const vw = v.videoWidth, vh = v.videoHeight;
+  if (vw && vh) {
+    const r = 9 / 16; let sx = 0, sy = 0, sw = vw, sh = vh;
+    if (vw / vh > r) { sw = vh * r; sx = (vw - sw) / 2; } else { sh = vw / r; sy = (vh - sh) / 2; }
+    g.drawImage(v, sx, sy, sw, sh, 0, 0, c.width, c.height);
+  }
+  requestAnimationFrame(draw);
+}
+$('#fmt').onclick = () => { if (rec && rec.state === 'recording') return; fmt916 = !fmt916; try { localStorage.setItem('p_fmt', fmt916 ? '1' : '0'); } catch(e) {} applyView(); };
+$('#wide').onclick = async () => { if (rec && rec.state === 'recording') return; wide = !wide; try { localStorage.setItem('p_wide', wide ? '1' : '0'); } catch(e) {} if (stream) await startCam(); else applyView(); };
 async function keepAwake() { try { wake = await navigator.wakeLock.request('screen'); } catch(e) {} }
 document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible' && stream) keepAwake(); });
 
@@ -160,8 +210,10 @@ $('#rec').onclick = async () => {
   if (rec && rec.state === 'recording') { rec.stop(); return; }
   mime = pickMime();
   chunks = [];
-  try { rec = new MediaRecorder(stream, mime ? { mimeType: mime, videoBitsPerSecond: 8000000, audioBitsPerSecond: 160000 } : undefined); }
-  catch (e) { rec = new MediaRecorder(stream); }
+  let src = stream;
+  if (fmt916) { const cs = $('#frame').captureStream(30); stream.getAudioTracks().forEach(t => cs.addTrack(t)); src = cs; }
+  try { rec = new MediaRecorder(src, mime ? { mimeType: mime, videoBitsPerSecond: 8000000, audioBitsPerSecond: 160000 } : undefined); }
+  catch (e) { rec = new MediaRecorder(src); }
   rec.ondataavailable = e => e.data.size && chunks.push(e.data);
   rec.onstop = onStop;
   function onStop() {
@@ -177,7 +229,7 @@ $('#rec').onclick = async () => {
   await countdown(3);
   try { rec.start(1000); }
   catch (e) {
-    try { rec = new MediaRecorder(stream); rec.ondataavailable = ev => ev.data.size && chunks.push(ev.data); rec.onstop = onStop; rec.start(1000); }
+    try { rec = new MediaRecorder(src); rec.ondataavailable = ev => ev.data.size && chunks.push(ev.data); rec.onstop = onStop; rec.start(1000); }
     catch (e2) { showErr("L'enregistrement ne démarre pas : " + (e2.message || e2.name)); return; }
   }
   $('#rec').classList.add('on'); $('#time').classList.add('on');
