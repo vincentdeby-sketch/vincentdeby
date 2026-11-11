@@ -100,7 +100,9 @@ input[type=range]{accent-color:var(--v);width:100%}
 <div id="after">
   <h2 id="atitle" style="margin:0"></h2>
   <p id="ainfo"></p>
-  <button class="big" id="save">Enregistrer dans Photos</button>
+  <button class="big" id="send">Envoyer à Claude</button>
+  <p style="font-size:13px;color:#aaa">Dans le menu qui s'ouvre : pCloud › dossier <b>REELS_FACECAM</b>. Le montage et la publication se font ensuite tout seuls.</p>
+  <button id="save">Enregistrer dans Photos</button>
   <button id="again">Refaire la prise</button>
   <button id="nextreel">Reel suivant →</button>
 </div>
@@ -288,7 +290,16 @@ $('#save').onclick = async () => {
   document.body.appendChild(a); a.click(); a.remove();
   $('#save').textContent = '✓ Téléchargé';
 };
-function closeAfter() { $('#after').classList.remove('show'); $('#save').textContent = 'Enregistrer dans Photos'; blob = null; $('#time').textContent = '0:00'; }
+$('#send').onclick = async () => {
+  if (!blob) return;
+  const f = new File([blob], fileName(), { type: blob.type });
+  if (navigator.canShare && navigator.canShare({ files: [f] })) {
+    try { await navigator.share({ files: [f], title: fileName() }); $('#send').textContent = '✓ Envoyé'; return; }
+    catch (e) { if (e.name === 'AbortError') return; showErr('Envoi impossible : ' + (e.message || e.name)); return; }
+  }
+  showErr("Ce navigateur ne sait pas partager le fichier. Utilise « Enregistrer dans Photos », puis envoie-le dans pCloud › REELS_FACECAM.");
+};
+function closeAfter() { $('#send').textContent = 'Envoyer à Claude'; $('#after').classList.remove('show'); $('#save').textContent = 'Enregistrer dans Photos'; blob = null; $('#time').textContent = '0:00'; }
 $('#again').onclick = () => { closeAfter(); y = 0; $('#scroll').style.transform = 'translateY(0)'; };
 $('#nextreel').onclick = () => { closeAfter(); show(i + 1); };
 
