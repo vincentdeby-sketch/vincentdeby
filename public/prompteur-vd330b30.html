@@ -75,7 +75,7 @@ input[type=range]{accent-color:var(--v);width:100%}
 <div id="start" class="show">
   <h2 style="margin:0">Prompteur caméra</h2>
   <p>Le texte défile en haut, près de l'objectif : tes yeux restent presque dans l'axe. Téléphone vertical, à hauteur des yeux.</p>
-  <p>Un fichier par reel. Après chaque prise : « Enregistrer dans Photos ».</p>
+  <p>Un fichier par reel. Quand tu arrêtes l'enregistrement, la vidéo part toute seule chez Claude.</p>
   <button class="big" id="go">Autoriser caméra et micro</button>
   <button id="nocam">Lire sans caméra</button>
   <p id="msg"></p>
@@ -100,10 +100,11 @@ input[type=range]{accent-color:var(--v);width:100%}
 <div id="after">
   <h2 id="atitle" style="margin:0"></h2>
   <p id="ainfo"></p>
-  <button class="big" id="send">Envoyer à Claude</button>
-  <p style="font-size:13px;color:#aaa">Dans le menu qui s'ouvre : pCloud › dossier <b>REELS_FACECAM</b>. Le montage et la publication se font ensuite tout seuls.</p>
+  <div style="width:100%;max-width:360px;height:10px;background:#ffffff22;border-radius:6px;overflow:hidden"><div id="bar2" style="height:100%;width:0;background:var(--v);transition:width .2s"></div></div>
+  <p id="sendst" style="font-size:15px;color:#fff;font-weight:700">Envoi à Claude…</p>
+  <button class="big" id="send" style="display:none">Réessayer l'envoi</button>
   <button id="save">Enregistrer dans Photos</button>
-  <button id="again">Refaire la prise</button>
+  <button id="again">Refaire la prise (la dernière sera gardée)</button>
   <button id="nextreel">Reel suivant →</button>
 </div>
 
@@ -246,7 +247,7 @@ $('#rec').onclick = async () => {
   chunks = [];
   let src = stream;
   if (fmt916) { const cs = $('#frame').captureStream(30); stream.getAudioTracks().forEach(t => cs.addTrack(t)); src = cs; }
-  try { rec = new MediaRecorder(src, mime ? { mimeType: mime, videoBitsPerSecond: 8000000, audioBitsPerSecond: 160000 } : undefined); }
+  try { rec = new MediaRecorder(src, mime ? { mimeType: mime, videoBitsPerSecond: 6000000, audioBitsPerSecond: 160000 } : undefined); }
   catch (e) { rec = new MediaRecorder(src); }
   rec.ondataavailable = e => e.data.size && chunks.push(e.data);
   rec.onstop = onStop;
@@ -258,6 +259,7 @@ $('#rec').onclick = async () => {
     $('#atitle').textContent = `Reel ${r.n} enregistré`;
     $('#ainfo').textContent = `${$('#time').textContent} · ${(blob.size / 1048576).toFixed(0)} Mo. Enregistre-le avant de passer au suivant.`;
     $('#after').classList.add('show');
+    autoSend();
   }
   y = 0; $('#scroll').style.transform = 'translateY(0)';
   await countdown(3);
@@ -290,7 +292,28 @@ $('#save').onclick = async () => {
   document.body.appendChild(a); a.click(); a.remove();
   $('#save').textContent = '✓ Téléchargé';
 };
-$('#send').onclick = async () => {
+const UPLINK = 'https://eapi.pcloud.com/uploadtolink?code=IGG7ZzT0foo9Ev14h7WdOKQtyLya9YkQV&names=Prompteur';
+function stamp() { const d = new Date(), p = n => String(n).padStart(2, '0'); return `${d.getFullYear()}${p(d.getMonth()+1)}${p(d.getDate())}-${p(d.getHours())}${p(d.getMinutes())}${p(d.getSeconds())}`; }
+let sentName = '', lastBlob = null;
+function autoSend() {
+  const b = blob || lastBlob; if (!b) return; lastBlob = b;
+  const ext = b.type.includes('webm') ? 'webm' : 'mp4';
+  sentName = `REEL_${String(D[i].n).padStart(2, '0')}_${stamp()}.${ext}`;
+  const fd = new FormData(); fd.append('file', b, sentName);
+  const x = new XMLHttpRequest();
+  $('#send').style.display = 'none'; $('#bar2').style.width = '0';
+  $('#sendst').textContent = 'Envoi à Claude… 0 %'; $('#sendst').style.color = '#fff';
+  x.upload.onprogress = e => { if (e.lengthComputable) { const p = Math.round(e.loaded / e.total * 100); $('#bar2').style.width = p + '%'; $('#sendst').textContent = 'Envoi à Claude… ' + p + ' %'; } };
+  x.onload = () => {
+    let ok = false; try { ok = JSON.parse(x.responseText).result === 0; } catch(e) {}
+    if (ok) { lastBlob = null; $('#bar2').style.width = '100%'; $('#sendst').textContent = '✓ Envoyé. Montage et publication automatiques.'; $('#sendst').style.color = '#9fd88a'; }
+    else { $('#sendst').textContent = "L'envoi a échoué (" + x.status + ")."; $('#sendst').style.color = '#ff8a80'; $('#send').style.display = 'block'; }
+  };
+  x.onerror = () => { $('#sendst').textContent = "Pas de connexion : l'envoi a échoué."; $('#sendst').style.color = '#ff8a80'; $('#send').style.display = 'block'; };
+  x.open('POST', UPLINK); x.send(fd);
+}
+$('#send').onclick = () => autoSend();
+async function oldShare() {
   if (!blob) return;
   const f = new File([blob], fileName(), { type: blob.type });
   if (navigator.canShare && navigator.canShare({ files: [f] })) {
@@ -299,7 +322,7 @@ $('#send').onclick = async () => {
   }
   showErr("Ce navigateur ne sait pas partager le fichier. Utilise « Enregistrer dans Photos », puis envoie-le dans pCloud › REELS_FACECAM.");
 };
-function closeAfter() { $('#send').textContent = 'Envoyer à Claude'; $('#after').classList.remove('show'); $('#save').textContent = 'Enregistrer dans Photos'; blob = null; $('#time').textContent = '0:00'; }
+function closeAfter() { $('#after').classList.remove('show'); $('#save').textContent = 'Enregistrer dans Photos'; blob = null; $('#time').textContent = '0:00'; }
 $('#again').onclick = () => { closeAfter(); y = 0; $('#scroll').style.transform = 'translateY(0)'; };
 $('#nextreel').onclick = () => { closeAfter(); show(i + 1); };
 
