@@ -678,10 +678,10 @@ async function startCam() {
   }
   try { stream = await navigator.mediaDevices.getUserMedia({
     video: vc,
-    audio: { echoCancellation: false, noiseSuppression: false, autoGainControl: true }
+    audio: { channelCount: { ideal: 1 }, echoCancellation: false, noiseSuppression: false, autoGainControl: true }
   }); } catch (e) {
     if (e.name === 'NotAllowedError') throw e;
-    stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: facing }, audio: true });
+    stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: facing }, audio: { channelCount: { ideal: 1 } } });
   }
   $('#cam').srcObject = stream;
   try { await $('#cam').play(); } catch(e) {}
