@@ -15,7 +15,7 @@ canvas#frame{display:none;object-fit:contain}
 button.tog{font-size:13px;padding:9px 11px}
 button.tog.on{background:var(--v);color:#000;font-weight:800}
 #prompt{position:fixed;left:0;right:0;top:env(safe-area-inset-top);height:var(--ph,42vh);overflow:hidden;background:linear-gradient(#000d 70%,#0000);padding:14px 18px 0}
-#scroll{font-weight:800;font-size:var(--fs);line-height:1.35;padding-bottom:42vh}
+#scroll{will-change:transform;font-weight:800;font-size:var(--fs);line-height:1.35;padding-bottom:42vh}
 #scroll p{margin:0 0 .5em}
 #scroll .lab{display:inline-block;background:var(--v);color:#000;font-size:14px;padding:4px 10px;border-radius:5px;margin-bottom:10px}
 #bar{position:fixed;left:0;right:0;bottom:0;padding:12px 14px calc(14px + env(safe-area-inset-bottom));background:linear-gradient(#0000,#000c 35%);display:flex;flex-direction:column;gap:10px}
@@ -654,13 +654,14 @@ function show(k) {
   const r = D[i];
   $('#sel').value = i;
   $('#scroll').innerHTML = `<span class="lab">REEL NUMÉRO ${r.n}</span>` + r.txt.map(l => `<p>${esc(l)}</p>`).join('');
-  y = 0; $('#scroll').style.transform = 'translateY(0)';
+  resetScroll();
 }
 show(i);
 $('#sel').onchange = e => show(+e.target.value);
 $('#prev').onclick = () => show(i - 1);
 $('#next').onclick = () => show(i + 1);
-$('#back').onclick = () => { y = 0; $('#scroll').style.transform = 'translateY(0)'; };
+$('#back').onclick = () => { resetScroll(); };
+$('#spd').oninput = () => { if (scrolling) startScroll(); };
 $('#fs').oninput = e => document.documentElement.style.setProperty('--fs', e.target.value + 'px');
 
 async function startCam() {
@@ -709,8 +710,7 @@ $('#flip').onclick = async () => { if (rec && rec.state === 'recording') return;
 function applyView() {
   $('#fmt').classList.toggle('on', fmt916); $('#wide').classList.toggle('on', wide);
   $('#cam').style.display = 'block'; // la vidéo reste active derrière le cadre 9:16 (iOS met en pause une vidéo masquée)
-  $('#frame').style.display = fmt916 ? 'block' : 'none';
-  if (fmt916 && !drawing) { drawing = true; requestAnimationFrame(draw); }
+  $('#frame').style.display = 'none';
 }
 function draw() {
   if (!fmt916 || !stream) { drawing = false; return; }
@@ -732,17 +732,21 @@ function pickMime() {
   const c = ['video/mp4', 'video/mp4;codecs=avc1,mp4a.40.2', 'video/webm;codecs=vp9,opus', 'video/webm'];
   return c.find(m => window.MediaRecorder && MediaRecorder.isTypeSupported(m)) || '';
 }
-function tick(t) {
-  if (!scrolling) return;
-  const dt = (t - last) / 1000; last = t;
-  y += dt * +$('#spd').value;
-  const max = $('#scroll').scrollHeight - $('#prompt').clientHeight * 0.4;
-  if (y > max) y = max;
-  $('#scroll').style.transform = `translateY(${-y}px)`;
-  const s = Math.floor((performance.now() - t0) / 1000);
-  $('#time').textContent = Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0');
-  requestAnimationFrame(tick);
+let sFrom = 0, sT = 0, sSp = 0, sMax = 0, timer = null;
+function sc() { return $('#scroll'); }
+function setY(v, anim) { const el = sc(); el.style.transition = anim || 'none'; el.style.transform = `translate3d(0,${-v}px,0)`; }
+function curY() { return scrolling ? Math.min(sMax, sFrom + (performance.now() - sT) / 1000 * sSp) : y; }
+// Defilement confie au moteur d'affichage (transition CSS) : il continue meme si le telephone est occupe par l'enregistrement.
+function startScroll() {
+  y = curY(); scrolling = true;
+  sMax = Math.max(0, sc().scrollHeight - $('#prompt').clientHeight * 0.4);
+  sFrom = Math.min(y, sMax); sT = performance.now(); sSp = Math.max(0, +$('#spd').value);
+  setY(sFrom); void sc().offsetHeight;
+  if (sSp > 0 && sMax > sFrom) setY(sMax, `transform ${(sMax - sFrom) / sSp}s linear`);
+  if (!timer) timer = setInterval(() => { const s = Math.floor((performance.now() - t0) / 1000); $('#time').textContent = Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0'); }, 250);
 }
+function stopScroll() { y = curY(); scrolling = false; setY(y); clearInterval(timer); timer = null; }
+function resetScroll() { if (scrolling) stopScroll(); y = 0; setY(0); }
 function countdown(n) {
   return new Promise(res => {
     const el = $('#count'); el.style.display = 'grid'; el.textContent = n;
@@ -751,25 +755,25 @@ function countdown(n) {
 }
 $('#rec').onclick = async () => {
   if (!stream && nocam) {
-    if (scrolling) { scrolling = false; $('#rec').classList.remove('on'); $('#time').classList.remove('on'); return; }
-    y = 0; $('#scroll').style.transform = 'translateY(0)';
+    if (scrolling) { stopScroll(); $('#rec').classList.remove('on'); $('#time').classList.remove('on'); return; }
+    resetScroll();
     await countdown(3);
     $('#rec').classList.add('on'); $('#time').classList.add('on');
-    t0 = last = performance.now(); scrolling = true; requestAnimationFrame(tick); return;
+    t0 = performance.now(); startScroll(); return;
   }
   if (!stream) return $('#start').classList.add('show');
   if (rec && rec.state === 'recording') { rec.stop(); return; }
   mime = pickMime();
   chunks = [];
   let src = stream;
-  if (fmt916) { const cs = $('#frame').captureStream(30); stream.getAudioTracks().forEach(t => cs.addTrack(t)); src = cs; }
+  // On enregistre directement la camera (plus de copie image par image dans un canvas, trop lourde : video saccadee). Le 9:16 est fait au montage.
   try { rec = new MediaRecorder(src, mime ? { mimeType: mime, videoBitsPerSecond: 6000000, audioBitsPerSecond: 160000 } : undefined); }
   catch (e) { rec = new MediaRecorder(src); }
   rec.ondataavailable = e => e.data.size && chunks.push(e.data);
   rec.onstop = onStop;
   async function onStop() {
     const durMs = performance.now() - t0;
-    scrolling = false; $('#rec').classList.remove('on'); $('#time').classList.remove('on');
+    stopScroll(); $('#rec').classList.remove('on'); $('#time').classList.remove('on');
     blob = new Blob(chunks, { type: rec.mimeType || mime || 'video/mp4' });
     if (blob.type.includes('webm') && window.ysFixWebmDuration) {
       try { blob = await new Promise(res => window.ysFixWebmDuration(blob, durMs, res, { logger: false })); } catch(e) {}
@@ -781,7 +785,7 @@ $('#rec').onclick = async () => {
     $('#after').classList.add('show');
     autoSend();
   }
-  y = 0; $('#scroll').style.transform = 'translateY(0)';
+  resetScroll();
   await countdown(3);
   try { rec.start(); }
   catch (e) {
@@ -789,7 +793,7 @@ $('#rec').onclick = async () => {
     catch (e2) { showErr("L'enregistrement ne démarre pas : " + (e2.message || e2.name)); return; }
   }
   $('#rec').classList.add('on'); $('#time').classList.add('on');
-  t0 = last = performance.now(); scrolling = true; requestAnimationFrame(tick);
+  t0 = performance.now(); startScroll();
 };
 function fileName() {
   const ext = (blob.type.includes('webm') ? 'webm' : 'mp4');
@@ -843,7 +847,7 @@ async function oldShare() {
   showErr("Ce navigateur ne sait pas partager le fichier. Utilise « Enregistrer dans Photos », puis envoie-le dans pCloud › REELS_FACECAM.");
 };
 function closeAfter() { $('#after').classList.remove('show'); $('#save').textContent = 'Enregistrer dans Photos'; blob = null; $('#time').textContent = '0:00'; }
-$('#again').onclick = () => { closeAfter(); y = 0; $('#scroll').style.transform = 'translateY(0)'; };
+$('#again').onclick = () => { closeAfter(); resetScroll(); };
 $('#nextreel').onclick = () => { closeAfter(); show(i + 1); };
 
 function edLoad(k) {
