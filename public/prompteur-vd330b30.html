@@ -670,13 +670,13 @@ async function startCam() {
   if (stream) stream.getTracks().forEach(t => t.stop());
   if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) throw new Error("ce navigateur ne donne pas accès à la caméra. Ouvre le lien dans Safari (iPhone) ou Chrome (Android), pas depuis Instagram, WhatsApp ou Gmail.");
   let vc = wide
-    ? { facingMode: facing, width: { ideal: 1920 }, height: { ideal: 1440 }, frameRate: { ideal: 30 } }
+    ? { facingMode: facing, width: { ideal: 1920 }, height: { ideal: 1080 }, frameRate: { ideal: 30 } }
     : { facingMode: facing, width: { ideal: 1920 }, height: { ideal: 1080 }, frameRate: { ideal: 30 } };
   if (wide && facing === 'environment') {
     try {
       const devs = (await navigator.mediaDevices.enumerateDevices()).filter(d => d.kind === 'videoinput');
       const uw = devs.find(d => /ultra|grand.angle|0[.,]5/i.test(d.label));
-      if (uw) vc = { deviceId: { exact: uw.deviceId }, width: { ideal: 1920 }, height: { ideal: 1440 }, frameRate: { ideal: 30 } };
+      if (uw) vc = { deviceId: { exact: uw.deviceId }, width: { ideal: 1920 }, height: { ideal: 1080 }, frameRate: { ideal: 30 } };
     } catch(e) {}
   }
   try { stream = await navigator.mediaDevices.getUserMedia({
@@ -732,7 +732,7 @@ async function keepAwake() {
   try { wake = await navigator.wakeLock.request('screen'); lg('wakelock ok'); wake.addEventListener('release', () => lg('wakelock relache')); } catch(e) { lg('wakelock refuse ' + (e && e.name)); }
 }
 // Journal de prise : envoye avec la video pour comprendre un eventuel arret de l'image.
-let LOG = [], camFrames = 0, lastFrameAt = 0, hb = 0, diag = null;
+let recBytes = 0, LOG = [], camFrames = 0, lastFrameAt = 0, hb = 0, diag = null;
 function lg(m) { LOG.push(((performance.now() - (t0 || 0)) / 1000).toFixed(2) + ' ' + m); if (LOG.length > 400) LOG.shift(); }
 function watchFrames() {
   const v = $('#cam');
@@ -741,15 +741,16 @@ function watchFrames() {
 function diagStart() {
   LOG = []; lg('debut ' + navigator.userAgent + ' mime=' + (rec && rec.mimeType));
   stream.getTracks().forEach(tr => { lg(tr.kind + ' ' + JSON.stringify(tr.getSettings ? tr.getSettings() : {})); tr.onmute = () => lg(tr.kind + ' mute'); tr.onunmute = () => lg(tr.kind + ' unmute'); tr.onended = () => lg(tr.kind + ' ended'); });
-  let lastHb = performance.now(), lastCount = camFrames; lastFrameAt = performance.now();
+  let lastHb = performance.now(), lastCount = camFrames, lastBytes = 0, lowRate = 0; recBytes = 0; lastFrameAt = performance.now();
   diag = setInterval(() => {
     const now = performance.now();
     if (now - lastHb > 1200) lg('page figee ' + Math.round(now - lastHb) + ' ms');
     lastHb = now;
-    if (++hb % 4 === 0) { lg('images/2s=' + (camFrames - lastCount) + ' y=' + Math.round(curY())); lastCount = camFrames; }
-    const stall = $('#cam').requestVideoFrameCallback && now - lastFrameAt > 1500;
+    if (++hb % 4 === 0) { const kb = Math.round((recBytes - lastBytes) / 1024); lg('images/2s=' + (camFrames - lastCount) + ' Ko/2s=' + kb + ' y=' + Math.round(curY())); lastCount = camFrames; lowRate = (now - t0 > 4000 && lastBytes > 0 && kb < 250) ? lowRate + 1 : 0; lastBytes = recBytes; }
+    // Si Safari n'ecrit plus d'image dans le fichier (le son seul pese tres peu), on previent tout de suite.
+    const stall = ($('#cam').requestVideoFrameCallback && now - lastFrameAt > 1500) || lowRate >= 3;
     $('#warn').style.display = stall ? 'block' : 'none';
-    if (stall) $('#warn').textContent = "L'image de la caméra est figée : arrête et refais la prise.";
+    if (stall) $('#warn').textContent = lowRate >= 3 ? "La vidéo ne s'enregistre plus (seulement le son) : arrête et refais la prise." : "L'image de la caméra est figée : arrête et refais la prise.";
   }, 500);
 }
 function diagStop() { clearInterval(diag); diag = null; $('#warn').style.display = 'none'; lg('fin, images camera=' + camFrames); }
@@ -800,9 +801,9 @@ $('#rec').onclick = async () => {
   chunks = [];
   let src = stream;
   // On enregistre directement la camera (plus de copie image par image dans un canvas, trop lourde : video saccadee). Le 9:16 est fait au montage.
-  try { rec = new MediaRecorder(src, mime ? { mimeType: mime, videoBitsPerSecond: 6000000, audioBitsPerSecond: 160000 } : undefined); }
+  try { rec = new MediaRecorder(src, mime ? { mimeType: mime, videoBitsPerSecond: 4500000, audioBitsPerSecond: 160000 } : undefined); }
   catch (e) { rec = new MediaRecorder(src); }
-  rec.ondataavailable = e => e.data.size && chunks.push(e.data);
+  rec.ondataavailable = e => { if (e.data.size) { chunks.push(e.data); recBytes += e.data.size; } };
   rec.onstop = onStop;
   async function onStop() {
     const durMs = performance.now() - t0; diagStop();
@@ -820,9 +821,9 @@ $('#rec').onclick = async () => {
   }
   resetScroll();
   await countdown(3);
-  try { rec.start(); diagStart(); }
+  try { rec.start(1000); diagStart(); }
   catch (e) {
-    try { rec = new MediaRecorder(src); rec.ondataavailable = ev => ev.data.size && chunks.push(ev.data); rec.onstop = onStop; rec.start(); diagStart(); }
+    try { rec = new MediaRecorder(src); rec.ondataavailable = ev => { if (ev.data.size) { chunks.push(ev.data); recBytes += ev.data.size; } }; rec.onstop = onStop; rec.start(1000); diagStart(); }
     catch (e2) { showErr("L'enregistrement ne démarre pas : " + (e2.message || e2.name)); return; }
   }
   $('#rec').classList.add('on'); $('#time').classList.add('on');
