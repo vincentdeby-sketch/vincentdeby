@@ -563,6 +563,8 @@ input[type=range]{accent-color:var(--v);width:100%}
 </head>
 <body>
 <video id="cam" playsinline muted autoplay></video>
+<video id="ns" playsinline muted loop style="position:fixed;width:1px;height:1px;opacity:0.01;left:0;top:0" src="data:video/mp4;base64,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"></video>
+<div id="warn" style="position:fixed;left:10px;right:10px;top:46vh;background:#b71c1c;color:#fff;font-weight:800;padding:12px;border-radius:10px;font-size:16px;text-align:center;display:none;z-index:7"></div>
 <canvas id="frame" width="1080" height="1920"></canvas>
 <div id="prompt"><div id="scroll"></div></div>
 <div id="count"></div>
@@ -679,12 +681,12 @@ async function startCam() {
   }
   try { stream = await navigator.mediaDevices.getUserMedia({
     video: vc,
-    audio: { channelCount: { ideal: 1 }, echoCancellation: false, noiseSuppression: false, autoGainControl: true }
+    audio: { echoCancellation: false, noiseSuppression: false, autoGainControl: true }
   }); } catch (e) {
     if (e.name === 'NotAllowedError') throw e;
-    stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: facing }, audio: { channelCount: { ideal: 1 } } });
+    stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: facing }, audio: true });
   }
-  $('#cam').srcObject = stream;
+  $('#cam').srcObject = stream; watchFrames();
   try { await $('#cam').play(); } catch(e) {}
   const mir = facing === 'user' ? 'scaleX(-1)' : 'none';
   $('#cam').style.transform = mir; $('#frame').style.transform = mir;
@@ -725,7 +727,37 @@ function draw() {
 }
 $('#fmt').onclick = () => { if (rec && rec.state === 'recording') return; fmt916 = !fmt916; try { localStorage.setItem('p_fmt', fmt916 ? '1' : '0'); } catch(e) {} applyView(); };
 $('#wide').onclick = async () => { if (rec && rec.state === 'recording') return; wide = !wide; try { localStorage.setItem('p_wide', wide ? '1' : '0'); } catch(e) {} if (stream) await startCam(); else applyView(); };
-async function keepAwake() { try { wake = await navigator.wakeLock.request('screen'); } catch(e) {} }
+async function keepAwake() {
+  try { $('#ns').play().catch(() => {}); } catch(e) {}
+  try { wake = await navigator.wakeLock.request('screen'); lg('wakelock ok'); wake.addEventListener('release', () => lg('wakelock relache')); } catch(e) { lg('wakelock refuse ' + (e && e.name)); }
+}
+// Journal de prise : envoye avec la video pour comprendre un eventuel arret de l'image.
+let LOG = [], camFrames = 0, lastFrameAt = 0, hb = 0, diag = null;
+function lg(m) { LOG.push(((performance.now() - (t0 || 0)) / 1000).toFixed(2) + ' ' + m); if (LOG.length > 400) LOG.shift(); }
+function watchFrames() {
+  const v = $('#cam');
+  if (v.requestVideoFrameCallback) { const f = () => { camFrames++; lastFrameAt = performance.now(); v.requestVideoFrameCallback(f); }; v.requestVideoFrameCallback(f); }
+}
+function diagStart() {
+  LOG = []; lg('debut ' + navigator.userAgent + ' mime=' + (rec && rec.mimeType));
+  stream.getTracks().forEach(tr => { lg(tr.kind + ' ' + JSON.stringify(tr.getSettings ? tr.getSettings() : {})); tr.onmute = () => lg(tr.kind + ' mute'); tr.onunmute = () => lg(tr.kind + ' unmute'); tr.onended = () => lg(tr.kind + ' ended'); });
+  let lastHb = performance.now(), lastCount = camFrames; lastFrameAt = performance.now();
+  diag = setInterval(() => {
+    const now = performance.now();
+    if (now - lastHb > 1200) lg('page figee ' + Math.round(now - lastHb) + ' ms');
+    lastHb = now;
+    if (++hb % 4 === 0) { lg('images/2s=' + (camFrames - lastCount) + ' y=' + Math.round(curY())); lastCount = camFrames; }
+    const stall = $('#cam').requestVideoFrameCallback && now - lastFrameAt > 1500;
+    $('#warn').style.display = stall ? 'block' : 'none';
+    if (stall) $('#warn').textContent = "L'image de la caméra est figée : arrête et refais la prise.";
+  }, 500);
+}
+function diagStop() { clearInterval(diag); diag = null; $('#warn').style.display = 'none'; lg('fin, images camera=' + camFrames); }
+function sendLog(name) {
+  try { const fd = new FormData(); fd.append('file', new Blob([LOG.join('\n')], { type: 'text/plain' }), name.replace(/\.(mp4|webm)$/, '_journal.txt')); const x = new XMLHttpRequest(); x.open('POST', UPLINK); x.send(fd); } catch(e) {}
+}
+document.addEventListener('visibilitychange', () => lg('visibilite ' + document.visibilityState));
+window.addEventListener('pagehide', () => lg('pagehide'));
 document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible' && stream) keepAwake(); });
 
 function pickMime() {
@@ -754,6 +786,7 @@ function countdown(n) {
   });
 }
 $('#rec').onclick = async () => {
+  keepAwake();
   if (!stream && nocam) {
     if (scrolling) { stopScroll(); $('#rec').classList.remove('on'); $('#time').classList.remove('on'); return; }
     resetScroll();
@@ -772,7 +805,7 @@ $('#rec').onclick = async () => {
   rec.ondataavailable = e => e.data.size && chunks.push(e.data);
   rec.onstop = onStop;
   async function onStop() {
-    const durMs = performance.now() - t0;
+    const durMs = performance.now() - t0; diagStop();
     stopScroll(); $('#rec').classList.remove('on'); $('#time').classList.remove('on');
     blob = new Blob(chunks, { type: rec.mimeType || mime || 'video/mp4' });
     if (blob.type.includes('webm') && window.ysFixWebmDuration) {
@@ -787,9 +820,9 @@ $('#rec').onclick = async () => {
   }
   resetScroll();
   await countdown(3);
-  try { rec.start(); }
+  try { rec.start(); diagStart(); }
   catch (e) {
-    try { rec = new MediaRecorder(src); rec.ondataavailable = ev => ev.data.size && chunks.push(ev.data); rec.onstop = onStop; rec.start(); }
+    try { rec = new MediaRecorder(src); rec.ondataavailable = ev => ev.data.size && chunks.push(ev.data); rec.onstop = onStop; rec.start(); diagStart(); }
     catch (e2) { showErr("L'enregistrement ne démarre pas : " + (e2.message || e2.name)); return; }
   }
   $('#rec').classList.add('on'); $('#time').classList.add('on');
@@ -835,6 +868,7 @@ function autoSend() {
   };
   x.onerror = () => { $('#sendst').textContent = "Pas de connexion : l'envoi a échoué."; $('#sendst').style.color = '#ff8a80'; $('#send').style.display = 'block'; };
   x.open('POST', UPLINK); x.send(fd);
+  sendLog(sentName);
 }
 $('#send').onclick = () => autoSend();
 async function oldShare() {
