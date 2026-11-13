@@ -1,17 +1,17 @@
 {
-  "fetchedAt": "2026-10-27",
+  "fetchedAt": "2026-11-13",
   "forSale": [
     {
-      "id": "30054767",
+      "id": "30117359",
       "type": "appartement",
-      "city": "Paris",
-      "postalCode": "75013",
-      "price": 790000,
-      "surface": 80,
+      "city": "Boulogne-Billancourt",
+      "postalCode": "92100",
+      "price": 645000,
+      "surface": 90,
       "rooms": 4,
-      "cover": "https://d1q967606ga7w2.cloudfront.net/common/house/30054767/photos/s/balcon.jpg",
-      "url": "https://www.efficity.com/achat-immobilier/appartement_80-m2_paris_75013_30054767/",
-      "exclusive": false
+      "cover": "https://d1q967606ga7w2.cloudfront.net/common/house/30117359/photos/s/watermark--3581236--ia-0-balcon-moderne-lumineux-avec-vue-urbaine.png",
+      "url": "https://www.efficity.com/achat-immobilier/appartement_90-m2_boulogne-billancourt_92100_30117359/",
+      "exclusive": true
     },
     {
       "id": "30032166",
@@ -87,6 +87,15 @@
     }
   ],
   "sold": [
+    {
+      "id": "30054767",
+      "type": "appartement",
+      "city": "Paris",
+      "postalCode": "75013",
+      "surface": 80,
+      "rooms": 4,
+      "cover": "//d1q967606ga7w2.cloudfront.net/common/house/30054767/photos/s/balcon.jpg"
+    },
     {
       "id": "29503801",
       "type": "appartement",
@@ -309,35 +318,37 @@
       "dpe": "D",
       "feesNote": "Le prix de vente est affiché hors frais de notaire, d'enregistrement et de publicité foncière.\nLes honoraires sont à la charge de l'acquéreur et sont déjà inclus dans le prix de vente affiché."
     },
-    "30054767": {
-      "id": "30054767",
-      "description": "PARIS 75013 - DENFERT-ROCHEREAU – 4 PIÈCES – 2 CHAMBRES – TRAVERSANT – LUMINEUX – BALCON SUR JARDIN – DPE C – CAVE - PARKING\n\nEfficity l'agence qui estime votre bien en ligne vous propose un appartement au 4ème étage dans un immeuble de très bon standing des années 80 avec gardienne.\n\nCet appartement de 4 pièces de 75,2 m2 carrez, en très bon état et sans aucune perte de place se compose d'un séjour de 37 m² ouvert avec cuisine ouverte exposé ouest.\nLes grandes fenêtres donnent sur un balcon spacieux, assez profond aménager une table et des chaises.\n\nCôté nuit, un dégagement mène aux deux chambres (11 m² et 13 m²) côté est, très lumineuses et sans aucun vis-àvis. La salle de bains et le WC séparé complètent cette partie.\n\nLes points pratiques :\n\nDPE C (129 kWh/m²/an), GES C\nChauffage et eau chaude par le réseau de chauffage urbain, compris dans les charges\nGaz de ville\nDouble vitrage, volets roulants, VMC\nCave au 1er sous-sol\nLocaux vélos et jardin intérieur dans la résidence\nPlace de parking au 1er sous-sol disponible en supplément\n\nLa copropriété est entretenue : sous-station de chauffage refaite en 2023, étanchéité de terrasses et ravalement partiel récents, moteurs d'ascenseur votés et déjà payés. Les charges sont de 347 € par mois, chauffage et eau chaude inclus.\n\nLe quartier est agréable à vivre proche de Denfert-Rochereau.\n\nPrix : 790 000 € honoraires inclus, soit 760 000 € net vendeur et 3,95 % TTC à la charge de l'acquéreur. Copropriété de 467 lots. Charges annuelles : 4 158 €.",
+    "30117359": {
+      "id": "30117359",
+      "description": "92100 – BOULOGNE-BILLANCOURT - POINT DU JOUR/MARCEL SEMBAT – 4 PIÈCES – 3 CHAMBRES – TRAVERSANT EST-OUEST – BALCON – 2 CAVES\n\nDPE D\n\nÀ seulement 400 mètres du métro Marcel Sembat (L9) et à deux pas du marché de Billancourt, découvrez ce 4 pièces familial de 86,22 m² (Loi Carrez) au 2ème étage par ascenseur d’une résidence de standing parfaitement entretenue avec gardien.\n\nIntégralement tourné sur cour, cet appartement traversant (Est-Ouest) offre une tranquillité. Il s'ouvre sur une belle pièce de vie de 27 m² baignée par la lumière côté ouest, qui se prolonge sur un balcon de 4 m².\n\nLa cuisine indépendante de 8 m², exposée Est et dotée de sa propre fenêtre, est suffisamment spacieuse pour y installer un véritable espace dînatoire.\n\nCôté nuit, le plan est idéal pour une famille : une suite parentale de 15 m² avec son grand dressing, et deux belles chambres (10,5 m² et 9,5 m²) profitant de la douce lumière matinale de l'Est. Une salle d’eau fonctionnelle et des WC séparés avec lave-mains complètent les volumes.\n\nLes + qui feront la différence sur votre budget :\n\nLe ravalement a été réalisé et la chaudière collective est flambant neuve (2025).\n\nExcellente note énergétique (DPE D) : Un atout majeur pour un confort thermique maîtrisé et des factures sans surprise.\n\nStockage optimisé : Le bien est complété par deux caves, dont une en sous-sol et un séchoir au 6eme.\n\nLe quotidien se fait entièrement à pied : supermarché au pied de la résidence, excellentes écoles (Ferdinand Buisson à 300m, Collège Jean Renoir) et parcs à proximité immédiate.\n\nCharges de copropriété : env. 326 € / mois (incluant le chauffage et l'eau chaude). Possibilité d’acquérir un grand garage au 1er sous-sol en supplément",
       "photos": [
-        "https://d1q967606ga7w2.cloudfront.net/common/house/30054767/photos/l/balcon.jpg",
-        "https://d1q967606ga7w2.cloudfront.net/common/house/30054767/photos/l/generated_2026-10-08t19_02_48135.jpg",
-        "https://d1q967606ga7w2.cloudfront.net/common/house/30054767/photos/l/sejour.jpg",
-        "https://d1q967606ga7w2.cloudfront.net/common/house/30054767/photos/l/2026-10-05-14-00-38_essai1_robinet_manquant.jpg",
-        "https://d1q967606ga7w2.cloudfront.net/common/house/30054767/photos/l/gemini_generated_image_adqht8adqht8adqh.jpeg",
-        "https://d1q967606ga7w2.cloudfront.net/common/house/30054767/photos/l/chambre-enfant.jpg",
-        "https://d1q967606ga7w2.cloudfront.net/common/house/30054767/photos/l/gemini_generated_image_amh1zxamh1zxamh1.jpeg",
-        "https://d1q967606ga7w2.cloudfront.net/common/house/30054767/photos/l/degagement-couloir.jpg",
-        "https://d1q967606ga7w2.cloudfront.net/common/house/30054767/photos/l/sdb-2.jpg",
-        "https://d1q967606ga7w2.cloudfront.net/common/house/30054767/photos/l/2026-10-05-13-58-39.jpeg",
-        "https://d1q967606ga7w2.cloudfront.net/common/house/30054767/photos/l/2026-10-05-14-08-30.jpeg"
+        "https://d1q967606ga7w2.cloudfront.net/common/house/30117359/photos/l/watermark--3581236--ia-0-balcon-moderne-lumineux-avec-vue-urbaine.png",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/30117359/photos/l/projects_efficrm_repository_source_efficity_crm2_static_img_video_visuel.jpg",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/30117359/photos/l/watermark--3581238--ia-0-salon-scandinave-lumineux-avec-balcon.png",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/30117359/photos/l/watermark--3581366--ia-0-salon-lumineux-avec-balcon-parisien-1.png",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/30117359/photos/l/watermark--3572867--ia-0-chambre-lumineuse-au-miroir-dore.png",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/30117359/photos/l/watermark-bureau-lumineux-entre-livres-et-fenetre.png",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/30117359/photos/l/watermark-chambre-etude-lumineuse-aux-accents-colores.png",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/30117359/photos/l/watermark-cuisine-contemporaine-baignee-de-lumiere.png",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/30117359/photos/l/watermark-cuisine-moderne-lumineuse-et-epuree.png",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/30117359/photos/l/watermark-salle-de-bain-moderne-avec-fleurs-lumineuses.png",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/30117359/photos/l/watermark-couloir-classique-aux-miroirs-et-velours-rouge.png",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/30117359/photos/l/watermark--3572861--ia-0-salon-classique-lumineux-encadre-par-une-porte.png",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/30117359/photos/l/watermark-dressing-lumineux-aux-murs-beige.png",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/30117359/photos/l/watermark-masson_croquis_plan.png"
       ],
       "features": [
-        "2 chambres",
-        "1 salle de bains",
-        "Exposition Sud-Est-Ouest",
+        "3 chambres",
+        "1 salle d'eau",
+        "Exposition Est-Ouest",
         "Ascenseur",
-        "Balcon de 7 m²",
-        "Cave de 5 m²",
-        "1 garage",
-        "4ème étage"
+        "Balcon de 4 m²",
+        "Cave de 6 m²",
+        "2ème étage"
       ],
-      "bedrooms": 2,
-      "dpe": "C",
-      "feesNote": "Le prix de vente est affiché hors frais de notaire, d'enregistrement et de publicité foncière.\nLes honoraires sont à la charge de l'acquéreur et sont déjà inclus dans le prix de vente affiché."
+      "bedrooms": 3,
+      "dpe": "D",
+      "feesNote": "Le prix de vente est affiché hors frais de notaire, d'enregistrement et de publicité foncière.\nLes honoraires sont à la charge du vendeur."
     }
   }
 }
