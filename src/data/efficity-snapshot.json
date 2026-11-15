@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-11-13",
+  "fetchedAt": "2026-11-15",
   "forSale": [
     {
       "id": "30117359",
@@ -9,7 +9,7 @@
       "price": 645000,
       "surface": 90,
       "rooms": 4,
-      "cover": "https://d1q967606ga7w2.cloudfront.net/common/house/30117359/photos/s/watermark--3581236--ia-0-balcon-moderne-lumineux-avec-vue-urbaine.png",
+      "cover": "https://d1q967606ga7w2.cloudfront.net/common/house/30117359/photos/s/watermark--3598298--ia-0-balcon-fleuri-avec-mobilier-bistrot.png",
       "url": "https://www.efficity.com/achat-immobilier/appartement_90-m2_boulogne-billancourt_92100_30117359/",
       "exclusive": true
     },
@@ -42,24 +42,12 @@
       "type": "maison",
       "city": "Chaville",
       "postalCode": "92370",
-      "price": 795000,
+      "price": 760000,
       "surface": 150,
       "rooms": 7,
       "cover": "https://d1q967606ga7w2.cloudfront.net/common/house/29620637/photos/s/watermark-whatsapp-image-2026-05-05-at-162806-48-1.jpeg",
       "url": "https://www.efficity.com/achat-immobilier/maison_150-m2_chaville_92370_29620637/",
       "exclusive": false
-    },
-    {
-      "id": "29447119",
-      "type": "appartement",
-      "city": "Saint-Cloud",
-      "postalCode": "92210",
-      "price": 295000,
-      "surface": 50,
-      "rooms": 3,
-      "cover": "https://d1q967606ga7w2.cloudfront.net/common/house/29447119/photos/s/watermark-salon-6.jpeg",
-      "url": "https://www.efficity.com/achat-immobilier/appartement_50-m2_saint-cloud_92210_29447119/",
-      "exclusive": true
     },
     {
       "id": "29216110",
@@ -174,48 +162,12 @@
       "dpe": "F",
       "feesNote": "Le prix de vente est affiché hors frais de notaire, d'enregistrement et de publicité foncière.\nLes honoraires sont à la charge du vendeur."
     },
-    "29447119": {
-      "id": "29447119",
-      "description": "92210 - SAINT-CLOUD - COTEAUX - 3 PIÈCES - 2 CHAMBRES - 50m² - CAVE 8m2 - GRAND DRESSING - LUMINEUX - CALME - TRAMWAY T2 A 2 MIN\n\neffiCity, l’agence qui estime votre bien en ligne, vous propose cet ppartement en RDC de 50 m² au calme, idéalement situé au cœur de Saint-Cloud.\n\nDans un très bon état général, cet appartement bénéficie de rénovations datant de 2017.\n\nL'espace de vie, d'une surface de 20 m², est baigné de lumière naturelle grâce à son exposition SUD. Les deux chambres, dont une sur cour très calme, offrent un espace de vie confortable.\n\nCôté pratique, vous disposerez d'une cave de 10 m² pour ranger vos affaires en toute tranquillité. L'appartement est situé en plain-pied, un atout majeur pour faciliter votre quotidien.\n\nDans un immeuble en bon état général, avec ascenseur, cet appartement se distingue par sa tranquillité et son environnement agréable. Les matériaux de construction en béton offrent une solidité et une durabilité appréciables.\n\nL'appartement est dans une rue calme des Coteaux. À pied : le tram T2 en 2 minutes, les quais de Seine, puis la passerelle de l'Avre qui mène au Bois de Boulogne.\n\nIl est traversant, côté rue et côté cour. Fenêtres PVC double vitrage avec persiennes, parquet en point de Hongrie.\n\nLa distribution (surfaces Carrez mesurées en mai 2026) :\n\nentrée 3,8 m²\nséjour 18,5 m² côté rue\nchambre 10,5 m²\nchambre 9,6 m²\ndressing sur mesure\ncuisine indépendante aménagée et équipée\nsalle d'eau refaite avec douche, vasque et WC\ncave au sous-sol de 8M2\n\nChauffage électrique individuel par radiateurs à inertie programmables, eau chaude par ballon.\n\nCe que coûte l'appartement, chiffres réels :\n\ncharges de copropriété : 1 424 € par an (119 € par mois), sans chauffage collectif\ntaxe foncière 2025 : 509 €\nélectricité 2025 : 1 013 € TTC sur l'année, abonnement compris\n\nDiagnostics : électricité sans anomalie, ni amiante, ni plomb, ni termites. Le DPE indique lui-même les travaux (isolation intérieure des murs, VMC) qui permettraient de passer en classe C. Je vous remets le dossier complet dès la première visite : diagnostics, dernières AG, charges.\n\nPrix : 295 000 €, honoraires à la charge du vendeur. Copropriété de 313 lots.\n\nDPE : classe énergie E (271 kWh/m².an), classe climat B (10 kg CO2/m².an). Dépenses annuelles d'énergie estimées pour un usage standard : entre 1 270 € et 1 760 €. Informations sur les risques : georisques.gouv.fr.",
-      "photos": [
-        "https://d1q967606ga7w2.cloudfront.net/common/house/29447119/photos/l/gemini_generated_image_suv8csuv8csuv8cs.jpg",
-        "https://d1q967606ga7w2.cloudfront.net/common/house/29447119/photos/l/gemini_generated_image_gbedpugbedpugbed.jpg",
-        "https://d1q967606ga7w2.cloudfront.net/common/house/29447119/photos/l/gemini_generated_image_sbq0nlsbq0nlsbq0.jpg",
-        "https://d1q967606ga7w2.cloudfront.net/common/house/29447119/photos/l/capture-decran-2026-05-14-111531.png",
-        "https://d1q967606ga7w2.cloudfront.net/common/house/29447119/photos/l/gemini_generated_image_xt0prfxt0prfxt0p.jpg",
-        "https://d1q967606ga7w2.cloudfront.net/common/house/29447119/photos/l/gemini_generated_image_wgbulcwgbulcwgbu.jpg",
-        "https://d1q967606ga7w2.cloudfront.net/common/house/29447119/photos/l/gemini_generated_image_re6hiere6hiere6h.jpg",
-        "https://d1q967606ga7w2.cloudfront.net/common/house/29447119/photos/l/gemini_generated_image_7asu7i7asu7i7asu.jpg",
-        "https://d1q967606ga7w2.cloudfront.net/common/house/29447119/photos/l/gemini_generated_image_ebgxb9ebgxb9ebgx.jpg",
-        "https://d1q967606ga7w2.cloudfront.net/common/house/29447119/photos/l/gemini_generated_image_jjjtmvjjjtmvjjjt.jpg",
-        "https://d1q967606ga7w2.cloudfront.net/common/house/29447119/photos/l/gemini_generated_image_uz3qr5uz3qr5uz3q.jpg",
-        "https://d1q967606ga7w2.cloudfront.net/common/house/29447119/photos/l/gemini_generated_image_72zkb72zkb72zkb7-1.png",
-        "https://d1q967606ga7w2.cloudfront.net/common/house/29447119/photos/l/whatsapp-image-2026-05-08-at-230224-17.jpeg",
-        "https://d1q967606ga7w2.cloudfront.net/common/house/29447119/photos/l/photo-environnement.jpeg",
-        "https://d1q967606ga7w2.cloudfront.net/common/house/29447119/photos/l/whatsapp-image-2026-05-08-at-230223-1.jpeg",
-        "https://d1q967606ga7w2.cloudfront.net/common/house/29447119/photos/l/whatsapp-image-2026-05-08-at-230224-3-3.jpeg",
-        "https://d1q967606ga7w2.cloudfront.net/common/house/29447119/photos/l/whatsapp-image-2026-05-08-at-230224-10-1.jpeg",
-        "https://d1q967606ga7w2.cloudfront.net/common/house/29447119/photos/l/whatsapp-image-2026-05-08-at-230224-11.jpeg",
-        "https://d1q967606ga7w2.cloudfront.net/common/house/29447119/photos/l/whatsapp-image-2026-05-08-at-230224-15.jpeg",
-        "https://d1q967606ga7w2.cloudfront.net/common/house/29447119/photos/l/whatsapp-image-2026-05-08-at-230225-2.jpeg"
-      ],
-      "features": [
-        "2 chambres",
-        "1 salle d'eau",
-        "Exposition Nord-Sud",
-        "Ascenseur",
-        "Cave de 10 m²",
-        "Rez-de-chaussée"
-      ],
-      "bedrooms": 2,
-      "dpe": "E",
-      "feesNote": "Le prix de vente est affiché hors frais de notaire, d'enregistrement et de publicité foncière.\nLes honoraires sont à la charge du vendeur."
-    },
     "29620637": {
       "id": "29620637",
       "description": "92370 - CHAVILLE - MAISON CONTEMPORAINE 150m² - DPE C - 4 CH - STUDIO INDÉPENDANT - PROCHE FORÊT\n\nIdéalement située, découvrez cette magnifique maison familiale de 150 m² au sol (répartis sur 3 niveaux).\n\nEntièrement REFAITE À NEUF par son propriétaire, elle offre des prestations de qualité rare et un CONFORT ÉNERGÉTIQUE EXEMPLAIRE (DPE C).\n\nUne opportunité exclusive à l'orée de la FORÊT DE MEUDON. --- UN CONFORT SUPÉRIEUR ET DES ÉCONOMIES MAÎTRISÉES ---\n\nGrâce à une isolation performante et des équipements haut de gamme (fenêtres, chauffage récent, plomberie neuve), la maison garantit une consommation énergétique très faible d’environ 1700 €/an. Aucun travaux à prévoir, posez vos valises.\n--- UNE DISTRIBUTION FLUIDE ET MODULABLE ---\n\n• REZ-DE-JARDIN : L'ATOUT INDÉPENDANCE (25 m²)\nCe niveau propose une grande pièce polyvalente (buanderie/garage) déjà équipée d'une cuisine, d'une salle d'eau et de WC. IDÉAL POUR UN STUDIO INDÉPENDANT (rendement locatif, profession libérale ou suite d'invités).\n\n• NIVEAU 1 : L’ESPACE DE VIE LUMINEUX\nUne entrée mène au SALON CHALEUREUX de 28 m² avec sa CHEMINÉE MODERNE, ouvert sur une cuisine équipée haut de gamme.\nDans le prolongement, une SALLE À MANGER de 18 m² donne un accès direct au jardin. WC indépendant à ce niveau.\n\n• NIVEAU 2 : L'ESPACE NUIT\nUne SUITE PARENTALE de 12 m² avec sa propre salle d'eau rénovée de 4 m². Deux chambres d'enfants lumineuses d'environ 10 m² chacune complètent ce niveau, ainsi qu'une salle de bain indépendante avec WC.\n\n• COMBLES AMÉNAGÉS (27 m² au sol)\nSous les toits, un bel espace avec rangements idéal pour une salle de jeux, un bureau ou une chambre d'amis.\n\n--- LES EXTÉRIEURS ---\nÀ l’arrière, vous profiterez d’un JARDIN d'une quarantaine de m² exposé SUD et à l’abri des regards, agrémenté d’un cabanon en dur.\n\n--- CADRE DE VIE ET TRANSPORTS CONNECTÉS ---\nVie de quartier idéale : accès immédiat aux écoles (Paul Bert, Saint-Thomas de Villeneuve) et commerces de l'avenue Salengro. Transports ultra-accessibles : Bus 171 direct vers Porte de Sèvres (Ligne 15), Gares Rive Gauche et Rive Droite, et RER C.",
       "photos": [
         "https://d1q967606ga7w2.cloudfront.net/common/house/29620637/photos/l/watermark-whatsapp-image-2026-05-05-at-162806-48-1.jpeg",
+        "https://d1q967606ga7w2.cloudfront.net/common/house/29620637/photos/l/projects_efficrm_repository_source_efficity_crm2_static_img_video_visuel.jpg",
         "https://d1q967606ga7w2.cloudfront.net/common/house/29620637/photos/l/watermark-whatsapp-image-2026-05-05-at-162806-43-1.jpeg",
         "https://d1q967606ga7w2.cloudfront.net/common/house/29620637/photos/l/watermark-whatsapp-image-2026-05-05-at-162806.jpeg",
         "https://d1q967606ga7w2.cloudfront.net/common/house/29620637/photos/l/watermark-gemini_generated_image_dhxbu6dhxbu6dhxb.png",
